@@ -108,6 +108,8 @@ body {
     padding: 40px 20px;
     text-align: center;
     border-top: 2px solid #3a3f58;
+    position: relative !important;
+    z-index: 9999 !important;
 }
 
 /* CONTENEDOR PARA ACOMODAR LOS BOTONES */
@@ -121,7 +123,9 @@ body {
 
 /* ESTILO DEFINITIVO BOTÓN WHATSAPP */
 .boton-wpp {
-    display: inline-block !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     background-color: #25d366 !important;
     color: #ffffff !important;
     padding: 12px 30px !important;
@@ -133,11 +137,14 @@ body {
     box-sizing: border-box !important;
     box-shadow: 0 0 15px rgba(37, 211, 102, 0.4) !important;
     text-align: center !important;
+    cursor: pointer !important;
 }
 
 /* ESTILO DEFINITIVO BOTÓN INSTAGRAM */
 .boton-ig {
-    display: inline-block !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
     color: #ffffff !important;
     padding: 14px 30px !important;
@@ -149,6 +156,7 @@ body {
     box-sizing: border-box !important;
     box-shadow: 0 0 15px rgba(220, 39, 67, 0.4) !important;
     text-align: center !important;
+    cursor: pointer !important;
 }
 
 .pie-pagina {
@@ -156,6 +164,4 @@ body {
     font-size: 0.8rem;
     color: #444 !important;
 }
-
-
 
