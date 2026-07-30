@@ -1,8 +1,4 @@
 /* CONFIGURACIÓN GENERAL */
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     background-color: #000000 !important; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,43 +7,11 @@ body {
     color: #ffffff !important;
 }
 
-/* MENÚ DE NAVEGACIÓN SUPERIOR FLOTANTE */
-.menu-navegacion {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
-    border-bottom: 2px solid #6200ea;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 15px 0;
-    z-index: 10000;
-}
-
-.btn-nav {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 5px 15px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-}
-
-.btn-nav:hover, .btn-nav.active {
-    color: #00f0ff;
-    border-color: #00f0ff;
-    text-shadow: 0 0 10px #00f0ff;
-}
-
 /* PORTADA */
 .portada {
     background: #000000 !important; 
     border-bottom: 4px solid #6200ea;
-    padding: 90px 0px 40px 0px; 
+    padding: 10px 0px; 
     text-align: center;
     width: 100%;
 }
@@ -109,9 +73,10 @@ body {
     height: 220px !important;
     object-fit: contain !important;
     border-radius: 8px;
-    border: none !important; 
+    border: none !important; /* ¡CLAVE! Elimina cualquier recuadro gris o borde interno */
     margin-bottom: 15px;
 }
+
 
 .descripcion {
     font-size: 0.9rem;
@@ -200,4 +165,3 @@ body {
     font-size: 0.8rem;
     color: #444 !important;
 }
-
