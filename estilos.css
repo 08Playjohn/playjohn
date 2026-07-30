@@ -1,6 +1,6 @@
 /* CONFIGURACIÓN GENERAL */
 html {
-    scroll-behavior: smooth; /* Hace que la pantalla baje de forma suave hacia los productos */
+    scroll-behavior: smooth; /* Hace que baje de forma suave al tocar "Productos" */
 }
 
 body {
@@ -47,7 +47,7 @@ body {
 .portada {
     background: #000000 !important; 
     border-bottom: 4px solid #6200ea;
-    padding: 90px 0px 40px 0px; /* 90px de espacio arriba para que el menú no tape el logotipo */
+    padding: 90px 0px 40px 0px; /* Margen superior para dar espacio al menú flotante */
     text-align: center;
     width: 100%;
 }
