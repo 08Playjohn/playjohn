@@ -59,12 +59,13 @@ body {
 }
 
 .logo-neon {
-    font-size: 3.5rem;
+    font-size: 3rem !important; /* Fuerza el tamaño gigante */
     font-weight: bold;
-    color: #00f0ff;
-    text-shadow: 0 0 10px #00f0ff, 0 0 30px #00f0ff;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
+    color: #00f0ff !important;  /* Celeste neón brillante */
+    text-shadow: 0 0 10px #00f0ff, 0 0 30px #00f0ff, 0 0 50px #00f0ff; /* Triple brillo neón */
+    letter-spacing: 2px;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;  /* Fuerza las mayúsculas */
 }
 
 .portada h2 {
