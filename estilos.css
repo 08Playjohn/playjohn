@@ -73,9 +73,10 @@ body {
     height: 220px !important;
     object-fit: contain !important;
     border-radius: 8px;
-    border: 1px solid #3a3f58;
+    border: none !important; /* ¡CLAVE! Elimina cualquier recuadro gris o borde interno */
     margin-bottom: 15px;
 }
+
 
 .descripcion {
     font-size: 0.9rem;
