@@ -1,122 +1,181 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Digital - Play John</title>
-    <link rel="stylesheet" href="estilos.css">
-    <script src="https://jquery.com"></script>
-    <script src="https://cloudflare.com"></script>
-</head>
-<body>
+/* ==========================================================================
+   1. CONFIGURACIÓN GENERAL DE LA PANTALLA
+   ========================================================================== */
+body {
+    background-color: #0d0e15; /* Fondo oscuro espacial */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
 
-    <div id="wrapper">
-        <div id="catalogo">
-            
-            <!-- PÁGINA 1: PORTADA CON TU LOGO (Hoja Derecha Inicial) -->
-            <div class="pagina portada">
-                <img src="imagenes/logo.jpg" alt="08 Play John" class="logotipo-imagen">
-                <h2>CATÁLOGO DIGITAL</h2>
-                <div class="instrucciones">◀ ENTRA Y ENCONTRA LO QUE BUSCABAS ▶</div>
-            </div>
+#wrapper {
+    width: 800px;  
+    height: 480px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-            <!-- PÁGINA 2: BIENVENIDA (Obligatoria para emparejar las hojas dobles) -->
-            <div class="pagina seccion">
-                <div class="tarjeta-juego">
-                    <h3>¡Bienvenido!</h3>
-                    <p class="descripcion">Explorá nuestro stock oficial de videojuegos y componentes de hardware con los mejores precios del mercado.</p>
-                </div>
-            </div>
+#catalogo {
+    width: 800px !important;
+    height: 480px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 
-            <!-- PÁGINA 3: GTA V -->
-            <div class="pagina seccion">
-                <div class="tarjeta-juego">
-                    <img src="imagenes/gta v ps5.jpg" alt="GTA V PS5" class="foto-juego">
-                    <h3>GTA V (PS5)</h3>
-                    <p class="descripcion">VEMOS ACA LUEGO QUE PONEMOS SOY LA MEJOR.</p>
-                    <div class="precio">$75.000</div>
-                    <span class="badge disponible">DISPONIBLE</span>
-                </div>
-            </div>
-            
-            <!-- PÁGINA 4: GTA VI -->
-            <div class="pagina seccion">
-                <div class="tarjeta-juego">
-                    <img src="imagenes/gta6.jpg" alt="GTA VI PS5" class="foto-juego">
-                    <h3>GTA VI (PS5)</h3>
-                    <p class="descripcion">PRUEBA NUMERO 2.</p>
-                    <div class="precio">$95.000</div>
-                    <span class="badge disponible">DISPONIBLE</span>
-                </div>
-            </div>
-            
-            <!-- PÁGINA 5: CRIMSON DESERT -->
-            <div class="pagina seccion">
-                <div class="tarjeta-juego">
-                    <img src="imagenes/crimson desert ps5.jpg" alt="CRIMSON DESERT PS5" class="foto-juego">
-                    <h3>CRIMSON DESERT (PS5)</h3>
-                    <p class="descripcion">PRUEBA NUMERO 3.</p>
-                    <div class="precio">$105.000</div>
-                    <span class="badge disponible">DISPONIBLE</span>
-                </div>
-            </div>
+/* Cada una de las páginas individuales */
+.pagina {
+    background-color: #161925;
+    color: #ffffff;
+    box-sizing: border-box;
+    padding: 25px; 
+    border-left: 2px solid #0a0b10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+    width: 400px !important;  
+    height: 480px !important; 
+}
 
-            <!-- PÁGINA 6: 5 LIES OF P -->
-            <div class="pagina seccion">
-                <div class="tarjeta-juego">
-                    <img src="imagenes/5 lies of p ps5.jpg" alt="5 Lies of P PS5" class="foto-juego">
-                    <h3>5 Lies of P (PS5)</h3>
-                    <p class="descripcion">Explorá una intrigante historia oscura en este gran título de acción.</p>
-                    <div class="precio">$85.000</div>
-                    <span class="badge disponible">DISPONIBLE</span>
-                </div>
-            </div>
+/* ==========================================================================
+   2. DISEÑO DE LA PORTADA
+   ========================================================================== */
+.portada {
+    background: linear-gradient(135deg, #1f1235 0%, #0d0e15 100%);
+    border-right: 5px solid #6200ea;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    text-align: center;
+}
 
-            <!-- PÁGINA 7: GEFORCE RTX 4060 -->
-            <div class="pagina seccion">
-                <div class="tarjeta-juego">
-                    <img src="imagenes/rtx4060.jpg" alt="GeForce RTX 4060" class="foto-juego">
-                    <h3>NVIDIA GeForce RTX 4060</h3>
-                    <p class="descripcion">Potenciá tu PC gaming con la última tecnología de trazado de rayos.</p>
-                    <div class="precio">$420.000</div>
-                    <span class="badge disponible">DISPONIBLE</span>
-                </div>
-            </div>
+.logotipo-imagen {
+    max-width: 90%;    
+    height: auto;       
+    display: block;     
+    margin: 0 auto;     
+    width: 280px;       
+}
 
-            <!-- PÁGINA 8: CONTRAPORTADA (Cierre de libro par) -->
-            <div class="pagina contraportada">
-                <div class="bloque-contacto">
-                    <h3>¿Querés hacer un pedido o reparar tu equipo?</h3>
-                    <p class="subtitulo-contacto">Escribinos</p>
-                    <div class="btn-whatsapp">WhatsApp: +54 9 11 41701483</div>
-                    <div class="pie-pagina">Play John © 2026</div>
-                </div>
-            </div>
+.portada h2 {
+    color: #ffffff !important;  
+    font-size: 1.8rem !important; 
+    letter-spacing: 6px;        
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    margin-top: 20px;
+}
 
-        </div> 
-    </div> 
+.instrucciones {
+    margin-top: 30px;
+    color: #00ff88;
+    font-size: 0.9rem;
+    font-weight: bold;
+    animation: parpadeo 2s infinite;
+}
 
-    <script>
-        $(document).ready(function() {
-            var catalogo = $("#catalogo");
+/* ==========================================================================
+   3. TARJETA DE PRODUCTOS (Videojuegos)
+   ========================================================================== */
+.tarjeta-juego {
+    background-color: #1f2336;
+    border-radius: 12px;
+    padding: 15px;
+    width: 90%;
+    height: 95%;
+    text-align: center;
+    border: 1px solid #3a3f58;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
 
-            catalogo.turn({
-                width: 800,         
-                height: 480,        
-                autoCenter: true,   
-                duration: 600,       
-                turnCorners: false   
-            });
+.foto-juego {
+    width: 100%;
+    max-height: 200px;       
+    object-fit: contain; 
+    border-radius: 8px;
+    border: 2px solid #00f0ff;
+    margin-bottom: 10px;
+}
 
-            catalogo.on("click", function(e) {
-                if (e.pageX > $(window).width() / 2) {
-                    catalogo.turn("next");
-                } else {
-                    catalogo.turn("previous");
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+.descripcion {
+    font-size: 0.85rem;
+    color: #9aa0b9;
+    margin: 5px 0;
+}
+
+.precio {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #39ff14; 
+    margin: 5px 0;
+}
+
+/* Etiquetas de Stock */
+.badge {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.disponible { background-color: #00ff88; color: #000; }
+
+/* ==========================================================================
+   4. CONTRAPORTADA
+   ========================================================================== */
+.contraportada {
+    background: linear-gradient(45deg, #0d0e15 0%, #1f1235 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    text-align: center;      
+    padding: 30px;
+}
+
+.bloque-contacto h3 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.4;       
+}
+
+.subtitulo-contacto {
+    color: #9aa0b9;
+    margin-bottom: 25px;
+}
+
+.btn-whatsapp {
+    display: inline-block;
+    background-color: #25d366;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+}
+
+.pie-pagina {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+/* Animaciones */
+@keyframes parpadeo {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
 
