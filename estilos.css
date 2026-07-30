@@ -129,6 +129,23 @@ body {
     font-size: 0.8rem;
     color: #444;
 }
+/* BOTÓN DE INSTAGRAM NUEVO */
+.btn-instagram {
+    display: inline-block;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); /* Degradado oficial de Instagram */
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(220, 39, 67, 0.4); /* Brillo neón rojizo/rosa */
+    margin-top: 15px;
+    transition: transform 0.2s ease;
+}
+
+.btn-instagram:hover {
+    transform: scale(1.05); /* Hace un pequeño efecto de zoom cuando se pasa el cursor */
+}
 
 
 
