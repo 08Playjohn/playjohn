@@ -59,36 +59,31 @@
     </div>
 
     <script>
-        // Configuración del efecto revista interactiva
-        $(document).ready(function() {
-            $("#catalogo").turn({
-                    <script>
+           <script>
         $(document).ready(function() {
             var catalogo = $("#catalogo");
+            var wrapper = $("#wrapper");
 
-            // Inicializamos el catálogo con la opción de arrastre apagada (turn: false)
+            // Toma las medidas reales que calculó el CSS en tu monitor
             catalogo.turn({
-                width: 800,         
-                height: 500,        
+                width: wrapper.width(),         
+                height: wrapper.height(),        
                 autoCenter: true,   
-                duration: 600,       // Hace que el giro de hoja por clic sea más rápido
-                turnCorners: false   // Desactiva que las esquinas se doblen solas al pasar el mouse
+                duration: 600,       
+                turnCorners: false   
             });
 
-            // Agregamos la función para que pase de hoja al hacer un clic simple
             catalogo.on("click", function(e) {
-                // Si hace clic en la mitad derecha de la pantalla, avanza de página
                 if (e.pageX > $(window).width() / 2) {
                     catalogo.turn("next");
                 } else {
-                    // Si hace clic en la mitad izquierda, retrocede
                     catalogo.turn("previous");
                 }
             });
-        });
-    </script>
 
+            // Si cambias el tamaño del navegador, el catálogo se acomoda solo
+            $(window).resize(function() {
+                catalogo.turn("size", wrapper.width(), wrapper.height());
+            });
         });
     </script>
-</body>
-</html>
