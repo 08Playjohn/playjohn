@@ -1,6 +1,6 @@
 /* CONFIGURACIÓN GENERAL */
 body {
-    background-color: #0d0e15; /* Tu fondo oscuro espacial */
+    background-color: #000000; /* Fondo negro absoluto espacial */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -9,18 +9,18 @@ body {
 
 /* PORTADA */
 .portada {
-    background: linear-gradient(135deg, #1f1235 0%, #0d0e15 100%);
+    background: #000000; /* Fondo negro absoluto para la portada */
     border-bottom: 4px solid #6200ea;
-    padding: 40px 20px;
+    padding: 50px 20px;
     text-align: center;
 }
 
 .logotipo-imagen {
-    max-width: 90%;
-    width: 280px;
+    max-width: 95%;
+    width: 420px; /* ¡MÁS GRANDE! Aumentado de 280px a 420px para que destaque mucho más */
     height: auto;
     display: block;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 25px auto;
 }
 
 .portada h2 {
@@ -47,17 +47,18 @@ body {
     padding: 50px 20px;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: #000000; /* Fondo negro absoluto para la zona de productos */
 }
 
 /* TARJETAS NEÓN */
 .tarjeta-juego {
-    background-color: #1f2336;
+    background-color: #10121a; /* Un tono gris muy oscuro para que las tarjetas resalten sobre el fondo negro */
     border-radius: 12px;
     padding: 20px;
     width: 280px;
     text-align: center;
-    border: 1px solid #3a3f58;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 2px solid #00f0ff; /* Reforzamos el borde cian original */
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.2); /* Le agregamos brillo neón cian a las tarjetas */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -69,7 +70,7 @@ body {
     height: 220px;
     object-fit: contain;
     border-radius: 8px;
-    border: 2px solid #00f0ff; /* Borde cian original */
+    border: 1px solid #3a3f58;
     margin-bottom: 15px;
 }
 
@@ -100,7 +101,7 @@ body {
 
 /* PIE DE PÁGINA */
 .contraportada {
-    background: linear-gradient(45deg, #0d0e15 0%, #1f1235 100%);
+    background: #000000; /* Fondo negro absoluto para el pie de página */
     padding: 40px 20px;
     text-align: center;
     border-top: 2px solid #3a3f58;
