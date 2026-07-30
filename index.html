@@ -90,22 +90,6 @@
                 } else {
                     catalogo.turn("previous");
                 }
-            });
-        });
-    </script>
-            });
+           </body>
+</html>
 
-            catalogo.on("click", function(e) {
-                if (e.pageX > $(window).width() / 2) {
-                    catalogo.turn("next");
-                } else {
-                    catalogo.turn("previous");
-                }
-            });
-
-            // Si cambias el tamaño del navegador, el catálogo se acomoda solo
-            $(window).resize(function() {
-                catalogo.turn("size", wrapper.width(), wrapper.height());
-            });
-        });
-    </script>
