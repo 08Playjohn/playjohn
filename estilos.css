@@ -90,14 +90,13 @@ body {
 }
 
 .foto-juego {
-    width: 100%;
-    max-width: 280px;      /* Controla el ancho máximo para que no se deforme */
-    height: 340px;         /* Aumentamos la altura para que la carátula sea grande */
-    object-fit: dashed;    
-    object-fit: cover;     /* Hace que la imagen llene el espacio de forma imponente */
+       width: auto;
+    max-width: 90%;
+    height: 55%;        /* Ocupa un tamaño proporcional para dejarle aire al precio y botón */
+    object-fit: contain; /* Ajusta la caja sin recortarla */
     border-radius: 8px;
     border: 2px solid #00f0ff;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); /* Un sutil brillo neón azul */
+}
 
 
 }
