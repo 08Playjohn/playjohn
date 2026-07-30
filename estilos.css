@@ -11,20 +11,18 @@ body {
 .portada {
     background: #000000; 
     border-bottom: 4px solid #6200ea;
-    padding: 20px 0px; /* Achicamos el espacio de arriba y abajo */
+    padding: 15px 0px; /* Reducimos el espacio vertical al mínimo */
     text-align: center;
     width: 100%;
 }
 
 .logotipo-imagen {
-    max-width: 90%; 
-    width: 650px;       /* Un ancho imponente */
-    max-height: 140px;  /* ¡CLAVE! Controla la altura para que no tire el texto hacia abajo */
-    object-fit: contain; /* Ajusta la imagen dentro de ese espacio sin deformarla */
+    width: 100%;
+    max-width: 680px;   /* Se estira justo hasta el ancho de tu recuadro azul */
+    height: 120px;      /* Altura fija y chata para que no empuje el contenido de abajo */
+    object-fit: fill;   /* Fuerza a la imagen a estirarse horizontalmente ocupando todo el ancho */
     display: block;
-    margin: 0 auto 10px auto;
-}
-
+    margin: 0 auto 5px auto;
 }
 
 .portada h2 {
