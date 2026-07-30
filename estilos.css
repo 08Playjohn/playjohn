@@ -180,3 +180,10 @@ body {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
 }
+.logotipo-imagen {
+    max-width: 100%;    /* Evita que se corte a la derecha */
+    height: auto;       /* Evita que se deforme */
+    display: block;     /* Permite centrar el logo */
+    margin: 0 auto;     /* Lo centra en la pantalla */
+    width: 300px;       /* Si queda muy chico o grande, cambia este número */
+}
