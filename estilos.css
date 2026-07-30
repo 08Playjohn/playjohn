@@ -11,17 +11,20 @@ body {
 .portada {
     background: #000000; 
     border-bottom: 4px solid #6200ea;
-    padding: 40px 0px; /* Reducimos los márgenes de los costados a 0 para dar más espacio */
+    padding: 20px 0px; /* Achicamos el espacio de arriba y abajo */
     text-align: center;
     width: 100%;
 }
 
 .logotipo-imagen {
-    max-width: 100%; /* Permite que se expanda por completo en pantallas chicas y grandes */
-    width: 750px;    /* ¡MÁS GRANDE! Aumentado a 750px para ocupar todo el recuadro visual */
-    height: auto;
+    max-width: 90%; 
+    width: 650px;       /* Un ancho imponente */
+    max-height: 140px;  /* ¡CLAVE! Controla la altura para que no tire el texto hacia abajo */
+    object-fit: contain; /* Ajusta la imagen dentro de ese espacio sin deformarla */
     display: block;
-    margin: 0 auto 15px auto;
+    margin: 0 auto 10px auto;
+}
+
 }
 
 .portada h2 {
