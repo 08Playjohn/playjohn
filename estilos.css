@@ -1,43 +1,41 @@
 /* CONFIGURACIÓN GENERAL */
 body {
-    background-color: #000000; /* Fondo negro absoluto espacial */
+    background-color: #000000; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     color: #ffffff;
 }
 
+/* PORTADA */
 .portada {
     background: #000000; 
     border-bottom: 4px solid #6200ea;
     padding: 10px 0px; 
     text-align: center;
     width: 100%;
-
 }
 
 .logotipo-imagen {
-    width: 480px;       /* Un tamaño imponente que llena tu recuadro azul */
-    max-width: 95%;    /* Evita que se corte en las pantallas de los celulares */
-    height: auto;       /* Mantiene las letras perfectas, nítidas y sin deformar */
+    width: 480px;       
+    max-width: 95%;    
+    height: auto;       
     display: block;
-    margin: 0 auto 0 auto; /* Eliminamos el margen de abajo para que el texto se acerque */
+    margin: 0 auto 0 auto; 
 }
 
-
 .portada h2 {
-    color: #ff003c !important;  /* Rojo neón espectacular */
+    color: #ff003c !important;  
     font-size: 2.2rem;
     letter-spacing: 6px;
     text-transform: uppercase;
-    text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c, 0 0 40px #ff003c; /* Brillo neón rojo */
-    margin: -35px 0 0 0 !important; /* ¡CLAVE! El -35px elimina el espacio vacío y sube el texto directo hacia el logo */
-
+    text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c, 0 0 40px #ff003c; 
+    margin: -35px 0 0 0 !important; 
 }
 
 .instrucciones {
     margin-top: 15px;
-    color: #39ff14; /* Tu verde neón original */
+    color: #39ff14; 
     font-weight: bold;
     font-size: 1rem;
     letter-spacing: 1px;
@@ -52,18 +50,18 @@ body {
     padding: 50px 20px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #000000; /* Fondo negro absoluto para la zona de productos */
+    background-color: #000000; 
 }
 
 /* TARJETAS NEÓN */
 .tarjeta-juego {
-    background-color: #10121a; /* Un tono gris muy oscuro para que las tarjetas resalten sobre el fondo negro */
+    background-color: #10121a; 
     border-radius: 12px;
     padding: 20px;
     width: 280px;
     text-align: center;
-    border: 2px solid #00f0ff; /* Reforzamos el borde cian original */
-    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.2); /* Le agregamos brillo neón cian a las tarjetas */
+    border: 2px solid #00f0ff; 
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.2); 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -88,7 +86,7 @@ body {
 .precio {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #39ff14; /* Verde brillante */
+    color: #39ff14; 
     margin-bottom: 15px;
 }
 
@@ -104,55 +102,25 @@ body {
     color: #000; 
 }
 
-/* PIE DE PÁGINA */
+/* PIE DE PÁGINA (Capa liberada al frente) */
 .contraportada {
-    background: #000000; /* Fondo negro absoluto para el pie de página */
+    background: #000000; 
     padding: 40px 20px;
     text-align: center;
     border-top: 2px solid #3a3f58;
+    position: relative; /* ¡CLAVE DE CAPA! */
+    z-index: 999;       /* Trae la sección adelante de todo para habilitar clicks */
 }
 
-.btn-whatsapp {
-    display: inline-block;
-    background-color: #25d366;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
-    margin-top: 15px;
-}
-
-.pie-pagina {
-    margin-top: 30px;
-    font-size: 0.8rem;
-    color: #444;
-}
-/* BOTÓN DE INSTAGRAM NUEVO */
-.btn-instagram {
-    display: inline-block;
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); /* Degradado oficial de Instagram */
-    color: white;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 0 15px rgba(220, 39, 67, 0.4); /* Brillo neón rojizo/rosa */
-    margin-top: 15px;
-    transition: transform 0.2s ease;
-}
-
-.btn-instagram:hover {
-    transform: scale(1.05); /* Hace un pequeño efecto de zoom cuando se pasa el cursor */
-}
 /* CONTENEDOR PARA ACOMODAR LOS BOTONES */
 .contenedor-botones {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Espacio uniforme entre los botones */
+    gap: 15px; 
     margin-top: 20px;
+    position: relative;
+    z-index: 1000;
 }
 
 /* ESTILO BASE PREMIUM PARA AMBOS BOTONES */
@@ -165,14 +133,15 @@ body {
     border-radius: 8px;
     font-weight: bold;
     text-decoration: none;
-    width: 290px; /* Ancho fijo para que midan exactamente lo mismo */
+    width: 290px; 
     font-size: 1rem;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .btn-contacto i {
     font-size: 1.3rem;
-    margin-right: 10px; /* Separa el logo de la aplicación del texto */
+    margin-right: 10px; 
 }
 
 /* BOTÓN WHATSAPP */
@@ -186,6 +155,13 @@ body {
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     box-shadow: 0 0 15px rgba(220, 39, 67, 0.4);
 }
+
+.pie-pagina {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #444;
+}
+
 
 
 
