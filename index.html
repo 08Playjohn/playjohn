@@ -1,99 +1,170 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> * Servicio Tecnico Especializado *  - Play John</title>
-    <link rel="stylesheet" href="estilos.css">
-    <!-- ENLACE NATIVO DIRECTO PARA LIBERAR LOS CLICS Y CARGAR ICONOS -->
-    <link rel="stylesheet" href="https://cloudflare.com">
-</head>
-<body>
+/* CONFIGURACIÓN GENERAL */
+body {
+    background-color: #000000 !important; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #ffffff !important;
+}
 
-    <!-- PORTADA CON TU LOGO -->
-    <header class="portada">
-        <img src="Imagenes/logo.jpg" alt="08 Play John Logo" class="logotipo-imagen">
-        <h2>* Servicio Tecnico Especializado * </h2>
-        <div class="instrucciones">◀ EXPLORÁ NUESTRO STOCK DISPONIBLE ▶</div>
-    </header>
+/* PORTADA */
+.portada {
+    background: #000000 !important; 
+    border-bottom: 4px solid #6200ea;
+    padding: 10px 0px; 
+    text-align: center;
+    width: 100%;
+}
 
-    <!-- GRILLA EN MOSAICO PARA LOS PRODUCTOS -->
-    <main class="contenedor-catalogo">
-        
-        <!-- PRODUCTO 1: GTA V -->
-        <div class="tarjeta-juego">
-            <img src="Imagenes/gta v ps5.jpg" alt="GTA V PS5" class="foto-juego">
-            <h3>GTA V (PS5)</h3>
-            <p class="descripcion">VEMOS ACA LUEGO QUE PONEMOS SOY LA MEJOR.</p>
-            <div class="precio">$75.000</div>
-            <span class="badge disponible">DISPONIBLE</span>
-        </div>
-        
-        <!-- PRODUCTO 2: GTA VI -->
-        <div class="tarjeta-juego">
-            <img src="Imagenes/gtaVI.jpg" alt="GTA VI PS5" class="foto-juego">
-            <h3>GTA VI (PS5)</h3>
-            <p class="descripcion">PRUEBA NUMERO 2.</p>
-            <div class="precio">$95.000</div>
-            <span class="badge disponible">DISPONIBLE</span>
-        </div>
-        
-        <!-- PRODUCTO 3: CRIMSON DESERT -->
-        <div class="tarjeta-juego">
-            <img src="Imagenes/crimson desert ps5.jpg" alt="CRIMSON DESERT PS5" class="foto-juego">
-            <h3>CRIMSON DESERT (PS5)</h3>
-            <p class="descripcion">PRUEBA NUMERO 3.</p>
-            <div class="precio">$105.000</div>
-            <span class="badge disponible">DISPONIBLE</span>
-        </div>
+.logotipo-imagen {
+    width: 480px;       
+    max-width: 95%;    
+    height: auto;       
+    display: block;
+    margin: 0 auto 0 auto; 
+}
 
-        <!-- PRODUCTO 4: 5 LIES OF P -->
-        <div class="tarjeta-juego">
-            <img src="Imagenes/5 Lies of P PS5.jpg" alt="5 Lies of P PS5" class="foto-juego">
-            <h3>5 Lies of P (PS5)</h3>
-            <p class="descripcion">Explorá una intrigante historia oscura en este gran título de acción.</p>
-            <div class="precio">$85.000</div>
-            <span class="badge disponible">DISPONIBLE</span>
-        </div>
+.portada h2 {
+    color: #ff003c !important;  
+    font-size: 2.2rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c, 0 0 40px #ff003c; 
+    margin: -35px 0 0 0 !important; 
+}
 
-        <!-- PRODUCTO 5: RTX 4060 -->
-        <div class="tarjeta-juego">
-            <img src="Imagenes/geforce.jpg" alt="GeForce RTX 4060" class="foto-juego">
-            <h3>NVIDIA GeForce RTX 4060</h3>
-            <p class="descripcion">Potenciá tu PC gaming con la última tecnología de trazado de rayos.</p>
-            <div class="precio">$420.000</div>
-            <span class="badge disponible">DISPONIBLE</span>
-        </div>
+.instrucciones {
+    margin-top: 15px;
+    color: #39ff14 !important; 
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
 
-    </main>
+/* GRILLA DE PRODUCTOS */
+.contenedor-catalogo {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 30px !important;
+    padding: 50px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #000000 !important; 
+}
 
-    <!-- PIE DE PÁGINA CON LOS BOTONES ABAJO -->
-    <footer class="contraportada">
-        <div class="bloque-contacto">
-            <h3>¿Querés hacer un pedido o reparar tu equipo?</h3>
-            <p class="subtitulo-contacto">ADEMAS REALIZAMOS SERVICIO TECNICO DE COMPUTADORAS Y CONSOLAS.</p>
-            <p class="subtitulo-contacto">ESCRIBINOS</p>
-            
-            <div class="contenedor-botones">
-                <!-- ENLACE DE WHATSAPP CON ICONO INCORPORADO DIRECTO -->
-                <a href="https://wa.link/b336q6" target="_blank" class="boton-wpp">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.5rem; margin-right: 10px;"></i>
-                    WhatsApp
-                </a>
-                
-                <!-- ENLACE DE INSTAGRAM CON ICONO INCORPORADO DIRECTO -->
-                <a href="https://www.instagram.com/08playjohn/" target="_blank" class="boton-ig">
-                    <i class="fa-brands fa-instagram" style="font-size: 1.5rem; margin-right: 10px;"></i>
-                    Instagram: @08playjohn
-                </a>
-            </div>
-            
-            <div class="pie-pagina">Play John © 2026</div>
-        </div>
-    </footer>
+/* TARJETAS NEÓN */
+.tarjeta-juego {
+    background-color: #10121a !important; 
+    border-radius: 12px !important;
+    padding: 20px;
+    width: 280px;
+    text-align: center;
+    border: 2px solid #00f0ff !important; 
+    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.2) !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
 
-</body>
-</html>
+.foto-juego {
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: contain !important;
+    border-radius: 8px;
+    border: none !important; /* ¡CLAVE! Elimina cualquier recuadro gris o borde interno */
+    margin-bottom: 15px;
+}
+
+
+.descripcion {
+    font-size: 0.9rem;
+    color: #9aa0b9 !important;
+    margin-bottom: 15px;
+}
+
+.precio {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #39ff14 !important; 
+    margin-bottom: 15px;
+}
+
+/* BADGES */
+.badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.disponible { 
+    background-color: #00ff88 !important; 
+    color: #000 !important; 
+}
+
+/* PIE DE PÁGINA */
+.contraportada {
+    background: #000000 !important; 
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 2px solid #3a3f58;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+/* CONTENEDOR PARA ACOMODAR LOS BOTONES */
+.contenedor-botones {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 15px; 
+    margin-top: 20px;
+}
+
+/* ESTILO DEFINITIVO BOTÓN WHATSAPP */
+.boton-wpp {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #25d366 !important;
+    color: #ffffff !important;
+    padding: 12px 30px !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    width: 280px !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4) !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+/* ESTILO DEFINITIVO BOTÓN INSTAGRAM */
+.boton-ig {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+    color: #ffffff !important;
+    padding: 14px 30px !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    width: 280px !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 0 15px rgba(220, 39, 67, 0.4) !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+.pie-pagina {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #444 !important;
+}
 
 
 
