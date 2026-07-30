@@ -11,18 +11,17 @@ body {
 .portada {
     background: #000000; 
     border-bottom: 4px solid #6200ea;
-    padding: 35px 0px; /* Espacio justo para que entre el logo agrandado */
+    padding: 10px 0px; /* Reducimos el espacio vertical para que todo suba y quede compacto */
     text-align: center;
     width: 100%;
-    overflow: hidden;   /* Evita que el zoom del logo rompa los bordes */
 }
 
 .logotipo-imagen {
-    width: 250px;       /* Ancho base original para que no se estire como chicle */
-    height: auto;       /* Mantiene la proporción perfecta de las letras */
+    width: 480px;       /* Un tamaño imponente que llena tu recuadro azul */
+    max-width: 95%;    /* Evita que se corte en las pantallas de los celulares */
+    height: auto;       /* Mantiene las letras perfectas, nítidas y sin deformar */
     display: block;
-    margin: 0 auto;
-    transform: scale(2.2); /* ¡CLAVE! Agranda el logo como un zoom sin mover nada del resto */
+    margin: 0 auto 0 auto; /* Eliminamos el margen de abajo para que el texto se acerque */
 }
 
 
