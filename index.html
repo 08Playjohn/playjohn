@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Digital - Play John</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Dependencias oficiales de jQuery y Turn.js -->
+    <script src="https://jquery.com"></script>
+    <script src="https://githack.com"></script>
+</head>
+<body>
+
+    <div id="wrapper">
+        <div id="catalogo">
+            
+            <!-- PÁGINA 1: PORTADA -->
+            <div class="pagina portada">
+                <div class="logo-neon">PLAY JOHN</div>
+                <h2>CATÁLOGO DIGITAL</h2>
+                <div class="instrucciones">◀ Arrastra la esquina para pasar de hoja ▶</div>
+            </div>
+
+            <!-- PÁGINA 2: CATEGORÍA JUEGOS PS4/PS5 -->
+            <div class="pagina seccion">
+                <div class="tarjeta-juego">
+                    <img src="imagenes/gta6.jpg" alt="GTA VI" class="foto-juego">
+                    <h3>GTA VI (PS5)</h3>
+                    <p class="descripcion">Explora Vice City en la nueva entrega de Rockstar.</p>
+                    <div class="precio">$75.000</div>
+                    <span class="badge disponible">DISPONIBLE</span>
+                </div>
+            </div>
+
+            <!-- PÁGINA 3: CATEGORÍA COMPONENTES PC -->
+            <div class="pagina seccion">
+                <div class="tarjeta-juego">
+                    <img src="imagenes/rtx4060.jpg" alt="RTX 4060" class="foto-juego">
+                    <h3>NVIDIA RTX 4060 8GB</h3>
+                    <p class="descripcion">Placa de video ideal para jugar a todo en 1080p Ultra.</p>
+                    <div class="precio">$420.000</div>
+                    <span class="badge pedido">BAJO PEDIDO</span>
+                </div>
+            </div>
+
+            <!-- PÁGINA 4: CONTRAPORTADA / CONTACTO -->
+            <div class="pagina contraportada">
+                <h3>¿Querés hacer un pedido o reparar tu equipo?</h3>
+                <p>Escribinos o visítanos en el taller familiar</p>
+                <div class="btn-whatsapp">WhatsApp: +54 9 11 XXXX-XXXX</div>
+                <div class="pie-pagina">Play John © 2026</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Configuración del efecto revista interactiva
+        $(document).ready(function() {
+            $("#catalogo").turn({
+                width: 900,         // Ancho total (450px por página abierta)
+                height: 550,        // Alto del catálogo
+                autoCenter: true,   // Centra el libro en la pantalla
+                duration: 1000      // Velocidad del giro de hoja (1 segundo)
+            });
+        });
+    </script>
+</body>
+</html>

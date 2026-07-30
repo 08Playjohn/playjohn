@@ -1,0 +1,138 @@
+/* Configuración general de la pantalla */
+body {
+    background-color: #0d0e15; /* Fondo oscuro espacial */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#wrapper {
+    width: 900px;
+    height: 550px;
+}
+
+/* Estilo base de cada página */
+.pagina {
+    background-color: #161925; /* Fondo de las hojas (Gris oscuro) */
+    color: #ffffff;
+    box-sizing: border-box;
+    padding: 30px;
+    border-left: 2px solid #0a0b10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+
+/* PORTADA */
+.portada {
+    background: linear-gradient(135deg, #1f1235 0%, #0d0e15 100%);
+    border-right: 5px solid #6200ea;
+}
+
+.logo-neon {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #00f0ff;
+    text-shadow: 0 0 10px #00f0ff, 0 0 30px #00f0ff;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.portada h2 {
+    color: #ff007f;
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+}
+
+.instrucciones {
+    margin-top: 50px;
+    color: #666;
+    font-size: 0.9rem;
+    animation: parpadeo 2s infinite;
+}
+
+/* DISEÑO DE TARJETAS DE PRODUCTO */
+.tarjeta-juego {
+    background-color: #1f2336;
+    border-radius: 12px;
+    padding: 20px;
+    width: 85%;
+    text-align: center;
+    border: 1px solid #3a3f58;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.foto-juego {
+    width: 100%;
+    height: 220px;
+    object-fit: contain; /* Cambiado de 'cover' a 'contain' para que la foto nunca se corte */
+    background-color: #0b0c11; /* Fondo oscuro de relleno por si la foto es chica */
+    border-radius: 8px;
+    border: 2px solid #00f0ff;
+}
+
+}
+
+.tarjeta-juego h3 {
+    margin: 15px 0 5px 0;
+    font-size: 1.4rem;
+    color: #ffffff;
+}
+
+.descripcion {
+    font-size: 0.9rem;
+    color: #9aa0b9;
+    margin-bottom: 15px;
+}
+
+.precio {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #39ff14; /* Verde neón para el precio */
+    margin-bottom: 10px;
+}
+
+/* ETIQUETAS DE STOCK */
+.badge {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.disponible { background-color: #00ff88; color: #000; }
+.pedido { background-color: #ffaa00; color: #000; }
+
+/* CONTRAPORTADA */
+.contraportada {
+    background: linear-gradient(45deg, #0d0e15 0%, #1f1235 100%);
+    text-align: center;
+}
+
+.btn-whatsapp {
+    background-color: #25d366;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+}
+
+.pie-pagina {
+    margin-top: 60px;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+/* Animación de parpadeo */
+@keyframes parpadeo {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
