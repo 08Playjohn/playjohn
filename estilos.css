@@ -9,18 +9,19 @@ body {
 
 /* PORTADA */
 .portada {
-    background: #000000; /* Fondo negro absoluto para la portada */
+    background: #000000; 
     border-bottom: 4px solid #6200ea;
-    padding: 50px 20px;
+    padding: 40px 0px; /* Reducimos los márgenes de los costados a 0 para dar más espacio */
     text-align: center;
+    width: 100%;
 }
 
 .logotipo-imagen {
-    max-width: 95%;
-    width: 420px; /* ¡MÁS GRANDE! Aumentado de 280px a 420px para que destaque mucho más */
+    max-width: 100%; /* Permite que se expanda por completo en pantallas chicas y grandes */
+    width: 750px;    /* ¡MÁS GRANDE! Aumentado a 750px para ocupar todo el recuadro visual */
     height: auto;
     display: block;
-    margin: 0 auto 25px auto;
+    margin: 0 auto 15px auto;
 }
 
 .portada h2 {
