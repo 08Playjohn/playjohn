@@ -59,18 +59,29 @@
     </div>
 
     <script>
-           <script>
+             <script>
         $(document).ready(function() {
             var catalogo = $("#catalogo");
-            var wrapper = $("#wrapper");
 
-            // Toma las medidas reales que calculó el CSS en tu monitor
+            // Forzamos las medidas fijas en el sistema de hojas
             catalogo.turn({
-                width: wrapper.width(),         
-                height: wrapper.height(),        
+                width: 800,         
+                height: 480,        
                 autoCenter: true,   
                 duration: 600,       
                 turnCorners: false   
+            });
+
+            // Pasar de hoja al hacer clic
+            catalogo.on("click", function(e) {
+                if (e.pageX > $(window).width() / 2) {
+                    catalogo.turn("next");
+                } else {
+                    catalogo.turn("previous");
+                }
+            });
+        });
+    </script>
             });
 
             catalogo.on("click", function(e) {
