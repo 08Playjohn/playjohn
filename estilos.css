@@ -1,181 +1,128 @@
-/* ==========================================================================
-   1. CONFIGURACIÓN GENERAL DE LA PANTALLA
-   ========================================================================== */
+/* CONFIGURACIÓN GENERAL */
 body {
-    background-color: #0d0e15; /* Fondo oscuro espacial */
+    background-color: #0d0e15; /* Tu fondo oscuro espacial */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-}
-
-#wrapper {
-    width: 800px;  
-    height: 480px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#catalogo {
-    width: 800px !important;
-    height: 480px !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* Cada una de las páginas individuales */
-.pagina {
-    background-color: #161925;
+    padding: 0;
     color: #ffffff;
-    box-sizing: border-box;
-    padding: 25px; 
-    border-left: 2px solid #0a0b10;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; 
-    align-items: center;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-    width: 400px !important;  
-    height: 480px !important; 
 }
 
-/* ==========================================================================
-   2. DISEÑO DE LA PORTADA
-   ========================================================================== */
+/* PORTADA */
 .portada {
     background: linear-gradient(135deg, #1f1235 0%, #0d0e15 100%);
-    border-right: 5px solid #6200ea;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;     
+    border-bottom: 4px solid #6200ea;
+    padding: 40px 20px;
     text-align: center;
 }
 
 .logotipo-imagen {
-    max-width: 90%;    
-    height: auto;       
-    display: block;     
-    margin: 0 auto;     
-    width: 280px;       
+    max-width: 90%;
+    width: 280px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px auto;
 }
 
 .portada h2 {
-    color: #ffffff !important;  
-    font-size: 1.8rem !important; 
-    letter-spacing: 6px;        
+    font-size: 2.2rem;
+    letter-spacing: 6px;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    margin-top: 20px;
+    margin: 0;
 }
 
 .instrucciones {
-    margin-top: 30px;
-    color: #00ff88;
-    font-size: 0.9rem;
+    margin-top: 15px;
+    color: #39ff14; /* Tu verde neón original */
     font-weight: bold;
-    animation: parpadeo 2s infinite;
+    font-size: 1rem;
+    letter-spacing: 1px;
 }
 
-/* ==========================================================================
-   3. TARJETA DE PRODUCTOS (Videojuegos)
-   ========================================================================== */
+/* GRILLA DE PRODUCTOS */
+.contenedor-catalogo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 50px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* TARJETAS NEÓN */
 .tarjeta-juego {
     background-color: #1f2336;
     border-radius: 12px;
-    padding: 15px;
-    width: 90%;
-    height: 95%;
+    padding: 20px;
+    width: 280px;
     text-align: center;
     border: 1px solid #3a3f58;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
-    box-sizing: border-box;
+    align-items: center;
 }
 
 .foto-juego {
     width: 100%;
-    max-height: 200px;       
-    object-fit: contain; 
+    height: 220px;
+    object-fit: contain;
     border-radius: 8px;
-    border: 2px solid #00f0ff;
-    margin-bottom: 10px;
+    border: 2px solid #00f0ff; /* Borde cian original */
+    margin-bottom: 15px;
 }
 
 .descripcion {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #9aa0b9;
-    margin: 5px 0;
+    margin-bottom: 15px;
 }
 
 .precio {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: #39ff14; 
-    margin: 5px 0;
+    color: #39ff14; /* Verde brillante */
+    margin-bottom: 15px;
 }
 
-/* Etiquetas de Stock */
+/* BADGES */
 .badge {
-    padding: 5px 15px;
+    padding: 6px 16px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: bold;
 }
+.disponible { 
+    background-color: #00ff88; 
+    color: #000; 
+}
 
-.disponible { background-color: #00ff88; color: #000; }
-
-/* ==========================================================================
-   4. CONTRAPORTADA
-   ========================================================================== */
+/* PIE DE PÁGINA */
 .contraportada {
     background: linear-gradient(45deg, #0d0e15 0%, #1f1235 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;     
-    text-align: center;      
-    padding: 30px;
-}
-
-.bloque-contacto h3 {
-    font-size: 1.3rem;
-    color: #ffffff;
-    margin-bottom: 10px;
-    line-height: 1.4;       
-}
-
-.subtitulo-contacto {
-    color: #9aa0b9;
-    margin-bottom: 25px;
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 2px solid #3a3f58;
 }
 
 .btn-whatsapp {
     display: inline-block;
     background-color: #25d366;
     color: white;
-    padding: 12px 25px;
+    padding: 12px 30px;
     border-radius: 8px;
     font-weight: bold;
     text-decoration: none;
     box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+    margin-top: 15px;
 }
 
 .pie-pagina {
-    margin-top: 40px;
+    margin-top: 30px;
     font-size: 0.8rem;
     color: #444;
 }
 
-/* Animaciones */
-@keyframes parpadeo {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-}
 
 
