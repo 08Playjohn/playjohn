@@ -1,6 +1,6 @@
 /* CONFIGURACIÓN GENERAL */
 body {
-    background-color: #000000; 
+    background-color: #000000 !important; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -9,7 +9,7 @@ body {
 
 /* PORTADA */
 .portada {
-    background: #000000; 
+    background: #000000 !important; 
     border-bottom: 4px solid #6200ea;
     padding: 20px 0px 40px 0px; 
     text-align: center;
@@ -52,7 +52,7 @@ body {
     width: 100%;
 }
 
-/* BOTÓN WHATSAPP */
+/* BOTONES DE CONTACTO */
 .btn-whatsapp {
     display: inline-flex;
     align-items: center;
@@ -65,7 +65,7 @@ body {
     width: 280px; 
     font-size: 1rem;
     box-sizing: border-box;
-    background-color: #25d366;
+    background-color: #25d366 !important;
     box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
     text-align: center;
 }
@@ -75,7 +75,6 @@ body {
     margin-right: 12px;
 }
 
-/* BOTÓN INSTAGRAM GRADIENTE */
 .btn-instagram {
     display: inline-flex;
     align-items: center;
@@ -88,7 +87,7 @@ body {
     width: 280px; 
     font-size: 1rem;
     box-sizing: border-box;
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
     box-shadow: 0 0 15px rgba(220, 39, 67, 0.5);
 }
 
@@ -106,12 +105,12 @@ body {
     padding: 50px 20px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #000000; 
+    background-color: #000000 !important; 
 }
 
 /* TARJETAS NEÓN */
 .tarjeta-juego {
-    background-color: #10121a; 
+    background-color: #10121a !important; 
     border-radius: 12px;
     padding: 20px;
     width: 280px;
@@ -160,7 +159,7 @@ body {
 
 /* PIE DE PÁGINA */
 .contraportada {
-    background: #000000; 
+    background: #000000 !important; 
     padding: 40px 20px;
     text-align: center;
     border-top: 2px solid #3a3f58;
