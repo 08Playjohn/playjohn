@@ -11,32 +11,40 @@ body {
 }
 
 #wrapper {
- /* Contenedor principal que se adapta a tu pantalla */
+/* Contenedor con tamaño fijo ideal para pantallas medianas y grandes */
 #wrapper {
-    width: 95vw;       /* Usa el 95% del ancho de tu pantalla actual */
-    max-width: 1000px; /* Evita que se estire demasiado en monitores gigantes */
-    height: 80vh;      /* Usa el 80% del alto real de tu pantalla */
-    max-height: 600px;
+    width: 800px;  /* El libro abierto medirá 800 píxeles de ancho total */
+    height: 480px; /* Altura compacta para que no se corte abajo */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Hojas del catálogo flexibles */
+/* Cada una de las páginas individuales */
 .pagina {
     background-color: #161925;
     color: #ffffff;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 15px; /* Reducimos el espacio interno para que entre todo */
     border-left: 2px solid #0a0b10;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribuye el título arriba, la foto al centro y el precio abajo */
+    justify-content: space-between; /* Empuja el título arriba y el precio abajo */
     align-items: center;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-    width: 50% !important; /* Fuerza a que cada hoja ocupe exactamente la mitad del libro abierto */
-    height: 100% !important; /* Llena el alto del contenedor */
+    width: 400px !important;  /* Cada hoja mide exactamente 400px (la mitad de 800) */
+    height: 480px !important; /* Altura exacta */
     flex-shrink: 0;
+}
+
+/* El catálogo idéntico al contenedor */
+#catalogo {
+    width: 800px !important;
+    height: 480px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-wrap: nowrap;
+}
 }
 
 /* Forzar que el catálogo ocupe todo el espacio del wrapper */
@@ -90,12 +98,14 @@ body {
 }
 
 .foto-juego {
-       width: auto;
-    max-width: 90%;
-    height: 55%;        /* Ocupa un tamaño proporcional para dejarle aire al precio y botón */
-    object-fit: contain; /* Ajusta la caja sin recortarla */
+    width: auto;
+    max-width: 100%;
+    height: 220px;       /* Limitamos el alto de la carátula a 220 píxeles */
+    object-fit: contain; /* Evita que la foto se recorte o se deforme */
     border-radius: 8px;
     border: 2px solid #00f0ff;
+}
+
 }
 
 
