@@ -16,16 +16,16 @@
             
             <!-- PÁGINA 1: PORTADA -->
             <div class="pagina portada">
-                <div class="logo-neon">PLAY JOHN</div>
+                <div class="logo-neon">08 PLAY JOHN</div>
                 <h2>CATÁLOGO DIGITAL</h2>
-                <div class="instrucciones">◀ Arrastra la esquina para pasar de hoja ▶</div>
+                <div class="instrucciones">◀ ENTRA Y ENCONTRA LO QUE ESTABAS BUSCANDO ▶</div>
             </div>
 
             <!-- PÁGINA 2: CATEGORÍA JUEGOS PS4/PS5 -->
            <div class="pagina seccion">
     <div class="tarjeta-juego">
         <img src="Imagenes/GTA V PS5.JPG" alt="GTA V PS5" class="foto-juego">
-        <h3>GTA VI (PS5)</h3>
+        <h3>GTA V (PS5)</h3>
         <p class="descripcion">VEMOS ACA LUEGO QUE PONEMOS SOY LA MEJOR.</p>
         <div class="precio">$75.000</div>
         <span class="badge disponible">DISPONIBLE</span>
@@ -62,11 +62,32 @@
         // Configuración del efecto revista interactiva
         $(document).ready(function() {
             $("#catalogo").turn({
-                width: 900,         // Ancho total (450px por página abierta)
-                height: 550,        // Alto del catálogo
-                autoCenter: true,   // Centra el libro en la pantalla
-                duration: 1000      // Velocidad del giro de hoja (1 segundo)
+                    <script>
+        $(document).ready(function() {
+            var catalogo = $("#catalogo");
+
+            // Inicializamos el catálogo con la opción de arrastre apagada (turn: false)
+            catalogo.turn({
+                width: 800,         
+                height: 500,        
+                autoCenter: true,   
+                duration: 600,       // Hace que el giro de hoja por clic sea más rápido
+                turnCorners: false   // Desactiva que las esquinas se doblen solas al pasar el mouse
             });
+
+            // Agregamos la función para que pase de hoja al hacer un clic simple
+            catalogo.on("click", function(e) {
+                // Si hace clic en la mitad derecha de la pantalla, avanza de página
+                if (e.pageX > $(window).width() / 2) {
+                    catalogo.turn("next");
+                } else {
+                    // Si hace clic en la mitad izquierda, retrocede
+                    catalogo.turn("previous");
+                }
+            });
+        });
+    </script>
+
         });
     </script>
 </body>
