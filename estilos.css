@@ -11,22 +11,43 @@ body {
 }
 
 #wrapper {
-    width: 900px;
-    height: 550px;
+ /* Contenedor principal que se adapta a tu pantalla */
+#wrapper {
+    width: 95vw;       /* Usa el 95% del ancho de tu pantalla actual */
+    max-width: 1000px; /* Evita que se estire demasiado en monitores gigantes */
+    height: 80vh;      /* Usa el 80% del alto real de tu pantalla */
+    max-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Estilo base de cada página */
+/* Hojas del catálogo flexibles */
 .pagina {
-    background-color: #161925; /* Fondo de las hojas (Gris oscuro) */
+    background-color: #161925;
     color: #ffffff;
     box-sizing: border-box;
-    padding: 30px;
+    padding: 20px;
     border-left: 2px solid #0a0b10;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between; /* Distribuye el título arriba, la foto al centro y el precio abajo */
     align-items: center;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+    width: 50% !important; /* Fuerza a que cada hoja ocupe exactamente la mitad del libro abierto */
+    height: 100% !important; /* Llena el alto del contenedor */
+    flex-shrink: 0;
+}
+
+/* Forzar que el catálogo ocupe todo el espacio del wrapper */
+#catalogo {
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 }
 
 /* PORTADA */
