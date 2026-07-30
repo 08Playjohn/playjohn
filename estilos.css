@@ -1,48 +1,4 @@
-/* CONFIGURACIÓN GENERAL */
-body {
-    background-color: #000000 !important; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #ffffff;
-}
-
-/* PORTADA */
-.portada {
-    background: #000000 !important; 
-    border-bottom: 4px solid #6200ea;
-    padding: 20px 0px 40px 0px; 
-    text-align: center;
-    width: 100%;
-}
-
-.logotipo-imagen {
-    width: 480px;       
-    max-width: 95%;    
-    height: auto;       
-    display: block;
-    margin: 0 auto 0 auto; 
-}
-
-.portada h2 {
-    color: #ff003c !important;  
-    font-size: 2.2rem;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c, 0 0 40px #ff003c; 
-    margin: -35px 0 0 0 !important; 
-}
-
-.instrucciones {
-    margin-top: 15px;
-    margin-bottom: 25px;
-    color: #39ff14; 
-    font-weight: bold;
-    font-size: 1rem;
-    letter-spacing: 1px;
-}
-
-/* CONTENEDOR PARA LOS BOTONES EN LA PORTADA */
+/* CONTENEDOR PARA ACOMODAR LOS BOTONES ABAJO */
 .contenedor-botones {
     display: flex;
     flex-wrap: wrap;
@@ -52,7 +8,7 @@ body {
     width: 100%;
 }
 
-/* BOTONES DE CONTACTO */
+/* BOTÓN WHATSAPP */
 .btn-whatsapp {
     display: inline-flex;
     align-items: center;
@@ -68,6 +24,7 @@ body {
     background-color: #25d366 !important;
     box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
     text-align: center;
+    cursor: pointer;
 }
 
 .btn-whatsapp i {
@@ -75,6 +32,7 @@ body {
     margin-right: 12px;
 }
 
+/* BOTÓN INSTAGRAM GRADIENTE */
 .btn-instagram {
     display: inline-flex;
     align-items: center;
@@ -89,88 +47,13 @@ body {
     box-sizing: border-box;
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
     box-shadow: 0 0 15px rgba(220, 39, 67, 0.5);
+    cursor: pointer;
 }
 
 .btn-instagram i {
     font-size: 1.6rem;
     margin-right: 12px;
 }
-
-/* GRILLA DE PRODUCTOS */
-.contenedor-catalogo {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 50px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #000000 !important; 
-}
-
-/* TARJETAS NEÓN */
-.tarjeta-juego {
-    background-color: #10121a !important; 
-    border-radius: 12px;
-    padding: 20px;
-    width: 280px;
-    text-align: center;
-    border: 2px solid #00f0ff; 
-    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.2); 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.foto-juego {
-    width: 100%;
-    height: 220px;
-    object-fit: contain;
-    border-radius: 8px;
-    border: 1px solid #3a3f58;
-    margin-bottom: 15px;
-}
-
-.descripcion {
-    font-size: 0.9rem;
-    color: #9aa0b9;
-    margin-bottom: 15px;
-}
-
-.precio {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #39ff14; 
-    margin-bottom: 15px;
-}
-
-/* BADGES */
-.badge {
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-.disponible { 
-    background-color: #00ff88; 
-    color: #000; 
-}
-
-/* PIE DE PÁGINA */
-.contraportada {
-    background: #000000 !important; 
-    padding: 40px 20px;
-    text-align: center;
-    border-top: 2px solid #3a3f58;
-}
-
-.pie-pagina {
-    margin-top: 20px;
-    font-size: 0.8rem;
-    color: #444;
-}
-
 
 
 
