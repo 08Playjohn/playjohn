@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo Digital - Play John</title>
     <link rel="stylesheet" href="estilos.css">
-    <!-- REPARADOS: Enlaces oficiales y completos para que funcione el libro -->
     <script src="https://jquery.com"></script>
     <script src="https://githack.com"></script>
 </head>
@@ -14,15 +13,11 @@
     <div id="wrapper">
         <div id="catalogo">
             
-            <!-- PÁGINA 1: PORTADA -->
+            <!-- PÁGINA 1: PORTADA (Limpia y con el título centrado) -->
             <div class="pagina portada">
                 <div class="logo-neon">08 PLAY JOHN</div>
                 <h2>CATÁLOGO DIGITAL</h2>
-                <div class="instrucciones">◀ MIRA Y ENCONTRA LO QUE ESTAS BUSCANDO ▶</div>
-                <h3>¿Querés hacer un pedido o reparar tu equipo?</h3>
-                <p>Escribinos</p>
-                <div class="btn-whatsapp">WhatsApp: +54 9 11 41701483</div>
-                <div class="pie-pagina">Play John © 2026</div>
+                <div class="instrucciones">◀ Hacé clic para pasar de hoja ▶</div>
             </div>
 
             <!-- PÁGINA 2: GTA V -->
@@ -58,10 +53,19 @@
                 </div>
             </div>
 
-        </div> <!-- CIERRE DE CATALOGO -->
-    </div> <!-- CIERRE DE WRAPPER -->
+            <!-- PÁGINA 5: CONTRAPORTADA (Aquí se movió el contacto y WhatsApp centrado) -->
+            <div class="pagina contraportada">
+                <div class="bloque-contacto">
+                    <h3>¿Querés hacer un pedido o reparar tu equipo?</h3>
+                    <p class="subtitulo-contacto">Escribinos</p>
+                    <div class="btn-whatsapp">WhatsApp: +54 9 11 41701483</div>
+                    <div class="pie-pagina">Play John © 2026</div>
+                </div>
+            </div>
 
-    <!-- REPARADO: Código de programación completo y sin errores de cierre -->
+        </div> 
+    </div> 
+
     <script>
         $(document).ready(function() {
             var catalogo = $("#catalogo");
