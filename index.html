@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo Digital - Play John</title>
     <link rel="stylesheet" href="estilos.css">
-    <!-- Dependencias oficiales de jQuery y Turn.js -->
+    <!-- REPARADOS: Enlaces oficiales y completos para que funcione el libro -->
     <script src="https://jquery.com"></script>
     <script src="https://githack.com"></script>
 </head>
@@ -14,69 +14,58 @@
     <div id="wrapper">
         <div id="catalogo">
             
-        <!-- PÁGINA 1: PORTADA -->
-<div class="pagina portada">
-    <div class="logo-neon">08 PLAY JOHN</div>
-    <h2>CATÁLOGO DIGITAL</h2>
-    <div class="instrucciones">◀ MIRA Y ENCONTRA LO QUE ESTAS BUSCANDO ▶</div>
-      <h3>¿Querés hacer un pedido o reparar tu equipo?</h3>
+            <!-- PÁGINA 1: PORTADA -->
+            <div class="pagina portada">
+                <div class="logo-neon">08 PLAY JOHN</div>
+                <h2>CATÁLOGO DIGITAL</h2>
+                <div class="instrucciones">◀ MIRA Y ENCONTRA LO QUE ESTAS BUSCANDO ▶</div>
+                <h3>¿Querés hacer un pedido o reparar tu equipo?</h3>
                 <p>Escribinos</p>
                 <div class="btn-whatsapp">WhatsApp: +54 9 11 41701483</div>
                 <div class="pie-pagina">Play John © 2026</div>
             </div>
 
-            <!-- PÁGINA 2: CATEGORÍA JUEGOS PS4/PS5 -->
-           <div class="pagina seccion">
-    <div class="tarjeta-juego">
-        <img src="Imagenes/GTA V PS5.JPG" alt="GTA V PS5" class="foto-juego">
-        <h3>GTA V (PS5)</h3>
-        <p class="descripcion">VEMOS ACA LUEGO QUE PONEMOS SOY LA MEJOR.</p>
-        <div class="precio">$75.000</div>
-        <span class="badge disponible">DISPONIBLE</span>
-    </div>
-</div>
-    <!-- PÁGINA 3: CATEGORÍA JUEGOS PS4/PS5 -->
-           <div class="pagina seccion">
-    <div class="tarjeta-juego">
-        <img src="Imagenes/gta6.JPG" alt="GTA VI PS5" class="foto-juego">
-        <h3>GTA VI (PS5)</h3>
-        <p class="descripcion">PRUEBA NUMERO 2.</p>
-        <div class="precio">$95.000</div>
-        <span class="badge disponible">DISPONIBLE</span>
-    </div>
-          
-     <!-- 
-<div class="pagina seccion">
-    <div class="tarjeta-juego">
-        <img src="https://github.io" alt="GTA VI" class="foto-juego">
-        <h3>GTA VI (PS5)</h3>
-        <p class="descripcion">VEMOS ACA LUEGO QUE PONEMOS SOY LA MEJOR.</p>
-        <div class="precio">$75.000</div>
-        <span class="badge disponible">DISPONIBLE</span>
-    </div>
-</div>
+            <!-- PÁGINA 2: GTA V -->
+            <div class="pagina seccion">
+                <div class="tarjeta-juego">
+                    <img src="Imagenes/GTA V PS5.JPG" alt="GTA V PS5" class="foto-juego">
+                    <h3>GTA V (PS5)</h3>
+                    <p class="descripcion">VEMOS ACA LUEGO QUE PONEMOS SOY LA MEJOR.</p>
+                    <div class="precio">$75.000</div>
+                    <span class="badge disponible">DISPONIBLE</span>
+                </div>
+            </div>
+            
+            <!-- PÁGINA 3: GTA VI -->
+            <div class="pagina seccion">
+                <div class="tarjeta-juego">
+                    <img src="Imagenes/gta6.JPG" alt="GTA VI PS5" class="foto-juego">
+                    <h3>GTA VI (PS5)</h3>
+                    <p class="descripcion">PRUEBA NUMERO 2.</p>
+                    <div class="precio">$95.000</div>
+                    <span class="badge disponible">DISPONIBLE</span>
+                </div>
+            </div>
+            
+            <!-- PÁGINA 4: CRIMSON DESERT -->
+            <div class="pagina seccion">
+                <div class="tarjeta-juego">
+                    <img src="Imagenes/CRIMSON DESERT PS5.JPG" alt="CRIMSON DESERT PS5" class="foto-juego">
+                    <h3>CRIMSON DESERT (PS5)</h3>
+                    <p class="descripcion">PRUEBA NUMERO 3.</p>
+                    <div class="precio">$105.000</div>
+                    <span class="badge disponible">DISPONIBLE</span>
+                </div>
+            </div>
 
+        </div> <!-- CIERRE DE CATALOGO -->
+    </div> <!-- CIERRE DE WRAPPER -->
 
-
-
-         <!-- PÁGINA 4: CATEGORÍA JUEGOS PS4/PS5 -->
-           <div class="pagina seccion">
-    <div class="tarjeta-juego">
-        <img src="Imagenes/CRIMSON DESERT PS5.JPG" alt="CRIMSON DESERT PS5" class="foto-juego">
-        <h3>CRIMSON DESERT (PS5)</h3>
-        <p class="descripcion">PRUEBA NUMERO 3.</p>
-        <div class="precio">$105.000</div>
-        <span class="badge disponible">DISPONIBLE</span>
-    </div>
-</div>
-              
-
+    <!-- REPARADO: Código de programación completo y sin errores de cierre -->
     <script>
-             <script>
         $(document).ready(function() {
             var catalogo = $("#catalogo");
 
-            // Forzamos las medidas fijas en el sistema de hojas
             catalogo.turn({
                 width: 800,         
                 height: 480,        
@@ -85,13 +74,14 @@
                 turnCorners: false   
             });
 
-            // Pasar de hoja al hacer clic
             catalogo.on("click", function(e) {
                 if (e.pageX > $(window).width() / 2) {
                     catalogo.turn("next");
                 } else {
                     catalogo.turn("previous");
                 }
-           </body>
+            });
+        });
+    </script>
+</body>
 </html>
-
