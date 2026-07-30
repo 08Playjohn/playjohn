@@ -70,19 +70,30 @@ body {
 
 .foto-juego {
     width: 100%;
-    height: 220px;
-    object-fit: contain; /* Cambiado de 'cover' a 'contain' para que la foto nunca se corte */
-    background-color: #0b0c11; /* Fondo oscuro de relleno por si la foto es chica */
+    max-width: 280px;      /* Controla el ancho máximo para que no se deforme */
+    height: 340px;         /* Aumentamos la altura para que la carátula sea grande */
+    object-fit: dashed;    
+    object-fit: cover;     /* Hace que la imagen llene el espacio de forma imponente */
     border-radius: 8px;
     border: 2px solid #00f0ff;
-}
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); /* Un sutil brillo neón azul */
+
 
 }
 
-.tarjeta-juego h3 {
-    margin: 15px 0 5px 0;
-    font-size: 1.4rem;
-    color: #ffffff;
+.tarjeta-juego {
+    background-color: #1f2336;
+    border-radius: 12px;
+    padding: 15px;
+    width: 85%;
+    text-align: center;
+    border: 1px solid #3a3f58;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .descripcion {
