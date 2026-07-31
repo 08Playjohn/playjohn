@@ -213,3 +213,65 @@ body {
     background-color: #161925 !important;
     box-shadow: 0 0 15px rgba(0, 240, 255, 0.6) !important;
 }
+/* PIE DE PÁGINA */
+.contraportada {
+    background: #000000 !important; 
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 2px solid #3a3f58;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+/* CONTENEDOR PARA ACOMODAR LOS BOTONES */
+.contenedor-botones {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 15px; 
+    margin-top: 20px;
+}
+
+/* ESTILO DEFINITIVO BOTÓN WHATSAPP */
+.boton-wpp {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #25d366 !important;
+    color: #ffffff !important;
+    padding: 12px 30px !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    width: 280px !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4) !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+/* ESTILO DEFINITIVO BOTÓN INSTAGRAM */
+.boton-ig {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+    color: #ffffff !important;
+    padding: 14px 30px !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    width: 280px !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 0 15px rgba(220, 39, 67, 0.4) !important;
+    text-align: center !important;
+    cursor: pointer !important;
+}
+
+.pie-pagina {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #444 !important;
+}
