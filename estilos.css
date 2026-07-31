@@ -7,19 +7,22 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA AL 100% */
+/* PORTADA AJUSTADA DE PUNTA A PUNTA (FULL WIDTH) */
 .portada {
     background-image: url('Imagenes/ladrillos neon.jpg') !important;
-    background-size: contain !important; /* ¡CLAVE! Muestra la imagen completa de borde a borde sin recortes */
-    background-position: center top !important; /* Alinea el inicio de la foto arriba */
+    background-size: cover !important; /* ¡CLAVE! Obliga a los ladrillos a expandirse y llenar todo el ancho */
+    background-position: center top !important; /* Mantiene a Mario y el marco superior siempre visibles */
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    height: auto !important; /* Liberamos la altura fija */
-    min-height: 420px !important; /* Altura ideal balanceada para pantallas de PC y celulares */
+    height: 42vw !important; /* ¡CLAVE DE AJUSTE! Cambia el tamaño de forma perfecta según la pantalla sin dejar huecos */
     border-bottom: 4px solid #6200ea;
-    padding: 20px 10px !important; 
+    padding: 0 !important; 
     text-align: center;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    padding-bottom: 30px !important; /* Deja los textos acomodados en la zona inferior de la pared */
 }
 
 /* AJUSTE FIJO PARA LOS TEXTOS ABAJO */
