@@ -26,15 +26,15 @@ body {
 }
 
 
-/* REDUCIMOS UN TOQUE LA LETRA PARA QUE NO SE SOBREPONGA */
 .portada h2 {
     color: #ff003c !important;  
-    font-size: 1.4rem !important; 
-    letter-spacing: 4px;
+    font-size: 2.4rem !important; /* ¡MÁS GRANDE! Aumentado para que destaque e impacte mucho más */
+    letter-spacing: 5px;
     text-transform: uppercase;
-    text-shadow: 0 0 40px #ff003c, 0 0 45px #ff003c; 
+    text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c, 0 0 40px #ff003c; /* Reforzamos el resplandor neón */
     margin: 0 0 5px 0 !important; 
 }
+
 
 
 .logotipo-imagen {
