@@ -7,15 +7,16 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA AJUSTADA DE PUNTA A PUNTA PERO COMPACTA */
+/* PORTADA ULTRA HD COMPACTA Y SIN ESTIRAR */
 .portada {
     background-image: url('Imagenes/ladrillos neon.jpg') !important;
-    background-size: 100% 100% !important; /* ¡CLAVE! Fuerza a encuadrar toda la foto sin recortes */
-    background-position: center center !important; 
+    background-size: cover !important; /* Mantiene la proporción real del dibujo y las letras perfectas */
+    background-position: center 30% !important; /* ¡CLAVE! Sube el fondo un toque para que el logo de Mario quede centrado */
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    height: 35vw !important; /* Altura dinámica adaptable */
-    max-height: 280px !important; /* ¡CLAVE DEFECTO! Le pone un tope para que nunca se vuelva gigante en PC */
+    height: auto !important;
+    max-height: 310px !important; /* Controla que no se vuelva gigante en la compu */
+    aspect-ratio: 16 / 6 !important; /* Mantiene el formato panorámico nativo sin deformar los píxeles */
     border-bottom: 4px solid #6200ea;
     padding: 0 !important; 
     text-align: center;
@@ -23,17 +24,17 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
-    padding-bottom: 12px !important; /* Margen sutil para acomodar las letras al borde inferior de la foto */
+    padding-bottom: 15px !important; /* Deja los textos acomodados abajo limpios */
 }
 
-/* ESPACIADO LIMPIO PARA QUE EL TEXTO ROJO NO TOQUE EL LOGO */
+/* REDUCIMOS UN TOQUE LA LETRA PARA QUE NO SE SOBREPONGA */
 .portada h2 {
     color: #ff003c !important;  
-    font-size: 1.5rem !important; /* Un toque más chica la letra para que calce perfecto abajo */
+    font-size: 1.4rem !important; 
     letter-spacing: 4px;
     text-transform: uppercase;
     text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c; 
-    margin: 0 0 5px 0 !important; /* Separación limpia */
+    margin: 0 0 5px 0 !important; 
 }
 
 
