@@ -7,27 +7,18 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA CON TEXTURA DE LADRILLOS URBANOS Y LUZ NEÓN DE FONDO */
+/* PORTADA CON TU IMAGEN DE LADRILLOS NEÓN */
 .portada {
-    background-color: #050508 !important;
-    background-image: 
-        /* Capa 1: Resplandor Radial Neón Violeta en el centro */
-        radial-gradient(circle, rgba(98, 0, 234, 0.25) 0%, rgba(0, 0, 0, 0.85) 70%),
-        /* Capa 2 y 3: Líneas horizontales y verticales que dibujan los ladrillos */
-        linear-gradient(90deg, #181922 2px, transparent 2px),
-        linear-gradient(#181922 2px, transparent 2px),
-        linear-gradient(90deg, #181922 2px, transparent 2px),
-        linear-gradient(#181922 2px, transparent 2px) !important;
-    background-size: 100% 100%, 50px 25px, 50px 25px, 50px 25px, 50px 25px !important;
-    background-position: center, 0 0, 0 0, 25px 12.5px, 25px 12.5px !important;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('Imagenes/ladrillos%20neon.jpg') !important; 
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
     border-bottom: 4px solid #6200ea;
     padding: 30px 0px 40px 0px; 
     text-align: center;
     width: 100%;
-    box-sizing: border-box;
 }
-
-      
+     
 
 .logotipo-imagen {
     width: 480px;       
