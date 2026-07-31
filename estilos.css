@@ -7,17 +7,21 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA CON TU IMAGEN DE LADRILLOS NEÓN */
+/* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA */
 .portada {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('Imagenes/ladrillos%20neon con mario.jpg') !important; 
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
+    background-image: url('Imagenes/ladrillos%20neon.jpg') !important; 
+    background-size: contain !important; /* ¡CLAVE! Mantiene la proporción y calidad perfecta sin recortar nada */
+    background-position: center top !important; /* Centra el diseño en la pantalla */
+    background-repeat: no-repeat !important; /* Evita que la pared de ladrillos se duplique */
+    width: 100% !important;
+    height: auto !important;
+    min-height: 480px !important; /* Altura ideal en base a la proporción de tu foto */
     border-bottom: 4px solid #6200ea;
-    padding: 30px 0px 40px 0px; 
+    padding: 20px 0px; 
     text-align: center;
-    width: 100%;
+    box-sizing: border-box;
 }
+
      
 
 .logotipo-imagen {
