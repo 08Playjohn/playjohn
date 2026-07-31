@@ -10,19 +10,17 @@ body {
 /* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA */
 .portada {
     background-image: url('Imagenes/ladrillos neon.jpg') !important;
-    background-size: cover !important; /* Cambiamos a cover para que rellene todo el espacio sin dejar franjas */
-    background-position: center center !important; /* Centra a Mario en el medio del recuadro */
+    background-size: cover !important; 
+    background-position: center center !important; 
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    height: 450px !important; /* ¡CLAVE! Le damos una altura fija de 450px para obligar a la imagen a abrirse */
+    /* Dejamos el height libre para que los textos respiren abajo */
     border-bottom: 4px solid #6200ea;
-    padding: 60px 0px 20px 0px !important; /* Volvemos al margen original balanceado */
+    padding: 280px 10px 30px 10px !important; /* ¡CLAVE! El 280px empuja los textos abajo del logo de Mario */
     text-align: center;
     box-sizing: border-box;
 }
 
-
-     
 
 .logotipo-imagen {
     width: 480px;       
@@ -34,11 +32,11 @@ body {
 
 .portada h2 {
     color: #ff003c !important;  
-    font-size: 2.2rem;
-    letter-spacing: 6px;
+    font-size: 1.8rem !important; 
+    letter-spacing: 4px;
     text-transform: uppercase;
-    text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c, 0 0 40px #ff003c; 
-    margin: -35px 0 0 0 !important; 
+    text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c; 
+    margin: 20px 0 0 0 !important; /* Margen normal hacia abajo */
 }
 
 .instrucciones {
