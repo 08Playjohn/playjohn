@@ -16,7 +16,7 @@ body {
     width: 100% !important;
     height: 450px !important; /* ¡CLAVE! Le damos una altura fija de 450px para obligar a la imagen a abrirse */
     border-bottom: 4px solid #6200ea;
-    padding: 160px 0px 20px 0px !important; /* ¡Aumentado a 160px para bajar los textos al centro! */
+    padding: 60px 0px 20px 0px !important; /* Volvemos al margen original balanceado */
     text-align: center;
     box-sizing: border-box;
 }
