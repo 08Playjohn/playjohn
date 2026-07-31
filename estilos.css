@@ -9,7 +9,7 @@ body {
 
 /* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA */
 .portada {
-    background-image: url('Imagenes/ladrillos neon.jpg') !important; 
+    background-image: url('Imagenes/ladrillos neon.jpg') !important;
     background-size: cover !important; /* Cambiamos a cover para que rellene todo el espacio sin dejar franjas */
     background-position: center center !important; /* Centra a Mario en el medio del recuadro */
     background-repeat: no-repeat !important; 
