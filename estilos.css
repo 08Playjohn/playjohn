@@ -7,14 +7,15 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA AJUSTADA DE PUNTA A PUNTA (FULL WIDTH) */
+/* PORTADA AJUSTADA DE PUNTA A PUNTA PERO COMPACTA */
 .portada {
     background-image: url('Imagenes/ladrillos neon.jpg') !important;
-    background-size: cover !important; /* ¡CLAVE! Obliga a los ladrillos a expandirse y llenar todo el ancho */
-    background-position: center top !important; /* Mantiene a Mario y el marco superior siempre visibles */
+    background-size: 100% 100% !important; /* ¡CLAVE! Fuerza a encuadrar toda la foto sin recortes */
+    background-position: center center !important; 
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    height: 42vw !important; /* ¡CLAVE DE AJUSTE! Cambia el tamaño de forma perfecta según la pantalla sin dejar huecos */
+    height: 35vw !important; /* Altura dinámica adaptable */
+    max-height: 280px !important; /* ¡CLAVE DEFECTO! Le pone un tope para que nunca se vuelva gigante en PC */
     border-bottom: 4px solid #6200ea;
     padding: 0 !important; 
     text-align: center;
@@ -22,18 +23,19 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
-    padding-bottom: 30px !important; /* Deja los textos acomodados en la zona inferior de la pared */
+    padding-bottom: 12px !important; /* Margen sutil para acomodar las letras al borde inferior de la foto */
 }
 
-/* AJUSTE FIJO PARA LOS TEXTOS ABAJO */
+/* ESPACIADO LIMPIO PARA QUE EL TEXTO ROJO NO TOQUE EL LOGO */
 .portada h2 {
     color: #ff003c !important;  
-    font-size: 1.8rem !important; 
+    font-size: 1.5rem !important; /* Un toque más chica la letra para que calce perfecto abajo */
     letter-spacing: 4px;
     text-transform: uppercase;
     text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c; 
-    margin: 230px 0 0 0 !important; /* Reducimos a 230px para que calce justo abajo del logo al achicarse el fondo */
+    margin: 0 0 5px 0 !important; /* Separación limpia */
 }
+
 
 .logotipo-imagen {
     width: 480px;       
