@@ -7,16 +7,14 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA ULTRA HD COMPACTA Y SIN ESTIRAR */
+/* PORTADA CON ALTURA FIJA PERFECTA SIN ESTIRAR */
 .portada {
     background-image: url('Imagenes/ladrillos neon.jpg') !important;
-    background-size: cover !important; /* Mantiene la proporción real del dibujo y las letras perfectas */
-    background-position: center 30% !important; /* ¡CLAVE! Sube el fondo un toque para que el logo de Mario quede centrado */
+    background-size: cover !important; /* Clave: Mantiene las letras y a Mario sin deformaciones */
+    background-position: center center !important; /* Centra el logo justo en el medio del recuadro */
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    height: auto !important;
-    max-height: 310px !important; /* Controla que no se vuelva gigante en la compu */
-    aspect-ratio: 16 / 6 !important; /* Mantiene el formato panorámico nativo sin deformar los píxeles */
+    height: 380px !important; /* ¡CLAVE DEFINITIVA! Le da la altura exacta para que la imagen respire y no se estire */
     border-bottom: 4px solid #6200ea;
     padding: 0 !important; 
     text-align: center;
@@ -24,8 +22,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
-    padding-bottom: 15px !important; /* Deja los textos acomodados abajo limpios */
+    padding-bottom: 25px !important; /* Deja los textos perfectamente acomodados abajo */
 }
+
 
 /* REDUCIMOS UN TOQUE LA LETRA PARA QUE NO SE SOBREPONGA */
 .portada h2 {
