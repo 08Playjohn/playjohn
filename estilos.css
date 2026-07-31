@@ -7,20 +7,23 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA CON FONDO DE LADRILLOS URBANOS */
+/* PORTADA CON TEXTURA DIGITAL DE LADRILLOS NEGROS */
 .portada {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.85)), url('https://picsum.photos') !important; 
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
+    background-color: #0c0d12 !important;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
+        linear-gradient(90deg, #16171f 2px, transparent 2px),
+        linear-gradient(#16171f 2px, transparent 2px),
+        linear-gradient(90deg, #16171f 2px, transparent 2px),
+        linear-gradient(#16171f 2px, transparent 2px) !important;
+    background-size: cover, 40px 20px, 40px 20px, 40px 20px, 40px 20px !important;
+    background-position: center, 0 0, 0 0, 20px 10px, 20px 10px !important;
     border-bottom: 4px solid #6200ea;
     padding: 30px 0px 40px 0px; 
     text-align: center;
     width: 100%;
 }
-
-
-        
+      
 
 .logotipo-imagen {
     width: 480px;       
