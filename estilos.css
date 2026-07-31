@@ -9,7 +9,7 @@ body {
 
 /* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA */
 .portada {
-    background-image: url('Imagenes/ladrillos%20neon.jpg') !important; 
+    background-image: url('Imagenes/ladrillosneon.jpg') !important; 
     background-size: contain !important; /* ¡CLAVE! Mantiene la proporción y calidad perfecta sin recortar nada */
     background-position: center top !important; /* Centra el diseño en la pantalla */
     background-repeat: no-repeat !important; /* Evita que la pared de ladrillos se duplique */
