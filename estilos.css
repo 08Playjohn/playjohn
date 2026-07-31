@@ -7,45 +7,30 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA ULTRA HIGH DEFINITION (4K RESPONSIVO) */
+/* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA AL 100% */
 .portada {
     background-image: url('Imagenes/ladrillos neon.jpg') !important;
-    background-size: 100% 100% !important; /* Estira la textura de forma milimétrica en todo el recuadro */
-    background-position: center center !important;
+    background-size: contain !important; /* ¡CLAVE! Muestra la imagen completa de borde a borde sin recortes */
+    background-position: center top !important; /* Alinea el inicio de la foto arriba */
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    height: auto !important;
-    min-height: auto !important; /* Eliminamos mínimos para que no deforme la imagen */
-    aspect-ratio: 2.3 / 1 !important; /* ¡CLAVE ULTRA 4K! Mantiene la proporción cinemática perfecta de la foto original */
+    height: auto !important; /* Liberamos la altura fija */
+    min-height: 420px !important; /* Altura ideal balanceada para pantallas de PC y celulares */
     border-bottom: 4px solid #6200ea;
-    padding: 0 !important; /* Ponemos en 0 para manejar la posición con los textos libres */
+    padding: 20px 10px !important; 
     text-align: center;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Empuja las letras al borde inferior de los ladrillos */
-    padding-bottom: 25px !important; /* Los separa justo del borde morado inferior */
 }
 
-/* TEXTO NEÓN ADAPTADO PARA NO ROMPER LA CALIDAD */
+/* AJUSTE FIJO PARA LOS TEXTOS ABAJO */
 .portada h2 {
     color: #ff003c !important;  
     font-size: 1.8rem !important; 
     letter-spacing: 4px;
     text-transform: uppercase;
     text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c; 
-    margin: 0 0 10px 0 !important; /* Margen limpio hacia abajo */
+    margin: 230px 0 0 0 !important; /* Reducimos a 230px para que calce justo abajo del logo al achicarse el fondo */
 }
-
-/* CONTENEDOR SEPARADO PARA QUE LAS INSTRUCCIONES NO ENCIERREN LA IMAGEN */
-.instrucciones {
-    margin: 0 !important;
-    color: #39ff14 !important; 
-    font-weight: bold;
-    font-size: 1rem;
-    letter-spacing: 1px;
-}
-
 
 .logotipo-imagen {
     width: 480px;       
