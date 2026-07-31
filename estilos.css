@@ -1,4 +1,8 @@
 /* CONFIGURACIÓN GENERAL */
+html {
+    scroll-behavior: smooth !important;
+}
+
 body {
     background-color: #000000 !important; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
