@@ -9,7 +9,7 @@ body {
 
 /* PORTADA CON TU IMAGEN DE LADRILLOS NEÓN */
 .portada {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('Imagenes/ladrillos%20neon.jpg') !important; 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('Imagenes/ladrillos%20neonconmario.jpg') !important; 
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
