@@ -14,13 +14,13 @@ body {
     background-position: center center !important; 
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    /* Dejamos el height libre para que los textos respiren abajo */
+    height: auto !important; /* Liberamos la altura */
+    min-height: 500px !important; /* Forzamos un tamaño de fondo grande */
     border-bottom: 4px solid #6200ea;
-    padding: 280px 10px 30px 10px !important; /* ¡CLAVE! El 280px empuja los textos abajo del logo de Mario */
+    padding: 20px 10px !important; 
     text-align: center;
     box-sizing: border-box;
 }
-
 
 .logotipo-imagen {
     width: 480px;       
@@ -30,13 +30,15 @@ body {
     margin: 0 auto 0 auto; 
 }
 
+/* EL TÍTULO ROJO QUE VAMOS A BAJAR SÍ O SÍ */
 .portada h2 {
     color: #ff003c !important;  
     font-size: 1.8rem !important; 
     letter-spacing: 4px;
     text-transform: uppercase;
     text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c; 
-    margin: 20px 0 0 0 !important; /* Margen normal hacia abajo */
+    /* ¡CLAVE! 260px de margen arriba para empujarlo a la zona vacía de abajo */
+    margin: 260px 0 0 0 !important; 
 }
 
 .instrucciones {
