@@ -165,3 +165,36 @@ body {
     font-size: 0.8rem;
     color: #444 !important;
 }
+/* ESTILO DE LOS TRES BOTONES CENTRALES */
+.menu-tres-botones {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 15px !important;
+    padding: 25px 10px !important;
+    background-color: #000000 !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-centro {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+    padding: 10px 25px !important;
+    border-radius: 6px !important;
+    border: 2px solid #00f0ff !important; /* Borde neón cian */
+    background-color: #10121a !important;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3) !important;
+    text-align: center;
+    min-width: 110px;
+    transition: all 0.2s ease;
+}
+
+.btn-centro:hover {
+    color: #00f0ff !important;
+    background-color: #161925 !important;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.6) !important;
+    transform: scale(1.05);
+}
