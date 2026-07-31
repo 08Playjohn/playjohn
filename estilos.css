@@ -7,15 +7,15 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA */
+/* PORTADA CON TU NUEVA IMAGEN DE MARIO Y NEÓN AJUSTADA AL 100% */
 .portada {
     background-image: url('Imagenes/ladrillos neon.jpg') !important;
-    background-size: cover !important; 
-    background-position: center center !important; 
+    background-size: contain !important; /* ¡CLAVE! Muestra la imagen completa de borde a borde sin recortes */
+    background-position: center top !important; /* Alinea el inicio de la foto arriba */
     background-repeat: no-repeat !important; 
     width: 100% !important;
-    height: auto !important; /* Liberamos la altura */
-    min-height: 500px !important; /* Forzamos un tamaño de fondo grande */
+    height: auto !important; /* Liberamos la altura fija */
+    min-height: 420px !important; /* Altura ideal balanceada para pantallas de PC y celulares */
     border-bottom: 4px solid #6200ea;
     padding: 20px 10px !important; 
     text-align: center;
@@ -30,15 +30,14 @@ body {
     margin: 0 auto 0 auto; 
 }
 
-/* EL TÍTULO ROJO QUE VAMOS A BAJAR SÍ O SÍ */
+/* AJUSTE FIJO PARA LOS TEXTOS ABAJO */
 .portada h2 {
     color: #ff003c !important;  
     font-size: 1.8rem !important; 
     letter-spacing: 4px;
     text-transform: uppercase;
     text-shadow: 0 0 10px #ff003c, 0 0 25px #ff003c; 
-    /* ¡CLAVE! 260px de margen arriba para empujarlo a la zona vacía de abajo */
-    margin: 260px 0 0 0 !important; 
+    margin: 230px 0 0 0 !important; /* Reducimos a 230px para que calce justo abajo del logo al achicarse el fondo */
 }
 
 .instrucciones {
