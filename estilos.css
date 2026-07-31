@@ -7,14 +7,19 @@ body {
     color: #ffffff !important;
 }
 
-/* PORTADA */
+/* PORTADA CON FONDO DE LADRILLOS URBANOS */
 .portada {
-    background: #000000 !important; 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.85)), url('https://unsplash.com') !important; 
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
     border-bottom: 4px solid #6200ea;
-    padding: 10px 0px; 
+    padding: 30px 0px 40px 0px; 
     text-align: center;
     width: 100%;
 }
+
+        
 
 .logotipo-imagen {
     width: 480px;       
