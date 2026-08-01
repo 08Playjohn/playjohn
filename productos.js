@@ -101,7 +101,9 @@ function actualizarCarrito() {
             mensaje += "\nTotal estimado: " + totalCarrito.innerText;
             
             // REDIRECCIÓN TRADICIONAL FORZADA EN LA MISMA VENTANA (Rompe bloqueos de Chrome pop-ups)
-            window.location.assign("https://whatsapp.com" + encodeURIComponent(mensaje));
+            // Reemplaza 5491141701483 por tu número de teléfono real (con código de país y sin el signo +)
+window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
+
         };
     }
 }
