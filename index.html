@@ -235,48 +235,50 @@
 <!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
 <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
 
-<!-- BARRRA DE BÚSQUEDA CON MOTOR INTEGRADO DIRECTO -->
+<!-- BARRRA DE BÚSQUEDA ULTRA COMPATIBLE -->
 <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
         
-        <!-- El evento onkeyup ahora ejecuta la búsqueda directamente desde acá -->
         <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." 
                onkeyup="
                 let texto = this.value.toLowerCase().trim();
-                let tarjetas = document.querySelectorAll('.contenedor-catalogo > div');
                 
-                tarjetas.forEach(function(tarjeta) {
-                    let h3 = tarjeta.querySelector('h3');
-                    if (h3) {
-                        let nombre = h3.textContent.toLowerCase();
-                        if (texto === '' || nombre.includes(texto)) {
-                            tarjeta.style.setProperty('display', '', 'important');
+                // 1. Buscamos TODOS los h3 de la página (los títulos de tus juegos)
+                let titulos = document.getElementsByTagName('h3');
+                
+                for (let i = 0; i < titulos.length; i++) {
+                    let h3 = titulos[i];
+                    // Subimos hasta encontrar la caja que envuelve al juego completo
+                    let tarjetaJuego = h3.parentElement; 
+                    
+                    if (tarjetaJuego) {
+                        let nombreJuego = h3.textContent.toLowerCase();
+                        
+                        if (texto === '' || nombreJuego.includes(texto)) {
+                            tarjetaJuego.style.setProperty('display', '', 'important');
                         } else {
-                            tarjeta.style.setProperty('display', 'none', 'important');
+                            tarjetaJuego.style.setProperty('display', 'none', 'important');
                         }
                     }
-                });
+                }
 
-                let secciones = document.querySelectorAll('.categoria-consola, #xbox360, #xboxseries, #nintendo, #ps2, #ps3, #ps4, #ps5');
-                secciones.forEach(function(seccion) {
-                    let catalogo = seccion.querySelector('.contenedor-catalogo');
-                    if (catalogo) {
-                        let total = catalogo.children.length;
-                        let ocultos = 0;
-                        for (let i = 0; i < total; i++) {
-                            if (catalogo.children[i].style.display === 'none') {
-                                ocultos++;
+                // 2. Buscamos los títulos grandes de las consolas (h2) para ocultarlos si no hay juegos
+                let titulosConsolas = document.getElementsByTagName('h2');
+                for (let j = 0; j < titulosConsolas.length; j++) {
+                    let h2 = titulosConsolas[j];
+                    let seccionConsola = h2.parentElement;
+                    if (seccionConsola && seccionConsola.id !== 'servicio') {
+                        if (texto === '') {
+                            seccionConsola.style.setProperty('display', '', 'important');
+                        } else {
+                            // Si tiene elementos visibles adentro, mostramos la consola, si no la ocultamos
+                            let textoSeccion = seccionConsola.textContent.toLowerCase();
+                            if (textoSeccion.includes(texto)) {
+                                seccionConsola.style.setProperty('display', '', 'important');
                             }
                         }
-                        if (texto === '') {
-                            seccion.style.setProperty('display', '', 'important');
-                        } else if (ocultos === total) {
-                            seccion.style.setProperty('display', 'none', 'important');
-                        } else {
-                            seccion.style.setProperty('display', '', 'important');
-                        }
                     }
-                });
+                }
                "
                style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
         
@@ -294,6 +296,7 @@
         box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
     }
 </style>
+
 
 </body>
 </html>
