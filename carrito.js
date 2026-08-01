@@ -65,7 +65,7 @@ if (btnEnviar) {
         
         // CORRECCIÓN DEFINITIVA DE LA RUTA (Poné tu número real sin el signo +)
         const numeroTelefono = "5491141701483"; // <-- REEMPLAZÁ ACÁ POR TU NÚMERO DE CELULAR EXACTO
-        window.open(`https://wa.me{numeroTelefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
+        window.open("https://wa.link/b336q6"?text=${encodeURIComponent(mensaje)}`, '_blank');
     });
 }
 
