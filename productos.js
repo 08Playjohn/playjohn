@@ -8,8 +8,8 @@ const contadorCarrito = document.getElementById('contador-carrito');
 const btnEnviar = document.getElementById('enviar-pedido');
 
 if (btnFlotante && ventanaCarrito && btnCerrar) {
-    btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0');
-    btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
+    btnFlotante.addEventListener('click', () => { ventanaCarrito.style.right = '0'; });
+    btnCerrar.addEventListener('click', () => { ventanaCarrito.style.right = '-400px'; });
 }
 
 // Escucha clics en botones de Comprar
@@ -64,7 +64,7 @@ function actualizarCarrito() {
         cantidadTotal += item.cantidad;
         
         const elemento = document.createElement('div');
-        elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
+        element.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
         
         elemento.innerHTML = `
             <div style="color: #fff; font-size: 0.9rem; text-align: left; max-width: 65%;">
@@ -85,7 +85,7 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
-// Acción definitiva de enviar por WhatsApp corregida e indestructible
+// Acción definitiva de enviar por WhatsApp
 if (btnEnviar) {
     btnEnviar.addEventListener('click', () => {
         if(carrito.length === 0) { 
@@ -98,7 +98,6 @@ if (btnEnviar) {
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // LA RUTA OFICIAL API QUE ANTES SÍ TE REDIRECCIONABA
         window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
     });
 }
