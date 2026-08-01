@@ -20,7 +20,8 @@ document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
         if(existe) { 
             existe.cantidad++; 
         } else { 
-            carrito.push({ nombre, precio, quantity: 1 }); 
+            // CORREGIDO: "cantidad" en español para que no dé undefined ni NaN
+            carrito.push({ nombre, precio, cantidad: 1 }); 
         }
         actualizarCarrito();
         if (ventanaCarrito) ventanaCarrito.style.right = '0';
@@ -49,7 +50,7 @@ window.eliminarProducto = function(nombre) {
     actualizarCarrito();
 }
 
-// Actualizar lista visual del carrito y vincular el botón de WhatsApp de forma directa
+// Actualizar lista visual del carrito y vincular el botón de WhatsApp
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
@@ -83,11 +84,11 @@ function actualizarCarrito() {
     totalCarrito.innerText = `$${total.toLocaleString('es-AR')}`;
     contadorCarrito.innerText = cantidadTotal;
 
-    // VINCULACIÓN DIRECTA DEL ENLACE DE WHATSAPP (Evita el salto de página del HTML)
+    // VINCULACIÓN DIRECTA DEL BOTÓN (Destruye el salto de página del HTML)
     const btnEnviar = document.getElementById('enviar-pedido');
     if (btnEnviar) {
         btnEnviar.onclick = function(e) {
-            if (e) e.preventDefault(); // AQUÍ SE FRENA DE RAÍZ EL SALTO HACIA ARRIBA
+            if (e) e.preventDefault(); // Frena el salto hacia arriba
             
             if (carrito.length === 0) { 
                 alert('El carrito está vacío.'); 
