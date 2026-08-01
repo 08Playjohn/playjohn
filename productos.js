@@ -5,16 +5,14 @@ const btnCerrar = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
 const contadorCarrito = document.getElementById('contador-carrito');
-// Asegurate de que la línea 8 de tu productos.js se vea exactamente así:
-const btnEnviar = document.getElementById('enviar-pedido') || document.getElementById('finalizar-pedido');
-
+const btnEnviar = document.getElementById('enviar-pedido');
 
 if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0');
     btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
 }
 
-// Escucha los clics para agregar juegos
+// Escucha clics en botones de Comprar
 document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
     boton.addEventListener('click', () => {
         const nombre = boton.getAttribute('data-nombre');
@@ -30,7 +28,7 @@ document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
     });
 });
 
-// Cambiar cantidades (Sumar / Restar)
+// Cambiar cantidades (+ / -)
 window.cambiarCantidad = function(nombre, accion) {
     const producto = carrito.find(item => item.nombre === nombre);
     if (producto) {
@@ -46,13 +44,13 @@ window.cambiarCantidad = function(nombre, accion) {
     actualizarCarrito();
 }
 
-// Vaciar un producto completo del carrito
+// Eliminar juego completo
 window.eliminarProducto = function(nombre) {
     carrito = carrito.filter(item => item.nombre !== nombre);
     actualizarCarrito();
 }
 
-// Actualiza la lista en la persiana lateral
+// Actualizar lista visual del carrito
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
@@ -74,10 +72,10 @@ function actualizarCarrito() {
                 <div style="color: #39ff14; font-weight: bold;">$${(item.precio * item.cantidad).toLocaleString('es-AR')}</div>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
-                <button onclick="cambiarCantidad('${item.nombre}', 'restar')" style="background-color: #ff003c; color: white; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">-</button>
+                <button onclick="window.cambiarCantidad('${item.nombre}', 'restar')" style="background-color: #ff003c; color: white; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">-</button>
                 <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">${item.cantidad}</span>
-                <button onclick="cambiarCantidad('${item.nombre}', 'sumar')" style="background-color: #39ff14; color: black; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">+</button>
-                <button onclick="eliminarProducto('${item.nombre}')" style="background: none; border: none; color: #ff003c; font-size: 1rem; cursor: pointer; margin-left: 4px;" title="Eliminar artículo">X</button>
+                <button onclick="window.cambiarCantidad('${item.nombre}', 'sumar')" style="background-color: #39ff14; color: black; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">+</button>
+                <button onclick="window.eliminarProducto('${item.nombre}')" style="background: none; border: none; color: #ff003c; font-size: 1rem; cursor: pointer; margin-left: 4px;">X</button>
             </div>
         `;
         listaCarrito.appendChild(elemento);
@@ -87,6 +85,8 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
+// Acción definitiva de enviar por WhatsApp (Dirección limpia sin variables complejas)
+// REEMPLAZÁ DESDE DONDE DICE "if (btnEnviar) {" HASTA EL FINAL POR ESTE BLOQUE:
 if (btnEnviar) {
     btnEnviar.addEventListener('click', () => {
         if(carrito.length === 0) { 
@@ -99,11 +99,9 @@ if (btnEnviar) {
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // CÓDIGO INDESTRUCTIBLE CON COMILLAS NORMALES Y SIGNOS DE SUMA
+        // ACÁ ESTÁ TU NÚMERO INTEGRADO EN LA API OFICIAL
         window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
     });
 }
 
 actualizarCarrito();
-
-
