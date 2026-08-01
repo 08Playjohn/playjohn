@@ -94,9 +94,10 @@ function actualizarCarrito() {
         }
 
         let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
-        carrito.forEach(item => { 
+                carrito.forEach(item => { 
             mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
         });
+
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
       window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
