@@ -85,25 +85,23 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
-// Acción definitiva de Terminar Pedido por WhatsApp (Blindada sin errores)
+// BUSCA ESTE BLOQUE AL FINAL DE TU PRODUCTOS.JS Y REEMPLAZALO ENTERO:
 if (btnEnviar) {
     btnEnviar.addEventListener('click', () => {
         if(carrito.length === 0) { 
             alert('El carrito está vacío.'); 
             return; 
         }
-        let mensaje = "¡Hola Play John! Quiero realizar el siguiente pedido:\n\n";
+        let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
         carrito.forEach(item => { 
             mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
         });
-        mensaje += "\n*Total estimado: " + totalCarrito.innerText + "*";
+        mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // RUTA CORREGIDA CON COMILLAS TRADICIONALES TOTALMENTE ESCRITA
-        window.open("https://wa.me/5491141701483" + encodeURIComponent(mensaje), "_blank");
+        // RUTA DIRECTA SIN SÍMBOLOS COMPLEJOS QUE GENEREN ERROR 404
+        window.open(`https://whatsapp.com{encodeURIComponent(mensaje)}`, '_blank');
     });
 }
 
-// Arranca el carrito al cargar la página
 actualizarCarrito();
 
- 
