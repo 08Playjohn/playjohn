@@ -5,14 +5,13 @@ const btnCerrar = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
 const contadorCarrito = document.getElementById('contador-carrito');
-const btnEnviar = document.getElementById('enviar-pedido');
 
 if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnFlotante.addEventListener('click', () => { ventanaCarrito.style.right = '0'; });
     btnCerrar.addEventListener('click', () => { ventanaCarrito.style.right = '-400px'; });
 }
 
-// Captura los clics en los botones de Comprar
+// Captura los clics en los botones de Comprar de las tarjetas
 document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
     boton.addEventListener('click', () => {
         const nombre = boton.getAttribute('data-nombre');
@@ -21,7 +20,7 @@ document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
         if(existe) { 
             existe.cantidad++; 
         } else { 
-            carrito.push({ nombre, precio, cantidad: 1 }); 
+            carrito.push({ nombre, precio, quantity: 1 }); 
         }
         actualizarCarrito();
         if (ventanaCarrito) ventanaCarrito.style.right = '0';
@@ -50,7 +49,7 @@ window.eliminarProducto = function(nombre) {
     actualizarCarrito();
 }
 
-// Actualizar lista visual del carrito
+// Actualizar lista visual del carrito y vincular el botón de WhatsApp de forma directa
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
@@ -64,7 +63,6 @@ function actualizarCarrito() {
         cantidadTotal += item.cantidad;
         
         const elemento = document.createElement('div');
-        // CORREGIDO: "elemento" con la letra 'o' al final para evitar trabas
         elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
         
         elemento.innerHTML = `
@@ -84,25 +82,30 @@ function actualizarCarrito() {
 
     totalCarrito.innerText = `$${total.toLocaleString('es-AR')}`;
     contadorCarrito.innerText = cantidadTotal;
+
+    // VINCULACIÓN DIRECTA DEL ENLACE DE WHATSAPP (Evita el salto de página del HTML)
+    const btnEnviar = document.getElementById('enviar-pedido');
+    if (btnEnviar) {
+        btnEnviar.onclick = function(e) {
+            if (e) e.preventDefault(); // AQUÍ SE FRENA DE RAÍZ EL SALTO HACIA ARRIBA
+            
+            if (carrito.length === 0) { 
+                alert('El carrito está vacío.'); 
+                return; 
+            }
+            
+            let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
+            carrito.forEach(item => { 
+                mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
+            });
+            mensaje += "\nTotal estimado: " + totalCarrito.innerText;
+            
+            window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
+        };
+    }
 }
 
-// Envío a WhatsApp forzado sin pestañas emergentes (Evita el bloqueo de Chrome)
-if (btnEnviar) {
-    btnEnviar.onclick = function() {
-        if(carrito.length === 0) { 
-            alert('El carrito está vacío.'); 
-            return; 
-        }
-        let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
-        carrito.forEach(item => { 
-            mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
-        });
-        mensaje += "\nTotal estimado: " + totalCarrito.innerText;
-        
-        // Formato directo nativo usando la ventana actual
-        window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
-    };
-}
-
+// Arranca el carrito al cargar la página
 actualizarCarrito();
+
 
