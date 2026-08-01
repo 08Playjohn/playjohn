@@ -5,18 +5,16 @@ const btnCerrar = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
 const contadorCarrito = document.getElementById('contador-carrito');
-
-// Buscador elástico del botón por cualquiera de sus nombres de ID posibles
-const btnEnviarFinal = document.getElementById('enviar-pedido') || document.getElementById('finalizar-pedido') || document.getElementById('terminar-pedido');
+const btnEnviar = document.getElementById('enviar-pedido');
 
 if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0');
     btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
 }
 
-// Vinculación directa de clics en las tarjetas de juego
+// Escucha clics en botones de Comprar
 document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
-    boton.onclick = function() {
+    boton.addEventListener('click', () => {
         const nombre = boton.getAttribute('data-nombre');
         const precio = parseFloat(boton.getAttribute('data-precio'));
         const existe = carrito.find(item => item.nombre === nombre);
@@ -27,10 +25,10 @@ document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
         }
         actualizarCarrito();
         if (ventanaCarrito) ventanaCarrito.style.right = '0';
-    };
+    });
 });
 
-// Cambiar cantidades de juegos individuales (+ / -)
+// Cambiar cantidades (+ / -)
 window.cambiarCantidad = function(nombre, accion) {
     const producto = carrito.find(item => item.nombre === nombre);
     if (producto) {
@@ -46,16 +44,17 @@ window.cambiarCantidad = function(nombre, accion) {
     actualizarCarrito();
 }
 
-// Eliminar un juego completo del listado
+// Eliminar juego completo
 window.eliminarProducto = function(nombre) {
     carrito = carrito.filter(item => item.nombre !== nombre);
     actualizarCarrito();
 }
 
-// Renderizado y cálculo total neón dentro de la persiana lateral
+// Actualizar lista visual del carrito
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
+    
     listaCarrito.innerHTML = '';
     let total = 0;
     let cantidadTotal = 0;
@@ -63,8 +62,10 @@ function actualizarCarrito() {
     carrito.forEach(item => {
         total += item.precio * item.cantidad;
         cantidadTotal += item.cantidad;
+        
         const elemento = document.createElement('div');
         elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
+        
         elemento.innerHTML = `
             <div style="color: #fff; font-size: 0.9rem; text-align: left; max-width: 65%;">
                 <div style="font-weight: bold; margin-bottom: 4px;">${item.nombre}</div>
@@ -84,30 +85,22 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
-// Disparador definitivo blindado para enviar el pedido por WhatsApp
-// REEMPLAZÁ LA FUNCIÓN FINAL DE ENVIAR POR ESTA INDESTRUCTIBLE
-const botonEnviarFinal = document.getElementById('enviar-pedido');
-
-// ESCUCHADOR GLOBAL QUE DESTRABA CUALQUIER BLOQUEO DEL BOTÓN
-document.body.addEventListener('click', function(event) {
-    // Si lo que tocaste incluye el texto "Terminar Pedido" (sin importar su ID o espacios)
-    if (event.target && event.target.innerText && event.target.innerText.includes('Terminar Pedido')) {
-        if (event) event.preventDefault();
-        
-        if (carrito.length === 0) { 
+// Acción definitiva de enviar por WhatsApp corregida e indestructible
+if (btnEnviar) {
+    btnEnviar.addEventListener('click', () => {
+        if(carrito.length === 0) { 
             alert('El carrito está vacío.'); 
             return; 
         }
-        
         let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
         carrito.forEach(item => { 
             mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // REDIRECCIÓN DIRECTA A LA APP O WEB DE WHATSAPP
-        window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
-    }
-});
+        // LA RUTA OFICIAL API QUE ANTES SÍ TE REDIRECCIONABA
+        window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
+    });
+}
 
 actualizarCarrito();
