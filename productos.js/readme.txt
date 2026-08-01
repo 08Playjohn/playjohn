@@ -164,7 +164,9 @@ if (btnEnviar) {
         let mensaje = "¡Hola Play John! Quiero realizar el siguiente pedido:\n\n";
         carrito.forEach(item => { mensaje += `• ${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString('es-AR')}\n`; });
         mensaje += `\n*Total estimado: ${totalCarrito.innerText}*`;
-        window.open("https://wa.link/b336q6" + encodeURIComponent(mensaje), '_blank');
+
+        // RUTA IN DESTRUCTIBLE CON TU NÚMERO ESCRITO DIRECTO
+        window.open("https://wa.mewa.me/5491141701483?text=" + encodeURIComponent(mensaje), '_blank');
     });
 }
 
