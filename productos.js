@@ -84,30 +84,25 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 
     // ESCUCHADOR ASOCIADO AL NUEVO BOTÓN
-    const btnEnviar = document.getElementById('enviar-pedido');
-    if (btnEnviar) {
-        btnEnviar.onclick = function(e) {
-            if (e) e.preventDefault();
-            
-            if (carrito.length === 0) {
-                alert('El carrito está vacío.');
-                return;
-            }
+   if (btnEnviar) {
+    btnEnviar.onclick = function(e) {
+        if (e) e.preventDefault();
+        
+        if (carrito.length === 0) {
+            alert('El carrito está vacío.');
+            return;
+        }
 
-            let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
-            carrito.forEach(item => { 
-                mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
-            });
-            mensaje += "\nTotal estimado: " + totalCarrito.innerText;
-            
-            // REDIRECCIÓN TRADICIONAL FORZADA EN LA MISMA VENTANA (Rompe bloqueos de Chrome pop-ups)
-            // Reemplaza 5491141701483 por tu número de teléfono real (con código de país y sin el signo +)
-window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
+        let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
+        carrito.forEach(item => { 
+            mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
+        });
+        mensaje += "\nTotal estimado: " + totalCarrito.innerText;
+        
+      window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
 
-        };
-    }
+    };
 }
-
 // Arranca el carrito al cargar la página
 actualizarCarrito();
 
