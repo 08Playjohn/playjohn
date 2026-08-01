@@ -84,10 +84,12 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 
     // INYECCIÓN DINÁMICA DE ENLACE REAL (Burlador definitivo de bloqueos)
+       // INYECCIÓN DINÁMICA DE ENLACE REAL (Burlador definitivo de bloqueos)
     const btnEnviar = document.getElementById('enviar-pedido');
     if (btnEnviar) {
         if (carrito.length === 0) {
             btnEnviar.href = "#";
+            btnEnviar.target = "_self";
             btnEnviar.onclick = function(e) {
                 if(e) e.preventDefault();
                 alert('El carrito está vacío.');
@@ -99,14 +101,13 @@ function actualizarCarrito() {
             });
             mensaje += "\nTotal estimado: " + totalCarrito.innerText;
             
-            // Le escribimos el link de internet real directo al botón de forma nativa
+            // LA RUTA OFICIAL REVISADA Y SIN EL PREFIJO 9 QUE EXIGE WHATSAPP
             btnEnviar.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
-            btnEnviar.onclick = null; // Eliminamos cualquier traba de clic anterior
+            btnEnviar.target = "_self"; // Obliga a abrir en la misma pestaña burlando bloqueos
+            btnEnviar.onclick = null;   // Borra cualquier traba de clics anterior
         }
     }
 }
 
 // Arranca el carrito al cargar la página
 actualizarCarrito();
-
-
