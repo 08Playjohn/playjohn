@@ -1,5 +1,52 @@
-  <!-- SECCIÓN PRINCIPAL DE PRODUCTOS AGRUPADOS (LUEGO DE SERVICIOS) -->
-<main id="catalogo-consolas" style="background-color: #000000; padding: 40px 20px;">
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Juegos y Consolas - Play John</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="icon" href="data:,">
+</head>
+<body style="background-color: #000000; margin: 0; padding: 0;">
+
+    <!-- TRES BOTONES CENTRALES DE NAVEGACIÓN -->
+    <div class="menu-tres-botones">
+        <a href="index.html#servicio" class="btn-centro">Servicios</a>
+        <a href="#catalogo-consolas" class="btn-centro">Productos</a>    
+        <a href="index.html#seccion-contacto" class="btn-centro">Contactanos</a>
+    </div>
+
+    <!-- SUBMENU DE ACCESO RÁPIDO INTERNO POR CONSOLAS -->
+    <div style="background-color: #0b0c10; padding: 15px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border-bottom: 2px solid #3a3f58;">
+        <a href="#ps2" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS2</a>
+        <a href="#ps3" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS3</a>
+        <a href="#ps4" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS4</a>
+        <a href="#ps5" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS5</a>
+        <a href="#xbox-360" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox 360</a>
+        <a href="#xbox-series" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox Series</a>
+        <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
+    </div>
+
+    <!-- BARRRA DE BÚSQUEDA CENTRADA -->
+    <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
+        <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
+           <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+           <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+           </svg>
+        </div>
+    </div>
+
+    <style>
+        #buscador-juegos:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+    </style>
+
+    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS AGRUPADOS -->
+    <main id="catalogo-consolas" style="background-color: #000000; padding: 40px 20px;">
+   
     <!-- ================= CATEGORÍA: PLAYSTATION 2 ================= -->
     <div id="ps2" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
         <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">🎮 PlayStation 2</h2>
