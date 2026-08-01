@@ -87,8 +87,11 @@ function actualizarCarrito() {
 
 // Acción definitiva de enviar por WhatsApp (Dirección limpia sin variables complejas)
 // REEMPLAZÁ DESDE DONDE DICE "if (btnEnviar) {" HASTA EL FINAL POR ESTE BLOQUE:
-if (btnEnviar) {
-    btnEnviar.addEventListener('click', () => {
+// BUSCA EL BOTÓN USANDO CUALQUIERA DE LOS TRES NOMBRES POSIBLES
+const btnEnviarFinal = document.getElementById('enviar-pedido') || document.getElementById('finalizar-pedido') || document.getElementById('terminar-pedido');
+
+if (btnEnviarFinal) {
+    btnEnviarFinal.addEventListener('click', () => {
         if(carrito.length === 0) { 
             alert('El carrito está vacío.'); 
             return; 
@@ -99,7 +102,6 @@ if (btnEnviar) {
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // ACÁ ESTÁ TU NÚMERO INTEGRADO EN LA API OFICIAL
         window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
     });
 }
