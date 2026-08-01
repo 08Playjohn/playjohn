@@ -235,61 +235,65 @@
 <!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
 <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
 
-<!-- MOTOR DE BÚSQUEDA CORREGIDO (NO ROMPE EL DISEÑO) -->
-<script>
-document.getElementById('buscador-juegos').addEventListener('keyup', function(e) {
-    let textoBusqueda = e.target.value.toLowerCase().trim();
-    
-    // Seleccionamos únicamente los contenedores donde están las tarjetas de los juegos
-    let catalogos = document.querySelectorAll('.contenedor-catalogo');
-    
-    catalogos.forEach(function(catalogo) {
-        // Obtenemos los hijos directos (las tarjetas de cada juego)
-        let tarjetas = catalogo.children;
+<!-- BARRRA DE BÚSQUEDA CON MOTOR INTEGRADO DIRECTO -->
+<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
+    <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
         
-        for (let i = 0; i < tarjetas.length; i++) {
-            let tarjeta = tarjetas[i];
-            let tituloHTML = tarjeta.querySelector('h3');
-            
-            if (tituloHTML) {
-                let nombreJuego = tituloHTML.textContent.toLowerCase();
+        <!-- El evento onkeyup ahora ejecuta la búsqueda directamente desde acá -->
+        <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." 
+               onkeyup="
+                let texto = this.value.toLowerCase().trim();
+                let tarjetas = document.querySelectorAll('.contenedor-catalogo > div');
                 
-                // Si el buscador está vacío o el nombre coincide, se muestra
-                if (textoBusqueda === "" || nombreJuego.includes(textoBusqueda)) {
-                    tarjeta.style.display = ""; // Vuelve a su estado original de CSS (Flexbox)
-                } else {
-                    tarjeta.style.display = "none"; // Se oculta temporalmente
-                }
-            }
-        }
-    });
+                tarjetas.forEach(function(tarjeta) {
+                    let h3 = tarjeta.querySelector('h3');
+                    if (h3) {
+                        let nombre = h3.textContent.toLowerCase();
+                        if (texto === '' || nombre.includes(texto)) {
+                            tarjeta.style.setProperty('display', '', 'important');
+                        } else {
+                            tarjeta.style.setProperty('display', 'none', 'important');
+                        }
+                    }
+                });
 
-    // Controlamos las categorías grandes (PS2, PS3, etc.) para ocultar el título si no hay coincidencias
-    let categorias = document.querySelectorAll('.categoria-consola, [id="xbox360"], [id="xboxseries"], [id="nintendo"]');
-    categorias.forEach(function(categoria) {
-        let catalogo = categoria.querySelector('.contenedor-catalogo');
-        if (catalogo) {
-            let tarjetas = catalogo.children;
-            let visibles = 0;
-            
-            for (let i = 0; i < tarjetas.length; i++) {
-                if (tarjetas[i].style.display !== "none") {
-                    visibles++;
-                }
-            }
-            
-            if (textoBusqueda === "") {
-                categoria.style.display = "";
-            } else if (visibles === 0) {
-                categoria.style.display = "none";
-            } else {
-                categoria.style.display = "";
-            }
-        }
-    });
-});
-</script>
+                let secciones = document.querySelectorAll('.categoria-consola, #xbox360, #xboxseries, #nintendo, #ps2, #ps3, #ps4, #ps5');
+                secciones.forEach(function(seccion) {
+                    let catalogo = seccion.querySelector('.contenedor-catalogo');
+                    if (catalogo) {
+                        let total = catalogo.children.length;
+                        let ocultos = 0;
+                        for (let i = 0; i < total; i++) {
+                            if (catalogo.children[i].style.display === 'none') {
+                                ocultos++;
+                            }
+                        }
+                        if (texto === '') {
+                            seccion.style.setProperty('display', '', 'important');
+                        } else if (ocultos === total) {
+                            seccion.style.setProperty('display', 'none', 'important');
+                        } else {
+                            seccion.style.setProperty('display', '', 'important');
+                        }
+                    }
+                });
+               "
+               style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+        
+        <!-- Icono de lupa SVG -->
+        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+    </div>
+</div>
 
+<style>
+    #buscador-juegos:focus {
+        border-color: #00f0ff !important;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    }
+</style>
 
 </body>
 </html>
