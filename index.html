@@ -6,7 +6,8 @@
     <title> * Servicio Tecnico Especializado *  - Play John</title>
     <link rel="stylesheet" href="estilos.css">
     <!-- ENLACE OFICIAL PARA CARGAR LOS ICONOS CORRECTAMENTE -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+ <link rel="stylesheet" href="https://cloudflare.com">
+
 </head>
 <body>
 
@@ -34,13 +35,22 @@
     <a href="#xbox-series" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox Series</a>
     <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
 </div>
-<!-- BARRRA DE BÚSQUEDA CENTRADA -->
-<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335;">
-    <div style="position: relative; width: 100%; max-width: 500px;">
-        <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 40px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
-        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #00f0ff; font-size: 1.1rem;"></i>
+<<!-- BARRRA DE BÚSQUEDA CENTRADA CORREGIDA -->
+<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
+    <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
+        <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+        <!-- Icono de lupa con posicionamiento absoluto corregido -->
+        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 20px; color: #00f0ff; font-size: 1.1rem; pointer-events: none;"></i>
     </div>
 </div>
+
+<style>
+    #buscador-juegos:focus {
+        border-color: #00f0ff !important;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    }
+</style>
+
 
 <!-- Estilo interactivo para cuando el usuario hace clic en el buscador -->
 <style>
