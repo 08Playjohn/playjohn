@@ -62,10 +62,8 @@ if (btnEnviar) {
         carrito.forEach(item => { mensaje += `• ${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString('es-AR')}\n`; });
         mensaje += `\n*Total estimado: ${totalCarrito.innerText}*`;
 
-        const numeroTelefono = "5491141701483"; 
-        window.open(`https://wa.me{5491141701483}?text=${encodeURIComponent(mensaje)}`, '_blank');
+        // RUTA DIRECCIÓN DIRECTA SIN VARIABLES (Para evitar errores de comillas)
+        window.open(""https://wa.link/b336q6"" + encodeURIComponent(mensaje), '_blank');
     });
 }
 
-
-actualizarCarrito();
