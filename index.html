@@ -235,7 +235,7 @@
 <!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
 <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
 
-<!-- BARRRA DE BÚSQUEDA DEFINITIVA PARA GITHUB PAGES -->
+<!-- BARRRA DE BÚSQUEDA DEFINITIVA Y CONTROLADA -->
 <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
         
@@ -243,25 +243,32 @@
                onkeyup="
                 let texto = this.value.toLowerCase().trim();
                 
-                // Buscamos todas las tarjetas usando tu clase exacta
+                // 1. CONTROL DE LA SECCIÓN DE SERVICIO TÉCNICO
+                let seccionServicio = document.getElementById('servicio');
+                if (seccionServicio) {
+                    if (texto === '') {
+                        seccionServicio.style.setProperty('display', 'block', 'important');
+                    } else {
+                        seccionServicio.style.setProperty('display', 'none', 'important');
+                    }
+                }
+
+                // 2. FILTRADO DE LOS JUEGOS INDIVIDUALES
                 let tarjetas = document.querySelectorAll('.tarjeta-juego');
-                
                 tarjetas.forEach(function(tarjeta) {
                     let h3 = tarjeta.querySelector('h3');
                     if (h3) {
                         let nombreJuego = h3.textContent.toLowerCase();
-                        
-                        // Forzamos el display usando estilos en línea inmunes a errores externos
                         if (texto === '' || nombreJuego.includes(texto)) {
-                            tarjeta.style.display = 'block';
+                            tarjeta.style.setProperty('display', 'block', 'important');
                         } else {
-                            tarjeta.style.display = 'none';
+                            tarjeta.style.setProperty('display', 'none', 'important');
                         }
                     }
                 });
 
-                // Controlamos las categorías de las consolas
-                let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch');
+                // 3. CONTROL DE LAS SECCIONES DE LAS CONSOLAS
+                let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch, #xbox360, #xboxseries, #nintendo');
                 categorias.forEach(function(seccion) {
                     let contenedor = seccion.querySelector('.contenedor-catalogo');
                     if (contenedor) {
@@ -275,11 +282,11 @@
                         });
                         
                         if (texto === '') {
-                            seccion.style.display = 'block';
+                            seccion.style.setProperty('display', 'block', 'important');
                         } else if (ocultos === juegosEnSeccion.length && juegosEnSeccion.length > 0) {
-                            seccion.style.display = 'none';
+                            seccion.style.setProperty('display', 'none', 'important');
                         } else {
-                            seccion.style.display = 'block';
+                            seccion.style.setProperty('display', 'block', 'important');
                         }
                     }
                 });
