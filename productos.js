@@ -88,12 +88,13 @@ function actualizarCarrito() {
 // REEMPLAZÁ LA FUNCIÓN FINAL DE ENVIAR POR ESTA INDESTRUCTIBLE
 const botonEnviarFinal = document.getElementById('enviar-pedido');
 
-if (botonEnviarFinal) {
-    botonEnviarFinal.onclick = function(e) {
-        // Evita que el navegador recargue la página o la bloquee
-        if(e) e.preventDefault(); 
+// ESCUCHADOR GLOBAL QUE DESTRABA CUALQUIER BLOQUEO DEL BOTÓN
+document.body.addEventListener('click', function(event) {
+    // Si lo que tocaste incluye el texto "Terminar Pedido" (sin importar su ID o espacios)
+    if (event.target && event.target.innerText && event.target.innerText.includes('Terminar Pedido')) {
+        if (event) event.preventDefault();
         
-        if(carrito.length === 0) { 
+        if (carrito.length === 0) { 
             alert('El carrito está vacío.'); 
             return; 
         }
@@ -104,9 +105,9 @@ if (botonEnviarFinal) {
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // REDIRECCIÓN DIRECTA FORZADA (Evita el bloqueo de pestañas nuevas del navegador)
+        // REDIRECCIÓN DIRECTA A LA APP O WEB DE WHATSAPP
         window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
-    };
-}
+    }
+});
 
 actualizarCarrito();
