@@ -102,7 +102,7 @@ if (btnEnviar) {
         
               
         // Enlace oficial wa.me directo e indestructible
-        window.open(https://wa.me/5491141701483" + encodeURIComponent(mensaje), "_blank");
+        window.open("https://wa.me/5491141701483" + encodeURIComponent(mensaje), "_blank");
     });
 }
 
