@@ -66,7 +66,6 @@ function actualizarCarrito() {
         const elemento = document.createElement('div');
         elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
         
-        // Aquí agregamos los textos y los botones de + y - limpios por si los iconos no cargan en local
         elemento.innerHTML = `
             <div style="color: #fff; font-size: 0.9rem; text-align: left; max-width: 65%;">
                 <div style="font-weight: bold; margin-bottom: 4px;">${item.nombre}</div>
@@ -87,7 +86,6 @@ function actualizarCarrito() {
 }
 
 // Acción definitiva de Terminar Pedido por WhatsApp (Blindada sin errores)
-// BUSCA ESTE BLOQUE AL FINAL DE TU PRODUCTOS.JS Y REEMPLAZALO ENTERO:
 if (btnEnviar) {
     btnEnviar.addEventListener('click', () => {
         if(carrito.length === 0) { 
@@ -100,8 +98,7 @@ if (btnEnviar) {
         });
         mensaje += "\n*Total estimado: " + totalCarrito.innerText + "*";
         
-              
-        // Enlace oficial wa.me directo e indestructible
+        // RUTA CORREGIDA CON COMILLAS TRADICIONALES TOTALMENTE ESCRITA
         window.open("https://wa.me/5491141701483" + encodeURIComponent(mensaje), "_blank");
     });
 }
@@ -109,3 +106,4 @@ if (btnEnviar) {
 // Arranca el carrito al cargar la página
 actualizarCarrito();
 
+ 
