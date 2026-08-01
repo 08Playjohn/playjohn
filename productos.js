@@ -5,8 +5,9 @@ const btnCerrar = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
 const contadorCarrito = document.getElementById('contador-carrito');
-const btnEnviar = document.getElementById('btn-enviar-carrito'); // Asegurate que este ID coincida con tu botón HTML
+const btnEnviar = document.getElementById('btn-enviar-carrito'); // Asegurate de que el ID del botón en tu HTML sea 'btn-enviar-carrito'
 
+// Control de apertura y cierre de la persiana
 if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnFlotante.addEventListener('click', () => { ventanaCarrito.style.right = '0'; });
     btnCerrar.addEventListener('click', () => { ventanaCarrito.style.right = '-400px'; });
@@ -85,7 +86,7 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
-// ESCUCHADOR ASOCIADO AL BOTÓN DE ENVIAR
+// ESCUCHADOR ASOCIADO AL BOTÓN DE ENVIAR (Fuera de actualizarCarrito para evitar errores)
 if (btnEnviar) {
     btnEnviar.onclick = function(e) {
         if (e) e.preventDefault();
@@ -105,7 +106,8 @@ if (btnEnviar) {
     };
 }
 
-// Arranca el carrito al cargar la página
+// Arranca el carrito al cargar la página por primera vez
 actualizarCarrito();
+
 
 
