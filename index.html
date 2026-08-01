@@ -200,7 +200,7 @@
             </div>
 
 <!-- BUSCA TU ENLACE VERDE AL FINAL DE INDEX.HTML Y REEMPLAZALO POR ESTE EXACTO -->
-<a id="enviar-pedido" href="#" onclick="if(event) event.preventDefault(); if(typeof carrito !== 'undefined' && carrito.length > 0) { let txt = 'Hola Play John. Quiero realizar el siguiente pedido:\n\n'; carrito.forEach(item => { txt += '• ' + item.nombre + ' (x' + item.cantidad + ') - $' + (item.precio * item.cantidad).toLocaleString('es-AR') + '\n'; }); txt += '\nTotal estimado: ' + document.getElementById('total-carrito').innerText; window.location.href = 'https://whatsapp.com' + encodeURIComponent(txt); } else { alert('El carrito está vacío.'); }" style="width: 100%; background-color: #25d366; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; display: flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; box-sizing: border-box;">Terminar Pedido</a>
+<a id="enviar-pedido" href="#" style="width: 100%; background-color: #25d366; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; display: flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; box-sizing: border-box;">Terminar Pedido</a>
 
 
     <!-- CONEXIÓN EXCLUSIVA AL SCRIPT CON TODO EL CONTENIDO CARGADO -->
