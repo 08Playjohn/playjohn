@@ -63,7 +63,7 @@ if (btnEnviar) {
         mensaje += `\n*Total estimado: ${totalCarrito.innerText}*`;
 
         const numeroTelefono = "5491141701483"; 
-        window.open(`https://wa.me{numeroTelefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
+        window.open(`https://wa.me{5491141701483}?text=${encodeURIComponent(mensaje)}`, '_blank');
     });
 }
 
