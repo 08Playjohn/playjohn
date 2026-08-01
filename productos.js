@@ -85,19 +85,27 @@ function actualizarCarrito() {
 }
 
 // Disparador definitivo blindado para enviar el pedido por WhatsApp
-if (btnEnviarFinal) {
-    btnEnviarFinal.onclick = function() {
+// REEMPLAZÁ LA FUNCIÓN FINAL DE ENVIAR POR ESTA INDESTRUCTIBLE
+const botonEnviarFinal = document.getElementById('enviar-pedido');
+
+if (botonEnviarFinal) {
+    botonEnviarFinal.onclick = function(e) {
+        // Evita que el navegador recargue la página o la bloquee
+        if(e) e.preventDefault(); 
+        
         if(carrito.length === 0) { 
             alert('El carrito está vacío.'); 
             return; 
         }
+        
         let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
         carrito.forEach(item => { 
             mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
+        // REDIRECCIÓN DIRECTA FORZADA (Evita el bloqueo de pestañas nuevas del navegador)
+        window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
     };
 }
 
