@@ -87,6 +87,7 @@ function actualizarCarrito() {
 }
 
 // Acción definitiva de Terminar Pedido por WhatsApp (Blindada sin errores)
+// BUSCA ESTE BLOQUE AL FINAL DE TU PRODUCTOS.JS Y REEMPLAZALO ENTERO:
 if (btnEnviar) {
     btnEnviar.addEventListener('click', () => {
         if(carrito.length === 0) { 
@@ -99,8 +100,9 @@ if (btnEnviar) {
         });
         mensaje += "\n*Total estimado: " + totalCarrito.innerText + "*";
         
+              
         // Enlace oficial wa.me directo e indestructible
-        window.open("https://wa.me/5491141701483" + encodeURIComponent(mensaje), "_blank");
+        window.open(https://wa.me/5491141701483" + encodeURIComponent(mensaje), "_blank");
     });
 }
 
