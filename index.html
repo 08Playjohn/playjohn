@@ -235,48 +235,45 @@
 <!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
 <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
 
-   <!-- MOTOR DE BÚSQUEDA INTERACTIVO EN TIEMPO REAL -->
+  <!-- MOTOR DE BÚSQUEDA COMPATIBLE EN TIEMPO REAL -->
 <script>
 document.getElementById('buscador-juegos').addEventListener('keyup', function(e) {
-    // Convertimos lo que escribe el usuario a minúsculas
     let textoBusqueda = e.target.value.toLowerCase().trim();
     
-    // Seleccionamos todas las tarjetas de juegos de la página
-    let tarjetas = document.querySelectorAll('.tarjeta-juego');
+    // 1. Buscamos todas las cajas contenedoras de los juegos (id que empiezan con ps, xbox o nintendo)
+    let secciones = document.querySelectorAll('[id^="ps"], [id^="xbox"], [id^="nintendo"]');
     
-    tarjetas.forEach(function(tarjeta) {
-        // Buscamos el nombre del juego dentro del h3 de cada tarjeta
-        let nombreJuego = tarjeta.querySelector('h3').textContent.toLowerCase();
-        
-        // Si el texto coincide con el nombre del juego, lo mostramos; si no, lo ocultamos
-        if (nombreJuego.includes(textoBusqueda)) {
-            tarjeta.style.display = "block";
-        } else {
-            tarjeta.style.display = "none";
-        }
-    });
-
-    // Controlamos las secciones de las consolas para que no queden los títulos vacíos
-    let secciones = document.querySelectorAll('.categoria-consola');
     secciones.forEach(function(seccion) {
-        // Contamos cuántas tarjetas quedaron visibles en esta categoría
-        let tarjetasVisibles = seccion.querySelectorAll('.tarjeta-juego').length;
-        let ocultas = 0;
-        
-        seccion.querySelectorAll('.tarjeta-juego').forEach(function(t) {
-            if (t.style.display === "none") {
-                ocultas++;
+        // Buscamos todos los bloques de juegos individuales que tengan una imagen adentro
+        let bloquesJuegos = seccion.querySelectorAll('div');
+        let contadorVisibles = 0;
+        let tieneJuegos = false;
+
+        bloquesJuegos.forEach(function(tarjeta) {
+            // Verificamos si es realmente una tarjeta de juego (debe tener un título h3)
+            let tituloHTML = tarjeta.querySelector('h3');
+            if (tituloHTML) {
+                tieneJuegos = true;
+                let nombreJuego = tituloHTML.textContent.toLowerCase();
+                
+                // Si coincide la búsqueda, lo muestra. Si no, lo oculta.
+                if (nombreJuego.includes(textoBusqueda)) {
+                    tarjeta.style.setProperty('display', 'block', 'important');
+                    contadorVisibles++;
+                } else {
+                    tarjeta.style.setProperty('display', 'none', 'important');
+                }
             }
         });
-        
-        // Si el usuario vació el buscador, mostramos todas las secciones
+
+        // 2. Controlamos la visibilidad de la sección entera (título de la consola)
         if (textoBusqueda === "") {
-            seccion.style.display = "block";
-        } else if (ocultas === tarjetasVisibles) {
-            // Si todos los juegos de esta consola están ocultos, escondemos el título
-            seccion.style.display = "none";
+            seccion.style.setProperty('display', 'block', 'important');
+        } else if (tieneJuegos && contadorVisibles === 0) {
+            // Si la consola tiene juegos pero ninguno coincide con la búsqueda, se oculta la sección completa
+            seccion.style.setProperty('display', 'none', 'important');
         } else {
-            seccion.style.display = "block";
+            seccion.style.setProperty('display', 'block', 'important');
         }
     });
 });
