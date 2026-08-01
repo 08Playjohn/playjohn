@@ -98,14 +98,13 @@ if (btnEnviar) {
         let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
         
         carrito.forEach(item => { 
-            // Formato limpio sin concatenaciones complejas que confundan al servidor
-            mensaje += `• ${item.nombre} (x${item.cantidad}) - $${item.precio * item.cantidad}\n`; 
+            mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad) + "\n"; 
         });
         
-        mensaje += `\nTotal estimado: ${totalCarrito.innerText}`;
+        mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // API Oficial directa inyectada de forma pura
-        window.location.href = `https://whatsapp.com{encodeURIComponent(mensaje)}`;
+        // DIRECCIÓN TRADICIONAL PLANAL BLINDADA CONTRA ERRORES DE COMILLAS
+        window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
     };
 }
 
