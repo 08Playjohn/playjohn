@@ -5,41 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> * Servicio Tecnico Especializado *  - Play John</title>
     <link rel="stylesheet" href="estilos.css">
-    <!-- ENLACE OFICIAL QUE ACTIVA LOS ICONOS DE TODA LA WEB -->
+    <!-- ICONOS NEÓN OFICIALES -->
     <link rel="stylesheet" href="https://cloudflare.com">
 </head>
 <body>
 
-    <!-- PORTADA -->
     <header id="inicio" class="portada" style="height: 580px !important;">
         <h2>* Servicio Técnico Especializado *</h2>
         <div class="instrucciones">◀ ENTRA Y ENCONTRA LO QUE BUSCABAS ▶</div>
     </header>
 
-    <!-- MENÚ CENTRAL -->
     <div class="menu-tres-botones">
         <a href="#catalogo-consolas" class="btn-centro">Productos</a>
         <a href="#servicio" class="btn-centro">Servicios</a>
         <a href="#seccion-contacto" class="btn-centro">Contactanos</a>
     </div>
 
-    <!-- SUBMENÚ DE CONSOLAS RENDERIZADO POR CONFIGURACIÓN -->
-    <div id="submenu-consolas" style="background-color: #0b0c10; padding: 15px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border-bottom: 2px solid #3a3f58;"></div>
+    <!-- SUBMENÚ DE CONSOLAS -->
+    <div style="background-color: #0b0c10; padding: 15px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border-bottom: 2px solid #3a3f58;">
+        <a href="#ps2" style="color:#00f0ff; text-decoration:none; font-size:0.85rem; font-weight:bold; border:1px solid #00f0ff; padding:5px 12px; border-radius:4px;">PS2</a>
+        <a href="#ps3" style="color:#00f0ff; text-decoration:none; font-size:0.85rem; font-weight:bold; border:1px solid #00f0ff; padding:5px 12px; border-radius:4px;">PS3</a>
+        <a href="#ps4" style="color:#00f0ff; text-decoration:none; font-size:0.85rem; font-weight:bold; border:1px solid #00f0ff; padding:5px 12px; border-radius:4px;">PS4</a>
+        <a href="#ps5" style="color:#00f0ff; text-decoration:none; font-size:0.85rem; font-weight:bold; border:1px solid #00f0ff; padding:5px 12px; border-radius:4px;">PS5</a>
+        <a href="#xbox360" style="color:#39ff14; text-decoration:none; font-size:0.85rem; font-weight:bold; border:1px solid #39ff14; padding:5px 12px; border-radius:4px;">Xbox 360</a>
+        <a href="#xboxseries" style="color:#39ff14; text-decoration:none; font-size:0.85rem; font-weight:bold; border:1px solid #39ff14; padding:5px 12px; border-radius:4px;">Xbox Series</a>
+        <a href="#nintendo" style="color:#ff003c; text-decoration:none; font-size:0.85rem; font-weight:bold; border:1px solid #ff003c; padding:5px 12px; border-radius:4px;">Nintendo Switch</a>
+    </div>
 
-    <!-- SECCIÓN DE PRODUCTOS (SE LLENA SOLA MEDIANTE JAVASCRIPT) -->
-    <main id="catalogo-consolas" style="background-color: #000000; padding: 40px 20px; display: flex; flex-direction: column; gap: 60px;"></main>
+    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS -->
+    <main id="catalogo-consolas" style="background-color: #000000; padding: 40px 20px; display: flex; flex-direction: column; gap: 60px;">
+        
+        <!-- PLAYSTATION 2 -->
+        <div id="ps2" style="scroll-margin-top: 20px;">
+            <h2 style="color:#00f0ff; text-align:center; font-size:1.8rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px; text-shadow:0 0 10px #00f0ff;">🎮 PlayStation 2</h2>
+            <div class="contenedor-catalogo" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; margin:0 auto;">
+                <div class="tarjeta-juego"><img src="Imagenes/gta san andreas ps2.jpg" alt="GTA PS2" class="foto-juego"><h3>GTA San Andreas (PS2)</h3><p class="descripcion">CJ en Los Santos.</p><div class="precio">$5.000</div><span class="badge disponible" style="margin-bottom:15px;">DISPONIBLE</span><button class="boton-wpp btn-agregar-carrito" data-nombre="GTA San Andreas (PS2)" data-precio="5000" style="width:100%!important; padding:10px!important; font-size:0.9rem!important; border:none; cursor:pointer;"><i class="fa-solid fa-cart-plus"></i> Comprar</button></div>
+            </div>
+        </div>
+
+        <!-- PLAYSTATION 3 -->
+        <div id="ps3" style="scroll-margin-top: 20px;">
+            <h2 style="color:#00f0ff; text-align:center; font-size:1.8rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px; text-shadow:0 0 10px #00f0ff;">🎮 PlayStation 3</h2>
+            <div class="contenedor-catalogo" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; margin:0 auto;">
+                <div class="tarjeta-juego"><img src="Imagenes/gta v ps3.jpg" alt="GTA V PS3" class="foto-juego"><h3>GTA V (PS3)</h3><p class="descripcion">Campaña inolvidable.</p><div class="precio">$12.000</div><span class="badge disponible" style="margin-bottom:15px;">DISPONIBLE</span><button class="boton-wpp btn-agregar-carrito" data-nombre="GTA V (PS3)" data-precio="12000" style="width:100%!important; padding:10px!important; font-size:0.9rem!important; border:none; cursor:pointer;"><i class="fa-solid fa-cart-plus"></i> Comprar</button></div>
+            </div>
+        </div>
+
+        <!-- PLAYSTATION 4 -->
+        <div id="ps4" style="scroll-margin-top: 20px;">
+            <h2 style="color:#00f0ff; text-align:center; font-size:1.8rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px; text-shadow:0 0 10px #00f0ff;">🎮 PlayStation 4</h2>
+            <div class="contenedor-catalogo" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; margin:0 auto;">
+                <div class="tarjeta-juego"><img src="Imagenes/spider-man ps4.jpg" alt="Spider-Man PS4" class="foto-juego"><h3>Spider-Man (PS4)</h3><p class="descripcion">Acción de Marvel.</p><div class="precio">$35.000</div><span class="badge disponible" style="margin-bottom:15px;">DISPONIBLE</span><button class="boton-wpp btn-agregar-carrito" data-nombre="Spider-Man (PS4)" data-precio="35000" style="width:100%!important; padding:10px!important; font-size:0.9rem!important; border:none; cursor:pointer;"><i class="fa-solid fa-cart-plus"></i> Comprar</button></div>
+            </div>
+        </div>
+
+        <!-- PLAYSTATION 5 -->
+        <div id="ps5" style="scroll-margin-top: 20px;">
+            <h2 style="color:#00f0ff; text-align:center; font-size:1.8rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px; text-shadow:0 0 10px #00f0ff;">🎮 PlayStation 5</h2>
+            <div class="contenedor-catalogo" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; margin:0 auto;">
+                <div class="tarjeta-juego"><img src="Imagenes/gta v ps5.jpg" alt="GTA V PS5" class="foto-juego"><h3>GTA V (PS5)</h3><p class="descripcion">SOY LA MEJOR.</p><div class="precio">$75.000</div><span class="badge disponible" style="margin-bottom:15px;">PROMOCION</span><button class="boton-wpp btn-agregar-carrito" data-nombre="GTA V (PS5)" data-precio="75000" style="width:100%!important; padding:10px!important; font-size:0.9rem!important; border:none; cursor:pointer;"><i class="fa-solid fa-cart-plus"></i> Comprar</button></div>
+            </div>
+        </div>
+
+        <!-- XBOX 360 -->
+        <div id="xbox360" style="scroll-margin-top: 20px;">
+            <h2 style="color:#39ff14; text-align:center; font-size:1.8rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px; text-shadow:0 0 10px #39ff14;">🟢 Xbox 360</h2>
+            <div class="contenedor-catalogo" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; margin:0 auto;">
+                <div class="tarjeta-juego"><img src="Imagenes/halo 4 xbox360.jpg" alt="Halo 4" class="foto-juego"><h3>Halo 4 (Xbox 360)</h3><p class="descripcion">Jefe Maestro.</p><div class="precio">$10.000</div><span class="badge disponible" style="margin-bottom:15px;">DISPONIBLE</span><button class="boton-wpp btn-agregar-carrito" data-nombre="Halo 4 (Xbox 360)" data-precio="10000" style="width:100%!important; padding:10px!important; font-size:0.9rem !important; border:none; cursor:pointer;"><i class="fa-solid fa-cart-plus"></i> Comprar</button></div>
+            </div>
+        </div>
+
+        <!-- XBOX SERIES -->
+        <div id="xboxseries" style="scroll-margin-top: 20px;">
+            <h2 style="color:#39ff14; text-align:center; font-size:1.8rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px; text-shadow:0 0 10px #39ff14;">🟢 Xbox Series X / S</h2>
+            <div class="contenedor-catalogo" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; margin:0 auto;">
+                <div class="tarjeta-juego"><img src="Imagenes/forza horizon 5 xbox.jpg" alt="Forza 5" class="foto-juego"><h3>Forza Horizon 5</h3><p class="descripcion">Nueva generación.</p><div class="precio">$80.000</div><span class="badge disponible" style="margin-bottom:15px;">DISPONIBLE</span><button class="boton-wpp btn-agregar-carrito" data-nombre="Forza Horizon 5" data-precio="80000" style="width:100%!important; padding:10px!important; font-size:0.9rem !important; border:none; cursor:pointer;"><i class="fa-solid fa-cart-plus"></i> Comprar</button></div>
+            </div>
+        </div>
+
+        <!-- NINTENDO SWITCH -->
+        <div id="nintendo" style="scroll-margin-top: 20px; margin-bottom: 20px;">
+            <h2 style="color:#ff003c; text-align:center; font-size:1.8rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px; text-shadow:0 0 10px #ff003c;">🔴 Nintendo Switch</h2>
+            <div class="contenedor-catalogo" style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; max-width:1200px; margin:0 auto;">
+                <div class="tarjeta-juego"><img src="Imagenes/mario kart switch.jpg" alt="Mario Kart" class="foto-juego"><h3>Mario Kart 8 Deluxe</h3><p class="descripcion">Diversión portátil.</p><div class="precio">$65.000</div><span class="badge disponible" style="margin-bottom:15px;">DISPONIBLE</span><button class="boton-wpp btn-agregar-carrito" data-nombre="Mario Kart 8 Deluxe" data-precio="65000" style="width:100%!important; padding:10px!important; font-size:0.9rem !important; border:none; cursor:pointer;"><i class="fa-solid fa-cart-plus"></i> Comprar</button></div>
+            </div>
+        </div>
+
+    </main>
 
     <!-- GALERÍA DE SERVICIO TÉCNICO -->
-    <div id="servicio" style="background-color: #10121a; padding: 60px 20px; border-top: 4px solid #6200ea; scroll-margin-top: 70px; text-align: center; width: 100%; box-sizing: border-box; display: block;">
-        <h2 style="color: #6200ea; text-shadow: 0 0 10px #6200ea; font-size: 2rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 40px;">🛠️ Servicio Técnico</h2>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto 40px auto;">
-            <img src="Imagenes/servicio/compus.jpg" alt="Trabajo 1" style="width: 280px; height: auto; object-fit: contain; border-radius: 8px; border: 2px solid #6200ea; box-shadow: 0 0 15px rgba(98, 0, 234, 0.3); background-color: #10121a;">
-            <img src="Imagenes/servicio/consolas.jpg" alt="Trabajo 2" style="width: 280px; height: auto; object-fit: contain; border-radius: 8px; border: 2px solid #6200ea; box-shadow: 0 0 15px rgba(98, 0, 234, 0.3); background-color: #10121a;">
-            <img src="Imagenes/servicio/armado.jpg" alt="Trabajo 3" style="width: 280px; height: auto; object-fit: contain; border-radius: 8px; border: 2px solid #6200ea; box-shadow: 0 0 15px rgba(98, 0, 234, 0.3); background-color: #10121a;">
-            <img src="Imagenes/servicio/joystick.jpg" alt="Trabajo 4" style="width: 280px; height: auto; object-fit: contain; border-radius: 8px; border: 2px solid #6200ea; box-shadow: 0 0 15px rgba(98, 0, 234, 0.3); background-color: #10121a;">
-            <img src="Imagenes/servicio/servicio tecnico computadoras.jpg" alt="Trabajo 5" style="width: 280px; height: auto; object-fit: contain; border-radius: 8px; border: 2px solid #6200ea; box-shadow: 0 0 15px rgba(98, 0, 234, 0.3); background-color: #10121a;">
-        </div>
-    </div>
+
 
     <!-- TUS DATOS DE CONTACTO PROTEGIDOS Y EN LA POSICIÓN CORRECTA -->
     <footer id="seccion-contacto" class="contraportada" style="scroll-margin-top: 50px;">
