@@ -12,7 +12,6 @@ if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
 }
 
-// Busca esta función en tu carrito.js y reemplázala para que sume limpio:
 document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
     boton.addEventListener('click', () => {
         const nombre = boton.getAttribute('data-nombre');
@@ -23,7 +22,6 @@ document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
         if (ventanaCarrito) ventanaCarrito.style.right = '0';
     });
 });
-
 
 window.eliminarProducto = function(nombre) {
     carrito = carrito.filter(item => item.nombre !== nombre);
