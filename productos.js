@@ -87,21 +87,26 @@ function actualizarCarrito() {
 }
 
 // Acción definitiva de enviar por WhatsApp
+// BUSCA ESTE BLOQUE AL FINAL DE TU PRODUCTOS.JS Y REEMPLAZALO ENTERO:
 if (btnEnviar) {
-    btnEnviar.addEventListener('click', () => {
-        if(carrito.length === 0) { 
+    btnEnviar.onclick = function() {
+        if (carrito.length === 0) { 
             alert('El carrito está vacío.'); 
             return; 
         }
-        let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
-        carrito.forEach(item => { 
-            mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
-        });
-        mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
-    });
+        let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
+        
+        carrito.forEach(item => { 
+            // Formato limpio sin concatenaciones complejas que confundan al servidor
+            mensaje += `• ${item.nombre} (x${item.cantidad}) - $${item.precio * item.cantidad}\n`; 
+        });
+        
+        mensaje += `\nTotal estimado: ${totalCarrito.innerText}`;
+        
+        // API Oficial directa inyectada de forma pura
+        window.location.href = `https://whatsapp.com{encodeURIComponent(mensaje)}`;
+    };
 }
 
 actualizarCarrito();
-
