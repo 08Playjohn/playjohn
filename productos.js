@@ -88,10 +88,24 @@ function actualizarCarrito() {
     btnEnviar.onclick = function(e) {
         if (e) e.preventDefault();
         
-        if (carrito.length === 0) {
+               if (carrito.length === 0) {
             alert('El carrito está vacío.');
             return;
         }
+
+        let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
+        carrito.forEach(item => { 
+            mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
+        });
+        mensaje += "\nTotal estimado: " + totalCarrito.innerText;
+        
+        window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
+    };
+}
+
+// Arranca el carrito al cargar la página
+actualizarCarrito();
+
 
         let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
                 carrito.forEach(item => { 
