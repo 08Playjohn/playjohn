@@ -85,7 +85,6 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
-// BUSCA ESTE BLOQUE AL FINAL DE TU PRODUCTOS.JS Y REEMPLAZALO ENTERO:
 if (btnEnviar) {
     btnEnviar.addEventListener('click', () => {
         if(carrito.length === 0) { 
@@ -98,10 +97,11 @@ if (btnEnviar) {
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        // RUTA DIRECTA SIN SÍMBOLOS COMPLEJOS QUE GENEREN ERROR 404
-        window.open(`https://whatsapp.com{encodeURIComponent(mensaje)}`, '_blank');
+        // CÓDIGO INDESTRUCTIBLE CON COMILLAS NORMALES Y SIGNOS DE SUMA
+        window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
     });
 }
 
 actualizarCarrito();
+
 
