@@ -275,3 +275,34 @@ body {
     font-size: 0.8rem;
     color: #444 !important;
 }
+/* ================= ESTILOS NEÓN PARA EL CARRITO EMBEBIDO ================= */
+#ventana-carrito {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    color: #ffffff !important;
+}
+
+#ventana-carrito h3 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-weight: bold !important;
+    letter-spacing: 1px;
+}
+
+/* Estilo para los botones de eliminar (tachito) */
+#lista-carrito button {
+    transition: transform 0.2s ease !important;
+}
+
+#lista-carrito button:hover {
+    transform: scale(1.2);
+}
+
+/* Efecto hover sobre el botón definitivo de WhatsApp en el carrito */
+#enviar-pedido {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+    box-shadow: 0 0 10px rgba(37, 211, 102, 0.3) !important;
+}
+
+#enviar-pedido:hover {
+    background-color: #20ba5a !important;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.6) !important;
+}
