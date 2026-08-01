@@ -35,6 +35,7 @@
     <a href="#xbox-series" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox Series</a>
     <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
 </div>
+    
 <!-- BARRRA DE BÚSQUEDA DEFINITIVA Y CONTROLADA -->
 <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
@@ -244,61 +245,61 @@
 
     <!-- Acá termina el código de tus juegos y de tu página original -->
 
-    <!-- MOTOR DE BÚSQUEDA EXTERNO DEFINITIVO -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let inputBuscador = document.getElementById('buscador-juegos');
-        
-        if (inputBuscador) {
-            inputBuscador.addEventListener('keyup', function(e) {
-                try {
-                    let texto = e.target.value.toLowerCase().trim();
-                    
-                    // 1. Ocultar o mostrar la sección de Servicio Técnico
-                    let seccionServicio = document.getElementById('servicio');
-                    if (seccionServicio) {
-                        seccionServicio.style.setProperty('display', (texto === '') ? 'block' : 'none', 'important');
-                    }
-
-                    // 2. Filtrar cada juego usando su clase exacta
-                    let tarjetas = document.querySelectorAll('.tarjeta-juego');
-                    tarjetas.forEach(function(tarjeta) {
-                        let h3 = tarjeta.querySelector('h3');
-                        if (h3) {
-                            let nombreJuego = h3.textContent.toLowerCase();
-                            if (texto === '' || nombreJuego.includes(texto)) {
-                                tarjeta.style.setProperty('display', 'block', 'important');
-                            } else {
-                                tarjeta.style.setProperty('display', 'none', 'important');
-                            }
-                        }
-                    });
-
-                    // 3. Ocultar categorías enteras de consolas si se quedan sin juegos
-                    let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch, #xbox360, #xboxseries, #nintendo');
-                    categorias.forEach(function(seccion) {
-                        let contenedor = seccion.querySelector('.contenedor-catalogo');
-                        if (contenedor) {
-                            let juegos = contenedor.querySelectorAll('.tarjeta-juego');
-                            let visibles = 0;
-                            juegos.forEach(function(j) {
-                                if (j.style.display !== 'none') visibles++;
-                            });
-                            if (texto === '') {
-                                seccion.style.setProperty('display', 'block', 'important');
-                            } else if (visibles === 0) {
-                                seccion.style.setProperty('display', 'none', 'important');
-                            } else {
-                                seccion.style.setProperty('display', 'block', 'important');
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error("Error en búsqueda:", error);
+    <!-- MOTOR DE BÚSQUEDA EXTERNO COMPATIBLE CON FLEXBOX -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let inputBuscador = document.getElementById('buscador-juegos');
+    
+    if (inputBuscador) {
+        inputBuscador.addEventListener('keyup', function(e) {
+            try {
+                let texto = e.target.value.toLowerCase().trim();
+                
+                // 1. Ocultar o mostrar la sección de Servicio Técnico
+                let seccionServicio = document.getElementById('servicio');
+                if (seccionServicio) {
+                    seccionServicio.style.setProperty('display', (texto === '') ? 'block' : 'none', 'important');
                 }
-            });
-        }
-    });
-    </script>
+
+                // 2. Filtrar cada juego respetando el CSS original (Flexbox)
+                let tarjetas = document.querySelectorAll('.tarjeta-juego');
+                tarjetas.forEach(function(tarjeta) {
+                    let h3 = tarjeta.querySelector('h3');
+                    if (h3) {
+                        let nombreJuego = h3.textContent.toLowerCase();
+                        if (texto === '' || nombreJuego.includes(texto)) {
+                            tarjeta.style.display = ''; // Vacío devuelve el control a tu clase .tarjeta-juego original
+                        } else {
+                            tarjeta.style.setProperty('display', 'none', 'important');
+                        }
+                    }
+                });
+
+                // 3. Ocultar categorías enteras de consolas si se quedan sin juegos
+                let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch, #xbox360, #xboxseries, #nintendo');
+                categorias.forEach(function(seccion) {
+                    let contenedor = seccion.querySelector('.contenedor-catalogo');
+                    if (contenedor) {
+                        let juegos = contenedor.querySelectorAll('.tarjeta-juego');
+                        let visibles = 0;
+                        juegos.forEach(function(j) {
+                            if (j.style.display !== 'none') visibles++;
+                        });
+                        if (texto === '') {
+                            seccion.style.display = '';
+                        } else if (visibles === 0) {
+                            seccion.style.setProperty('display', 'none', 'important');
+                        } else {
+                            seccion.style.display = '';
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Error en búsqueda:", error);
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
