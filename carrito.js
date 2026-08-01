@@ -55,13 +55,17 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
+// BUSCÁ ESTE BLOQUE AL FINAL DE TU CARRITO.JS Y REEMPLAZALO ENTERO:
 if (btnEnviar) {
     btnEnviar.addEventListener('click', () => {
         if(carrito.length === 0) { alert('El carrito está vacío.'); return; }
         let mensaje = "¡Hola Play John! Quiero realizar el siguiente pedido:\n\n";
         carrito.forEach(item => { mensaje += `• ${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString('es-AR')}\n`; });
         mensaje += `\n*Total estimado: ${totalCarrito.innerText}*`;
-        window.open(`https://wa.link/b336q6"{encodeURIComponent(mensaje)}`, '_blank');
+        
+        // CORRECCIÓN DEFINITIVA DE LA RUTA (Poné tu número real sin el signo +)
+        const numeroTelefono = "5491141701483"; // <-- REEMPLAZÁ ACÁ POR TU NÚMERO DE CELULAR EXACTO
+        window.open(`https://wa.me{numeroTelefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
     });
 }
 
