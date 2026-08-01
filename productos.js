@@ -5,7 +5,9 @@ const btnCerrar = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
 const contadorCarrito = document.getElementById('contador-carrito');
-const btnEnviar = document.getElementById('enviar-pedido');
+// Asegurate de que la línea 8 de tu productos.js se vea exactamente así:
+const btnEnviar = document.getElementById('enviar-pedido') || document.getElementById('finalizar-pedido');
+
 
 if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0');
