@@ -35,26 +35,27 @@
     <a href="#xbox-series" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox Series</a>
     <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
 </div>
-<!-- BARRRA DE BÚSQUEDA CENTRADA TOTALMENTE LIMPIA Y NATIVA -->
+<!-- BARRRA DE BÚSQUEDA DEFINITIVA Y CONTROLADA -->
 <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
-        <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
         
-        <!-- Icono de lupa SVG (Dirección web corregida para que cargue obligatoriamente) -->
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
+       <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+       
+       <!-- Icono de lupa SVG -->
+       <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
+       </svg>
     </div>
 </div>
 
-<!-- Estilo interactivo optimizado (Una sola vez) -->
 <style>
     #buscador-juegos:focus {
         border-color: #00f0ff !important;
         box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
     }
 </style>
+
 
     
 <!-- ================= SECCIÓN DE SERVICIO TÉCNICO (AHORA ARRIBA DE TODO) ================= -->
@@ -239,75 +240,65 @@
 <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
         
-        <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." 
-               onkeyup="
-                let texto = this.value.toLowerCase().trim();
-                
-                // 1. CONTROL DE LA SECCIÓN DE SERVICIO TÉCNICO
-                let seccionServicio = document.getElementById('servicio');
-                if (seccionServicio) {
-                    if (texto === '') {
-                        seccionServicio.style.setProperty('display', 'block', 'important');
-                    } else {
-                        seccionServicio.style.setProperty('display', 'none', 'important');
-                    }
-                }
+       <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
 
-                // 2. FILTRADO DE LOS JUEGOS INDIVIDUALES
-                let tarjetas = document.querySelectorAll('.tarjeta-juego');
-                tarjetas.forEach(function(tarjeta) {
-                    let h3 = tarjeta.querySelector('h3');
-                    if (h3) {
-                        let nombreJuego = h3.textContent.toLowerCase();
-                        if (texto === '' || nombreJuego.includes(texto)) {
-                            tarjeta.style.setProperty('display', 'block', 'important');
-                        } else {
-                            tarjeta.style.setProperty('display', 'none', 'important');
-                        }
-                    }
-                });
+    <!-- Acá termina el código de tus juegos y de tu página original -->
 
-                // 3. CONTROL DE LAS SECCIONES DE LAS CONSOLAS
-                let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch, #xbox360, #xboxseries, #nintendo');
-                categorias.forEach(function(seccion) {
-                    let contenedor = seccion.querySelector('.contenedor-catalogo');
-                    if (contenedor) {
-                        let juegosEnSeccion = contenedor.querySelectorAll('.tarjeta-juego');
-                        let ocultos = 0;
-                        
-                        juegosEnSeccion.forEach(function(t) {
-                            if (t.style.display === 'none') {
-                                ocultos++;
-                            }
-                        });
-                        
-                        if (texto === '') {
-                            seccion.style.setProperty('display', 'block', 'important');
-                        } else if (ocultos === juegosEnSeccion.length && juegosEnSeccion.length > 0) {
-                            seccion.style.setProperty('display', 'none', 'important');
-                        } else {
-                            seccion.style.setProperty('display', 'block', 'important');
-                        }
-                    }
-                });
-               "
-               style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+    <!-- MOTOR DE BÚSQUEDA EXTERNO DEFINITIVO -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let inputBuscador = document.getElementById('buscador-juegos');
         
-        <!-- Icono de lupa SVG -->
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-    </div>
-</div>
+        if (inputBuscador) {
+            inputBuscador.addEventListener('keyup', function(e) {
+                try {
+                    let texto = e.target.value.toLowerCase().trim();
+                    
+                    // 1. Ocultar o mostrar la sección de Servicio Técnico
+                    let seccionServicio = document.getElementById('servicio');
+                    if (seccionServicio) {
+                        seccionServicio.style.setProperty('display', (texto === '') ? 'block' : 'none', 'important');
+                    }
 
-<style>
-    #buscador-juegos:focus {
-        border-color: #00f0ff !important;
-        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
-    }
-</style>
+                    // 2. Filtrar cada juego usando su clase exacta
+                    let tarjetas = document.querySelectorAll('.tarjeta-juego');
+                    tarjetas.forEach(function(tarjeta) {
+                        let h3 = tarjeta.querySelector('h3');
+                        if (h3) {
+                            let nombreJuego = h3.textContent.toLowerCase();
+                            if (texto === '' || nombreJuego.includes(texto)) {
+                                tarjeta.style.setProperty('display', 'block', 'important');
+                            } else {
+                                tarjeta.style.setProperty('display', 'none', 'important');
+                            }
+                        }
+                    });
 
+                    // 3. Ocultar categorías enteras de consolas si se quedan sin juegos
+                    let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch, #xbox360, #xboxseries, #nintendo');
+                    categorias.forEach(function(seccion) {
+                        let contenedor = seccion.querySelector('.contenedor-catalogo');
+                        if (contenedor) {
+                            let juegos = contenedor.querySelectorAll('.tarjeta-juego');
+                            let visibles = 0;
+                            juegos.forEach(function(j) {
+                                if (j.style.display !== 'none') visibles++;
+                            });
+                            if (texto === '') {
+                                seccion.style.setProperty('display', 'block', 'important');
+                            } else if (visibles === 0) {
+                                seccion.style.setProperty('display', 'none', 'important');
+                            } else {
+                                seccion.style.setProperty('display', 'block', 'important');
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error("Error en búsqueda:", error);
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html>
-
