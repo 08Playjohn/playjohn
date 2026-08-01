@@ -235,7 +235,7 @@
 <!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
 <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
 
-<!-- BARRRA DE BÚSQUEDA ULTRA COMPATIBLE -->
+<!-- BARRRA DE BÚSQUEDA DEFINITIVA Y REPARADA -->
 <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
         
@@ -243,42 +243,46 @@
                onkeyup="
                 let texto = this.value.toLowerCase().trim();
                 
-                // 1. Buscamos TODOS los h3 de la página (los títulos de tus juegos)
-                let titulos = document.getElementsByTagName('h3');
+                // 1. Buscamos todas las tarjetas de juego usando tu clase exacta
+                let tarjetas = document.querySelectorAll('.tarjeta-juego');
                 
-                for (let i = 0; i < titulos.length; i++) {
-                    let h3 = titulos[i];
-                    // Subimos hasta encontrar la caja que envuelve al juego completo
-                    let tarjetaJuego = h3.parentElement; 
-                    
-                    if (tarjetaJuego) {
+                tarjetas.forEach(function(tarjeta) {
+                    let h3 = tarjeta.querySelector('h3');
+                    if (h3) {
                         let nombreJuego = h3.textContent.toLowerCase();
                         
+                        // Si coincide, forzamos que se muestre con su diseño original, sino lo ocultamos
                         if (texto === '' || nombreJuego.includes(texto)) {
-                            tarjetaJuego.style.setProperty('display', '', 'important');
+                            tarjeta.style.setProperty('display', 'block', 'important');
                         } else {
-                            tarjetaJuego.style.setProperty('display', 'none', 'important');
+                            tarjeta.style.setProperty('display', 'none', 'important');
                         }
                     }
-                }
+                });
 
-                // 2. Buscamos los títulos grandes de las consolas (h2) para ocultarlos si no hay juegos
-                let titulosConsolas = document.getElementsByTagName('h2');
-                for (let j = 0; j < titulosConsolas.length; j++) {
-                    let h2 = titulosConsolas[j];
-                    let seccionConsola = h2.parentElement;
-                    if (seccionConsola && seccionConsola.id !== 'servicio') {
-                        if (texto === '') {
-                            seccionConsola.style.setProperty('display', '', 'important');
-                        } else {
-                            // Si tiene elementos visibles adentro, mostramos la consola, si no la ocultamos
-                            let textoSeccion = seccionConsola.textContent.toLowerCase();
-                            if (textoSeccion.includes(texto)) {
-                                seccionConsola.style.setProperty('display', '', 'important');
+                // 2. Controlamos que los títulos de las categorías de consolas se oculten si están vacías
+                let categorias = document.querySelectorAll('.categoria-consola, #xbox360, #xboxseries, #nintendo, #ps2, #ps3, #ps4, #ps5');
+                categorias.forEach(function(seccion) {
+                    let contenedor = seccion.querySelector('.contenedor-catalogo');
+                    if (contenedor) {
+                        let juegosEnSeccion = contenedor.querySelectorAll('.tarjeta-juego');
+                        let ocultos = 0;
+                        
+                        juegosEnSeccion.forEach(function(t) {
+                            if (t.style.display === 'none') {
+                                ocultos++;
                             }
+                        });
+                        
+                        if (texto === '') {
+                            seccion.style.setProperty('display', 'block', 'important');
+                        } else if (ocultos === juegosEnSeccion.length && juegosEnSeccion.length > 0) {
+                            seccion.style.setProperty('display', 'none', 'important');
+                        } else {
+                            seccion.style.setProperty('display', 'block', 'important');
                         }
                     }
-                }
+                });
                "
                style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
         
@@ -296,7 +300,6 @@
         box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
     }
 </style>
-
 
 </body>
 </html>
