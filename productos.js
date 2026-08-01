@@ -5,6 +5,7 @@ const btnCerrar = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
 const contadorCarrito = document.getElementById('contador-carrito');
+const btnEnviar = document.getElementById('btn-enviar-carrito'); // Asegurate que este ID coincida con tu botón HTML
 
 if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnFlotante.addEventListener('click', () => { ventanaCarrito.style.right = '0'; });
@@ -82,13 +83,14 @@ function actualizarCarrito() {
 
     totalCarrito.innerText = `$${total.toLocaleString('es-AR')}`;
     contadorCarrito.innerText = cantidadTotal;
+}
 
-    // ESCUCHADOR ASOCIADO AL NUEVO BOTÓN
-   if (btnEnviar) {
+// ESCUCHADOR ASOCIADO AL BOTÓN DE ENVIAR
+if (btnEnviar) {
     btnEnviar.onclick = function(e) {
         if (e) e.preventDefault();
         
-               if (carrito.length === 0) {
+        if (carrito.length === 0) {
             alert('El carrito está vacío.');
             return;
         }
@@ -99,25 +101,11 @@ function actualizarCarrito() {
         });
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
-        window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
+        window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
     };
 }
 
 // Arranca el carrito al cargar la página
 actualizarCarrito();
 
-
-        let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
-                carrito.forEach(item => { 
-            mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
-        });
-
-        mensaje += "\nTotal estimado: " + totalCarrito.innerText;
-        
-      window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
-
-    };
-}
-// Arranca el carrito al cargar la página
-actualizarCarrito();
 
