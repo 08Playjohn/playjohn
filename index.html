@@ -201,9 +201,11 @@
             <!-- BUSCA TU BOTÓN VERDE AL FINAL DE INDEX.HTML Y REEMPLAZALO POR ESTE EXACTO -->
 <!-- BUSCA TU BOTÓN VERDE EN INDEX.HTML Y REEMPLAZALO POR ESTE EXACTO -->
 <!-- BUSCA TU BOTÓN VERDE AL FINAL DE INDEX.HTML Y DEJALO ASÍ DE LIMPIO -->
-<button id="enviar-pedido" style="width: 100%; background-color: #25d366; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; display: flex; justify-content: center; align-items: center; gap: 8px;">
+<!-- BUSCA TU BOTÓN VERDE AL FINAL DE INDEX.HTML Y REEMPLAZALO POR ESTE EXACTO -->
+<button id="enviar-pedido" onclick="if(typeof btnEnviarFinal !== 'undefined') { btnEnviarFinal.click(); } else if(carrito.length > 0) { let mensaje = 'Hola Play John. Quiero realizar el siguiente pedido:\n\n'; carrito.forEach(item => { mensaje += '• ' + item.nombre + ' (x' + item.cantidad + ') - $' + (item.precio * item.cantidad).toLocaleString('es-AR') + '\n'; }); mensaje += '\nTotal estimado: ' + document.getElementById('total-carrito').innerText; window.open('https://whatsapp.com' + encodeURIComponent(mensaje), '_blank'); }" style="width: 100%; background-color: #25d366; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; display: flex; justify-content: center; align-items: center; gap: 8px;">
     Terminar Pedido
 </button>
+
 
 
 
