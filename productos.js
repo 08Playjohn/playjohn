@@ -64,7 +64,8 @@ function actualizarCarrito() {
         cantidadTotal += item.cantidad;
         
         const elemento = document.createElement('div');
-        element.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
+        // RECTIFICADO: Aquí ya tiene la 'o' correcta para que no se trabe
+        elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
         
         elemento.innerHTML = `
             <div style="color: #fff; font-size: 0.9rem; text-align: left; max-width: 65%;">
@@ -103,3 +104,4 @@ if (btnEnviar) {
 }
 
 actualizarCarrito();
+
