@@ -5,16 +5,18 @@ const btnCerrar = document.getElementById('cerrar-carrito');
 const listaCarrito = document.getElementById('lista-carrito');
 const totalCarrito = document.getElementById('total-carrito');
 const contadorCarrito = document.getElementById('contador-carrito');
-const btnEnviar = document.getElementById('enviar-pedido');
+
+// Buscador elástico del botón por cualquiera de sus nombres de ID posibles
+const btnEnviarFinal = document.getElementById('enviar-pedido') || document.getElementById('finalizar-pedido') || document.getElementById('terminar-pedido');
 
 if (btnFlotante && ventanaCarrito && btnCerrar) {
     btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0');
     btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
 }
 
-// Escucha clics en botones de Comprar
+// Vinculación directa de clics en las tarjetas de juego
 document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
-    boton.addEventListener('click', () => {
+    boton.onclick = function() {
         const nombre = boton.getAttribute('data-nombre');
         const precio = parseFloat(boton.getAttribute('data-precio'));
         const existe = carrito.find(item => item.nombre === nombre);
@@ -25,10 +27,10 @@ document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
         }
         actualizarCarrito();
         if (ventanaCarrito) ventanaCarrito.style.right = '0';
-    });
+    };
 });
 
-// Cambiar cantidades (+ / -)
+// Cambiar cantidades de juegos individuales (+ / -)
 window.cambiarCantidad = function(nombre, accion) {
     const producto = carrito.find(item => item.nombre === nombre);
     if (producto) {
@@ -44,17 +46,16 @@ window.cambiarCantidad = function(nombre, accion) {
     actualizarCarrito();
 }
 
-// Eliminar juego completo
+// Eliminar un juego completo del listado
 window.eliminarProducto = function(nombre) {
     carrito = carrito.filter(item => item.nombre !== nombre);
     actualizarCarrito();
 }
 
-// Actualizar lista visual del carrito
+// Renderizado y cálculo total neón dentro de la persiana lateral
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
-    
     listaCarrito.innerHTML = '';
     let total = 0;
     let cantidadTotal = 0;
@@ -62,10 +63,8 @@ function actualizarCarrito() {
     carrito.forEach(item => {
         total += item.precio * item.cantidad;
         cantidadTotal += item.cantidad;
-        
         const elemento = document.createElement('div');
         elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
-        
         elemento.innerHTML = `
             <div style="color: #fff; font-size: 0.9rem; text-align: left; max-width: 65%;">
                 <div style="font-weight: bold; margin-bottom: 4px;">${item.nombre}</div>
@@ -85,13 +84,9 @@ function actualizarCarrito() {
     contadorCarrito.innerText = cantidadTotal;
 }
 
-// Acción definitiva de enviar por WhatsApp (Dirección limpia sin variables complejas)
-// REEMPLAZÁ DESDE DONDE DICE "if (btnEnviar) {" HASTA EL FINAL POR ESTE BLOQUE:
-// BUSCA EL BOTÓN USANDO CUALQUIERA DE LOS TRES NOMBRES POSIBLES
-const btnEnviarFinal = document.getElementById('enviar-pedido') || document.getElementById('finalizar-pedido') || document.getElementById('terminar-pedido');
-
+// Disparador definitivo blindado para enviar el pedido por WhatsApp
 if (btnEnviarFinal) {
-    btnEnviarFinal.addEventListener('click', () => {
+    btnEnviarFinal.onclick = function() {
         if(carrito.length === 0) { 
             alert('El carrito está vacío.'); 
             return; 
@@ -103,7 +98,7 @@ if (btnEnviarFinal) {
         mensaje += "\nTotal estimado: " + totalCarrito.innerText;
         
         window.open("https://whatsapp.com" + encodeURIComponent(mensaje), "_blank");
-    });
+    };
 }
 
 actualizarCarrito();
