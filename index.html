@@ -235,12 +235,11 @@
 <!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
 <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
 
-    <!-- CONEXIÓN EXCLUSIVA AL SCRIPT CON TODO EL CONTENIDO CARGADO -->
-    <script src="productos.js"></script>
+   <!-- MOTOR DE BÚSQUEDA INTERACTIVO EN TIEMPO REAL -->
 <script>
 document.getElementById('buscador-juegos').addEventListener('keyup', function(e) {
-    // Convertimos lo que escribe el usuario a minúsculas para evitar problemas
-    let textoBusqueda = e.target.value.toLowerCase();
+    // Convertimos lo que escribe el usuario a minúsculas
+    let textoBusqueda = e.target.value.toLowerCase().trim();
     
     // Seleccionamos todas las tarjetas de juegos de la página
     let tarjetas = document.querySelectorAll('.tarjeta-juego');
@@ -257,17 +256,24 @@ document.getElementById('buscador-juegos').addEventListener('keyup', function(e)
         }
     });
 
-    // Opcional: Ocultar las secciones de consolas completas si no tienen juegos visibles
+    // Controlamos las secciones de las consolas para que no queden los títulos vacíos
     let secciones = document.querySelectorAll('.categoria-consola');
     secciones.forEach(function(seccion) {
-        let tarjetasVisibles = seccion.querySelectorAll('.tarjeta-juego[style="display: block;"]').length;
-        let todasLasTarjetas = seccion.querySelectorAll('.tarjeta-juego').length;
+        // Contamos cuántas tarjetas quedaron visibles en esta categoría
+        let tarjetasVisibles = seccion.querySelectorAll('.tarjeta-juego').length;
+        let ocultas = 0;
         
-        // Si el buscador está vacío, mostramos la sección
+        seccion.querySelectorAll('.tarjeta-juego').forEach(function(t) {
+            if (t.style.display === "none") {
+                ocultas++;
+            }
+        });
+        
+        // Si el usuario vació el buscador, mostramos todas las secciones
         if (textoBusqueda === "") {
             seccion.style.display = "block";
-        } else if (tarjetasVisibles === 0) {
-            // Si tiene tarjetas pero ninguna coincide, ocultamos el título de la consola
+        } else if (ocultas === tarjetasVisibles) {
+            // Si todos los juegos de esta consola están ocultos, escondemos el título
             seccion.style.display = "none";
         } else {
             seccion.style.display = "block";
