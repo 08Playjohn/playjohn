@@ -20,7 +20,6 @@ document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
         if(existe) { 
             existe.cantidad++; 
         } else { 
-            // CORREGIDO: "cantidad" en español para que no dé undefined ni NaN
             carrito.push({ nombre, precio, cantidad: 1 }); 
         }
         actualizarCarrito();
@@ -50,7 +49,7 @@ window.eliminarProducto = function(nombre) {
     actualizarCarrito();
 }
 
-// Actualizar lista visual del carrito y vincular el botón de WhatsApp
+// Actualizar lista visual del carrito
 function actualizarCarrito() {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
@@ -84,25 +83,26 @@ function actualizarCarrito() {
     totalCarrito.innerText = `$${total.toLocaleString('es-AR')}`;
     contadorCarrito.innerText = cantidadTotal;
 
-    // VINCULACIÓN DIRECTA DEL BOTÓN (Destruye el salto de página del HTML)
+    // INYECCIÓN DINÁMICA DE ENLACE REAL (Burlador definitivo de bloqueos)
     const btnEnviar = document.getElementById('enviar-pedido');
     if (btnEnviar) {
-        btnEnviar.onclick = function(e) {
-            if (e) e.preventDefault(); // Frena el salto hacia arriba
-            
-            if (carrito.length === 0) { 
-                alert('El carrito está vacío.'); 
-                return; 
-            }
-            
+        if (carrito.length === 0) {
+            btnEnviar.href = "#";
+            btnEnviar.onclick = function(e) {
+                if(e) e.preventDefault();
+                alert('El carrito está vacío.');
+            };
+        } else {
             let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
             carrito.forEach(item => { 
                 mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
             });
             mensaje += "\nTotal estimado: " + totalCarrito.innerText;
             
-            window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
-        };
+            // Le escribimos el link de internet real directo al botón de forma nativa
+            btnEnviar.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
+            btnEnviar.onclick = null; // Eliminamos cualquier traba de clic anterior
+        }
     }
 }
 
