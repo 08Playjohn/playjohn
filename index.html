@@ -35,15 +35,20 @@
     <a href="#xbox-series" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox Series</a>
     <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
 </div>
-<<!-- BARRRA DE BÚSQUEDA CENTRADA CORREGIDA -->
+<!-- BARRRA DE BÚSQUEDA CENTRADA TOTALMENTE LIMPIA Y NATIVA -->
 <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
         <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
-        <!-- Icono de lupa con posicionamiento absoluto corregido -->
-        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 20px; color: #00f0ff; font-size: 1.1rem; pointer-events: none;"></i>
+        
+        <!-- Icono de lupa SVG (Dirección web corregida para que cargue obligatoriamente) -->
+        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
     </div>
 </div>
 
+<!-- Estilo interactivo optimizado (Una sola vez) -->
 <style>
     #buscador-juegos:focus {
         border-color: #00f0ff !important;
@@ -51,14 +56,6 @@
     }
 </style>
 
-
-<!-- Estilo interactivo para cuando el usuario hace clic en el buscador -->
-<style>
-    #buscador-juegos:focus {
-        border-color: #00f0ff !important;
-        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
-    }
-</style>
     
 <!-- ================= SECCIÓN DE SERVICIO TÉCNICO (AHORA ARRIBA DE TODO) ================= -->
 <div id="servicio" style="background-color: #10121a; padding: 60px 20px; border-top: 4px solid #6200ea; border-bottom: 2px solid #3a3f58; scroll-margin-top: 70px; text-align: center; width: 100%; box-sizing: border-box; display: block;">
