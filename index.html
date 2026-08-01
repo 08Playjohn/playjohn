@@ -34,7 +34,22 @@
     <a href="#xbox-series" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox Series</a>
     <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
 </div>
+<!-- BARRRA DE BÚSQUEDA CENTRADA -->
+<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335;">
+    <div style="position: relative; width: 100%; max-width: 500px;">
+        <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 40px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+        <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #00f0ff; font-size: 1.1rem;"></i>
+    </div>
+</div>
 
+<!-- Estilo interactivo para cuando el usuario hace clic en el buscador -->
+<style>
+    #buscador-juegos:focus {
+        border-color: #00f0ff !important;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    }
+</style>
+    
 <!-- ================= SECCIÓN DE SERVICIO TÉCNICO (AHORA ARRIBA DE TODO) ================= -->
 <div id="servicio" style="background-color: #10121a; padding: 60px 20px; border-top: 4px solid #6200ea; border-bottom: 2px solid #3a3f58; scroll-margin-top: 70px; text-align: center; width: 100%; box-sizing: border-box; display: block;">
     
@@ -215,6 +230,44 @@
 
     <!-- CONEXIÓN EXCLUSIVA AL SCRIPT CON TODO EL CONTENIDO CARGADO -->
     <script src="productos.js"></script>
+<script>
+document.getElementById('buscador-juegos').addEventListener('keyup', function(e) {
+    // Convertimos lo que escribe el usuario a minúsculas para evitar problemas
+    let textoBusqueda = e.target.value.toLowerCase();
+    
+    // Seleccionamos todas las tarjetas de juegos de la página
+    let tarjetas = document.querySelectorAll('.tarjeta-juego');
+    
+    tarjetas.forEach(function(tarjeta) {
+        // Buscamos el nombre del juego dentro del h3 de cada tarjeta
+        let nombreJuego = tarjeta.querySelector('h3').textContent.toLowerCase();
+        
+        // Si el texto coincide con el nombre del juego, lo mostramos; si no, lo ocultamos
+        if (nombreJuego.includes(textoBusqueda)) {
+            tarjeta.style.display = "block";
+        } else {
+            tarjeta.style.display = "none";
+        }
+    });
+
+    // Opcional: Ocultar las secciones de consolas completas si no tienen juegos visibles
+    let secciones = document.querySelectorAll('.categoria-consola');
+    secciones.forEach(function(seccion) {
+        let tarjetasVisibles = seccion.querySelectorAll('.tarjeta-juego[style="display: block;"]').length;
+        let todasLasTarjetas = seccion.querySelectorAll('.tarjeta-juego').length;
+        
+        // Si el buscador está vacío, mostramos la sección
+        if (textoBusqueda === "") {
+            seccion.style.display = "block";
+        } else if (tarjetasVisibles === 0) {
+            // Si tiene tarjetas pero ninguna coincide, ocultamos el título de la consola
+            seccion.style.display = "none";
+        } else {
+            seccion.style.display = "block";
+        }
+    });
+});
+</script>
 
 </body>
 </html>
