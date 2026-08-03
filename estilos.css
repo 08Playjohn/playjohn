@@ -93,7 +93,7 @@ body {
     border-radius: 6px;            /* Redondea un poquito las esquinas de la carátula */
     display: block;
     margin: 0 auto 15px auto;      /* Centra la imagen y le da espacio con el título */
-    background-color: #10121a;     /* Si la foto es más chica, rellena el fondo con tu color blanco */
+    background-color:  #ffffff;     /* Si la foto es más chica, rellena el fondo con tu color blanco */
 }
 
 .descripcion {
