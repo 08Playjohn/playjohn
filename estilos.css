@@ -71,7 +71,8 @@ body {
 
 /* TARJETAS NEÓN */
 .tarjeta-juego {
-    background-color: #10121a !important; 
+    background-color: #ffffff !important; 
+    color: #10121a !important; 
     border-radius: 12px !important;
     padding: 20px;
     width: 280px;
@@ -97,7 +98,7 @@ body {
 
 .descripcion {
     font-size: 0.9rem;
-    color: #9aa0b9 !important;
+    color: #10121a !important;
     margin-bottom: 15px;
 }
 
