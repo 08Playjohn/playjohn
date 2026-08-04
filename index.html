@@ -96,11 +96,25 @@
         </form>
 
     <script>
-    // 1. FUNCIÓN PARA RECUPERAR CONTRASEÑA POR WHATSAPP
-    function abrirSoportePlayJohn() {
-        const num = "5491141701483";
-        const inputCorreo = document.getElementById('login-email').value.trim();
-        
+<script>
+// 1. FUNCIÓN PARA RECUPERAR CONTRASEÑA POR WHATSAPP
+function abrirSoportePlayJohn() {
+    const num = "5491141701483";
+    const inputCorreo = document.getElementById('login-email').value.trim();
+    
+    let texto = "";
+    if (inputCorreo === "") {
+        texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+    } else {
+        texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
+    }
+    
+    // Dirección unificada oficial que sí permite concatenar textos dinámicos
+    const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
+    window.open(urlCorrecta, '_blank');
+}
+</script>
+
         let texto = "";
         if (inputCorreo === "") {
             texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
