@@ -50,29 +50,30 @@
             </div>
         </form>
 
-        <script>
-        function configurarMensajeRecuperacion(event) {
-            // 1. Detenemos la acción por defecto para evitar bloqueos
-            event.preventDefault();
+      <script>
+function configurarMensajeRecuperacion(event) {
+    // 1. Detenemos la acción por defecto para evitar que la página suba
+    event.preventDefault();
 
-            // 2. Captura el correo que escribió el usuario
-            const emailInput = document.getElementById('login-email').value.trim();
-            
-            // 3. Estructura el mensaje según el campo
-            let mensaje = "";
-            if (emailInput === "") {
-                mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-            } else {
-                mensaje = "Hola, soy el usuario con correo electrónico: " + emailInput + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
-            }
-            
-            // 4. URL limpia directa a la API oficial de WhatsApp
-            const urlFinal = "https://wa.link/b336q6 + encodeURIComponent(mensaje);
-            
-            // 5. Abre la pestaña de forma forzada y segura
-            window.open(urlFinal, '_blank');
-        }
-        </script>
+    // 2. Captura el correo que escribió el usuario
+    const emailInput = document.getElementById('login-email').value.trim();
+    
+    // 3. Estructura el mensaje según el campo
+    let mensaje = "";
+    if (emailInput === "") {
+        mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+    } else {
+        mensaje = "Hola, soy el usuario con correo electrónico: " + emailInput + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
+    }
+    
+    // 4. DIRECCIÓN CORREGIDA Y PROBADA: Apunta directo a tu número de soporte
+    const urlFinal = "https://whatsapp.com" + encodeURIComponent(mensaje);
+    
+    // 5. Abre la pestaña de forma forzada y segura
+    window.open(urlFinal, '_blank');
+}
+</script>
+
 
 
 
