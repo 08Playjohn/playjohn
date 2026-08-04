@@ -68,11 +68,14 @@
                 </label>
             </div>
 
-            <!-- BOTÓN CORREGIDO COMO SUBMIT PARA IMPONER LA TRABA NATIVA -->
-            <button type="submit" id="btn-registro-submit" style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Registrarme en Play John</button>
+            <!-- TRABA ABSOLUTA EN EL EVENTO ONCLICK -->
+            <button type="button" 
+                    id="btn-registro-submit" 
+                    style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;"
+                    onclick="if(!document.getElementById('reg-terminos').checked){ alert('¡Atención! Debes aceptar los Términos de Servicio para poder registrarte.'); event.stopImmediatePropagation(); return false; }">
+                Registrarme en Play John
+            </button>
         </form>
-
-    </div> <!-- CIERRA EL CUADRO SECCIONAL -->
 
     <script>
     // 1. FUNCIÓN PARA RECUPERAR CONTRASEÑA POR WHATSAPP
