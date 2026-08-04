@@ -51,12 +51,15 @@
             </div>
         </form>
 
-        <!-- EL SCRIPT QUEDA AFUERA Y NO SE MUESTRA EN PANTALLA -->
-        <script>
+             <script>
         function configurarMensajeRecuperacion(event) {
+            // 1. Tu número de soporte
             const telefonoSoporte = "5491141701483"; 
+
+            // 2. Captura el valor que el usuario escribió en el campo de correo
             const emailInput = document.getElementById('login-email').value.trim();
             
+            // 3. Estructura del mensaje según el campo
             let mensaje = "";
             if (emailInput === "") {
                 mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
@@ -64,7 +67,8 @@
                 mensaje = `Hola, soy el usuario con correo electrónico: ${emailInput}. Olvidé mi contraseña de acceso en Play John y necesito asistencia.`;
             }
             
-            event.currentTarget.href = `https://whatsapp.com{telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
+            // 4. LA LÍNEA CRÍTICA CORREGIDA: Nota las comillas invertidas ` ` y el formato ://whatsapp.com
+            event.currentTarget.href = `https://://whatsapp.com/send?phone=${telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
         }
         </script>
 
