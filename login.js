@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    alert("¡Cuenta creada con éxito! Tus datos ya se guardaron en la pestaña de Drive.");
+                    alert("¡Registro exitoso! Tu cuenta de Play John ya está activa. Ya podés iniciar sesión.");
                     window.location.reload();
                 } else {
                     alert("Atención de Google: " + data.message);
