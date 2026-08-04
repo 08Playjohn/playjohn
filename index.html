@@ -30,36 +30,49 @@
     <!-- FORMULARIOS DESPLEGABLES (Va adentro del cuadro general) -->
     <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
         
-        <        <!-- FORMULARIO 1: INICIAR SESIÓN -->
+              <!-- FORMULARIO 1: INICIAR SESIÓN -->
         <form id="formulario-login" onsubmit="return false;">
             <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
             <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
             
-                          <script>
-function configurarMensajeRecuperacion(event) {
-    // 1. Detenemos la acción por defecto para evitar bloqueos
-    event.preventDefault();
+            <!-- ENLACE RECUPERADO Y FIJADO EN SU LUGAR CORRECTO -->
+            <div style="margin-top: 15px; text-align: right;">
+                <a id="link-recuperar-whatsapp"
+                   href="#" 
+                   style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s; display: inline-block;"
+                   onmouseover="this.style.color='#ffffff';" 
+                   onmouseout="this.style.color='#00f0ff';"
+                   onclick="configurarMensajeRecuperacion(event)">
+                   ¿Olvidaste tu contraseña?
+                </a>
+            </div>
+        </form>
 
-    // 2. Captura el correo que escribió el usuario
-    const emailInput = document.getElementById('login-email').value.trim();
-    
-    // 3. Estructura el mensaje según el campo
-    let mensaje = "";
-    if (emailInput === "") {
-        mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-    } else {
-        mensaje = "Hola, soy el usuario con correo electrónico: " + emailInput + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
-    }
-    
-    // 4. URL DIRECTA: Sin variables raras, limpia y directa a la API oficial de WhatsApp
-    const urlFinal = "https://whatsapp.com" + encodeURIComponent(mensaje);
-    
-    // 5. Abre la pestaña de forma forzada y segura
-    window.open(urlFinal, '_blank');
-}
-</script>
+        <script>
+        function configurarMensajeRecuperacion(event) {
+            // 1. Detenemos la acción por defecto para evitar bloqueos
+            event.preventDefault();
+
+            // 2. Captura el correo que escribió el usuario
+            const emailInput = document.getElementById('login-email').value.trim();
+            
+            // 3. Estructura el mensaje según el campo
+            let mensaje = "";
+            if (emailInput === "") {
+                mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+            } else {
+                mensaje = "Hola, soy el usuario con correo electrónico: " + emailInput + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
+            }
+            
+            // 4. URL limpia directa a la API oficial de WhatsApp
+            const urlFinal = "https://whatsapp.com" + encodeURIComponent(mensaje);
+            
+            // 5. Abre la pestaña de forma forzada y segura
+            window.open(urlFinal, '_blank');
+        }
+        </script>
 
 
 
