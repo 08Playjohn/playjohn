@@ -51,26 +51,32 @@
             </div>
         </form>
 
-             <script>
-        function configurarMensajeRecuperacion(event) {
-            // 1. Tu número de soporte
-            const telefonoSoporte = "5491141701483"; 
+        <script>
+function configurarMensajeRecuperacion(event) {
+    // 1. Detenemos la acción por defecto para evitar el bloqueo del navegador
+    event.preventDefault();
 
-            // 2. Captura el valor que el usuario escribió en el campo de correo
-            const emailInput = document.getElementById('login-email').value.trim();
-            
-            // 3. Estructura del mensaje según el campo
-            let mensaje = "";
-            if (emailInput === "") {
-                mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-            } else {
-                mensaje = `Hola, soy el usuario con correo electrónico: ${emailInput}. Olvidé mi contraseña de acceso en Play John y necesito asistencia.`;
-            }
-            
-            // 4. LA LÍNEA CRÍTICA CORREGIDA: Nota las comillas invertidas ` ` y el formato ://whatsapp.com
-            event.currentTarget.href = `https://://whatsapp.com/send?phone=${telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
-        }
-        </script>
+    // 2. Tu número de soporte configurado
+    const telefonoSoporte = "5491141701483"; 
+
+    // 3. Captura el valor que el usuario escribió en el campo de correo
+    const emailInput = document.getElementById('login-email').value.trim();
+    
+    // 4. Estructura del mensaje según el campo
+    let mensaje = "";
+    if (emailInput === "") {
+        mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+    } else {
+        mensaje = `Hola, soy el usuario con correo electrónico: ${emailInput}. Olvidé mi contraseña de acceso en Play John y necesito asistencia.`;
+    }
+    
+    // 5. DIRECCIÓN CORREGIDA Y LIMPIA: Sin los dos puntos extra y usando la API oficial
+    const urlFinal = `https://whatsapp.com{telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
+    
+    // 6. Abre la pestaña de forma forzada y segura
+    window.open(urlFinal, '_blank');
+}
+</script>
 
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
