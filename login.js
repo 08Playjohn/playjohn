@@ -84,7 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => {
                 // Parche de contingencia por si Google Sheets asienta los datos pero tarda en responder
-                alert("Proceso de registro finalizado. En unos segundos verás los datos cargados en tu Drive.");
+                .catch(error => {
+    alert("¡Tu registro fue recibido! Ya podés intentar iniciar sesión.");
+    window.location.reload();
+});
+
                 window.location.reload();
             });
         });
