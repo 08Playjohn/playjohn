@@ -30,37 +30,33 @@
     <!-- FORMULARIOS DESPLEGABLES (Va adentro del cuadro general) -->
     <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
         
-        <!-- FORMULARIO 1: INICIAR SESIÓN -->
+        <        <!-- FORMULARIO 1: INICIAR SESIÓN -->
         <form id="formulario-login" onsubmit="return false;">
             <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
             <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
-          
-        <script>
-                      <!-- ENLACE DE RECUPERACIÓN POR WHATSAPP DINÁMICO -->
+            
+            <!-- EL ENLACE TIENE QUE IR ACÁ (ADENTRO DEL FORMULARIO) -->
             <div style="margin-top: 15px; text-align: right;">
                 <a id="link-recuperar-whatsapp"
                    href="#" 
                    target="_blank" 
-                   style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s;"
+                   style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s; display: inline-block;"
                    onmouseover="this.style.color='#ffffff';" 
-                   onmouseout="this.style.color='#00f0ff';"
+                   onmouseout="this.style.color='#00f0ff'; font-weight: bold;"
                    onclick="configurarMensajeRecuperacion(event)">
                    ¿Olvidaste tu contraseña?
                 </a>
             </div>
         </form>
 
+        <!-- EL SCRIPT QUEDA AFUERA Y NO SE MUESTRA EN PANTALLA -->
         <script>
         function configurarMensajeRecuperacion(event) {
-            // 1. Tu número de soporte configurado correctamente
             const telefonoSoporte = "5491141701483"; 
-
-            // 2. Captura el valor que el usuario escribió en el campo de correo
             const emailInput = document.getElementById('login-email').value.trim();
             
-            // 3. Estructura corregida: Si está vacío avisa, si tiene datos los envía
             let mensaje = "";
             if (emailInput === "") {
                 mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
@@ -68,10 +64,10 @@
                 mensaje = `Hola, soy el usuario con correo electrónico: ${emailInput}. Olvidé mi contraseña de acceso en Play John y necesito asistencia.`;
             }
             
-            // 4. DIRECCIÓN TOTALMENTE CORREGIDA: Formato nativo para enlazar directo al chat
             event.currentTarget.href = `https://whatsapp.com{telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
         }
         </script>
+
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
 
