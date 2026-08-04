@@ -30,24 +30,44 @@
     <!-- FORMULARIOS DESPLEGABLES (Va adentro del cuadro general) -->
     <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
         
-             <!-- FORMULARIO 1: INICIAR SESIÓN -->
-        <form id="formulario-login" onsubmit="return false;">
-            <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
-            <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
+                     <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
             
-                        <!-- ENLACE DE RECUPERACIÓN DIRECTO EN HTML SIN JAVASCRIPT -->
+            <!-- ENLACE DE RECUPERACIÓN CORREGIDO Y SEGURO -->
             <div style="margin-top: 15px; text-align: right;">
-                <a href="https://whatsapp.com." 
-                   target="_blank" 
-                   style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s; display: inline-block;"
-                   onmouseover="this.style.color='#ffffff';" 
-                   onmouseout="this.style.color='#00f0ff';">
+                <button type="button"
+                        style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;"
+                        onmouseover="this.style.color='#ffffff';" 
+                        onmouseout="this.style.color='#00f0ff';"
+                        onclick="abrirSoportePlayJohn()">
                    ¿Olvidaste tu contraseña?
-                </a>
+                </button>
             </div>
         </form>
+
+        <script>
+        function abrirSoportePlayJohn() {
+            // 1. Número de teléfono de soporte limpio
+            const num = "5491141701483";
+
+            // 2. Captura el correo que el usuario escribió en la caja de texto
+            const inputCorreo = document.getElementById('login-email').value.trim();
+            
+            // 3. Define el mensaje personalizado según si completó el campo o no
+            let texto = "";
+            if (inputCorreo === "") {
+                texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+            } else {
+                texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
+            }
+            
+            // 4. DIRECCIÓN CORREGIDA: Se eliminó el punto final accidental de whatsapp.com
+            const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
+            
+            // 5. Abre el chat en una pestaña nueva limpia de forma segura
+            window.open(urlCorrecta, '_blank');
+        }
+        </script>
+
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
 
@@ -60,13 +80,35 @@
             <input type="email" id="reg-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="password" id="reg-password" placeholder="Crea tu contraseña" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             
-            <!-- CASILLA DE ACEPTACIÓN LEGAL ACOMODADA JUSTO ARRIBA DEL BOTÓN VERDE -->
+                     <!-- CASILLA DE ACEPTACIÓN LEGAL ACOMODADA JUSTO ARRIBA DEL BOTÓN VERDE -->
             <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px;">
                 <input type="checkbox" id="reg-terminos" style="margin-top: 3px; cursor: pointer;" required>
                 <label for="reg-terminos" style="color: #b3b9d1; font-size: 0.8rem; line-height: 1.4; font-family: sans-serif; cursor: pointer;">
                     Acepto los Términos de Servicio y autorizo a Play John a guardar mis datos para la gestión de pedidos y soporte técnico.
                 </label>
             </div>
+
+            <!-- BOTÓN MODIFICADO A TYPE="SUBMIT" PARA ACTIVAR LA TRABA -->
+            <button type="submit" id="btn-registro-submit" style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Registrarme en Drive</button>
+        </form>
+
+        <script>
+        // TRABA DE SEGURIDAD PARA EL REGISTRO
+        document.getElementById('formulario-registro').addEventListener('submit', function(event) {
+            const checkTerminos = document.getElementById('reg-terminos');
+            
+            // Si la casilla NO está tildada, frena por completo el guardado
+            if (!checkTerminos.checked) {
+                event.preventDefault();
+                alert("¡Atención! Debes aceptar los Términos de Servicio para poder registrarte.");
+                return false;
+            }
+            
+            // Si está tildada, acá continúa tu función actual que graba los datos en Drive
+            console.log("Términos aceptados. Procediendo a registrar en Drive...");
+        });
+        </script>
+
 
             <button type="button" id="btn-registro-submit" style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Registrarme en Play John</button>
         </form>
