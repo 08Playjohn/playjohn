@@ -1,22 +1,441 @@
 
-<!-- ================= CATEGORÍA: PLAYSTATION 2 ================= -->
-<div id="ps2" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
-    <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">🎮 PlayStation 2</h2>
-    <!-- Este contenedor ahora se llena solo gracias a JavaScript -->
-    <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Juegos y Consolas - Play John</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="icon" href="data:,">
+</head>
+<body style="background-color: #000000; margin: 0; padding: 0;">
 
-<!-- ================= CATEGORÍA: PLAYSTATION 3 ================= -->
-<div id="ps3" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
-    <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">🎮 PlayStation 3</h2>
-    <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
-</div>
+    <!-- TRES BOTONES CENTRALES DE NAVEGACIÓN -->
+    <div class="menu-tres-botones">
+        <a href="index.html#servicio" class="btn-centro">Servicios</a>
+        <a href="#catalogo-consolas" class="btn-centro">Productos</a>    
+        <a href="index.html#seccion-contacto" class="btn-centro">Contactanos</a>
+    </div>
 
-<!-- ================= CATEGORÍA: XBOX 360 ================= -->
-<div id="xbox-360" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
-    <h2 style="color: #39ff14; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5); font-family: sans-serif;">🟢 Xbox 360</h2>
-    <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
-</div>
+    <!-- SUBMENU DE ACCESO RÁPIDO INTERNO POR CONSOLAS -->
+    <div style="background-color: #0b0c10; padding: 15px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border-bottom: 2px solid #3a3f58;">
+        <a href="#ps2" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS2</a>
+        <a href="#ps3" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS3</a>
+        <a href="#ps4" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS4</a>
+        <a href="#ps5" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">PS5</a>
+        <a href="#xbox-360" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox 360</a>
+        <a href="#xbox-series" style="color: #39ff14; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #39ff14; padding: 5px 12px; border-radius: 4px;">Xbox Series</a>
+        <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
+    </div>
 
-<!-- Agrega al final de todo el documento (antes de cerrar el </body>) el script que maneja los datos -->
-<script src="catalogo.js"></script>
+    <!-- BARRRA DE BÚSQUEDA CENTRADA -->
+    <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
+        <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
+           <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+           <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+           </svg>
+        </div>
+    </div>
+
+    <style>
+        #buscador-juegos:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+    </style>
+
+    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS AGRUPADOS -->
+    <main id="catalogo-consolas" style="background-color: #000000; padding: 40px 20px;">
+   
+   <!-- ================= CATEGORÍA: PLAYSTATION 2 ================= -->
+    <div id="ps2" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
+        
+        <!-- UN SOLO TÍTULO PARA TODA LA CATEGORÍA -->
+        <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">
+            🎮 PlayStation 2
+        </h2>
+        
+        <!-- ESTE CONTENEDOR AGRUPA TODOS LOS PRODUCTOS EN MOSAICO -->
+        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- PRODUCTO 1: GTA San Andreas -->
+              <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/gta-san-andreas- ps2.jpg" alt="GTA San Andreas PS2" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>GTA San Andreas (PS2)</h3>
+                <p class="descripcion">Un clásico absoluto. Revive la historia de CJ en Los Santos.</p>
+                <div class="precio">$5.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="GTA San Andreas (PS2)" data-precio="5000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+            
+            <!-- PRODUCTO 2: Joystick Inalámbrico Seisa Azul -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/Joystick_ps2_inalambrico_jpg.JPG" alt="Joystick Inalambrico Seisa SJ-913" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>Joystick Inalambrico Seisa SJ-913 Con Receptor USB 6 en 1 Azul</h3>
+                <p class="descripcion">Control preciso, este mando combina funciones revolucionarias mientras conserva precisión, comodidad y exactitud en cada movimiento. Gracias a su ergonomía especialmente pensada para la posición de tu mano, podés pasar horas jugando con total confort. Pilas no incluidas.</p>
+                <div class="precio">$25.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="Joystick Inalambrico Seisa SJ-913 (PS2)" data-precio="25000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+            <!-- PRODUCTO 3: Joystick Inalámbrico Recargable -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/Joystick_ps2_inalambrico_recalgable.jpg" alt="Joystick Inalambrico Seisa SJ-819" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>JOYSTICK INALAMBRICO 6 EN 1 RECARGABLE (PS2)</h3>
+                <p class="descripcion">JOYSTICK INALAMBRICO RECARGABLE Dos modos: analógico y digital. Compatible con Consola PS II, PS III, PC, PC360, Android y Smart TV Box. 2.4G controlador inalámbrico. Diseño ergonómico Función especial Turbo y claro.</p>
+                <div class="precio">$30.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="Joystick Inalambrico Seisa SJ-819 (PS2)" data-precio="30000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+        </div> <!-- CIERRE DEL CONTENEDOR MOSAICO -->
+    </div> <!-- CIERRE DE LA CATEGORÍA PS2 -->
+
+
+        
+       <!-- ================= CATEGORÍA: PLAYSTATION 3 ================= -->
+    <div id="ps3" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
+        <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">🎮 PlayStation 3</h2>
+        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Producto 1 -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/gtav-ps3.jpg" alt="GTA V PS3" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>GTA V (PS3)</h3>
+                <p class="descripcion">Los inicios del multijugador y una campaña inolvidable.</p>
+                <div class="precio">$12.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="GTA V (PS3)" data-precio="12000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+            
+            <!-- Producto 2 -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/Joystickps3_bluetooth.jpg" alt="NJP311C JOYSTICK BLUETOOTH PARA PS3" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>NJP311C JOYSTICK BLUETOOTH PARA (PS3)</h3>
+                <p class="descripcion">El joystick NJP311C es un mando inalámbrico alternativo tipo DualShock 3 compatible con PlayStation 3, que destaca por su conectividad Bluetooth, diseño ergonómico y función de vibración incorporada. Recargable.</p>
+                <div class="precio">$20.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="NJP311C JOYSTICK BLUETOOTH PARA PS3" data-precio="20000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= CATEGORÍA: PLAYSTATION 4 ================= -->
+    <div id="ps4" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
+        <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">🎮 PlayStation 4</h2>
+        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Producto 1 -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/spider-man-ps4.jpg" alt="Spider-Man PS4" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>Spider-Man (PS4)</h3>
+                <p class="descripcion">Recorre Nueva York balanceándote con la mejor acción de Marvel.</p>
+                <div class="precio">$35.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="Spider-Man (PS4)" data-precio="35000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+            <!-- [Agrega acá abajo más tarjetas de PS4 cuando quieras] -->
+
+        </div>
+    </div>
+
+    <!-- ================= CATEGORÍA: PLAYSTATION 5 ================= -->
+    <div id="ps5" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
+        <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">🎮 PlayStation 5</h2>
+        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Producto 1 -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/gta-v-ps5.jpg" alt="GTA V PS5" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>GTA V (PS5)</h3>
+                <p class="descripcion">VEMOS ACA LUEGO QUE PONEMOS SOY LA MEJOR.</p>
+                <div class="precio">$75.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">PROMOCION</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="GTA V (PS5)" data-precio="75000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+            <!-- [Agrega acá abajo más tarjetas de PS5 cuando quieras] -->
+
+        </div>
+    </div>
+
+    <!-- ================= CATEGORÍA: XBOX 360 ================= -->
+    <div id="xbox-360" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
+        <h2 style="color: #39ff14; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5); font-family: sans-serif;">🟢 Xbox 360</h2>
+        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Producto 1 -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/halo-4-xbox360.jpg" alt="Halo 4" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>Halo 4 (Xbox 360)</h3>
+                <p class="descripcion">El regreso del Jefe Maestro en una de las mejores joyas de la consola.</p>
+                <div class="precio">$10.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="Halo 4 (Xbox 360)" data-precio="10000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/Joystick_xbox360.jpg" alt="JOYSTICK XBOX360 2.4G NJX312" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>JOYSTICK XBOX360 2.4G NJX312</h3>
+                <p class="descripcion">El Joystick Inalámbrico Seisa NJX312 es un mando genérico de formato tipo Xbox 360 que destaca por su amplia compatibilidad multidispositivo mediante tecnología inalámbrica de 2.4 GHz y receptor USB, además de incorporar conectividad Bluetooth.</p>
+                <div class="precio">35.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="JOYSTICK XBOX360 2.4G NJX312" data-precio="35000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= CATEGORÍA: XBOX SERIES ================= -->
+    <div id="xbox-series" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
+        <h2 style="color: #39ff14; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5); font-family: sans-serif;">🟢 Xbox Series X / S</h2>
+        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Producto 1 -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/forza-horizon-5-xbox.jpg" alt="Forza Horizon 5" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>Forza Horizon 5</h3>
+                <p class="descripcion">Carreras brutales en gráficos de nueva generación.</p>
+                <div class="precio">$80.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="Forza Horizon 5" data-precio="80000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+            <!-- [Agrega acá abajo más tarjetas de Xbox Series cuando quieras] -->
+
+        </div>
+    </div>
+
+       <!-- ================= CATEGORÍA: NINTENDO SWITCH ================= -->
+    <div id="nintendo-switch" class="categoria-consola" style="scroll-margin-top: 20px; margin-bottom: 20px;">
+        <h2 style="color: #ff003c; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(255, 0, 60, 0.5); font-family: sans-serif;">🔴 Nintendo Switch</h2>
+        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Producto 1: Zelda -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/zelda_swith.jpg" alt="The Legend of Zelda" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>The Legend of Zelda: Breath of the Wild</h3>
+                <p class="descripcion">Una aventura de mundo abierto revolucionaria e imperdible.</p>
+                <div class="precio">$145.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="The Legend of Zelda BotW" data-precio="145000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+            <!-- Producto 2: Mario Kart 8 Deluxe -->
+            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                <img src="Imagenes/servicio/mario-kart-switch.jpg" alt="Mario Kart World" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>Mario Kart World (Switch)</h3>
+                <p class="descripcion">Carreras brutales y diversión asegurada con amigos en la versión definitiva.</p>
+                <div class="precio">$42.000</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <button class="boton-wpp btn-agregar-carrito" data-nombre="Mario Kart World" data-precio="42000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; border: none; cursor: pointer;"><i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar</button>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+   <button id="btn-carrito-flotante" style="position: fixed; bottom: 30px; right: 30px; background-color: #39ff14; width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);">
+        🛒
+        <span id="contador-carrito" style="position: absolute; top: -5px; right: -5px; background-color: #ff003c; color: #fff; font-size: 0.75rem; font-weight: bold; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #000;">0</span>
+    </button>
+
+
+    <div id="ventana-carrito" style="position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #10121a; border-left: 2px solid #00f0ff; box-shadow: -5px 0 25px rgba(0, 240, 255, 0.3); z-index: 100001; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; font-family: sans-serif;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
+            <h3 style="color: #00f0ff; margin: 0; text-transform: uppercase;">🛒 Tu Carrito</h3>
+            <button id="cerrar-carrito" style="background: none; border: none; color: #ff003c; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+        <div id="lista-carrito" style="flex: 1; overflow-y: auto; margin-bottom: 15px;"></div>
+        <div style="border-top: 1px solid #3a3f58; padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: #39ff14; font-size: 1.2rem; margin-bottom: 15px;">
+                <span>Total:</span>
+                <span id="total-carrito">$0</span>
+            </div>
+
+<!-- REEMPLAZÁ TU ETIQUETA VERDE ACTUAL POR ESTE BOTÓN TOTALMENTE LIMPIO -->
+<!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
+<button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
+
+<!-- SCRIPT UNIFICADO: MOTOR DE BÚSQUEDA + CARRITO DE COMPRAS -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // ==========================================
+    // 1. LÓGICA DEL MOTOR DE BÚSQUEDA (FLEXBOX REPARADO)
+    // ==========================================
+    let inputBuscador = document.getElementById('buscador-juegos');
+    
+    if (inputBuscador) {
+        inputBuscador.addEventListener('keyup', function(e) {
+            try {
+                let texto = e.target.value.toLowerCase().trim();
+                
+                // Ocultar o mostrar la sección de Servicio Técnico
+                let seccionServicio = document.getElementById('servicio');
+                if (seccionServicio) {
+                    seccionServicio.style.setProperty('display', (texto === '') ? 'block' : 'none', 'important');
+                }
+
+                // Filtrar cada juego respetando el CSS original (Flexbox)
+                let tarjetas = document.querySelectorAll('.tarjeta-juego');
+                tarjetas.forEach(function(tarjeta) {
+                    let h3 = tarjeta.querySelector('h3');
+                    if (h3) {
+                        let nombreJuego = h3.textContent.toLowerCase();
+                        if (texto === '' || nombreJuego.includes(texto)) {
+                            tarjeta.style.display = ''; // Devuelve el control a tu clase .tarjeta-juego original en CSS
+                        } else {
+                            tarjeta.style.setProperty('display', 'none', 'important');
+                        }
+                    }
+                });
+
+                // Ocultar categorías enteras de consolas si se quedan sin juegos
+                let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch, #xbox360, #xboxseries, #nintendo');
+                categorias.forEach(function(seccion) {
+                    let contenedor = seccion.querySelector('.contenedor-catalogo');
+                    if (contenedor) {
+                        let juegos = contenedor.querySelectorAll('.tarjeta-juego');
+                        let visibles = 0;
+                        juegos.forEach(function(j) {
+                            if (j.style.display !== 'none') visibles++;
+                        });
+                        if (texto === '') {
+                            seccion.style.display = '';
+                        } else if (visibles === 0) {
+                            seccion.style.setProperty('display', 'none', 'important');
+                        } else {
+                            seccion.style.display = '';
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Error en búsqueda:", error);
+            }
+        });
+    }
+
+    // ==========================================
+    // 2. LÓGICA DE TU CARRITO DE COMPRAS PROTEGIDO
+    // ==========================================
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const btnFlotante = document.getElementById('btn-carrito-flotante');
+    const ventanaCarrito = document.getElementById('ventana-carrito');
+    const btnCerrar = document.getElementById('cerrar-carrito');
+    const listaCarrito = document.getElementById('lista-carrito');
+    const totalCarrito = document.getElementById('total-carrito');
+    const contadorCarrito = document.getElementById('contador-carrito');
+    const btnEnviar = document.getElementById('btn-enviar-carrito');
+
+    // Control de apertura y cierre de la persiana
+    if (btnFlotante && ventanaCarrito && btnCerrar) {
+        btnFlotante.addEventListener('click', () => { ventanaCarrito.style.right = '0'; });
+        btnCerrar.addEventListener('click', () => { ventanaCarrito.style.right = '-400px'; });
+    }
+
+    // CAPTURA DE CLICS EN BOTONES (Usando delegación de eventos global)
+    document.addEventListener('click', function(e) {
+        const boton = e.target.closest('.btn-agregar-carrito');
+        if (boton) {
+            const nombre = boton.getAttribute('data-nombre');
+            const precio = parseFloat(boton.getAttribute('data-precio'));
+            const existe = carrito.find(item => item.nombre === nombre);
+            if(existe) { 
+                existe.cantidad++; 
+            } else { 
+                carrito.push({ nombre, precio, quantity: 1, cantidad: 1 }); 
+            }
+            actualizarCarrito();
+            if (ventanaCarrito) ventanaCarrito.style.right = '0';
+        }
+    });
+
+    // Cambiar cantidades en la persiana (+ / -)
+    window.cambiarCantidad = function(nombre, accion) {
+        const producto = carrito.find(item => item.nombre === nombre);
+        if (producto) {
+            if (accion === 'sumar') {
+                producto.cantidad++;
+            } else if (accion === 'restar') {
+                producto.cantidad--;
+                if (producto.cantidad <= 0) {
+                    carrito = carrito.filter(item => item.nombre !== nombre);
+                }
+            }
+        }
+        actualizarCarrito();
+    }
+
+    // Quitar juego completo
+    window.eliminarProducto = function(nombre) {
+        carrito = carrito.filter(item => item.nombre !== nombre);
+        actualizarCarrito();
+    }
+
+    // Actualizar lista visual del carrito
+    function actualizarCarrito() {
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
+        
+        listaCarrito.innerHTML = '';
+        let total = 0;
+        let cantidadTotal = 0;
+
+        carrito.forEach(item => {
+            total += item.precio * item.cantidad;
+            cantidadTotal += item.cantidad;
+            
+            const elemento = document.createElement('div');
+            elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
+            
+            elemento.innerHTML = `
+                <div style="color: #fff; font-size: 0.9rem; text-align: left; max-width: 65%;">
+                    <div style="font-weight: bold; margin-bottom: 4px;">${item.nombre}</div>
+                    <div style="color: #39ff14; font-weight: bold;">$${(item.precio * item.cantidad).toLocaleString('es-AR')}</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button onclick="window.cambiarCantidad('${item.nombre}', 'restar')" style="background-color: #ff003c; color: white; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">-</button>
+                    <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">${item.cantidad}</span>
+                    <button onclick="window.cambiarCantidad('${item.nombre}', 'sumar')" style="background-color: #39ff14; color: black; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">+</button>
+                    <button onclick="window.eliminarProducto('${item.nombre}')" style="background: none; border: none; color: #ff003c; font-size: 1rem; cursor: pointer; margin-left: 4px;">X</button>
+                </div>
+            `;
+            listaCarrito.appendChild(elemento);
+        });
+
+        totalCarrito.innerText = `$${total.toLocaleString('es-AR')}`;
+        contadorCarrito.innerText = cantidadTotal;
+    }
+
+    // ESCUCHADOR ASOCIADO AL BOTÓN DE ENVIAR A WHATSAPP
+    if (btnEnviar) {
+        btnEnviar.onclick = function(e) {
+            if (e) e.preventDefault();
+            
+            if (carrito.length === 0) {
+                alert('El carrito está vacío.');
+                return;
+            }
+
+            let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
+            carrito.forEach(item => { 
+                mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
+            });
+            mensaje += "\nTotal estimado: " + totalCarrito.innerText;
+            
+            window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
+        };
+    }
+
+    // Arranca el carrito al cargar la página
+    actualizarCarrito();
+});
+</script>
+
+</body>
+</html>
