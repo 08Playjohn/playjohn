@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
+                    // ¡TU NUEVO CARTEL GENÉRICO APLICADO VISUALMENTE ACÁ!
                     alert("¡Registro exitoso! Tu cuenta de Play John ya está activa. Ya podés iniciar sesión.");
                     window.location.reload();
                 } else {
@@ -83,12 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
             .catch(error => {
-                // Parche de contingencia por si Google Sheets asienta los datos pero tarda en responder
-                .catch(error => {
-    alert("¡Tu registro fue recibido! Ya podés intentar iniciar sesión.");
-    window.location.reload();
-});
-
+                // Parche corregido y limpio sin duplicar comandos
+                alert("¡Tu registro fue recibido! Ya podés intentar iniciar sesión.");
                 window.location.reload();
             });
         });
@@ -133,4 +130,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
