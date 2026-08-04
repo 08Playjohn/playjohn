@@ -115,39 +115,6 @@ function abrirSoportePlayJohn() {
 }
 </script>
 
-        let texto = "";
-        if (inputCorreo === "") {
-            texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-        } else {
-            texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
-        }
-        
-        // Se reparó la URL oficial sin puntos ni dominios rotos
-        const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
-        window.open(urlCorrecta, '_blank');
-    }
-
-    // 2. TRABA TOTAL PARA EL REGISTRO (CONECTADO AL SUBMIT REAL)
-    document.getElementById('formulario-registro').addEventListener('submit', function(event) {
-        // Frenamos el envío nativo inmediato
-        event.preventDefault();
-        
-        const checkTerminos = document.getElementById('reg-terminos');
-        
-        // Si no está marcado el checkbox, corta la ejecución por completo
-        if (!checkTerminos.checked) {
-            alert("¡Atención! Debes aceptar los Términos de Servicio para poder registrarte.");
-            return false;
-        }
-
-        // LLAMADO A TU FUNCIÓN DE GUARDADO (Coloca aquí el llamado a tu script existente que registrar en Play John)
-        // Ejemplo: tuFuncionParaGrabarEnDrive();
-        alert("Términos aceptados correctamente. ¡Guardando datos!");
-    });
-    </script>
-
-
-
     </div> <!-- CIERRA EL CUADRO SECCIONAL -->
 </div> <!-- CIERRA EL CONTENEDOR GENERAL OSCURO -->
 
