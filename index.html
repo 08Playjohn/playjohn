@@ -38,10 +38,10 @@
             <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
           
         <script>
-          <!-- ENLACE DE RECUPERACIÓN POR WHATSAPP DINÁMICO -->
+                      <!-- ENLACE DE RECUPERACIÓN POR WHATSAPP DINÁMICO -->
             <div style="margin-top: 15px; text-align: right;">
                 <a id="link-recuperar-whatsapp"
-                   href="https://whatsapp.com" 
+                   href="#" 
                    target="_blank" 
                    style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s;"
                    onmouseover="this.style.color='#ffffff';" 
@@ -51,7 +51,9 @@
                 </a>
             </div>
         </form>
-            function configurarMensajeRecuperacion(event) {
+
+        <script>
+        function configurarMensajeRecuperacion(event) {
             // 1. Tu número de soporte configurado correctamente
             const telefonoSoporte = "5491141701483"; 
 
@@ -66,7 +68,7 @@
                 mensaje = `Hola, soy el usuario con correo electrónico: ${emailInput}. Olvidé mi contraseña de acceso en Play John y necesito asistencia.`;
             }
             
-            // 4. DIRECCIÓN CORREGIDA: Cambiada a api.whatsapp.com con el formato de variables correcto
+            // 4. DIRECCIÓN TOTALMENTE CORREGIDA: Formato nativo para enlazar directo al chat
             event.currentTarget.href = `https://whatsapp.com{telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
         }
         </script>
