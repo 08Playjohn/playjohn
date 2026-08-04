@@ -4,6 +4,45 @@ const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAt
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================
+    // INTERACTIVIDAD DE LOS BOTONES VISUALES
+    // ==========================================
+    const btnMostrar = document.getElementById("btn-mostrar-login");
+    const seccionFormularios = document.getElementById("seccion-formularios");
+    const saludo = document.getElementById("usuario-saludo");
+
+    // Si el usuario ya se había logueado antes, lo saludamos automáticamente
+    const usuarioGuardado = localStorage.getItem("usuarioLogueado");
+    if (usuarioGuardado && saludo) {
+        saludo.innerText = "👋 ¡Hola, " + usuarioGuardado + "! Ya estás conectado.";
+        saludo.style.display = "block";
+        if (btnMostrar) btnMostrar.innerText = "Cerrar Sesión";
+    }
+
+    if (btnMostrar && seccionFormularios) {
+        btnMostrar.addEventListener("click", () => {
+            if (localStorage.getItem("usuarioLogueado")) {
+                // Si hace clic teniendo sesión activa, funciona como botón de Logout
+                localStorage.removeItem("usuarioLogueado");
+                if (saludo) saludo.style.display = "none";
+                btnMostrar.innerText = "🔑 Iniciar Sesión / Registrarse";
+                alert("Sesión cerrada correctamente.");
+                window.location.reload();
+            } else {
+                // Si no está logueado, abre y cierra el panel de entrada
+                if (seccionFormularios.style.display === "none" || seccionFormularios.style.display === "") {
+                    seccionFormularios.style.display = "block";
+                } else {
+                    seccionFormularios.style.display = "none";
+                }
+            }
+        });
+    }
+
+    // ==========================================
+    // 1. CÓDIGO PARA EL BOTÓN INICIAR SESIÓN (Sigue igual abajo...)
+    // ==========================================
+    
+    // ==========================================
     // 1. CODIGO PARA EL BOTÓN INICIAR SESIÓN
     // ==========================================
     const formLogin = document.getElementById("formulario-login"); // Cambialo por el ID de tu form de login
