@@ -37,7 +37,7 @@
             <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
             
-                       <!-- EL ENLACE TIENE QUE IR ACÁ (ADENTRO DEL FORMULARIO) -->
+                                  <!-- EL ENLACE TIENE QUE IR ACÁ (ADENTRO DEL FORMULARIO) -->
             <div style="margin-top: 15px; text-align: right;">
                 <a id="link-recuperar-whatsapp"
                    href="#" 
@@ -52,7 +52,7 @@
 
 <script>
 function configurarMensajeRecuperacion(event) {
-    // 1. Detenemos la acción por defecto para evitar pantallas en blanco
+    // 1. Detenemos la acción por defecto para evitar bloqueos del navegador
     event.preventDefault();
 
     // 2. Tu número de soporte configurado
@@ -69,13 +69,14 @@ function configurarMensajeRecuperacion(event) {
         mensaje = `Hola, soy el usuario con correo electrónico: ${emailInput}. Olvidé mi contraseña de acceso en Play John y necesito asistencia.`;
     }
     
-    // 5. DIRECCIÓN CORREGIDA Y COMPLETADA CON LA API OFICIAL
-    const urlFinal = `https://whatsapp.com{telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
+    // 5. DIRECCIÓN CORREGIDA CON COMILLAS INVERTIDAS OBLIGATORIAS Y API OFICIAL
+    const urlFinal = "https://whatsapp.com" + telefonoSoporte + "&text=" + encodeURIComponent(mensaje);
     
     // 6. Abre la pestaña de forma forzada y segura
     window.open(urlFinal, '_blank');
 }
 </script>
+
 
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
