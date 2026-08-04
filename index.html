@@ -48,7 +48,42 @@
                 </a>
             </div>
         </form>
+ <!-- ENLACE DE RECUPERACIÓN POR WHATSAPP DINÁMICO -->
+            <div style="margin-top: 15px; text-align: right;">
+                <a id="link-recuperar-whatsapp"
+                   href="https://whatsapp.com" 
+                   target="_blank" 
+                   style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s;"
+                   onmouseover="this.style.color='#ffffff';" 
+                   onmouseout="this.style.color='#00f0ff';"
+                   onclick="configurarMensajeRecuperacion(event)">
+                   ¿Olvidaste tu contraseña?
+                </a>
+            </div>
+        </form>
 
+        <script>
+        function configurarMensajeRecuperacion(event) {
+    // 1. Tu número de soporte configurado correctamente
+    const telefonoSoporte = "5491141701483"; 
+
+    // 2. Captura el valor que el usuario escribió en el campo de correo
+    const emailInput = document.getElementById('login-email').value.trim();
+    
+    // 3. Estructura corregida: Si está vacío avisa, si tiene datos los envía
+    let mensaje = "";
+    if (emailInput === "") {
+        mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+    } else {
+        mensaje = `Hola, soy el usuario con correo electrónico: ${emailInput}. Olvidé mi contraseña de acceso en Play John y necesito asistencia.`;
+    }
+    
+    // 4. Dirección oficial corregida con la API de WhatsApp para que funcione en PC y Celular
+    event.currentTarget.href = `https://whatsapp.com{telefonoSoporte}&text=${encodeURIComponent(mensaje)}`;
+}
+
+        }
+        </script>
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
 
         <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES -->
