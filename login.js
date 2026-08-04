@@ -1,5 +1,5 @@
 // REEMPLAZÁ ESTO CON LA URL LARGA QUE COPIASTE EN EL PASO 1 (NUEVA IMPLEMENTACIÓN)
-const URL_GOOGLE_SCRIPT = https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec;
+const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
     
