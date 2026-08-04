@@ -37,46 +37,41 @@
             <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
             
-            <!-- ENLACE RECUPERADO Y FIJADO EN SU LUGAR CORRECTO -->
+                      <!-- ENLACE DE RECUPERACIÓN LIMPIO -->
             <div style="margin-top: 15px; text-align: right;">
                 <a id="link-recuperar-whatsapp"
                    href="#" 
                    style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s; display: inline-block;"
                    onmouseover="this.style.color='#ffffff';" 
-                   onmouseout="this.style.color='#00f0ff';"
-                   onclick="configurarMensajeRecuperacion(event)">
+                   onmouseout="this.style.color='#00f0ff'; font-weight: bold;"
+                   onclick="enviarMensajeDirecto(event)">
                    ¿Olvidaste tu contraseña?
                 </a>
             </div>
         </form>
 
-      <script>
-function configurarMensajeRecuperacion(event) {
-    // 1. Detenemos la acción por defecto para evitar que la página suba
-    event.preventDefault();
+        <script>
+        function enviarMensajeDirecto(event) {
+            event.preventDefault();
 
-    // 2. Captura el correo que escribió el usuario
-    const emailInput = document.getElementById('login-email').value.trim();
-    
-    // 3. Estructura el mensaje según el campo
-    let mensaje = "";
-    if (emailInput === "") {
-        mensaje = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-    } else {
-        mensaje = "Hola, soy el usuario con correo electrónico: " + emailInput + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
-    }
-    
-    // 4. DIRECCIÓN CORREGIDA Y PROBADA: Apunta directo a tu número de soporte
-    const urlFinal = "https://whatsapp.com" + encodeURIComponent(mensaje);
-    
-    // 5. Abre la pestaña de forma forzada y segura
-    window.open(urlFinal, '_blank');
-}
-</script>
-
-
-
-
+            // 1. Capturamos el correo del input
+            const correoUsuario = document.getElementById('login-email').value.trim();
+            
+            // 2. Armamos el mensaje de texto según si escribió algo o no
+            let textoMensaje = "";
+            if (correoUsuario === "") {
+                textoMensaje = "Hola, olvide mi contrasena en Play John y necesito ayuda.";
+            } else {
+                textoMensaje = "Hola, soy el usuario " + correoUsuario + ". Olvide mi contrasena en Play John.";
+            }
+            
+            // 3. URL DIRECTA USANDO EL FORMATO CORTO OFICIAL WA.ME (Evita cualquier error de dominio)
+            const enlaceWhatsapp = "https://wa.me" + encodeURIComponent(textoMensaje);
+            
+            // 4. Abrimos la pestaña
+            window.open(enlaceWhatsapp, '_blank');
+        }
+        </script>
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
 
