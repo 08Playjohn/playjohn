@@ -37,15 +37,15 @@
             <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
             
-            <!-- ENLACE DE RECUPERACIÓN DIRECTO CORREGIDO Y SEGURO -->
+                        <!-- ENLACE DE RECUPERACIÓN DIRECTO EN HTML SIN JAVASCRIPT -->
             <div style="margin-top: 15px; text-align: right;">
-                <button type="button"
-                        style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;"
-                        onmouseover="this.style.color='#ffffff';" 
-                        onmouseout="this.style.color='#00f0ff';"
-                        onclick="const mail = document.getElementById('login-email').value.trim(); const txt = mail ? 'Hola, soy el usuario con correo: ' + mail + '. Olvide mi contraseña de acceso en Play John.' : 'Hola, olvidé mi contraseña en Play John y necesito asistencia.'; window.open('https://whatsapp.com' + encodeURIComponent(txt), '_blank')">
+                <a href="https://whatsapp.com." 
+                   target="_blank" 
+                   style="color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; transition: 0.2s; display: inline-block;"
+                   onmouseover="this.style.color='#ffffff';" 
+                   onmouseout="this.style.color='#00f0ff';">
                    ¿Olvidaste tu contraseña?
-                </button>
+                </a>
             </div>
         </form>
 
