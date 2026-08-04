@@ -16,18 +16,18 @@
         <h2>* Servicio Técnico Especializado *</h2>
         <div class="instrucciones">◀ ENTRA Y ENCONTRA LO QUE BUSCABAS ▶</div>
     </header>
-<!-- ================= INTERFAZ DE LOGUEO COMPLETA ================= -->
+<!-- ================= INTERFAZ DE LOGUEO COMPLETA E INTERACTIVA ================= -->
 <div style="background-color: #0b0c10; padding: 30px 15px; border-bottom: 2px solid #3a3f58; text-align: center; font-family: sans-serif;">
     
-    <!-- Este es el contenedor que va a saludar al cliente si ya está logueado -->
-    <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; margin-bottom: 10px;"></div>
+    <!-- Contenedor que saluda al usuario activo -->
+    <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;"></div>
     
-    <!-- BOTÓN INTERACTIVO PARA ABRIR EL FORMULARIO -->
-    <button id="btn-mostrar-login" style="background-color: #6200ea; color: white; border: none; padding: 10px 20px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; box-shadow: 0 0 10px rgba(98, 0, 234, 0.4);">
+    <!-- EL BOTÓN GESTOR -->
+    <button id="btn-mostrar-login" style="background-color: #6200ea; color: white; border: none; padding: 12px 24px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; box-shadow: 0 0 10px rgba(98, 0, 234, 0.4); transition: 0.2s;">
         🔑 Iniciar Sesión / Registrarse
     </button>
 
-    <!-- CUADRO FLOTANTE CON LOS FORMULARIOS (Oculto por defecto con display: none) -->
+    <!-- FORMULARIOS DESPLEGABLES -->
     <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
         
         <!-- FORMULARIO 1: INICIAR SESIÓN -->
@@ -53,6 +53,44 @@
 
     </div>
 </div>
+
+<!-- ================= CEREBRO INTERACTIVO EN LÍNEA ================= -->
+<script>
+    // Forzamos la ejecución inmediata sin depender de archivos externos
+    (function() {
+        const btn = document.getElementById("btn-mostrar-login");
+        const panel = document.getElementById("seccion-formularios");
+        const saludo = document.getElementById("usuario-saludo");
+
+        // Verificamos si ya hay un usuario guardado en el caché del navegador
+        const usuarioGuardado = localStorage.getItem("usuarioLogueado");
+        if (usuarioGuardado && saludo && btn) {
+            saludo.innerText = "👋 ¡Hola, " + usuarioGuardado + "! Sesión iniciada con éxito.";
+            saludo.style.display = "block";
+            btn.innerText = "Cerrar Sesión";
+            btn.style.backgroundColor = "#ff003c"; // Botón en rojo si es para desloguearse
+        }
+
+        if (btn && panel) {
+            btn.addEventListener("click", function() {
+                if (localStorage.getItem("usuarioLogueado")) {
+                    // Acción de Cerrar Sesión
+                    localStorage.removeItem("usuarioLogueado");
+                    alert("Sesión cerrada correctamente.");
+                    window.location.reload();
+                } else {
+                    // Acción de Desplegar / Ocultar el panel
+                    if (panel.style.display === "none" || panel.style.display === "") {
+                        panel.style.display = "block";
+                    } else {
+                        panel.style.display = "none";
+                    }
+                }
+            });
+        }
+    })();
+</script>
+
 
 
 <!-- ASÍ DEBEN QUEDAR TUS TRES BOTONES CENTRALES EN INDEX.HTML -->
