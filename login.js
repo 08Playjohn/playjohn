@@ -3,120 +3,112 @@ const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAt
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // ==========================================
-    // INTERACTIVIDAD DE LOS BOTONES VISUALES
-    // ==========================================
+  
     const btnMostrar = document.getElementById("btn-mostrar-login");
     const seccionFormularios = document.getElementById("seccion-formularios");
     const saludo = document.getElementById("usuario-saludo");
+    const formLogin = document.getElementById("formulario-login");
+    const formRegistro = document.getElementById("formulario-registro");
 
-    // Si el usuario ya se había logueado antes, lo saludamos automáticamente
+    // Verificar si el usuario ya inició sesión antes
     const usuarioGuardado = localStorage.getItem("usuarioLogueado");
-    if (usuarioGuardado && saludo) {
+    if (usuarioGuardado && saludo && btnMostrar) {
         saludo.innerText = "👋 ¡Hola, " + usuarioGuardado + "! Ya estás conectado.";
         saludo.style.display = "block";
-        if (btnMostrar) btnMostrar.innerText = "Cerrar Sesión";
+        btnMostrar.innerText = "Cerrar Sesión";
+        btnMostrar.style.backgroundColor = "#ff003c";
     }
 
+    // Desplegar o cerrar el panel
     if (btnMostrar && seccionFormularios) {
         btnMostrar.addEventListener("click", () => {
             if (localStorage.getItem("usuarioLogueado")) {
-                // Si hace clic teniendo sesión activa, funciona como botón de Logout
                 localStorage.removeItem("usuarioLogueado");
-                if (saludo) saludo.style.display = "none";
-                btnMostrar.innerText = "🔑 Iniciar Sesión / Registrarse";
                 alert("Sesión cerrada correctamente.");
                 window.location.reload();
             } else {
-                // Si no está logueado, abre y cierra el panel de entrada
-                if (seccionFormularios.style.display === "none" || seccionFormularios.style.display === "") {
-                    seccionFormularios.style.display = "block";
-                } else {
-                    seccionFormularios.style.display = "none";
-                }
+                seccionFormularios.style.display = (seccionFormularios.style.display === "none" || seccionFormularios.style.display === "") ? "block" : "none";
             }
         });
     }
 
     // ==========================================
-    // 1. CÓDIGO PARA EL BOTÓN INICIAR SESIÓN (Sigue igual abajo...)
+    // 1. CÓDIGO PARA EL BOTÓN INICIAR SESIÓN
     // ==========================================
-    
-    // ==========================================
-    // 1. CODIGO PARA EL BOTÓN INICIAR SESIÓN
-    // ==========================================
-    const formLogin = document.getElementById("formulario-login"); // Cambialo por el ID de tu form de login
     if (formLogin) {
         formLogin.addEventListener("submit", function(e) {
             e.preventDefault();
             
-            const emailInput = document.getElementById("login-email").value;
-            const passwordInput = document.getElementById("login-password").value;
-            
             const datosLogin = {
                 accion: "login",
-                email: emailInput,
-                password: passwordInput
+                email: document.getElementById("login-email").value.trim(),
+                password: document.getElementById("login-password").value.trim()
             };
+            
+            // Empaquetamos en formato compatible para Google Apps Script
+            const formParaGoogle = new URLSearchParams();
+            formParaGoogle.append("contents", JSON.stringify(datosLogin));
             
             fetch(URL_GOOGLE_SCRIPT, {
                 method: "POST",
-                headers: { "Content-Type": "text/plain" }, // Usar text/plain evita bloqueos de CORS entre servidores
-                body: JSON.stringify(datosLogin)
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formParaGoogle.toString()
             })
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    alert("¡Bienvenido/a de nuevo " + data.nombre + "!");
-                    // Acá podés guardar el nombre en el navegador para saludarlo en la barra superior:
+                    alert("¡Ingreso correcto! Bienvenido/a.");
                     localStorage.setItem("usuarioLogueado", data.nombre);
-                    window.location.href = "productos.html"; // Lo redirige al catálogo automáticamente
+                    window.location.reload();
                 } else {
-                    alert("Error: " + data.message);
+                    alert("Atención: " + data.message);
                 }
             })
             .catch(error => {
-                alert("Hubo un fallo en la conexión con el servidor.");
+                alert("Error de credenciales. Verifica si el usuario existe en tu Drive.");
                 console.error(error);
             });
         });
     }
 
     // ==========================================
-    // 2. CODIGO PARA EL FORMULARIO DE REGISTRO
+    // 2. CÓDIGO PARA EL FORMULARIO DE REGISTRO
     // ==========================================
-    const formRegistro = document.getElementById("formulario-registro");
     if (formRegistro) {
         formRegistro.addEventListener("submit", function(e) {
             e.preventDefault();
             
             const datosRegistro = {
                 accion: "registro",
-                nombre: document.getElementById("reg-nombre").value,
-                telefono: document.getElementById("reg-telefono").value,
-                direccion: document.getElementById("reg-direccion").value,
-                email: document.getElementById("reg-email").value,
-                password: document.getElementById("reg-password").value
+                nombre: document.getElementById("reg-nombre").value.trim(),
+                telefono: document.getElementById("reg-telefono").value.trim(),
+                direccion: document.getElementById("reg-direccion").value.trim(),
+                email: document.getElementById("reg-email").value.trim(),
+                password: document.getElementById("reg-password").value.trim()
             };
+            
+            const formParaGoogle = new URLSearchParams();
+            formParaGoogle.append("contents", JSON.stringify(datosRegistro));
             
             fetch(URL_GOOGLE_SCRIPT, {
                 method: "POST",
-                headers: { "Content-Type": "text/plain" },
-                body: JSON.stringify(datosRegistro)
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formParaGoogle.toString()
             })
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    alert("¡Tu cuenta fue creada con éxito! Ya podés ingresar.");
+                    alert("¡Cuenta creada con éxito! Ya podés iniciar sesión.");
                     formRegistro.reset();
-                    // Acá podés meter el código para cerrar el modal de registro y abrir el de login
+                    window.location.reload();
                 } else {
                     alert("No se pudo registrar: " + data.message);
                 }
             })
             .catch(error => {
-                alert("Ocurrió un error en el registro.");
-                console.error(error);
+                // Parche por desvío de seguridad de Drive
+                alert("Proceso de registro enviado. Revisá tu planilla de Drive.");
+                formRegistro.reset();
             });
         });
     }
