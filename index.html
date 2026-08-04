@@ -30,51 +30,24 @@
     <!-- FORMULARIOS DESPLEGABLES (Va adentro del cuadro general) -->
     <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
         
-              <!-- FORMULARIO 1: INICIAR SESIÓN -->
+             <!-- FORMULARIO 1: INICIAR SESIÓN -->
         <form id="formulario-login" onsubmit="return false;">
             <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
             <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
-                      </a>
-            </div>
-        </form>        
-            <!-- ENLACE DE RECUPERACIÓN DIRECTO CORREGIDO -->
+            
+            <!-- ENLACE DE RECUPERACIÓN DIRECTO CORREGIDO Y SEGURO -->
             <div style="margin-top: 15px; text-align: right;">
                 <button type="button"
                         style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;"
                         onmouseover="this.style.color='#ffffff';" 
                         onmouseout="this.style.color='#00f0ff';"
-                        onclick="window.open('https://whatsapp.com' + encodeURIComponent('Hola, olvidé mi contraseña en Play John y necesito asistencia para ingresar con mi correo: ' + document.getElementById('login-email').value.trim()), '_blank')">
+                        onclick="const mail = document.getElementById('login-email').value.trim(); const txt = mail ? 'Hola, soy el usuario con correo: ' + mail + '. Olvide mi contraseña de acceso en Play John.' : 'Hola, olvidé mi contraseña en Play John y necesito asistencia.'; window.open('https://whatsapp.com' + encodeURIComponent(txt), '_blank')">
                    ¿Olvidaste tu contraseña?
                 </button>
             </div>
         </form>
-
-              <script>
-        function enviarMensajeDirecto(event) {
-            // 1. Detenemos la acción por defecto
-            event.preventDefault();
-
-            // 2. Capturamos el correo del input
-            const correoUsuario = document.getElementById('login-email').value.trim();
-            
-            // 3. Armamos el mensaje de texto según si escribió algo o no
-            let textoMensaje = "";
-            if (correoUsuario === "") {
-                textoMensaje = "Hola, olvide mi contrasena en Play John y necesito ayuda.";
-            } else {
-                textoMensaje = "Hola, soy el usuario " + correoUsuario + ". Olvide mi contrasena en Play John.";
-            }
-            
-            // 4. CAMBIO OBLIGATORIO: Se quitó wa.link y se puso el formato wa.me correcto con tu número
-            const enlaceWhatsapp = "https://wa.me" + encodeURIComponent(textoMensaje);
-            
-            // 5. Abrimos la pestaña de WhatsApp de forma limpia
-            window.open(enlaceWhatsapp, '_blank');
-        }
-        </script>
-
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
 
