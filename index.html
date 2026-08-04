@@ -60,13 +60,13 @@
             // 2. Armamos el mensaje de texto según si escribió algo o no
             let textoMensaje = "";
             if (correoUsuario === "") {
-                textoMensaje = "Hola, olvide mi contrasena en Play John y necesito ayuda.";
+                textoMensaje = "Hola, olvide mi contraseña en Play John y necesito ayuda.";
             } else {
-                textoMensaje = "Hola, soy el usuario " + correoUsuario + ". Olvide mi contrasena en Play John.";
+                textoMensaje = "Hola, soy el usuario " + correoUsuario + ". Olvide mi contraseña en Play John.";
             }
             
             // 3. URL DIRECTA USANDO EL FORMATO CORTO OFICIAL WA.ME (Evita cualquier error de dominio)
-            const enlaceWhatsapp = "https://wa.me" + encodeURIComponent(textoMensaje);
+            const enlaceWhatsapp = "https://wa.link/b336q6" + encodeURIComponent(textoMensaje);
             
             // 4. Abrimos la pestaña
             window.open(enlaceWhatsapp, '_blank');
