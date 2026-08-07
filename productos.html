@@ -291,23 +291,30 @@
     </div>
 </footer>
 
-<!-- SCRIPT UNIFICADO: MOTOR DE BÚSQUEDA + LÓGICA DEL CARRITO -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    // MOTOR DE BÚSQUEDA MULTI-CLASE
     let inputBuscador = document.getElementById('buscador-juegos');
     if (inputBuscador) {
         inputBuscador.addEventListener('keyup', function(e) {
             let texto = e.target.value.toLowerCase().trim();
-            let tarjetas = document.querySelectorAll('.tarjeta-juego');
+            let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
+            
             tarjetas.forEach(function(tarjeta) {
                 let h3 = tarjeta.querySelector('h3');
                 if (h3) {
-                    tarjeta.style.display = (texto === '' || h3.textContent.toLowerCase().includes(texto)) ? '' : 'none';
+                    let nombreProducto = h3.textContent.toLowerCase();
+                    if (texto === '' || nombreProducto.includes(texto)) {
+                        tarjeta.style.display = '';
+                    } else {
+                        tarjeta.style.setProperty('display', 'none', 'important');
+                    }
                 }
             });
         });
     }
 
+    // LÓGICA DEL CARRITO DE COMPUTACIÓN
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const btnFlotante = document.getElementById('btn-carrito-flotante');
     const ventanaCarrito = document.getElementById('ventana-carrito');
@@ -350,14 +357,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         if (e.target && e.target.classList.contains('btn-eliminar')) {
             carrito.splice(e.target.getAttribute('data-index'), 1);
-            actualizer = actualizarInterfaz();
+            actualizarInterfaz();
         }
     });
 
     if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Consolas:\n\n";
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
             let total = 0;
             carrito.forEach(item => {
                 mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
