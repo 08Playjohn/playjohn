@@ -6,27 +6,26 @@
     <title>Catálogo computacion - Play John</title>
     <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://cloudflare.com">
-    <link rel="icon" href="data:,">
 </head>
 <body style="background-color: #000000; margin: 0; padding: 0;">
 
-    <!-- TRES BOTONES CENTRALES DE NAVEGACIÓN -->
-    <div class="cuatro-un-boton">
+    <!-- CUATRO BOTONES CENTRALES DE NAVEGACIÓN COMPLETAMENTE CENTRADOS -->
+    <div class="cuatro-un-boton" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 15px; width: 100%; max-width: 1200px; margin: 20px auto; padding: 10px 0;">
         <a href="index.html#servicio" class="btn-centro">Servicios</a>
-        <a href="#catalogo-consolas" class="btn-centro">Consolas</a>
-        <a href="#catalogo-consolas" class="btn-centro">Computacion</a>  
+        <a href="productos.html" class="btn-centro">Consolas</a>
+        <a href="_computacion.html" class="btn-centro">Computacion</a>  
         <a href="index.html#seccion-contacto" class="btn-centro">Contactanos</a>
     </div>
 
-    <!-- SUBMENU DE ACCESO RÁPIDO INTERNO POR CONSOLAS -->
+    <!-- SUBMENU DE ACCESO RÁPIDO INTERNO -->
     <div style="background-color: #0b0c10; padding: 15px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border-bottom: 2px solid #3a3f58;">
-       <a href="#computacion" style="color: #0000FF; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #0000FF; padding: 5px 12px; border-radius: 4px;">Computacion</a>   
+       <a href="#computacion" style="color: #2f74ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #2f74ff; padding: 5px 12px; border-radius: 4px;">Computación</a>   
     </div>
 
-    <!-- BARRRA DE BÚSQUEDA CENTRADA -->
+    <!-- BARRA DE BÚSQUEDA CENTRADA -->
     <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
         <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
-           <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola y computacion..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+           <input type="text" id="buscador-juegos" placeholder="Buscar periféricos o computación..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -38,42 +37,34 @@
         #buscador-juegos:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
     </style>
 
-    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS AGRUPADOS -->
-    <main id="catalogo computacion" style="background-color: #000000; padding: 40px 20px;">
+    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS -->
+    <main id="catalogo-computacion" style="background-color: #000000; padding: 40px 20px;">
    
-<!-- ================= CATEGORÍA: COMPUTACION================= -->
-    <div id="computacion" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
-        
-          <!-- ================= CATEGORÍA: COMPUTACION================= -->
-    <!-- El clear: both y w-100 aseguran que baje por completo y no se monte de costado -->
-    <div id="computacion" class="categoria-consola" style="width: 100%; clear: both; margin-top: 60px; margin-bottom: 60px; scroll-margin-top: 20px;">
-        
-        <!-- UN SOLO TÍTULO PARA TODA LA CATEGORÍA (Sombra corregida en azul puro) -->
-        <h2 style="color: #0000ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 0, 255, 0.5); font-family: sans-serif;">
-            💻 Computación
-        </h2>
-        
-        <!-- ESTE CONTENEDOR AGRUPA TODOS LOS PRODUCTOS EN MOSAICO -->
-        <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+        <!-- ================= CATEGORÍA: COMPUTACION ================= -->
+        <div id="computacion" class="categoria-consola" style="width: 100%; clear: both; margin-bottom: 60px; scroll-margin-top: 20px;">
             
-            <!-- PRODUCTO 1: Teclado Retroiluminado -->
-            <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
-                <img src="Imagenes/servicio/tecladomecanicoconcable.jpg" alt="TECLADO MECANICO CABLEADO DE 61 TECLAS CON CABLE TIPO C REMOVIBLE" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-                <h3>TECLADO MECANICO CABLEADO DE 61 TECLAS CON CABLE </h3>
-                <p class="descripcion">El teclado mecánico Seisa DN-K61-TC es un modelo ultra compacto del 60% con 61 teclas, retroiluminación RGB y cable USB Tipo-C desmontable, diseñado para ahorrar espacio y facilitar su transporte.</p>
-                <div class="precio">$35.000</div>
-                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
-                <!-- Botón reparado sin conflictos de estilos superiores -->
-                <button class="boton-wpp btn-agregar-carrito" data-nombre="TECLADO MECANICO CABLEADO DE 61 TECLAS CON CABLE TIPO C REMOVIBLE" data-precio="35000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
-                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
-                </button>
+            <h2 style="color: #0000ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 0, 255, 0.5); font-family: sans-serif;">
+                💻 Computación
+            </h2>
+            
+            <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+                
+                <!-- PRODUCTO 1: Teclado Retroiluminado -->
+                <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
+                    <img src="Imagenes/servicio/tecladomecanicoconcable.jpg" alt="TECLADO MECANICO CABLEADO DE 61 TECLAS" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                    <h3>TECLADO MECANICO CABLEADO DE 61 TECLAS CON CABLE </h3>
+                    <p class="descripcion">El teclado mecánico Seisa DN-K61-TC es un modelo ultra compacto del 60% con 61 teclas, retroiluminación RGB y cable USB Tipo-C desmontable.</p>
+                    <div class="precio">$35.000</div>
+                    <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                    <button class="boton-wpp btn-agregar-carrito" data-nombre="TECLADO MECANICO CABLEADO DE 61 TECLAS CON CABLE TIPO C REMOVIBLE" data-precio="35000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+                        <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+                    </button>
+                </div>
+                
             </div>
-            
         </div>
-    </div>
+    </main>
 
-  
-</main>
    <button id="btn-carrito-flotante" style="position: fixed; bottom: 30px; right: 30px; background-color: #39ff14; width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);">
         🛒
         <span id="contador-carrito" style="position: absolute; top: -5px; right: -5px; background-color: #ff003c; color: #fff; font-size: 0.75rem; font-weight: bold; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #000;">0</span>
