@@ -291,30 +291,55 @@
     </div>
 </footer>
 
-<script>
+<<script>
 document.addEventListener("DOMContentLoaded", function() {
-    // MOTOR DE BÚSQUEDA MULTI-CLASE
+    // 1. MOTOR DE BÚSQUEDA INTELIGENTE REFORZADO
     let inputBuscador = document.getElementById('buscador-juegos');
     if (inputBuscador) {
         inputBuscador.addEventListener('keyup', function(e) {
             let texto = e.target.value.toLowerCase().trim();
-            let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
             
+            // Filtrar tarjetas de productos
+            let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
             tarjetas.forEach(function(tarjeta) {
                 let h3 = tarjeta.querySelector('h3');
                 if (h3) {
                     let nombreProducto = h3.textContent.toLowerCase();
                     if (texto === '' || nombreProducto.includes(texto)) {
-                        tarjeta.style.display = '';
+                        tarjeta.style.display = ''; 
                     } else {
-                        tarjeta.style.setProperty('display', 'none', 'important');
+                        tarjeta.style.setProperty('display', 'none', 'important'); 
+                    }
+                }
+            });
+
+            // LOGICA REPARADA: Ocultar secciones/categorías vacías por completo
+            // Busca cualquier div que use clases de categorías o IDs comunes de consolas
+            let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch');
+            categorias.forEach(function(seccion) {
+                let contenedor = seccion.querySelector('.contenedor-catalogo');
+                if (contenedor) {
+                    let items = contenedor.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
+                    let visibles = 0;
+                    
+                    items.forEach(function(item) {
+                        if (item.style.display !== 'none') visibles++;
+                    });
+
+                    // Si estás buscando algo y no hay productos visibles en esta sección, se oculta entera
+                    if (texto === '') {
+                        seccion.style.display = '';
+                    } else if (visibles === 0) {
+                        seccion.style.setProperty('display', 'none', 'important');
+                    } else {
+                        seccion.style.display = '';
                     }
                 }
             });
         });
     }
 
-    // LÓGICA DEL CARRITO DE COMPUTACIÓN
+    // 2. LÓGICA DEL CARRITO (Mantiene tus compras funcionando)
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const btnFlotante = document.getElementById('btn-carrito-flotante');
     const ventanaCarrito = document.getElementById('ventana-carrito');
@@ -364,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Consolas:\n\n";
             let total = 0;
             carrito.forEach(item => {
                 mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
@@ -375,6 +400,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     actualizarInterfaz();
+});
+</script>
+
 });
 </script>
 
