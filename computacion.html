@@ -94,7 +94,10 @@
         <span id="contador-carrito" style="position: absolute; top: -5px; right: -5px; background-color: #ff003c; color: #fff; font-size: 0.75rem; font-weight: bold; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #000;">0</span>
     </button>
 
+; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #000;">0</span>
+    </button>
 
+    <!-- VENTANA DESPLEGABLE DEL CARRITO -->
     <div id="ventana-carrito" style="position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #10121a; border-left: 2px solid #00f0ff; box-shadow: -5px 0 25px rgba(0, 240, 255, 0.3); z-index: 100001; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; font-family: sans-serif;">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
             <h3 style="color: #00f0ff; margin: 0; text-transform: uppercase;">🛒 Tu Carrito</h3>
@@ -106,213 +109,122 @@
                 <span>Total:</span>
                 <span id="total-carrito">$0</span>
             </div>
+            <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
+        </div>
+    </div>
 
-<!-- REEMPLAZÁ TU ETIQUETA VERDE ACTUAL POR ESTE BOTÓN TOTALMENTE LIMPIO -->
-<!-- Buscá tu botón de enviar en el HTML y ponelo así: -->
-<button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
+    <!-- ================= PIE DE PÁGINA Y TÉRMINOS LEGALES ================= -->
+    <footer style="background-color: #0b0c10; color: #aaaaaa; padding: 40px 20px; font-family: sans-serif; border-top: 2px solid #3a3f58; font-size: 0.85rem; line-height: 1.6; clear: both; width: 100%; box-sizing: border-box; display: block !important; position: relative; margin-top: 60px;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+            
+            <!-- Bloque de Derechos -->
+            <div style="flex: 1; min-width: 250px;">
+                <h4 style="color: #00f0ff; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">© 2026 Play John</h4>
+                <p>Servicio técnico especializado y venta de hardware gamer. Todos los derechos reservados. Las marcas mencionadas (PlayStation, Xbox, Nintendo) son propiedad de sus respectivos dueños.</p>
+            </div>
 
-<!-- SCRIPT UNIFICADO: MOTOR DE BÚSQUEDA + CARRITO DE COMPRAS -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // ==========================================
-    // 1. LÓGICA DEL MOTOR DE BÚSQUEDA (FLEXBOX REPARADO)
-    // ==========================================
-    let inputBuscador = document.getElementById('buscador-juegos');
-    
-    if (inputBuscador) {
-        inputBuscador.addEventListener('keyup', function(e) {
-            try {
+            <!-- Bloque de Términos y Condiciones -->
+            <div style="flex: 1; min-width: 250px;">
+                <h4 style="color: #39ff14; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Términos y Condiciones</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;">⚠️ <b>Precios:</b> Los valores expresados en la web están sujetos a modificaciones sin previo aviso debido a la fluctuación del mercado.</li>
+                    <li style="margin-bottom: 8px;">🛒 <b>Confirmación:</b> El pedido enviado por WhatsApp no representa una reserva automática; el stock se confirma al momento de coordinar el pago.</li>
+                </ul>
+            </div>
+
+            <!-- Bloque de Garantías -->
+            <div style="flex: 1; min-width: 250px;">
+                <h4 style="color: #ff003c; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Políticas de Garantía</h4>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;">🔧 <b>Servicio Técnico:</b> Las reparaciones cuentan con una garantía escrita de 1 mes que cubre exclusivamente la falla reparada.</li>
+                    <li style="margin-bottom: 8px;">💻 <b>Productos Nuevos:</b> Los periféricos y componentes de computación tienen cambio directo por falla de fábrica dentro de los 30 días de corrido, conservando su caja y accesorios originales.</li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- SCRIPT UNIFICADO: MOTOR DE BÚSQUEDA + LÓGICA DEL CARRITO -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let inputBuscador = document.getElementById('buscador-juegos');
+        if (inputBuscador) {
+            inputBuscador.addEventListener('keyup', function(e) {
                 let texto = e.target.value.toLowerCase().trim();
-                
-                // Ocultar o mostrar la sección de Servicio Técnico
-                let seccionServicio = document.getElementById('servicio');
-                if (seccionServicio) {
-                    seccionServicio.style.setProperty('display', (texto === '') ? 'block' : 'none', 'important');
-                }
-
-                // Filtrar cada juego respetando el CSS original (Flexbox)
                 let tarjetas = document.querySelectorAll('.tarjeta-juego');
                 tarjetas.forEach(function(tarjeta) {
                     let h3 = tarjeta.querySelector('h3');
                     if (h3) {
-                        let nombreJuego = h3.textContent.toLowerCase();
-                        if (texto === '' || nombreJuego.includes(texto)) {
-                            tarjeta.style.display = ''; // Devuelve el control a tu clase .tarjeta-juego original en CSS
-                        } else {
-                            tarjeta.style.setProperty('display', 'none', 'important');
-                        }
+                        tarjeta.style.display = (texto === '' || h3.textContent.toLowerCase().includes(texto)) ? '' : 'none';
                     }
                 });
-
-                // Ocultar categorías enteras de consolas si se quedan sin juegos
-                let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch, #xbox360, #xboxseries, #nintendo');
-                categorias.forEach(function(seccion) {
-                    let contenedor = seccion.querySelector('.contenedor-catalogo');
-                    if (contenedor) {
-                        let juegos = contenedor.querySelectorAll('.tarjeta-juego');
-                        let visibles = 0;
-                        juegos.forEach(function(j) {
-                            if (j.style.display !== 'none') visibles++;
-                        });
-                        if (texto === '') {
-                            seccion.style.display = '';
-                        } else if (visibles === 0) {
-                            seccion.style.setProperty('display', 'none', 'important');
-                        } else {
-                            seccion.style.display = '';
-                        }
-                    }
-                });
-            } catch (error) {
-                console.error("Error en búsqueda:", error);
-            }
-        });
-    }
-
-    // ==========================================
-    // 2. LÓGICA DE TU CARRITO DE COMPRAS PROTEGIDO
-    // ==========================================
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const btnFlotante = document.getElementById('btn-carrito-flotante');
-    const ventanaCarrito = document.getElementById('ventana-carrito');
-    const btnCerrar = document.getElementById('cerrar-carrito');
-    const listaCarrito = document.getElementById('lista-carrito');
-    const totalCarrito = document.getElementById('total-carrito');
-    const contadorCarrito = document.getElementById('contador-carrito');
-    const btnEnviar = document.getElementById('btn-enviar-carrito');
-
-    // Control de apertura y cierre de la persiana
-    if (btnFlotante && ventanaCarrito && btnCerrar) {
-        btnFlotante.addEventListener('click', () => { ventanaCarrito.style.right = '0'; });
-        btnCerrar.addEventListener('click', () => { ventanaCarrito.style.right = '-400px'; });
-    }
-
-    // CAPTURA DE CLICS EN BOTONES (Usando delegación de eventos global)
-    document.addEventListener('click', function(e) {
-        const boton = e.target.closest('.btn-agregar-carrito');
-        if (boton) {
-            const nombre = boton.getAttribute('data-nombre');
-            const precio = parseFloat(boton.getAttribute('data-precio'));
-            const existe = carrito.find(item => item.nombre === nombre);
-            if(existe) { 
-                existe.cantidad++; 
-            } else { 
-                carrito.push({ nombre, precio, quantity: 1, cantidad: 1 }); 
-            }
-            actualizarCarrito();
-            if (ventanaCarrito) ventanaCarrito.style.right = '0';
-        }
-    });
-
-    // Cambiar cantidades en la persiana (+ / -)
-    window.cambiarCantidad = function(nombre, accion) {
-        const producto = carrito.find(item => item.nombre === nombre);
-        if (producto) {
-            if (accion === 'sumar') {
-                producto.cantidad++;
-            } else if (accion === 'restar') {
-                producto.cantidad--;
-                if (producto.cantidad <= 0) {
-                    carrito = carrito.filter(item => item.nombre !== nombre);
-                }
-            }
-        }
-        actualizarCarrito();
-    }
-
-    // Quitar juego completo
-    window.eliminarProducto = function(nombre) {
-        carrito = carrito.filter(item => item.nombre !== nombre);
-        actualizarCarrito();
-    }
-
-    // Actualizar lista visual del carrito
-    function actualizarCarrito() {
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
-        
-        listaCarrito.innerHTML = '';
-        let total = 0;
-        let cantidadTotal = 0;
-
-        carrito.forEach(item => {
-            total += item.precio * item.cantidad;
-            cantidadTotal += item.cantidad;
-            
-            const elemento = document.createElement('div');
-            elemento.style.cssText = "display:flex; justify-content:space-between; align-items:center; background-color:#161925; padding:12px; border-radius:6px; margin-bottom:10px; border:1px solid #3a3f58;";
-            
-            elemento.innerHTML = `
-                <div style="color: #fff; font-size: 0.9rem; text-align: left; max-width: 65%;">
-                    <div style="font-weight: bold; margin-bottom: 4px;">${item.nombre}</div>
-                    <div style="color: #39ff14; font-weight: bold;">$${(item.precio * item.cantidad).toLocaleString('es-AR')}</div>
-                </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <button onclick="window.cambiarCantidad('${item.nombre}', 'restar')" style="background-color: #ff003c; color: white; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">-</button>
-                    <span style="color: #fff; font-weight: bold; font-size: 0.95rem;">${item.cantidad}</span>
-                    <button onclick="window.cambiarCantidad('${item.nombre}', 'sumar')" style="background-color: #39ff14; color: black; border: none; padding: 4px 10px; font-weight: bold; border-radius: 4px; cursor: pointer;">+</button>
-                    <button onclick="window.eliminarProducto('${item.nombre}')" style="background: none; border: none; color: #ff003c; font-size: 1rem; cursor: pointer; margin-left: 4px;">X</button>
-                </div>
-            `;
-            listaCarrito.appendChild(elemento);
-        });
-
-        totalCarrito.innerText = `$${total.toLocaleString('es-AR')}`;
-        contadorCarrito.innerText = cantidadTotal;
-    }
-
-    // ESCUCHADOR ASOCIADO AL BOTÓN DE ENVIAR A WHATSAPP
-    if (btnEnviar) {
-        btnEnviar.onclick = function(e) {
-            if (e) e.preventDefault();
-            
-            if (carrito.length === 0) {
-                alert('El carrito está vacío.');
-                return;
-            }
-
-            let mensaje = "Hola Play John. Quiero realizar el siguiente pedido:\n\n";
-            carrito.forEach(item => { 
-                mensaje += "• " + item.nombre + " (x" + item.cantidad + ") - $" + (item.precio * item.cantidad).toLocaleString('es-AR') + "\n"; 
             });
-            mensaje += "\nTotal estimado: " + totalCarrito.innerText;
-            
-            window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
-        };
-    }
+        }
 
-    // Arranca el carrito al cargar la página
-    actualizarCarrito();
-});
-</script>
-<!-- ================= PIE DE PÁGINA Y TÉRMINOS LEGALES COMPLETITO ================= -->
-<footer style="background-color: #0b0c10; color: #aaaaaa; padding: 40px 20px; font-family: sans-serif; border-top: 2px solid #3a3f58; font-size: 0.85rem; line-height: 1.6; clear: both; width: 100%; box-sizing: border-box;">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
-        
-        <!-- Bloque de Derechos -->
-        <div style="flex: 1; min-width: 250px;">
-            <h4 style="color: #00f0ff; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">© 2026 Play John</h4>
-            <p>Servicio técnico especializado y venta de hardware gamer. Todos los derechos reservados. Las marcas mencionadas (PlayStation, Xbox, Nintendo) son propiedad de sus respectivos dueños.</p>
-        </div>
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const btnFlotante = document.getElementById('btn-carrito-flotante');
+        const ventanaCarrito = document.getElementById('ventana-carrito');
+        const btnCerrar = document.getElementById('cerrar-carrito');
+        const listaCarrito = document.getElementById('lista-carrito');
+        const totalCarrito = document.getElementById('total-carrito');
+        const contadorCarrito = document.getElementById('contador-carrito');
+        const btnEnviar = document.getElementById('btn-enviar-carrito');
 
-        <!-- Bloque de Términos y Condiciones -->
-        <div style="flex: 1; min-width: 250px;">
-            <h4 style="color: #39ff14; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Términos y Condiciones</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 8px;">⚠️ <b>Precios:</b> Los valores expresados en la web están sujetos a modificaciones sin previo aviso debido a la fluctuación del mercado.</li>
-                <li style="margin-bottom: 8px;">🛒 <b>Confirmación:</b> El pedido enviado por WhatsApp no representa una reserva automática; el stock se confirma al momento de coordinar el pago.</li>
-            </ul>
-        </div>
+        if (btnFlotante && ventanaCarrito && btnCerrar) {
+            btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
+            btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
+        }
 
-        <!-- Bloque de Garantías (CORREGIDO A 1 MES) -->
-        <div style="flex: 1; min-width: 250px;">
-            <h4 style="color: #ff003c; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Políticas de Garantía</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 8px;">🔧 <b>Servicio Técnico:</b> Las reparaciones cuentan con una garantía escrita de 1 mes que cubre exclusivamente la falla reparada.</li>
-                <li style="margin-bottom: 8px;">💻 <b>Productos Nuevos:</b> Los periféricos y componentes de computación tienen cambio directo por falla de fábrica dentro de los 3 días de corrido, conservando su caja y accesorios originales.</li>
-            </ul>
-        </div>
+        function actualizarInterfaz() {
+            if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
+            listaCarrito.innerHTML = '';
+            let total = 0, cantidadTotal = 0;
+            carrito.forEach((item, index) => {
+                total += item.precio * item.cantidad;
+                cantidadTotal += item.cantidad;
+                const div = document.createElement('div');
+                div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 5px;";
+                div.innerHTML = `<div style="flex:1;"><b>${item.nombre}</b><div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div></div><button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>`;
+                listaCarrito.appendChild(div);
+            });
+            totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
+            contadorCarrito.textContent = cantidadTotal;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+        }
 
-    </div>
-</footer>
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('btn-agregar-carrito')) {
+                const nombre = e.target.getAttribute('data-nombre');
+                const precio = parseFloat(e.target.getAttribute('data-precio'));
+                const existe = carrito.find(item => item.nombre === nombre);
+                if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
+                actualizarInterfaz();
+                if (ventanaCarrito) ventanaCarrito.style.right = '0px';
+            }
+            if (e.target && e.target.classList.contains('btn-eliminar')) {
+                carrito.splice(e.target.getAttribute('data-index'), 1);
+                actualizarInterfaz();
+            }
+        });
+
+        if (btnEnviar) {
+            btnEnviar.addEventListener('click', function() {
+                if (carrito.length === 0) return alert("Tu carrito está vacío.");
+                let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+                let total = 0;
+                carrito.forEach(item => {
+                    mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
+                    total += item.precio * item.cantidad;
+                });
+                mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
+                window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank');
+            });
+        }
+        actualizarInterfaz();
+    });
+    </script>
+
+    <!-- ENLACE EXTERNO REPARADO PARA ICONOS -->
+    <script src="https://fontawesome.com" crossorigin="anonymous"></script>
+</body>
+</html>
