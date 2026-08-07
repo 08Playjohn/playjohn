@@ -396,7 +396,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 total += item.precio * item.cantidad;
             });
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
-            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank');
+            window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
         });
     }
     actualizarInterfaz();
