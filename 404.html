@@ -15,16 +15,28 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             text-align: center;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        .contenedor-404 {
+        /* Estructura Flexbox para alinear los dibujos a los lados */
+        .error-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin: 0 auto;
+            max-width: 1000px;
             padding: 20px;
         }
 
-        .codigo-error {
+        /* Bloque centralizado del número */
+        .contenido-central {
+            text-align: center;
+        }
+
+        .numero-404 {
             font-size: 8rem;
             font-weight: bold;
             color: #ff003c;
@@ -33,21 +45,49 @@
             animation: glitch 1s infinite alternate;
         }
 
-        h2 {
+        .alerta-icono {
+            font-size: 2.5rem;
+            margin-bottom: -10px;
+        }
+
+        /* Propiedades de las imágenes con las animaciones aplicadas */
+        .dibujo-animado {
+            width: 150px; 
+            height: auto;
+            object-fit: contain;
+            image-rendering: pixelated; 
+            animation: flotarRetro 3s ease-in-out infinite, parpadeoRetro 4s steps(1) infinite;
+        }
+
+        /* Desfase para el segundo dibujo (Félix) */
+        .error-container img:nth-of-type(2) {
+            animation-delay: 1.5s, 0.5s;
+        }
+
+        h2.mensaje-titulo {
             font-size: 2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #00f0ff;
-            margin-top: 0;
+            margin-top: 20px;
+            margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
         }
 
-        p {
+        p.mensaje-descripcion {
             color: #aaaaaa;
             font-size: 1.1rem;
             max-width: 500px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 15px auto;
             line-height: 1.6;
+        }
+
+        .link-subtexto {
+            color: #00f0ff;
+            text-decoration: none;
+            font-style: italic;
+            display: block;
+            margin-bottom: 30px;
         }
 
         .btn-volver {
@@ -72,6 +112,18 @@
             transform: translateY(-3px);
         }
 
+        /* Animación 1: Movimiento flotante arriba y abajo */
+        @keyframes flotarRetro {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Animación 2: Parpadeo de brillo estilo pantalla antigua */
+        @keyframes parpadeoRetro {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 255, 255, 0.2)); }
+        }
+
         /* Animación estilo juego tildado / glitch */
         @keyframes glitch {
             0% { transform: skew(0deg); }
@@ -81,32 +133,48 @@
             80% { transform: skew(2deg); }
             100% { transform: skew(0deg); }
         }
+
+        /* Diseño responsivo para celulares */
+        @media (max-width: 768px) {
+            .error-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .dibujo-animado {
+                width: 100px;
+            }
+            .numero-404 {
+                font-size: 5rem;
+            }
+            h2.mensaje-titulo {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="error-container">
-    <!-- Dibujo Izquierdo -->
-    <img src="Imagenes/servicio/ralph.jpg" alt="Personaje Izquierda" class="dibujo-animado">
+        <!-- Dibujo Izquierdo (Ralph) -->
+        <img src="Imagenes/servicio/ralph.jpg" alt="Ralph" class="dibujo-animado">
 
-    <!-- Bloque Central de Texto -->
-    <div class="contenido-central">
-        <div class="alerta-icono">⚠️</div> <!-- O tu imagen de advertencia amarilla -->
-        <h1 class="numero-404">404</h1>
+        <!-- Bloque Central de Texto -->
+        <div class="contenido-central">
+            <div class="alerta-icono">⚠️</div>
+            <h1 class="numero-404">404</h1>
+        </div>
+
+        <!-- Dibujo Derecho (Félix) -->
+        <img src="Imagenes/servicio/Felix-el-Reparador-Jr-1.jpg" alt="Félix el Reparador" class="dibujo-animado">
     </div>
 
-    <!-- Dibujo Derecho -->
-    <img src="Imagenes/servicio/Felix-el-Reparador-Jr-1.jpg" alt="Personaje Derecha" class="dibujo-animado">
-</div>
+    <!-- Bloque inferior de textos y botones -->
+    <h2 class="mensaje-titulo">¡GAME OVER! OBJETO NO ENCONTRADO</h2>
+    <p class="mensaje-descripcion">¡Ups! Ralph rompió este enlace.</p>
+    <span class="link-subtexto">"Arreglar y reconstruir"</span>
 
-<!-- El resto de tus textos y el botón "VOLVER AL INICIO" van aquí abajo -->
-<h2 class="mensaje-titulo">¡GAME OVER! OBJETO NO ENCONTRADO</h2>
-<p class="mensaje-descripcion">¡Ups! Ralph rompió este enlace.</p>
-<a href="#" class="boton-inicio">"Arreglar y reconstruir".</a>
-
-        <!-- Redirección directa a tu home actual de GitHub -->
-        <a href="/playjohn/index.html" class="btn-volver">Volver al Inicio</a>
-    </div>
+    <!-- Redirección directa a tu home actual de GitHub -->
+    <a href="/playjohn/index.html" class="btn-volver">Volver al Inicio</a>
 
 </body>
 </html>
