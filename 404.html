@@ -10,14 +10,14 @@
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 40px 20px; /* Un poco de espacio arriba y abajo */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             text-align: center;
-            overflow-x: hidden;
+            box-sizing: border-box;
         }
 
         /* Estructura Flexbox para alinear los dibujos a los lados */
@@ -61,7 +61,7 @@
 
         /* Desfase para el segundo dibujo (Félix) */
         .error-container img:nth-of-type(2) {
-            animation-delay: 1.5s, 0.5s;
+            animation-delay: 1.5s;
         }
 
         h2.mensaje-titulo {
@@ -69,7 +69,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #00f0ff;
-            margin-top: 20px;
+            margin-top: 30px;
             margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
         }
@@ -145,20 +145,31 @@
             }
         }
     </style>
-  <div class="error-container">
-    <!-- Dibujo Izquierdo (Ralph) - Con ruta absoluta para GitHub Pages -->
-    <img src="/playjohn/Imagenes/servicio/ralph.jpg" alt="ralph.jpg" class="dibujo-animado">
-    
-    <!-- Bloque Central de Texto -->
-    <div class="contenido-central">
-        <div class="alerta-icono">⚠️</div>
-        <h1 class="numero-404">404</h1>
-    </div>
-
-    <!-- Dibujo Derecho (Félix) - Con ruta absoluta para GitHub Pages -->
-    <img src="/playjohn/Imagenes/servicio/felix.jpg" alt="felix.jpg" class="dibujo-animado">
-  </div>
-    
-</div>
 </head>
 <body>
+
+    <!-- TODO EL CONTENIDO VISIBLE VA AQUÍ ADENTRO -->
+    <div class="error-container">
+        <!-- Dibujo Izquierdo (Ralph) -->
+        <img src="/playjohn/Imagenes/servicio/ralph.jpg" alt="ralph.jpg" class="dibujo-animado">
+        
+        <!-- Bloque Central de Texto -->
+        <div class="contenido-central">
+            <div class="alerta-icono">⚠️</div>
+            <h1 class="numero-404">404</h1>
+        </div>
+
+        <!-- Dibujo Derecho (Félix) -->
+        <img src="/playjohn/Imagenes/servicio/felix.jpg" alt="felix.jpg" class="dibujo-animado">
+    </div>
+
+    <!-- Bloque inferior de textos y botones recuperados -->
+    <h2 class="mensaje-titulo">¡GAME OVER PARA ESTA PAGINA!</h2>
+    <p class="mensaje-descripcion">Ralph pasó corriendo por aquí y demolió el enlace. ¡No te preocupes! Felix ya está usando su martillo mágico para restaurar tu partida.</p>
+    <span class="link-subtexto">"Arreglar y reconstruir"</span>
+
+    <!-- Redirección directa a tu home actual de GitHub -->
+    <a href="/playjohn/index.html" class="btn-volver">Volver al Inicio</a>
+
+</body>
+</html>
