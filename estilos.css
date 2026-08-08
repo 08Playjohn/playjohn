@@ -329,4 +329,62 @@ body {
     box-shadow: 0 0 20px #39ff14, 0 0 35px rgba(57, 255, 20, 0.6) !important;
     transform: scale(1.02);
 }
+/* Contenedor principal que alinea los dibujos y el 404 */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Espacio de separación entre los dibujos y el texto */
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 20px;
+}
 
+/* Propiedades de las imágenes con las animaciones aplicadas */
+.dibujo-animado {
+    width: 150px; 
+    height: auto;
+    object-fit: contain;
+    
+    /* Aplica el renderizado pixelado para mantener el estilo retro */
+    image-rendering: pixelated; 
+    
+    /* Asigna las dos animaciones: flotado (3 segundos) y parpadeo (4 segundos) */
+    animation: flotarRetro 3s ease-in-out infinite, parpadeoRetro 4s steps(1) infinite;
+}
+
+/* Animación 1: Movimiento flotante arriba y abajo */
+@keyframes flotarRetro {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px); /* Altura del salto */
+    }
+}
+
+/* Animación 2: Parpadeo de brillo estilo pantalla antigua (opcional) */
+@keyframes parpadeoRetro {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+    }
+}
+
+/* El dibujo de la derecha empezará la animación con retraso para que no se muevan idénticos */
+.error-container img:nth-of-type(2) {
+    animation-delay: 1.5s, 0.5s;
+}
+
+/* Diseño responsivo para celulares */
+@media (max-width: 768px) {
+    .error-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .dibujo-animado {
+        width: 100px;
+    }
+}
