@@ -434,19 +434,19 @@ const URL_CSV = `https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_
             timeoutCodigo = setTimeout(() => { bufferCodigo = ""; }, 100);
         });
 
-        async function cargarCatalogoInicial() {
-            try {
-                const filas = await obtenerFilasDrive();
-                if (!filas) return;
-                const filasProductos = filas.slice(1);
-                filasProductos.forEach(fila => {
-                    if (fila.length < 11) return; 
-                    const visibleWeb = fila ? fila.toUpperCase().trim() : "NO";
-                    if (visibleWeb === "SI") {
-                        const producto = mapearProducto(fila);
-                        inyectarProductoAlHTML(producto);
-                    }
-                });
+        // Reemplaza por completo tu función obtenerFilasDrive por esta versión directa:
+async function obtenerFilasDrive() {
+    // Pon aquí adentro de las comillas el enlace exacto a tu archivo de Google Drive
+    // Recuerda cambiar 'TU_ID_REAL_DE_DRIVE_AQUI' por tu código largo de letras y números
+    const urlDirecta = "https://google.com";
+    
+    const respuesta = await fetch(urlDirecta);
+    const textoCSV = await respuesta.text();
+    return textoCSV.split("\n").map(fila => 
+        fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+    );
+}
+});
             } catch (error) { console.error("Error inicial:", error); }
         }
 
