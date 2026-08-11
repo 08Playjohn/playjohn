@@ -412,63 +412,50 @@ document.addEventListener("DOMContentLoaded", function() {
        // BORRA ESTAS LÍNEAS QUE DAN ERROR:
 const SHEET_ID = 'https://docs.google.com/spreadsheets/d/17YFwfUcMxSvg3ZlKR2fWyBEs6bvlSTJUuq3YFiVqrw4/edit?gid=1616480325#gid=1616480325';
 const SHEET_NAME = 'Hoja1'; 
-const URL_CSV = `https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`;
+<script>
+    // 1. CONFIGURACIÓN DE TU ENLACE DIRECTO A DRIVE (Reemplaza con tu ID real sin llaves)
+    const URL_CSV = "https://google.com";
 
-        let bufferCodigo = "";
-        let timeoutCodigo;
+    let bufferCodigo = "";
+    let timeoutCodigo;
 
-        document.addEventListener("DOMContentLoaded", () => {
-            cargarCatalogoInicial();
-        });
+    // 2. EVENTO AL CARGAR LA PÁGINA
+    document.addEventListener("DOMContentLoaded", () => {
+        cargarCatalogoInicial();
+    }); // <-- Asegúrate de que termine en });
 
-        window.addEventListener('keydown', (e) => {
-            clearTimeout(timeoutCodigo);
-            if (e.key === 'Enter') {
-                if (bufferCodigo.length > 3) { 
-                    escanearProductoIndividual(bufferCodigo);
-                }
-                bufferCodigo = ""; 
-                return;
+    // 3. ESCUCHADOR DEL LECTOR DE CÓDIGO DE BARRAS
+    window.addEventListener('keydown', (e) => {
+        clearTimeout(timeoutCodigo);
+        if (e.key === 'Enter') {
+            if (bufferCodigo.length > 3) { 
+                escanearProductoIndividual(bufferCodigo);
             }
-            if (e.key.length === 1) { bufferCodigo += e.key; }
-            timeoutCodigo = setTimeout(() => { bufferCodigo = ""; }, 100);
-        });
-
-        // Reemplaza por completo tu función obtenerFilasDrive por esta versión directa:
-async function obtenerFilasDrive() {
-    // Pon aquí adentro de las comillas el enlace exacto a tu archivo de Google Drive
-    // Recuerda cambiar 'TU_ID_REAL_DE_DRIVE_AQUI' por tu código largo de letras y números
-    const urlDirecta = "https://google.com";
-    
-    const respuesta = await fetch(urlDirecta);
-    const textoCSV = await respuesta.text();
-    return textoCSV.split("\n").map(fila => 
-        fila.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
-    );
-}
-});
-            } catch (error) { console.error("Error inicial:", error); }
+            bufferCodigo = ""; 
+            return;
         }
+        if (e.key.length === 1) { bufferCodigo += e.key; }
+        timeoutCodigo = setTimeout(() => { bufferCodigo = ""; }, 100);
+    }); // <-- Asegúrate de que termine en });
 
-        async function escanearProductoIndividual(codigoEscaneado) {
-            try {
-                const filas = await obtenerFilasDrive();
-                if (!filas) return;
-                const filaEncontrada = filas.find(f => f && f.trim() === codigoEscaneado.trim());
-                if (filaEncontrada) {
-                    const visibleWeb = filaEncontrada ? filaEncontrada.toUpperCase().trim() : "NO";
-                    if (visibleWeb !== "SI") {
-                        alert(`El producto existe pero está marcado como 'NO' visible.`);
-                        return;
-                    }
-                    const producto = mapearProducto(filaEncontrada);
+    // 4. FUNCIÓN CARGAR CATÁLOGO
+    async function cargarCatalogoInicial() {
+        try {
+            const filas = await obtenerFilasDrive();
+            if (!filas) return;
+            const filasProductos = filas.slice(1);
+            filasProductos.forEach(fila => {
+                if (fila.length < 12) return; 
+                const visibleWeb = fila[11] ? fila[11].toUpperCase().trim() : "NO";
+                if (visibleWeb === "SI") {
+                    const producto = mapearProducto(fila);
                     inyectarProductoAlHTML(producto);
-                } else {
-                    alert(`Código ${codigoEscaneado} no registrado.`);
                 }
-            } catch (error) { console.error("Error escaneo:", error); }
+            });
+        } catch (error) { 
+            console.error("Error inicial:", error); 
         }
-
+    } // <-- Cierre correcto de la función
         async function obtenerFilasDrive() {
             const respuesta = await fetch(URL_CSV);
             const textoCSV = await respuesta.text();
