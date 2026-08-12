@@ -231,65 +231,123 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <!-- ENLACE EXTERNO REPARADO PARA ICONOS -->
     <script src="https://fontawesome.com" crossorigin="anonymous"></script>
-</script>
-const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; // Pega aquí tu URL actualizada de Apps Script
+<script>
+// Conector oficial con tu base de datos de Drive
+const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
 let productosDrive = [];
 
-// 1. Descarga los productos aprobados de Drive al cargar la página
+// 1. Carga los productos de Drive aprobados para la web al iniciar la página
 async function cargarProductosDesdeDrive() {
     try {
         const response = await fetch(DRIVE_API_URL);
         productosDrive = await response.json();
-        console.log("Conexión con Drive exitosa. Productos listos para escaneo.");
+        console.log("Conexión con Drive exitosa. El catálogo dinámico por escáner está listo.");
     } catch (error) {
         console.error("Error al sincronizar con Google Drive:", error);
     }
 }
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 
-// 2. Captura las lecturas del lector de códigos de barras (lector físico)
+// 2. Captura las lecturas del lector físico de códigos de barras
 let barcodeBuffer = "";
 document.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
         if (barcodeBuffer.length > 3) { 
             procesarEscaneo(barcodeBuffer.trim());
         }
-        barcodeBuffer = ""; // Resetea el buffer para la siguiente lectura
+        barcodeBuffer = ""; 
     } else {
-        if (e.key.length === 1) { // Evita guardar teclas de control (Shift, Ctrl, etc.)
+        if (e.key.length === 1) { 
             barcodeBuffer += e.key;
         }
     }
 });
 
-// 3. Busca el producto escaneado y lo manda directo al carrito
+// 3. Procesa el escaneo: Construye y dibuja la tarjeta real en la web
 function procesarEscaneo(codigoEscaneado) {
-    // Busca si el código de barras coincide en la lista que bajamos de Drive
+    // REQUISITO: Verificar si el producto ya fue escaneado e insertado en la pantalla para no duplicar la tarjeta
+    if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+        console.warn("Este producto ya está visualizándose en la página.");
+        return;
+    }
+
+    // Buscamos el producto en la lista traída de Drive
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
     if (productoEncontrado) {
-        // REQUISITO: Sumar al carrito actual respetando la misma estructura
-        // Reemplaza 'agregarAlCarrito' por el nombre exacto de la función que ya usas en tu web
-        if (typeof agregarAlCarrito === "function") {
+        console.log(`Dibujando producto en el catálogo: ${productoEncontrado.nombre}`);
+
+        // Identificamos en qué contenedor de tu página debemos meter el producto (Consolas o Computación)
+        // Nota: Asegúrate de que las secciones de tu HTML tengan una ID o Clase con estos nombres comunes
+        let contenedorDestino = document.getElementById('contenedor-computacion') || 
+                                document.getElementById('contenedor-consolas') || 
+                                document.querySelector('.productos-grid') || 
+                                document.querySelector('main');
+
+        if (contenedorDestino) {
+            // Creamos un nuevo elemento que contendrá la tarjeta del producto
+            const nuevaTarjeta = document.createElement('div');
             
-            agregarAlCarrito({
-                id: productoEncontrado.id,          // Código de barras (Columna C)
-                nombre: productoEncontrado.nombre,  // Título (Columna A)
-                precio: productoEncontrado.precio,  // Precio (Columna G)
-                descripcion: productoEncontrado.descripcion, // Descripción (Columna H)
-                categoria: productoEncontrado.categoria // Categoría (Columna K) -> Consolas/Computacion
-            });
+            // REQUISITO: Le asignamos la clase exacta de tus estilos actuales para que se vea idéntica
+            nuevaTarjeta.className = 'tarjeta-producto'; // Cambia esto por el nombre de clase exacto que usás en tu CSS (ej. 'card', 'product-box')
+            nuevaTarjeta.id = `tarjeta-escaneada-${codigoEscaneado}`;
+
+            // REQUISITO: Inyectamos la misma estructura visual que tienen tus productos fijos
+            // Adaptá las etiquetas de abajo para que tengan las mismas clases que tus tarjetas manuales
+            nuevaTarjeta.innerHTML = `
+                <div class="tarjeta-contenido" style="padding: 15px; border-radius: 8px; text-align: center;">
+                    <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="max-width: 100%; height: auto; border-radius: 4px;">
+                    <h3 style="margin: 10px 0; font-size: 18px;">${productoEncontrado.nombre}</h3>
+                    <p style="font-size: 14px; color: #aaa; min-height: 40px;">${productoEncontrado.descripcion || ''}</p>
+                    <div style="color: #00ff66; font-size: 22px; font-weight: bold; margin: 10px 0;">
+                        $${parseFloat(productoEncontrado.precio).toLocaleString('es-AR')}
+                    </div>
+                    <span class="estado-disponible" style="background: #00ff66; color: black; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px;">DISPONIBLE</span>
+                    
+                    <!-- El botón "Comprar" llama directamente a tu lógica actual del carrito -->
+                    <button class="btn-comprar" onclick="ejecutarCompraManual('${productoEncontrado.id}', '${productoEncontrado.nombre}', ${productoEncontrado.precio}, '${productoEncontrado.categoria}')" style="background: #00ff66; color: black; border: none; padding: 10px 0; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                        Comprar
+                    </button>
+                </div>
+            `;
+
+            // Metemos la tarjeta en la cuadrícula de tu catálogo web
+            contenedorDestino.appendChild(nuevaTarjeta);
             
-            console.log(`Agregado automáticamente: ${productoEncontrado.nombre}`);
+            // Hace un scroll suave para mostrarle al usuario que apareció la tarjeta nueva
+            nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-            console.error("Error: No se encontró la función encargada de añadir productos al carrito.");
+            console.error("No se encontró el contenedor visual (.productos-grid o similar) en tu HTML para renderizar la tarjeta.");
         }
     } else {
-        console.warn(`El código de barras ${codigoEscaneado} no está habilitado para la web (Columna J no es SI) o no existe.`);
+        console.warn(`El código ${codigoEscaneado} no está configurado para la web (Columna J no es SI) o no existe en Drive.`);
     }
 }
 
-
+// 4. Esta función es la que se ejecuta al presionar el botón "Comprar" de la nueva tarjeta creada
+function ejecutarCompraManual(id, nombre, precio, categoria) {
+    let carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+    const itemExistente = carritoActual.find(item => item.id === id);
+    
+    if (itemExistente) {
+        itemExistente.cantidad = (itemExistente.cantidad || 1) + 1;
+    } else {
+        carritoActual.push({
+            id: id,
+            nombre: nombre,
+            precio: parseFloat(precio),
+            categoria: categoria,
+            cantidad: 1
+        });
+    }
+    
+    localStorage.setItem('carrito', JSON.stringify(carritoActual));
+    console.log(`Producto sumado manualmente mediante el botón de la tarjeta: ${nombre}`);
+    
+    // Recarga la página o llama a tu función visual para que el contador del carrito se actualice
+    location.reload();
+}
+</script>
 
 </body>
 </html>
