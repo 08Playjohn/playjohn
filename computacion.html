@@ -233,7 +233,6 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
 
 <script>
-// Usá la misma URL de Apps Script que venías usando
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
 let productosDrive = [];
 
@@ -241,7 +240,7 @@ async function cargarProductosDesdeDrive() {
     try {
         const response = await fetch(DRIVE_API_URL);
         productosDrive = await response.json();
-        console.log("Conexión con Drive exitosa. Catálogo por escáner sincronizado con columna L.");
+        console.log("Conexión con Drive exitosa. Fotos vinculadas a la columna H.");
     } catch (error) {
         console.error("Error al sincronizar con Google Drive:", error);
     }
@@ -280,8 +279,9 @@ function procesarEscaneo(codigoEscaneado) {
             nuevaTarjeta.style.width = "280px";
             nuevaTarjeta.style.boxSizing = "border-box";
 
+            // Se dibuja la tarjeta blanca idéntica usando la foto que viene de la columna H
             nuevaTarjeta.innerHTML = `
-                <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <img src="${productoEncontrado.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
                 <h3>${productoEncontrado.nombre}</h3>
                 <p class="descripcion">${productoEncontrado.descripcion || ''}</p>
                 <div class="precio">$${parseFloat(productoEncontrado.precio).toLocaleString('es-AR')}</div>
@@ -297,15 +297,15 @@ function procesarEscaneo(codigoEscaneado) {
 
             contenedorDestino.appendChild(nuevaTarjeta);
             
-            // Si tenés una función global en tu archivo del carrito para escuchar botones nuevos, podés llamarla acá:
+            // Re-vincula el carrito de compras nativo de tu tienda
             if (typeof inicializarCarrito === "function") { inicializarCarrito(); }
 
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-            console.error("No se encontró el contenedor de la grilla (.contenedor-catalogo)");
+            console.error("No se encontró el contenedor .contenedor-catalogo");
         }
     } else {
-        console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe en tu Sheet.`);
+        console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
     }
 }
 </script>
