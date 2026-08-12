@@ -239,11 +239,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
     let productosDrive = [];
 
-       // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (FILTRO INTELIGENTE COMPUTACIÓN)
-    const DRIVE_API_URL = "https://google.com";
-    let productosDrive = [];
-
-    async function cargarProductosDesdeDrive() {
+        async function cargarProductosDesdeDrive() {
         try {
             const response = await fetch(DRIVE_API_URL);
             productosDrive = await response.json();
