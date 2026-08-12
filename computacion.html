@@ -211,6 +211,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+      // ... (Todo el código del carrito que ya tenías arriba) ...
+
     if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
@@ -221,16 +223,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 total += item.precio * item.cantidad;
             });
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
-            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank');
+            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
         });
     }
+    
+    // 1. ESTO ES LO QUE FALTA: Cierra de forma correcta tu función DOMContentLoaded original
     actualizarInterfaz();
+}); 
+</script>
+
+
+<!-- 2. RECIÉN ACÁ SE ABRE EL NUEVO SCRIPT LIMPIO DEL ESCÁNER -->
 <script>
 // Conector oficial con tu base de datos de Drive
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
 let productosDrive = [];
 
-// 1. Descarga los productos aprobados de Drive al cargar la página
+// Descarga los productos aprobados de Drive al cargar la página
 async function cargarProductosDesdeDrive() {
     try {
         const response = await fetch(DRIVE_API_URL);
@@ -242,7 +251,7 @@ async function cargarProductosDesdeDrive() {
 }
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 
-// 2. Captura las lecturas del lector físico de códigos de barras
+// Captura las lecturas del lector físico de códigos de barras
 let barcodeBuffer = "";
 document.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
@@ -257,7 +266,7 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
-// 3. Procesa el escaneo y clona la tarjeta en pantalla
+// Procesa el escaneo y clona la tarjeta blanca en pantalla
 function procesarEscaneo(codigoEscaneado) {
     if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
         console.warn("Este producto ya está visualizándose en la página.");
@@ -267,11 +276,7 @@ function procesarEscaneo(codigoEscaneado) {
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
     if (productoEncontrado) {
-        let contenedorDestino = document.querySelector('.contenedor-catalogo') || 
-                                document.querySelector('.productos-grid') || 
-                                document.querySelector('.productos-container') || 
-                                document.querySelector('main') || 
-                                document.body;
+        let contenedorDestino = document.querySelector('.contenedor-catalogo');
 
         if (contenedorDestino) {
             const nuevaTarjeta = document.createElement('div');
@@ -280,7 +285,6 @@ function procesarEscaneo(codigoEscaneado) {
             nuevaTarjeta.style.width = "280px";
             nuevaTarjeta.style.boxSizing = "border-box";
 
-            // Se dibuja tu hermosa tarjeta blanca nativa
             nuevaTarjeta.innerHTML = `
                 <img src="${productoEncontrado.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
                 <h3>${productoEncontrado.nombre}</h3>
@@ -297,12 +301,6 @@ function procesarEscaneo(codigoEscaneado) {
             `;
 
             contenedorDestino.appendChild(nuevaTarjeta);
-            
-            // Re-vincula el botón nuevo al sistema de clics de tu carrito general
-            if (typeof inicializarCarrito === "function") { inicializarCarrito(); }
-            if (typeof configurarBotones === "function") { configurarBotones(); }
-
-            // Hace el scroll automático suave hacia el producto
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     } else {
