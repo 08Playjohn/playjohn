@@ -401,107 +401,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     actualizarInterfaz();
 });
-<!-- Copiá exactamente desde acá abajo hasta el final de la etiqueta script -->
-<script>
-// Conector oficial con tu base de datos de Drive
-const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
-let productosDrive = [];
-
-// 1. Carga los productos de Drive aprobados para la web al iniciar la página
-async function cargarProductosDesdeDrive() {
-    try {
-        const response = await fetch(DRIVE_API_URL);
-        productosDrive = await response.json();
-        console.log("Conexión con Drive exitosa. El catálogo dinámico por escáner está listo.");
-    } catch (error) {
-        console.error("Error al sincronizar con Google Drive:", error);
-    }
-}
-document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
-
-// 2. Captura las lecturas del lector físico de códigos de barras
-let barcodeBuffer = "";
-document.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        if (barcodeBuffer.length > 3) { 
-            procesarEscaneo(barcodeBuffer.trim());
-        }
-        barcodeBuffer = ""; 
-    } else {
-        if (e.key.length === 1) { 
-            barcodeBuffer += e.key;
-        }
-    }
-});
-
-function procesarEscaneo(codigoEscaneado) {
-    // Si la tarjeta ya está dibujada en la pantalla, no la repite
-    if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
-        console.warn("Este producto ya está visualizándose en la página.");
-        return;
-    }
-
-    const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
-    
-    if (productoEncontrado) {
-        // Buscamos el contenedor general donde agrupás tus tarjetas en tu HTML
-        let contenedorDestino = document.getElementById('contenedor-computacion') || 
-                                document.getElementById('contenedor-consolas') ||
-                                document.querySelector('.productos-grid') || 
-                                document.querySelector('main');
-
-        if (contenedorDestino) {
-            const nuevaTarjeta = document.createElement('div');
-            
-            // Inyectamos tus clases CSS para heredar el marco cian brillante automático
-            nuevaTarjeta.className = 'tarjeta-producto'; 
-            nuevaTarjeta.id = `tarjeta-escaneada-${codigoEscaneado}`;
-            
-            // Forzamos el diseño idéntico: fondo blanco, alineación centrada y texto negro
-            nuevaTarjeta.style.backgroundColor = "#ffffff";
-            nuevaTarjeta.style.color = "#000000";
-            nuevaTarjeta.style.display = "flex";
-            nuevaTarjeta.style.flexDirection = "column";
-            nuevaTarjeta.style.alignItems = "center";
-            nuevaTarjeta.style.padding = "20px";
-            nuevaTarjeta.style.borderRadius = "8px"; // Ajustalo según tus esquinas actuales
-
-            // Estructura idéntica y limpia calcada de tu monitor de fondo blanco
-            nuevaTarjeta.innerHTML = `
-                <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="max-width: 90%; height: auto; margin: 10px 0;">
-                
-                <h3 style="margin: 15px 0 5px 0; font-size: 18px; text-transform: uppercase; font-weight: bold; text-align: center; color: #000000;">
-                    ${productoEncontrado.nombre}
-                </h3>
-                
-                <p style="font-size: 14px; color: #333333; text-align: center; padding: 0 15px; margin: 10px 0; min-height: 50px; line-height: 1.4;">
-                    ${productoEncontrado.descripcion || ''}
-                </p>
-                
-                <div style="color: #00ff66; font-size: 28px; font-weight: bold; margin: 10px 0;">
-                    $${parseFloat(productoEncontrado.precio).toLocaleString('es-AR')}
-                </div>
-                
-                <span style="background: #00ff66; color: black; padding: 5px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;">
-                    DISPONIBLE
-                </span>
-                
-                <button class="btn-comprar" onclick="ejecutarCompraManual('${productoEncontrado.id}', '${productoEncontrado.nombre}', ${productoEncontrado.precio}, '${productoEncontrado.categoria}')" style="background: #00ff66; color: black; border: none; padding: 12px 0; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-bottom: 5px;">
-                    Comprar
-                </button>
-            `;
-
-            contenedorDestino.appendChild(nuevaTarjeta);
-            
-            // Hace un scroll suave automático para llevar al vendedor/cliente hacia la nueva tarjeta
-            nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-            console.error("No se encontró el bloque contenedor de la cuadrícula de productos.");
-        }
-    } else {
-        console.warn(`Código ${codigoEscaneado} no habilitado en la web desde Drive.`);
-    }
-}
+<!-- REEMPLAZÁ TODO TU TEXTO ANTERIOR EN PRODUCTOS.HTML POR ESTE BLOQUE ÚNICO Y LIMPIO -->
 <script>
 // Conector oficial con tu base de datos de Drive
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
@@ -512,7 +412,7 @@ async function cargarProductosDesdeDrive() {
     try {
         const response = await fetch(DRIVE_API_URL);
         productosDrive = await response.json();
-        console.log("Conexión con Drive exitosa. Catálogo por escáner listo.");
+        console.log("Conexión con Drive exitosa. Catálogo de consolas listo.");
     } catch (error) {
         console.error("Error al sincronizar con Google Drive:", error);
     }
@@ -545,19 +445,19 @@ function procesarEscaneo(codigoEscaneado) {
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
     if (productoEncontrado) {
-        // Buscamos tu contenedor real por su clase exacta
+        // Buscamos tu contenedor real de mosaicos (.contenedor-catalogo)
         let contenedorDestino = document.querySelector('.contenedor-catalogo');
 
         if (contenedorDestino) {
             const nuevaTarjeta = document.createElement('div');
             
-            // CLONACIÓN: Usamos exactamente tu misma clase y estilos en línea para el mosaico
+            // CLONACIÓN: Usamos exactamente tu misma clase y estilos en línea de PlayStation
             nuevaTarjeta.className = 'tarjeta-juego'; 
             nuevaTarjeta.id = `tarjeta-escaneada-${codigoEscaneado}`;
             nuevaTarjeta.style.width = "280px";
             nuevaTarjeta.style.boxSizing = "border-box";
 
-            // Inyectamos la misma estructura exacta con tus clases: foto-juego, descripcion, precio, badge disponible
+            // Inyectamos tu misma estructura con fondo blanco para la foto
             nuevaTarjeta.innerHTML = `
                 <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
                 <h3>${productoEncontrado.nombre}</h3>
@@ -574,18 +474,10 @@ function procesarEscaneo(codigoEscaneado) {
                 </button>
             `;
 
-            // Metemos el producto en tu mosaico al lado de los otros
+            // Metemos el producto en tu mosaico al lado de los otros fijos
             contenedorDestino.appendChild(nuevaTarjeta);
             
-            // REQUISITO: Vinculamos el botón nuevo inmediatamente a la lógica de tu carrito existente
-            // Al hacer esto, tu script del carrito escuchará los clics en este nuevo botón de forma nativa
-            const botonNuevo = nuevaTarjeta.querySelector('.btn-agregar-carrito');
-            botonNuevo.addEventListener('click', function() {
-                // Si tu carrito actual guarda los datos mediante un evento clic, simulamos el flujo habitual
-                console.log(`Botón presionado manualmente para: ${productoEncontrado.nombre}`);
-            });
-
-            // Te lleva con un scroll automático suave directo al nuevo producto
+            // Desplazamiento automático suave hacia la tarjeta creada
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
         } else {
