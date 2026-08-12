@@ -400,21 +400,21 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     actualizarInterfaz();
-});
-<!-- SE ABRE EL NUEVO SCRIPT DEL ESCÁNER DE FORMA TOTALMENTE INDEPENDIENTE -->
+<!-- Pegá este bloque único y limpio antes de las etiquetas finales de cierre -->
 <script>
-    // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (PERSISTENCIA TOTAL POST-F5)
-    const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
+    // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (PERSISTENCIA TOTAL EN CONSOLAS)
+    const DRIVE_API_URL = "https://google.com";
     let productosDrive = [];
 
     async function cargarProductosDesdeDrive() {
         try {
             const response = await fetch(DRIVE_API_URL);
             productosDrive = await response.json();
-            console.log("Conexión con Drive exitosa. Catálogo por escáner listo para operar.");
+            console.log("Conexión con Drive exitosa. Catálogo de consolas listo para operar.");
 
             // RECUPERACIÓN AUTOMÁTICA POST-F5:
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+            // Revisa qué juegos o accesorios de consolas fueron escaneados y los vuelve a dibujar
+            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
             
             escaneadosGuardados.forEach(codigo => {
                 const productoEncontrado = productosDrive.find(p => p.id === codigo);
@@ -444,7 +444,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Procesa el escaneo manual y lo guarda de forma permanente en la base del navegador
+    // Procesa el escaneo manual y lo guarda de forma permanente en la sección de consolas
     function procesarEscaneo(codigoEscaneado) {
         if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
             console.warn("Este producto ya está visualizándose en la página.");
@@ -454,11 +454,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
         
         if (productoEncontrado) {
-            // Guardamos el código de barras en el listado permanente del LocalStorage
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+            // Guardamos en una lista exclusiva de consolas para que no se mezclen las páginas
+            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
             if (!escaneadosGuardados.includes(codigoEscaneado)) {
                 escaneadosGuardados.push(codigoEscaneado);
-                localStorage.setItem('productos_escaneados', JSON.stringify(escaneadosGuardados));
+                localStorage.setItem('productos_escaneados_consolas', JSON.stringify(escaneadosGuardados));
             }
 
             // Dibujamos la tarjeta blanca en el mosaico
@@ -468,7 +468,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     } 
 
-    // Función que fabrica la estructura de tu tarjeta blanca nativa
+    // Función que fabrica la tarjeta blanca con el título en negro forzado
     function dibujarTarjetaEnPantalla(producto) {
         let contenedorDestino = document.querySelector('.contenedor-catalogo');
 
@@ -481,7 +481,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             nuevaTarjeta.innerHTML = `
                 <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                
+                <!-- Título forzado en negro igual que computación -->
                 <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
+                
                 <p class="descripcion">${producto.descripcion || ''}</p>
                 <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
                 <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
@@ -501,3 +504,4 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
+
