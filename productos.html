@@ -376,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-      if (btnEnviar) {
+         if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
             let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
@@ -389,10 +389,11 @@ document.addEventListener("DOMContentLoaded", function() {
             
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
             
-            // API universal de WhatsApp corregida para la sección de productos/consolas
+            // CONFIGURADO: Mensaje directo a tu número de atención sin intermediarios
             window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
         });
     }
+
 
     actualizarInterfaz();
 }); 
