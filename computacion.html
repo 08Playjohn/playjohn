@@ -268,17 +268,23 @@ function procesarEscaneo(codigoEscaneado) {
 
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
-    if (productoEncontrado) {
-        let contenedorDestino = document.querySelector('.contenedor-catalogo');
+        if (productoEncontrado) {
+        // Buscador inteligente: intenta enganchar la grilla de Computación primero, si no usa la de Consolas o el cuerpo principal
+        let contenedorDestino = document.querySelector('.productos-grid') || 
+                                document.querySelector('.productos-container') || 
+                                document.querySelector('.contenedor-catalogo') || 
+                                document.querySelector('main') || 
+                                document.body;
 
         if (contenedorDestino) {
             const nuevaTarjeta = document.createElement('div');
+            // Le asignamos tu clase nativa para que herede tus estilos de tarjeta blancos y celestes
             nuevaTarjeta.className = 'tarjeta-juego'; 
             nuevaTarjeta.id = `tarjeta-escaneada-${codigoEscaneado}`;
             nuevaTarjeta.style.width = "280px";
             nuevaTarjeta.style.boxSizing = "border-box";
 
-            // Se dibuja la tarjeta blanca idéntica usando la foto que viene de la columna H
+            // Se dibuja la tarjeta blanca idéntica usando tus columnas reales de Drive (Foto en J, Descripción en H)
             nuevaTarjeta.innerHTML = `
                 <img src="${productoEncontrado.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
                 <h3>${productoEncontrado.nombre}</h3>
@@ -286,6 +292,7 @@ function procesarEscaneo(codigoEscaneado) {
                 <div class="precio">$${parseFloat(productoEncontrado.precio).toLocaleString('es-AR')}</div>
                 <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
                 
+                <!-- Tu botón nativo con los atributos exactos que lee tu carrito actual -->
                 <button class="boton-wpp btn-agregar-carrito" 
                         data-nombre="${productoEncontrado.nombre}" 
                         data-precio="${productoEncontrado.precio}" 
@@ -296,17 +303,19 @@ function procesarEscaneo(codigoEscaneado) {
 
             contenedorDestino.appendChild(nuevaTarjeta);
             
-            // Re-vincula el carrito de compras nativo de tu tienda
+            // Re-vincula de inmediato el botón nuevo al sistema de clics de tu carrito general
             if (typeof inicializarCarrito === "function") { inicializarCarrito(); }
+            if (typeof configurarBotones === "function") { configurarBotones(); }
 
+            // Hace un scroll automático suave hacia el producto recién inyectado
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-            console.error("No se encontró el contenedor .contenedor-catalogo");
+            console.error("No se encontró ningún contenedor válido para renderizar el producto.");
         }
     } else {
         console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
     }
-}
+} // <-- ESTA LLAVE ES CLAVE: Cierra de forma correcta la función procesarEscaneo()
 </script>
 
 </body>
