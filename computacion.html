@@ -211,10 +211,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-        if (btnEnviar) {
+           if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
             let total = 0;
             
             carrito.forEach(item => {
@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function() {
             
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
             
-            // CORREGIDO: Sintaxis limpia con la API de WhatsApp sin errores de comillas ni signos rotos
+            // CONFIGURADO: Mensaje directo a tu número de atención sin intermediarios
             window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
         });
     }
