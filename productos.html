@@ -444,10 +444,143 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const productoEncontrado = productosDriveConsolas.find(p => p.id === codigoEscaneado);
         
+       <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // MOTOR DE BÚSQUEDA MULTI-CLASE
+    let inputBuscador = document.getElementById('buscador-juegos');
+    if (inputBuscador) {
+        inputBuscador.addEventListener('keyup', function(e) {
+            let texto = e.target.value.toLowerCase().trim();
+            let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
+            
+            tarjetas.forEach(function(tarjeta) {
+                let h3 = tarjeta.querySelector('h3');
+                if (h3) {
+                    let nombreProducto = h3.textContent.toLowerCase();
+                    if (texto === '' || nombreProducto.includes(texto)) {
+                        tarjeta.style.display = '';
+                    } else {
+                        tarjeta.style.setProperty('display', 'none', 'important');
+                    }
+                }
+            });
+        });
+    }
+
+    // LÓGICA DEL CARRITO DE COMPUTACIÓN
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const btnFlotante = document.getElementById('btn-carrito-flotante');
+    const ventanaCarrito = document.getElementById('ventana-carrito');
+    const btnCerrar = document.getElementById('cerrar-carrito');
+    const listaCarrito = document.getElementById('lista-carrito');
+    const totalCarrito = document.getElementById('total-carrito');
+    const contadorCarrito = document.getElementById('contador-carrito');
+    const btnEnviar = document.getElementById('btn-enviar-carrito');
+
+    if (btnFlotante && ventanaCarrito && btnCerrar) {
+        btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
+        btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
+    }
+
+    function actualizarInterfaz() {
+        if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
+        listaCarrito.innerHTML = '';
+        let total = 0, cantidadTotal = 0;
+        carrito.forEach((item, index) => {
+            total += item.precio * item.cantidad;
+            cantidadTotal += item.cantidad;
+            const div = document.createElement('div');
+            div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 5px;";
+            div.innerHTML = `<div style="flex:1;"><b>${item.nombre}</b><div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div></div><button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>`;
+            listaCarrito.appendChild(div);
+        });
+        totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
+        contadorCarrito.textContent = cantidadTotal;
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('btn-agregar-carrito')) {
+            const nombre = e.target.getAttribute('data-nombre');
+            const precio = parseFloat(e.target.getAttribute('data-precio'));
+            const existe = carrito.find(item => item.nombre === nombre);
+            if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
+            actualizarInterfaz();
+            if (ventanaCarrito) ventanaCarrito.style.right = '0px';
+        }
+        if (e.target && e.target.classList.contains('btn-eliminar')) {
+            carrito.splice(e.target.getAttribute('data-index'), 1);
+            actualizarInterfaz();
+        }
+    });
+
+    if (btnEnviar) {
+        btnEnviar.addEventListener('click', function() {
+            if (carrito.length === 0) return alert("Tu carrito está vacío.");
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+            let total = 0;
+            carrito.forEach(item => {
+                mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
+                total += item.precio * item.cantidad;
+            });
+            mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
+            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
+        });
+    }
+    actualizarInterfaz();
+}); 
+</script>
+
+<script>
+    const DRIVE_API_URL = "https://google.com";
+    let productosDriveConsolas = [];
+
+    async function cargarProductosDesdeDrive() {
+        try {
+            const response = await fetch(DRIVE_API_URL);
+            productosDriveConsolas = await response.json();
+            console.log("Conexión con Drive exitosa. Catálogo de consolas listo.");
+
+            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
+            escaneadosGuardados.forEach(codigo => {
+                const productoEncontrado = productosDriveConsolas.find(p => p.id === codigo);
+                if (productoEncontrado && 
+                    productoEncontrado.categoria.toUpperCase() !== "COMPUTACION" && 
+                    !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
+                    dibujarTarjetaEnPantalla(productoEncontrado);
+                }
+            });
+        } catch (error) {
+            console.error("Error al sincronizar con Google Drive:", error);
+        }
+    }
+    document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+
+    let barcodeBuffer = "";
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            if (barcodeBuffer.length > 3) { 
+                procesarEscaneo(barcodeBuffer.trim());
+            }
+            barcodeBuffer = ""; 
+        } else {
+            if (e.key.length === 1) { 
+                barcodeBuffer += e.key;
+            }
+        }
+    });
+
+    function procesarEscaneo(codigoEscaneado) {
+        if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+            console.warn("Este producto ya está visualizándose en la página.");
+            return;
+        }
+
+        const productoEncontrado = productosDriveConsolas.find(p => p.id === codigoEscaneado);
+        
         if (productoEncontrado) {
-            // SI EL PRODUCTO ES DE CÓMPUTO, SE DETIENE Y NO SE DIBUJA EN CONSOLAS
             if (productoEncontrado.categoria.toUpperCase() === "COMPUTACION") {
-                console.warn(`El producto "${productoEncontrado.nombre}" es de Computación. Escanéalo en su pestaña.`);
+                console.warn(`El producto "${productoEncontrado.nombre}" es de Computación.`);
                 return;
             }
 
@@ -458,12 +591,20 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             dibujarTarjetaEnPantalla(productoEncontrado);
         } else {
-            console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
+            console.warn(`El código ${codigoEscaneado} no existe.`);
         }
     } 
 
     function dibujarTarjetaEnPantalla(producto) {
-        let contenedorDestino = document.querySelector('.contenedor-catalogo');
+        let catFormateada = producto.categoria.toLowerCase().trim()
+                            .replace(/\s+/g, '-') 
+                            .replace(/[^a-z0-9\-]/g, '');
+
+        let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
+
+        if (!contenedorDestino) {
+            contenedorDestino = document.querySelector('.contenedor-catalogo');
+        }
 
         if (contenedorDestino) {
             const nuevaTarjeta = document.createElement('div');
@@ -476,8 +617,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
                 <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
                 <p class="descripcion">${producto.descripcion || ''}</p>
-                <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
-                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+                <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
                 
                 <button class="boton-wpp btn-agregar-carrito" 
                         data-nombre="${producto.nombre}" 
@@ -489,8 +630,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             contenedorDestino.appendChild(nuevaTarjeta);
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            console.error(`No se encontró el contenedor: .contenedor-${catFormateada}`);
         }
     }
 </script>
-</body>
-</html>
