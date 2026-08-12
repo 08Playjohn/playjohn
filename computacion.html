@@ -227,9 +227,10 @@ document.addEventListener("DOMContentLoaded", function() {
     actualizarInterfaz();
 });
 <!-- REEMPLAZÁ TODO TU BLOQUE ANTERIOR ÚNICA Y EXCLUSIVAMENTE POR ESTO -->
+<!-- Pegá este bloque único y limpio para solucionar la línea 230 de raíz -->
 <script>
 // Conector oficial con tu base de datos de Drive
-const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
+const DRIVE_API_URL = "https://google.com";
 let productosDrive = [];
 
 // 1. Descarga los productos aprobados de Drive al cargar la página
@@ -268,7 +269,6 @@ function procesarEscaneo(codigoEscaneado) {
 
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
-    // CORREGIDO: Añadida la llave de apertura { que faltaba aquí
     if (productoEncontrado) {
         // Buscador inteligente de contenedores para Computación o Consolas
         let contenedorDestino = document.querySelector('.contenedor-catalogo') || 
