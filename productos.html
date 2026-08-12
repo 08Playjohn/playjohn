@@ -241,167 +241,93 @@
 
 </main>
 
-<!-- INTERFAZ DEL CARRITO FLOTANTE Y PERSIANA -->
-<button id="btn-carrito-flotante" style="position: fixed; bottom: 30px; right: 30px; background-color: #39ff14; width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);">
-    🛒 <span id="contador-carrito" style="position: absolute; top: -5px; right: -5px; background-color: #ff003c; color: #fff; font-size: 0.75rem; font-weight: bold; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #000;">0</span>
-</button>
-
-<div id="ventana-carrito" style="position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #10121a; border-left: 2px solid #00f0ff; box-shadow: -5px 0 25px rgba(0, 240, 255, 0.3); z-index: 100001; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; font-family: sans-serif;">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
-        <h3 style="color: #00f0ff; margin: 0; text-transform: uppercase;">🛒 Tu Carrito</h3>
-        <button id="cerrar-carrito" style="background: none; border: none; color: #ff003c; font-size: 1.5rem; cursor: pointer;">&times;</button>
-    </div>
-    <div id="lista-carrito" style="flex: 1; overflow-y: auto; margin-bottom: 15px;"></div>
-    <div style="border-top: 1px solid #3a3f58; padding-top: 15px;">
-        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #39ff14; font-size: 1.2rem; margin-bottom: 15px;">
-            <span>Total:</span> <span id="total-carrito">$0</span>
-        </div>
-        <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
-    </div>
-</div>
-
-<!-- ================= PIE DE PÁGINA Y TÉRMINOS LEGALES ================= -->
-<footer style="background-color: #0b0c10; color: #aaaaaa; padding: 40px 20px; font-family: sans-serif; border-top: 2px solid #3a3f58; font-size: 0.85rem; line-height: 1.6; clear: both; width: 100%; box-sizing: border-box; display: block !important; position: relative; margin-top: 60px;">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
-        
-        <!-- Bloque de Derechos -->
-        <div style="flex: 1; min-width: 250px;">
-            <h4 style="color: #00f0ff; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">© 2026 Play John</h4>
-            <p>Servicio técnico especializado y venta de hardware gamer. Todos los derechos reservados. Las marcas mencionadas (PlayStation, Xbox, Nintendo) son propiedad de sus respectivos dueños.</p>
-        </div>
-
-        <!-- Bloque de Términos y Condiciones -->
-        <div style="flex: 1; min-width: 250px;">
-            <h4 style="color: #39ff14; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Términos y Condiciones</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 8px;">⚠️ <b>Precios:</b> Los valores expresados en la web están sujetos a modificaciones sin previo aviso debido a la fluctuación del mercado.</li>
-                <li style="margin-bottom: 8px;">🛒 <b>Confirmación:</b> El pedido enviado por WhatsApp no representa una reserva automática; el stock se confirma al momento de coordinar el pago.</li>
-            </ul>
-        </div>
-
-        <!-- Bloque de Garantías -->
-        <div style="flex: 1; min-width: 250px;">
-            <h4 style="color: #ff003c; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Políticas de Garantía</h4>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 8px;">🔧 <b>Servicio Técnico:</b> Las reparaciones cuentan con una garantía escrita de 1 mes que cubre exclusivamente la falla reparada.</li>
-                <li style="margin-bottom: 8px;">💻 <b>Productos Nuevos:</b> Los periféricos y componentes de computación tienen cambio directo por falla de fábrica dentro de los 30 días de corrido, conservando su caja y accesorios originales.</li>
-            </ul>
-        </div>
-
-    </div>
-</footer>
-
-<<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // 1. MOTOR DE BÚSQUEDA INTELIGENTE REFORZADO
-    let inputBuscador = document.getElementById('buscador-juegos');
-    if (inputBuscador) {
-        inputBuscador.addEventListener('keyup', function(e) {
-            let texto = e.target.value.toLowerCase().trim();
-            
-            // Filtrar tarjetas de productos
-            let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
-            tarjetas.forEach(function(tarjeta) {
-                let h3 = tarjeta.querySelector('h3');
-                if (h3) {
-                    let nombreProducto = h3.textContent.toLowerCase();
-                    if (texto === '' || nombreProducto.includes(texto)) {
-                        tarjeta.style.display = ''; 
-                    } else {
-                        tarjeta.style.setProperty('display', 'none', 'important'); 
+    <!-- Pegá este bloque único y limpio para cerrar el archivo productos.html -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. MOTOR DE BÚSQUEDA MULTI-CLASE PARA CONSOLAS
+        let inputBuscador = document.getElementById('buscador-juegos');
+        if (inputBuscador) {
+            inputBuscador.addEventListener('keyup', function(e) {
+                let texto = e.target.value.toLowerCase().trim();
+                let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
+                
+                tarjetas.forEach(function(tarjeta) {
+                    let h3 = tarjeta.querySelector('h3');
+                    if (h3) {
+                        let nombreProducto = h3.textContent.toLowerCase();
+                        if (texto === '' || nombreProducto.includes(texto)) {
+                            tarjeta.style.display = '';
+                        } else {
+                            tarjeta.style.setProperty('display', 'none', 'important');
+                        }
                     }
-                }
+                });
             });
+        }
 
-            // LOGICA REPARADA: Ocultar secciones/categorías vacías por completo
-            // Busca cualquier div que use clases de categorías o IDs comunes de consolas
-            let categorias = document.querySelectorAll('.categoria-consola, #ps2, #ps3, #ps4, #ps5, #xbox-360, #xbox-series, #nintendo-switch');
-            categorias.forEach(function(seccion) {
-                let contenedor = seccion.querySelector('.contenedor-catalogo');
-                if (contenedor) {
-                    let items = contenedor.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
-                    let visibles = 0;
-                    
-                    items.forEach(function(item) {
-                        if (item.style.display !== 'none') visibles++;
-                    });
+        // 2. LÓGICA DE TU CARRITO NATIVO DE CONSOLAS
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const btnFlotante = document.getElementById('btn-carrito-flotante');
+        const ventanaCarrito = document.getElementById('ventana-carrito');
+        const btnCerrar = document.getElementById('cerrar-carrito');
+        const listaCarrito = document.getElementById('lista-carrito');
+        const totalCarrito = document.getElementById('total-carrito');
+        const contadorCarrito = document.getElementById('contador-carrito');
+        const btnEnviar = document.getElementById('btn-enviar-carrito');
 
-                    // Si estás buscando algo y no hay productos visibles en esta sección, se oculta entera
-                    if (texto === '') {
-                        seccion.style.display = '';
-                    } else if (visibles === 0) {
-                        seccion.style.setProperty('display', 'none', 'important');
-                    } else {
-                        seccion.style.display = '';
-                    }
-                }
+        if (btnFlotante && ventanaCarrito && btnCerrar) {
+            btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
+            btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
+        }
+
+        function actualizarInterfaz() {
+            if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
+            listaCarrito.innerHTML = '';
+            let total = 0, cantidadTotal = 0;
+            carrito.forEach((item, index) => {
+                total += item.precio * item.cantidad;
+                cantidadTotal += item.cantidad;
+                const div = document.createElement('div');
+                div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 5px;";
+                div.innerHTML = `<div style="flex:1;"><b>${item.nombre}</b><div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div></div><button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>`;
+                listaCarrito.appendChild(div);
             });
-        });
-    }
-
-    // 2. LÓGICA DEL CARRITO (Mantiene tus compras funcionando)
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const btnFlotante = document.getElementById('btn-carrito-flotante');
-    const ventanaCarrito = document.getElementById('ventana-carrito');
-    const btnCerrar = document.getElementById('cerrar-carrito');
-    const listaCarrito = document.getElementById('lista-carrito');
-    const totalCarrito = document.getElementById('total-carrito');
-    const contadorCarrito = document.getElementById('contador-carrito');
-    const btnEnviar = document.getElementById('btn-enviar-carrito');
-
-    if (btnFlotante && ventanaCarrito && btnCerrar) {
-        btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
-        btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
-    }
-
-    function actualizarInterfaz() {
-        if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
-        listaCarrito.innerHTML = '';
-        let total = 0, cantidadTotal = 0;
-        carrito.forEach((item, index) => {
-            total += item.precio * item.cantidad;
-            cantidadTotal += item.cantidad;
-            const div = document.createElement('div');
-            div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 5px;";
-            div.innerHTML = `<div style="flex:1;"><b>${item.nombre}</b><div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div></div><button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>`;
-            listaCarrito.appendChild(div);
-        });
-        totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
-        contadorCarrito.textContent = cantidadTotal;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-    }
-
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('btn-agregar-carrito')) {
-            const nombre = e.target.getAttribute('data-nombre');
-            const precio = parseFloat(e.target.getAttribute('data-precio'));
-            const existe = carrito.find(item => item.nombre === nombre);
-            if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
-            actualizarInterfaz();
-            if (ventanaCarrito) ventanaCarrito.style.right = '0px';
+            totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
+            contadorCarrito.textContent = cantidadTotal;
+            localStorage.setItem('carrito', JSON.stringify(carrito));
         }
-        if (e.target && e.target.classList.contains('btn-eliminar')) {
-            carrito.splice(e.target.getAttribute('data-index'), 1);
-            actualizarInterfaz();
+
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('btn-agregar-carrito')) {
+                const nombre = e.target.getAttribute('data-nombre');
+                const precio = parseFloat(e.target.getAttribute('data-precio'));
+                const existe = carrito.find(item => item.nombre === nombre);
+                if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
+                actualizarInterfaz();
+                if (ventanaCarrito) ventanaCarrito.style.right = '0px';
+            }
+            if (e.target && e.target.classList.contains('btn-eliminar')) {
+                carrito.splice(e.target.getAttribute('data-index'), 1);
+                actualizarInterfaz();
+            }
+        });
+
+        if (btnEnviar) {
+            btnEnviar.addEventListener('click', function() {
+                if (carrito.length === 0) return alert("Tu carrito está vacío.");
+                let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Consolas:\n\n";
+                let total = 0;
+                carrito.forEach(item => {
+                    mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
+                    total += item.precio * item.cantidad;
+                });
+                mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
+                window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank');
+            });
         }
+        actualizarInterfaz();
     });
 
-    if (btnEnviar) {
-        btnEnviar.addEventListener('click', function() {
-            if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Consolas:\n\n";
-            let total = 0;
-            carrito.forEach(item => {
-                mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
-                total += item.precio * item.cantidad;
-            });
-            mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
-            window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
-        });
-    }
-    actualizarInterfaz();
-<!-- Pegá este bloque único y limpio antes de las etiquetas finales de cierre -->
-<script>
     // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (PERSISTENCIA TOTAL EN CONSOLAS)
     const DRIVE_API_URL = "https://google.com";
     let productosDrive = [];
@@ -413,9 +339,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("Conexión con Drive exitosa. Catálogo de consolas listo para operar.");
 
             // RECUPERACIÓN AUTOMÁTICA POST-F5:
-            // Revisa qué juegos o accesorios de consolas fueron escaneados y los vuelve a dibujar
             let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
-            
             escaneadosGuardados.forEach(codigo => {
                 const productoEncontrado = productosDrive.find(p => p.id === codigo);
                 if (productoEncontrado && !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
@@ -444,7 +368,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Procesa el escaneo manual y lo guarda de forma permanente en la sección de consolas
     function procesarEscaneo(codigoEscaneado) {
         if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
             console.warn("Este producto ya está visualizándose en la página.");
@@ -454,23 +377,20 @@ document.addEventListener("DOMContentLoaded", function() {
         const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
         
         if (productoEncontrado) {
-            // Guardamos en una lista exclusiva de consolas para que no se mezclen las páginas
             let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
             if (!escaneadosGuardados.includes(codigoEscaneado)) {
                 escaneadosGuardados.push(codigoEscaneado);
                 localStorage.setItem('productos_escaneados_consolas', JSON.stringify(escaneadosGuardados));
             }
-
-            // Dibujamos la tarjeta blanca en el mosaico
             dibujarTarjetaEnPantalla(productoEncontrado);
         } else {
             console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
         }
     } 
 
-    // Función que fabrica la tarjeta blanca con el título en negro forzado
     function dibujarTarjetaEnPantalla(producto) {
-        let contenedorDestino = document.querySelector('.contenedor-catalogo');
+        // Busca tu contenedor real de consolas por su clase exacta
+        let contenedorDestino = document.querySelector('.contenedor-catalogo') || document.body;
 
         if (contenedorDestino) {
             const nuevaTarjeta = document.createElement('div');
@@ -481,10 +401,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             nuevaTarjeta.innerHTML = `
                 <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-                
-                <!-- Título forzado en negro igual que computación -->
                 <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
-                
                 <p class="descripcion">${producto.descripcion || ''}</p>
                 <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
                 <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
@@ -504,4 +421,3 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
-
