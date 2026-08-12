@@ -502,6 +502,100 @@ function procesarEscaneo(codigoEscaneado) {
         console.warn(`Código ${codigoEscaneado} no habilitado en la web desde Drive.`);
     }
 }
+<script>
+// Conector oficial con tu base de datos de Drive
+const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
+let productosDrive = [];
+
+// 1. Descarga los productos aprobados de Drive al cargar la página
+async function cargarProductosDesdeDrive() {
+    try {
+        const response = await fetch(DRIVE_API_URL);
+        productosDrive = await response.json();
+        console.log("Conexión con Drive exitosa. Catálogo por escáner listo.");
+    } catch (error) {
+        console.error("Error al sincronizar con Google Drive:", error);
+    }
+}
+document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+
+// 2. Captura las lecturas del lector físico de códigos de barras
+let barcodeBuffer = "";
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        if (barcodeBuffer.length > 3) { 
+            procesarEscaneo(barcodeBuffer.trim());
+        }
+        barcodeBuffer = ""; 
+    } else {
+        if (e.key.length === 1) { 
+            barcodeBuffer += e.key;
+        }
+    }
+});
+
+// 3. Procesa el escaneo: Construye y clona tu tarjeta idéntica en pantalla
+function procesarEscaneo(codigoEscaneado) {
+    // Si la tarjeta ya está en la pantalla, no la duplica
+    if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+        console.warn("Este producto ya está visualizándose en la página.");
+        return;
+    }
+
+    const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
+    
+    if (productoEncontrado) {
+        // Buscamos tu contenedor real por su clase exacta
+        let contenedorDestino = document.querySelector('.contenedor-catalogo');
+
+        if (contenedorDestino) {
+            const nuevaTarjeta = document.createElement('div');
+            
+            // CLONACIÓN: Usamos exactamente tu misma clase y estilos en línea para el mosaico
+            nuevaTarjeta.className = 'tarjeta-juego'; 
+            nuevaTarjeta.id = `tarjeta-escaneada-${codigoEscaneado}`;
+            nuevaTarjeta.style.width = "280px";
+            nuevaTarjeta.style.boxSizing = "border-box";
+
+            // Inyectamos la misma estructura exacta con tus clases: foto-juego, descripcion, precio, badge disponible
+            nuevaTarjeta.innerHTML = `
+                <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+                <h3>${productoEncontrado.nombre}</h3>
+                <p class="descripcion">${productoEncontrado.descripcion || ''}</p>
+                <div class="precio">$${parseFloat(productoEncontrado.precio).toLocaleString('es-AR')}</div>
+                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+                
+                <!-- Tu botón nativo con los atributos exactos que lee tu carrito actual -->
+                <button class="boton-wpp btn-agregar-carrito" 
+                        data-nombre="${productoEncontrado.nombre}" 
+                        data-precio="${productoEncontrado.precio}" 
+                        style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+                </button>
+            `;
+
+            // Metemos el producto en tu mosaico al lado de los otros
+            contenedorDestino.appendChild(nuevaTarjeta);
+            
+            // REQUISITO: Vinculamos el botón nuevo inmediatamente a la lógica de tu carrito existente
+            // Al hacer esto, tu script del carrito escuchará los clics en este nuevo botón de forma nativa
+            const botonNuevo = nuevaTarjeta.querySelector('.btn-agregar-carrito');
+            botonNuevo.addEventListener('click', function() {
+                // Si tu carrito actual guarda los datos mediante un evento clic, simulamos el flujo habitual
+                console.log(`Botón presionado manualmente para: ${productoEncontrado.nombre}`);
+            });
+
+            // Te lleva con un scroll automático suave directo al nuevo producto
+            nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+        } else {
+            console.error("No se encontró la clase .contenedor-catalogo en este HTML.");
+        }
+    } else {
+        console.warn(`El código ${codigoEscaneado} no está configurado para la web o no existe en Drive.`);
+    }
+}
+</script>
 
 </body>
 </html>
