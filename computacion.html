@@ -328,10 +328,7 @@ function procesarEscaneo(codigoEscaneado) {
         } else {
             console.error("No se encontró el bloque contenedor de la cuadrícula de productos.");
         }
-    } else {
-        console.warn(`Código ${codigoEscaneado} no habilitado en la web desde Drive.`);
-    }
-}
+    <!-- REEMPLAZÁ TODO TU TEXTO ANTERIOR POR ESTE BLOQUE LIMPIO DESDE ACÁ -->
 <script>
 // Conector oficial con tu base de datos de Drive
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
@@ -375,7 +372,7 @@ function procesarEscaneo(codigoEscaneado) {
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
     if (productoEncontrado) {
-        // Buscamos tu contenedor real por su clase exacta
+        // Buscamos tu contenedor real por su clase exacta (.contenedor-catalogo)
         let contenedorDestino = document.querySelector('.contenedor-catalogo');
 
         if (contenedorDestino) {
@@ -387,7 +384,7 @@ function procesarEscaneo(codigoEscaneado) {
             nuevaTarjeta.style.width = "280px";
             nuevaTarjeta.style.boxSizing = "border-box";
 
-            // Inyectamos la misma estructura exacta con tus clases: foto-juego, descripcion, precio, badge disponible
+            // Inyectamos la misma estructura exacta con tus clases nativas de fondo blanco
             nuevaTarjeta.innerHTML = `
                 <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
                 <h3>${productoEncontrado.nombre}</h3>
@@ -404,16 +401,13 @@ function procesarEscaneo(codigoEscaneado) {
                 </button>
             `;
 
-            // Metemos el producto en tu mosaico al lado de los otros
+            // Metemos el producto en tu mosaico al lado de los otros fijos
             contenedorDestino.appendChild(nuevaTarjeta);
             
-            // REQUISITO: Vinculamos el botón nuevo inmediatamente a la lógica de tu carrito existente
-            // Al hacer esto, tu script del carrito escuchará los clics en este nuevo botón de forma nativa
-            const botonNuevo = nuevaTarjeta.querySelector('.btn-agregar-carrito');
-            botonNuevo.addEventListener('click', function() {
-                // Si tu carrito actual guarda los datos mediante un evento clic, simulamos el flujo habitual
-                console.log(`Botón presionado manualmente para: ${productoEncontrado.nombre}`);
-            });
+            // REQUISITO INTERNO: Vinculamos el botón nuevo a la función de escucha de tu carrito
+            // Si tu archivo del carrito tiene una función global para volver a activar los botones, llamala acá.
+            if (typeof inicializarCarrito === "function") { inicializarCarrito(); }
+            else if (typeof configurarBotones === "function") { configurarBotones(); }
 
             // Te lleva con un scroll automático suave directo al nuevo producto
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
