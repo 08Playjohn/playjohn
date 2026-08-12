@@ -143,6 +143,8 @@
 
    <script>
 document.addEventListener("DOMContentLoaded", function() {
+   <script>
+document.addEventListener("DOMContentLoaded", function() {
     // 1. MOTOR DE BÚSQUEDA MULTI-CLASE
     let inputBuscador = document.getElementById('buscador-juegos');
     if (inputBuscador) {
@@ -226,106 +228,106 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     actualizarInterfaz();
 });
-<!-- Pegá este bloque único y limpio al final de computacion.html -->
-<script>
-    // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (CONEXIÓN OFICIAL REAL)
-    const DRIVE_API_URL_COMPUTACION = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
-    let productosDriveComputacion = [];
 
-    async function cargarProductosDesdeDrive() {
-        try {
-            const response = await fetch(DRIVE_API_URL_COMPUTACION);
-            productosDriveComputacion = await response.json();
-            console.log("Conexión con Drive exitosa. Catálogo de computación listo para operar.");
+// 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (FILTRO INTELIGENTE COMPUTACIÓN)
+const DRIVE_API_URL_COMPUTACION = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
+let productosDriveComputacion = [];
 
-            // RECUPERACIÓN AUTOMÁTICA POST-F5:
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
-            escaneadosGuardados.forEach(codigo => {
-                const productoEncontrado = productosDriveComputacion.find(p => p.id === codigo);
-                
-                // FILTRO: Solo dibuja si pertenece a Computación
-                if (productoEncontrado && 
-                    productoEncontrado.categoria.toUpperCase() === "COMPUTACION" && 
-                    !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
-                    dibujarTarjetaEnPantalla(productoEncontrado);
-                }
-            });
+async function cargarProductosDesdeDrive() {
+    try {
+        const response = await fetch(DRIVE_API_URL_COMPUTACION);
+        productosDriveComputacion = await response.json();
+        console.log("Conexión con Drive exitosa. Catálogo de computación listo para operar.");
 
-        } catch (error) {
-            console.error("Error al sincronizar con Google Drive:", error);
+        // RECUPERACIÓN AUTOMÁTICA POST-F5:
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+        escaneadosGuardados.forEach(codigo => {
+            const productoEncontrado = productosDriveComputacion.find(p => p.id === codigo);
+            
+            // FILTRO INTELIGENTE: En esta página SOLO se dibujan si dicen exactamente "COMPUTACION"
+            if (productoEncontrado && 
+                productoEncontrado.categoria.toUpperCase() === "COMPUTACION" && 
+                !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
+                dibujarTarjetaEnPantalla(productoEncontrado);
+            }
+        });
+
+    } catch (error) {
+        console.error("Error al sincronizar con Google Drive:", error);
+    }
+}
+document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+
+// Captura las lecturas del lector físico de códigos de barras
+let barcodeBuffer = "";
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        if (barcodeBuffer.length > 3) { 
+            procesarEscaneo(barcodeBuffer.trim());
+        }
+        barcodeBuffer = ""; 
+    } else {
+        if (e.key.length === 1) { 
+            barcodeBuffer += e.key;
         }
     }
-    document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+});
 
-    // Captura las lecturas del lector físico de códigos de barras
-    let barcodeBuffer = "";
-    document.addEventListener("keydown", function(e) {
-        if (e.key === "Enter") {
-            if (barcodeBuffer.length > 3) { 
-                procesarEscaneo(barcodeBuffer.trim());
-            }
-            barcodeBuffer = ""; 
-        } else {
-            if (e.key.length === 1) { 
-                barcodeBuffer += e.key;
-            }
-        }
-    });
+function procesarEscaneo(codigoEscaneado) {
+    if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+        console.warn("Este producto ya está visualizándose en la página.");
+        return;
+    }
 
-    function procesarEscaneo(codigoEscaneado) {
-        if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
-            console.warn("Este producto ya está visualizándose en la página.");
+    const productoEncontrado = productosDriveComputacion.find(p => p.id === codigoEscaneado);
+    
+    if (productoEncontrado) {
+        // SI EL PRODUCTO NO ES DE COMPUTACIÓN, SE DETIENE Y NO SE DIBUJA ACÁ
+        if (productoEncontrado.categoria.toUpperCase() !== "COMPUTACION") {
+            console.warn(`El producto "${productoEncontrado.nombre}" pertenece a consolas. Escanéalo en la pestaña correcta.`);
             return;
         }
 
-        const productoEncontrado = productosDriveComputacion.find(p => p.id === codigoEscaneado);
-        
-        if (productoEncontrado) {
-            if (productoEncontrado.categoria.toUpperCase() !== "COMPUTACION") {
-                console.warn(`El producto "${productoEncontrado.nombre}" pertenece a consolas. Escanéalo en la pestaña correcta.`);
-                return;
-            }
-
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
-            if (!escaneadosGuardados.includes(codigoEscaneado)) {
-                escaneadosGuardados.push(codigoEscaneado);
-                localStorage.setItem('productos_escaneados', JSON.stringify(escaneadosGuardados));
-            }
-            dibujarTarjetaEnPantalla(productoEncontrado);
-        } else {
-            console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+        if (!escaneadosGuardados.includes(codigoEscaneado)) {
+            escaneadosGuardados.push(codigoEscaneado);
+            localStorage.setItem('productos_escaneados', JSON.stringify(escaneadosGuardados));
         }
-    } 
-
-    function dibujarTarjetaEnPantalla(producto) {
-        let contenedorDestino = document.querySelector('.contenedor-catalogo');
-
-        if (contenedorDestino) {
-            const nuevaTarjeta = document.createElement('div');
-            nuevaTarjeta.className = 'tarjeta-juego'; 
-            nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
-            nuevaTarjeta.style.width = "280px";
-            nuevaTarjeta.style.boxSizing = "border-box";
-
-            nuevaTarjeta.innerHTML = `
-                <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-                <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
-                <p class="descripcion">${producto.descripcion || ''}</p>
-                <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
-                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
-                
-                <button class="boton-wpp btn-agregar-carrito" 
-                        data-nombre="${producto.nombre}" 
-                        data-precio="${producto.precio}" 
-                        style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
-                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
-                </button>
-            `;
-
-            contenedorDestino.appendChild(nuevaTarjeta);
-            nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        dibujarTarjetaEnPantalla(productoEncontrado);
+    } else {
+        console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
     }
+} 
+
+function dibujarTarjetaEnPantalla(producto) {
+    let contenedorDestino = document.querySelector('.contenedor-catalogo');
+
+    if (contenedorDestino) {
+        const nuevaTarjeta = document.createElement('div');
+        nuevaTarjeta.className = 'tarjeta-juego'; 
+        nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
+        nuevaTarjeta.style.width = "280px";
+        nuevaTarjeta.style.boxSizing = "border-box";
+
+        nuevaTarjeta.innerHTML = `
+            <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+            <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
+            <p class="descripcion">${producto.descripcion || ''}</p>
+            <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+            <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+            
+            <button class="boton-wpp btn-agregar-carrito" 
+                    data-nombre="${producto.nombre}" 
+                    data-precio="${producto.precio}" 
+                    style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+            </button>
+        `;
+
+        contenedorDestino.appendChild(nuevaTarjeta);
+        nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
 </script>
 </body>
 </html>
