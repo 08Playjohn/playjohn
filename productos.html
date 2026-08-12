@@ -405,6 +405,62 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
+const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; // Pega aquí tu URL actualizada de Apps Script
+let productosDrive = [];
+
+// 1. Descarga los productos aprobados de Drive al cargar la página
+async function cargarProductosDesdeDrive() {
+    try {
+        const response = await fetch(DRIVE_API_URL);
+        productosDrive = await response.json();
+        console.log("Conexión con Drive exitosa. Productos listos para escaneo.");
+    } catch (error) {
+        console.error("Error al sincronizar con Google Drive:", error);
+    }
+}
+document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+
+// 2. Captura las lecturas del lector de códigos de barras (lector físico)
+let barcodeBuffer = "";
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        if (barcodeBuffer.length > 3) { 
+            procesarEscaneo(barcodeBuffer.trim());
+        }
+        barcodeBuffer = ""; // Resetea el buffer para la siguiente lectura
+    } else {
+        if (e.key.length === 1) { // Evita guardar teclas de control (Shift, Ctrl, etc.)
+            barcodeBuffer += e.key;
+        }
+    }
+});
+
+// 3. Busca el producto escaneado y lo manda directo al carrito
+function procesarEscaneo(codigoEscaneado) {
+    // Busca si el código de barras coincide en la lista que bajamos de Drive
+    const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
+    
+    if (productoEncontrado) {
+        // REQUISITO: Sumar al carrito actual respetando la misma estructura
+        // Reemplaza 'agregarAlCarrito' por el nombre exacto de la función que ya usas en tu web
+        if (typeof agregarAlCarrito === "function") {
+            
+            agregarAlCarrito({
+                id: productoEncontrado.id,          // Código de barras (Columna C)
+                nombre: productoEncontrado.nombre,  // Título (Columna A)
+                precio: productoEncontrado.precio,  // Precio (Columna G)
+                descripcion: productoEncontrado.descripcion, // Descripción (Columna H)
+                categoria: productoEncontrado.categoria // Categoría (Columna K) -> Consolas/Computacion
+            });
+            
+            console.log(`Agregado automáticamente: ${productoEncontrado.nombre}`);
+        } else {
+            console.error("Error: No se encontró la función encargada de añadir productos al carrito.");
+        }
+    } else {
+        console.warn(`El código de barras ${codigoEscaneado} no está habilitado para la web (Columna J no es SI) o no existe.`);
+    }
+}
 
 </body>
 </html>
