@@ -230,11 +230,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // 1. ESTO ES LO QUE FALTA: Cierra de forma correcta tu función DOMContentLoaded original
     actualizarInterfaz();
 }); 
-</script>
-
-
-    // ... (Todo el código de tu buscador y carrito de arriba queda exactamente igual) ...
-
+<!-- Borrá todo lo que pusiste abajo del footer y pegá ÚNICAMENTE este bloque limpio -->
+<script>
     // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (PERSISTENCIA TOTAL POST-F5)
     const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
     let productosDrive = [];
@@ -331,6 +328,6 @@ document.addEventListener("DOMContentLoaded", function() {
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }
-    </script>
+</script>
 </body>
 </html>
