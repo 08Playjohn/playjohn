@@ -226,8 +226,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     actualizarInterfaz();
 });
-<!-- REEMPLAZÁ TODO TU BLOQUE ANTERIOR ÚNICA Y EXCLUSIVAMENTE POR ESTO -->
-<!-- Pegá este bloque único y limpio para solucionar la línea 230 de raíz -->
+<!-- Pegá este bloque único y ordenado al final de computacion.html -->
 <script>
 // Conector oficial con tu base de datos de Drive
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
@@ -270,7 +269,6 @@ function procesarEscaneo(codigoEscaneado) {
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
     if (productoEncontrado) {
-        // Buscador inteligente de contenedores para Computación o Consolas
         let contenedorDestino = document.querySelector('.contenedor-catalogo') || 
                                 document.querySelector('.productos-grid') || 
                                 document.querySelector('.productos-container') || 
@@ -284,7 +282,7 @@ function procesarEscaneo(codigoEscaneado) {
             nuevaTarjeta.style.width = "280px";
             nuevaTarjeta.style.boxSizing = "border-box";
 
-            // Se dibuja tu hermosa tarjeta blanca nativa
+            // Se dibuja tu tarjeta blanca nativa
             nuevaTarjeta.innerHTML = `
                 <img src="${productoEncontrado.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${productoEncontrado.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
                 <h3>${productoEncontrado.nombre}</h3>
@@ -308,8 +306,6 @@ function procesarEscaneo(codigoEscaneado) {
 
             // Hace el scroll automático suave hacia el producto
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-            console.error("No se encontró ningún contenedor válido para renderizar el producto.");
         }
     } else {
         console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
