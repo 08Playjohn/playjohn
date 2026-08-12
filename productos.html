@@ -401,11 +401,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     actualizarInterfaz();
 });
-</script>
-
-});
-</script>
-const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; // Pega aquí tu URL actualizada de Apps Script
+<!-- Copiá exactamente desde acá abajo hasta el final de la etiqueta script -->
+<script>
+// Tu URL real de Google Apps Script para conectar con la base de datos de Drive
+const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
 let productosDrive = [];
 
 // 1. Descarga los productos aprobados de Drive al cargar la página
@@ -437,12 +436,10 @@ document.addEventListener("keydown", function(e) {
 
 // 3. Busca el producto escaneado y lo manda directo al carrito
 function procesarEscaneo(codigoEscaneado) {
-    // Busca si el código de barras coincide en la lista que bajamos de Drive
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
     if (productoEncontrado) {
-        // REQUISITO: Sumar al carrito actual respetando la misma estructura
-        // Reemplaza 'agregarAlCarrito' por el nombre exacto de la función que ya usas en tu web
+        // Ejecuta tu función para agregar productos al changuito
         if (typeof agregarAlCarrito === "function") {
             
             agregarAlCarrito({
@@ -461,7 +458,7 @@ function procesarEscaneo(codigoEscaneado) {
         console.warn(`El código de barras ${codigoEscaneado} no está habilitado para la web (Columna J no es SI) o no existe.`);
     }
 }
+</script>
 
 </body>
 </html>
-
