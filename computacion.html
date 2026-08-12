@@ -232,23 +232,22 @@ document.addEventListener("DOMContentLoaded", function() {
    <link rel="stylesheet" href="https://cloudflare.com">
 <script>
 
-// Conector oficial con tu base de datos de Drive
+<script>
+// Usá la misma URL de Apps Script que venías usando
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
 let productosDrive = [];
 
-// 1. Descarga los productos aprobados de Drive al cargar la página
 async function cargarProductosDesdeDrive() {
     try {
         const response = await fetch(DRIVE_API_URL);
         productosDrive = await response.json();
-        console.log("Conexión con Drive exitosa. Catálogo por escáner listo.");
+        console.log("Conexión con Drive exitosa. Catálogo por escáner sincronizado con columna L.");
     } catch (error) {
         console.error("Error al sincronizar con Google Drive:", error);
     }
 }
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 
-// 2. Captura las lecturas del lector físico de códigos de barras
 let barcodeBuffer = "";
 document.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
@@ -263,7 +262,6 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
-// 3. Procesa el escaneo: Construye y clona tu tarjeta idéntica en pantalla
 function procesarEscaneo(codigoEscaneado) {
     if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
         console.warn("Este producto ya está visualizándose en la página.");
@@ -277,7 +275,6 @@ function procesarEscaneo(codigoEscaneado) {
 
         if (contenedorDestino) {
             const nuevaTarjeta = document.createElement('div');
-            
             nuevaTarjeta.className = 'tarjeta-juego'; 
             nuevaTarjeta.id = `tarjeta-escaneada-${codigoEscaneado}`;
             nuevaTarjeta.style.width = "280px";
@@ -299,13 +296,16 @@ function procesarEscaneo(codigoEscaneado) {
             `;
 
             contenedorDestino.appendChild(nuevaTarjeta);
-            nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
+            // Si tenés una función global en tu archivo del carrito para escuchar botones nuevos, podés llamarla acá:
+            if (typeof inicializarCarrito === "function") { inicializarCarrito(); }
+
+            nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-            console.error("No se encontró la clase .contenedor-catalogo en este HTML.");
+            console.error("No se encontró el contenedor de la grilla (.contenedor-catalogo)");
         }
     } else {
-        console.warn(`El código ${codigoEscaneado} no está configurado para la web o no existe en Drive.`);
+        console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe en tu Sheet.`);
     }
 }
 </script>
