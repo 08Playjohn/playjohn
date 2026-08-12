@@ -141,9 +141,9 @@
         </div>
     </footer>
 
-    <script>
+   <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // MOTOR DE BÚSQUEDA MULTI-CLASE
+    // 1. MOTOR DE BÚSQUEDA MULTI-CLASE
     let inputBuscador = document.getElementById('buscador-juegos');
     if (inputBuscador) {
         inputBuscador.addEventListener('keyup', function(e) {
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // LÓGICA DEL CARRITO DE COMPUTACIÓN
+    // 2. LÓGICA DEL CARRITO DE COMPRAS
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const btnFlotante = document.getElementById('btn-carrito-flotante');
     const ventanaCarrito = document.getElementById('ventana-carrito');
@@ -211,8 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-      // ... (Todo el código del carrito que ya tenías arriba) ...
-
     if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
@@ -222,126 +220,112 @@ document.addEventListener("DOMContentLoaded", function() {
                 mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
                 total += item.precio * item.cantidad;
             });
-                        // ... (Tu código del carrito de WhatsApp de arriba queda igual) ...
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
-            // CORREGIDO: Enlace oficial de WhatsApp Web reparado
-            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
+            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank');
         });
     }
     actualizarInterfaz();
-}); 
-</script> <!-- SELLA AL VACÍO TU SCRIPT DEL CARRITO ORIGINAL -->
+});
 
+// 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (FILTRO INTELIGENTE COMPUTACIÓN)
+const DRIVE_API_URL_COMPUTACION = "https://google.com";
+let productosDriveComputacion = [];
 
-<!-- SE ABRE EL NUEVO SCRIPT DEL ESCÁNER DE FORMA TOTALMENTE INDEPENDIENTE -->
-<script>
-    // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (PERSISTENCIA TOTAL POST-F5)
-    const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
-    let productosDrive = [];
+async function cargarProductosDesdeDrive() {
+    try {
+        const response = await fetch(DRIVE_API_URL_COMPUTACION);
+        productosDriveComputacion = await response.json();
+        console.log("Conexión con Drive exitosa. Catálogo de computación listo para operar.");
 
-        async function cargarProductosDesdeDrive() {
-        try {
-            const response = await fetch(DRIVE_API_URL);
-            productosDrive = await response.json();
-            console.log("Conexión con Drive exitosa. Catálogo de computación listo.");
+        // RECUPERACIÓN AUTOMÁTICA POST-F5:
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+        escaneadosGuardados.forEach(codigo => {
+            const productoEncontrado = productosDriveComputacion.find(p => p.id === codigo);
+            
+            // FILTRO INTELIGENTE: En esta página SOLO se dibujan si dicen exactamente "COMPUTACION"
+            if (productoEncontrado && 
+                productoEncontrado.categoria.toUpperCase() === "COMPUTACION" && 
+                !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
+                dibujarTarjetaEnPantalla(productoEncontrado);
+            }
+        });
 
-            // RECUPERACIÓN AUTOMÁTICA POST-F5:
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
-            escaneadosGuardados.forEach(codigo => {
-                const productoEncontrado = productosDrive.find(p => p.id === codigo);
-                
-                // FILTRO INTELIGENTE: En esta página SOLO se dibujan si dicen exactamente "COMPUTACION"
-                if (productoEncontrado && 
-                    productoEncontrado.categoria.toUpperCase() === "COMPUTACION" && 
-                    !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
-                    dibujarTarjetaEnPantalla(productoEncontrado);
-                }
-            });
+    } catch (error) {
+        console.error("Error al sincronizar con Google Drive:", error);
+    }
+}
+document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 
-        } catch (error) {
-            console.error("Error al sincronizar con Google Drive:", error);
+// Captura las lecturas del lector físico de códigos de barras
+let barcodeBuffer = "";
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        if (barcodeBuffer.length > 3) { 
+            procesarEscaneo(barcodeBuffer.trim());
+        }
+        barcodeBuffer = ""; 
+    } else {
+        if (e.key.length === 1) { 
+            barcodeBuffer += e.key;
         }
     }
-    document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+});
 
-    // Captura las lecturas del lector físico de códigos de barras
-    let barcodeBuffer = "";
-    document.addEventListener("keydown", function(e) {
-        if (e.key === "Enter") {
-            if (barcodeBuffer.length > 3) { 
-                procesarEscaneo(barcodeBuffer.trim());
-            }
-            barcodeBuffer = ""; 
-        } else {
-            if (e.key.length === 1) { 
-                barcodeBuffer += e.key;
-            }
-        }
-    });
+function procesarEscaneo(codigoEscaneado) {
+    if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+        console.warn("Este producto ya está visualizándose en la página.");
+        return;
+    }
 
-    function procesarEscaneo(codigoEscaneado) {
-        if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
-            console.warn("Este producto ya está visualizándose en la página.");
+    const productoEncontrado = productosDriveComputacion.find(p => p.id === codigoEscaneado);
+    
+    if (productoEncontrado) {
+        // SI EL PRODUCTO NO ES DE COMPUTACIÓN, SE DETIENE Y NO SE DIBUJA ACÁ
+        if (productoEncontrado.categoria.toUpperCase() !== "COMPUTACION") {
+            console.warn(`El producto "${productoEncontrado.nombre}" pertenece a consolas (${productoEncontrado.categoria}). Escanéalo en la pestaña correcta.`);
             return;
         }
 
-        const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
-        
-        if (productoEncontrado) {
-            // SI EL PRODUCTO NO ES DE COMPUTACIÓN, SE DETIENE Y NO SE DIBUJA ACÁ
-            if (productoEncontrado.categoria.toUpperCase() !== "COMPUTACION") {
-                console.warn(`El producto "${productoEncontrado.nombre}" pertenece a consolas (${productoEncontrado.categoria}). Escanéalo en la pestaña correcta.`);
-                return;
-            }
-
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
-            if (!escaneadosGuardados.includes(codigoEscaneado)) {
-                escaneadosGuardados.push(codigoEscaneado);
-                localStorage.setItem('productos_escaneados', JSON.stringify(escaneadosGuardados));
-            }
-            dibujarTarjetaEnPantalla(productoEncontrado);
-        } else {
-            console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+        if (!escaneadosGuardados.includes(codigoEscaneado)) {
+            escaneadosGuardados.push(codigoEscaneado);
+            localStorage.setItem('productos_escaneados', JSON.stringify(escaneadosGuardados));
         }
-    } 
-
-            // Dibujamos la tarjeta blanca en el mosaico
-            dibujarTarjetaEnPantalla(productoEncontrado);
-        } else {
-            console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
-        }
-    } 
-
-    // Función que fabrica la estructura de tu tarjeta blanca nativa
-    function dibujarTarjetaEnPantalla(producto) {
-        let contenedorDestino = document.querySelector('.contenedor-catalogo');
-
-        if (contenedorDestino) {
-            const nuevaTarjeta = document.createElement('div');
-            nuevaTarjeta.className = 'tarjeta-juego'; 
-            nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
-            nuevaTarjeta.style.width = "280px";
-            nuevaTarjeta.style.boxSizing = "border-box";
-
-            nuevaTarjeta.innerHTML = `
-                <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-                <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
-                <p class="descripcion">${producto.descripcion || ''}</p>
-                <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
-                <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
-                
-                <button class="boton-wpp btn-agregar-carrito" 
-                        data-nombre="${producto.nombre}" 
-                        data-precio="${producto.precio}" 
-                        style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
-                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
-                </button>
-            `;
-
-            contenedorDestino.appendChild(nuevaTarjeta);
-            nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        dibujarTarjetaEnPantalla(productoEncontrado);
+    } else {
+        console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
     }
+} 
+
+function dibujarTarjetaEnPantalla(producto) {
+    let contenedorDestino = document.querySelector('.contenedor-catalogo');
+
+    if (contenedorDestino) {
+        const nuevaTarjeta = document.createElement('div');
+        nuevaTarjeta.className = 'tarjeta-juego'; 
+        nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
+        nuevaTarjeta.style.width = "280px";
+        nuevaTarjeta.style.boxSizing = "border-box";
+
+        nuevaTarjeta.innerHTML = `
+            <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+            <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
+            <p class="descripcion">${producto.descripcion || ''}</p>
+            <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+            <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+            
+            <button class="boton-wpp btn-agregar-carrito" 
+                    data-nombre="${producto.nombre}" 
+                    data-precio="${producto.precio}" 
+                    style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+                <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+            </button>
+        `;
+
+        contenedorDestino.appendChild(nuevaTarjeta);
+        nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
 </script>
 </body>
 </html>
