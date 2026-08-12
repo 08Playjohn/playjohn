@@ -434,91 +434,74 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
-// 3. Procesa el escaneo: Construye y dibuja la tarjeta real en la web
 function procesarEscaneo(codigoEscaneado) {
-    // REQUISITO: Verificar si el producto ya fue escaneado e insertado en la pantalla para no duplicar la tarjeta
+    // Si la tarjeta ya está dibujada en la pantalla, no la repite
     if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
         console.warn("Este producto ya está visualizándose en la página.");
         return;
     }
 
-    // Buscamos el producto en la lista traída de Drive
     const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
     
     if (productoEncontrado) {
-        console.log(`Dibujando producto en el catálogo: ${productoEncontrado.nombre}`);
-
-        // Identificamos en qué contenedor de tu página debemos meter el producto (Consolas o Computación)
-        // Nota: Asegúrate de que las secciones de tu HTML tengan una ID o Clase con estos nombres comunes
+        // Buscamos el contenedor general donde agrupás tus tarjetas en tu HTML
         let contenedorDestino = document.getElementById('contenedor-computacion') || 
-                                document.getElementById('contenedor-consolas') || 
+                                document.getElementById('contenedor-consolas') ||
                                 document.querySelector('.productos-grid') || 
                                 document.querySelector('main');
 
         if (contenedorDestino) {
-            // Creamos un nuevo elemento que contendrá la tarjeta del producto
             const nuevaTarjeta = document.createElement('div');
             
-            // REQUISITO: Le asignamos la clase exacta de tus estilos actuales para que se vea idéntica
-            nuevaTarjeta.className = 'tarjeta-producto'; // Cambia esto por el nombre de clase exacto que usás en tu CSS (ej. 'card', 'product-box')
+            // Inyectamos tus clases CSS para heredar el marco cian brillante automático
+            nuevaTarjeta.className = 'tarjeta-producto'; 
             nuevaTarjeta.id = `tarjeta-escaneada-${codigoEscaneado}`;
+            
+            // Forzamos el diseño idéntico: fondo blanco, alineación centrada y texto negro
+            nuevaTarjeta.style.backgroundColor = "#ffffff";
+            nuevaTarjeta.style.color = "#000000";
+            nuevaTarjeta.style.display = "flex";
+            nuevaTarjeta.style.flexDirection = "column";
+            nuevaTarjeta.style.alignItems = "center";
+            nuevaTarjeta.style.padding = "20px";
+            nuevaTarjeta.style.borderRadius = "8px"; // Ajustalo según tus esquinas actuales
 
-            // REQUISITO: Inyectamos la misma estructura visual que tienen tus productos fijos
-            // Adaptá las etiquetas de abajo para que tengan las mismas clases que tus tarjetas manuales
+            // Estructura idéntica y limpia calcada de tu monitor de fondo blanco
             nuevaTarjeta.innerHTML = `
-                <div class="tarjeta-contenido" style="padding: 15px; border-radius: 8px; text-align: center;">
-                    <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="max-width: 100%; height: auto; border-radius: 4px;">
-                    <h3 style="margin: 10px 0; font-size: 18px;">${productoEncontrado.nombre}</h3>
-                    <p style="font-size: 14px; color: #aaa; min-height: 40px;">${productoEncontrado.descripcion || ''}</p>
-                    <div style="color: #00ff66; font-size: 22px; font-weight: bold; margin: 10px 0;">
-                        $${parseFloat(productoEncontrado.precio).toLocaleString('es-AR')}
-                    </div>
-                    <span class="estado-disponible" style="background: #00ff66; color: black; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px;">DISPONIBLE</span>
-                    
-                    <!-- El botón "Comprar" llama directamente a tu lógica actual del carrito -->
-                    <button class="btn-comprar" onclick="ejecutarCompraManual('${productoEncontrado.id}', '${productoEncontrado.nombre}', ${productoEncontrado.precio}, '${productoEncontrado.categoria}')" style="background: #00ff66; color: black; border: none; padding: 10px 0; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer;">
-                        Comprar
-                    </button>
+                <img src="${productoEncontrado.imagen || 'https://placeholder.com'}" alt="${productoEncontrado.nombre}" style="max-width: 90%; height: auto; margin: 10px 0;">
+                
+                <h3 style="margin: 15px 0 5px 0; font-size: 18px; text-transform: uppercase; font-weight: bold; text-align: center; color: #000000;">
+                    ${productoEncontrado.nombre}
+                </h3>
+                
+                <p style="font-size: 14px; color: #333333; text-align: center; padding: 0 15px; margin: 10px 0; min-height: 50px; line-height: 1.4;">
+                    ${productoEncontrado.descripcion || ''}
+                </p>
+                
+                <div style="color: #00ff66; font-size: 28px; font-weight: bold; margin: 10px 0;">
+                    $${parseFloat(productoEncontrado.precio).toLocaleString('es-AR')}
                 </div>
+                
+                <span style="background: #00ff66; color: black; padding: 5px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase;">
+                    DISPONIBLE
+                </span>
+                
+                <button class="btn-comprar" onclick="ejecutarCompraManual('${productoEncontrado.id}', '${productoEncontrado.nombre}', ${productoEncontrado.precio}, '${productoEncontrado.categoria}')" style="background: #00ff66; color: black; border: none; padding: 12px 0; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-bottom: 5px;">
+                    Comprar
+                </button>
             `;
 
-            // Metemos la tarjeta en la cuadrícula de tu catálogo web
             contenedorDestino.appendChild(nuevaTarjeta);
             
-            // Hace un scroll suave para mostrarle al usuario que apareció la tarjeta nueva
+            // Hace un scroll suave automático para llevar al vendedor/cliente hacia la nueva tarjeta
             nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-            console.error("No se encontró el contenedor visual (.productos-grid o similar) en tu HTML para renderizar la tarjeta.");
+            console.error("No se encontró el bloque contenedor de la cuadrícula de productos.");
         }
     } else {
-        console.warn(`El código ${codigoEscaneado} no está configurado para la web (Columna J no es SI) o no existe en Drive.`);
+        console.warn(`Código ${codigoEscaneado} no habilitado en la web desde Drive.`);
     }
 }
-
-// 4. Esta función es la que se ejecuta al presionar el botón "Comprar" de la nueva tarjeta creada
-function ejecutarCompraManual(id, nombre, precio, categoria) {
-    let carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
-    const itemExistente = carritoActual.find(item => item.id === id);
-    
-    if (itemExistente) {
-        itemExistente.cantidad = (itemExistente.cantidad || 1) + 1;
-    } else {
-        carritoActual.push({
-            id: id,
-            nombre: nombre,
-            precio: parseFloat(precio),
-            categoria: categoria,
-            cantidad: 1
-        });
-    }
-    
-    localStorage.setItem('carrito', JSON.stringify(carritoActual));
-    console.log(`Producto sumado manualmente mediante el botón de la tarjeta: ${nombre}`);
-    
-    // Recarga la página o llama a tu función visual para que el contador del carrito se actualice
-    location.reload();
-}
-</script>
 
 </body>
 </html>
