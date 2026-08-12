@@ -393,22 +393,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- SE ABRE EL NUEVO SCRIPT DEL ESCÁNER DE FORMA TOTALMENTE INDEPENDIENTE -->
 <script>
-    // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (PERSISTENCIA TOTAL POST-F5)
-    const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
+        // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (FILTRO INTELIGENTE CONSOLAS)
+    const DRIVE_API_URL = "https://google.com";
     let productosDrive = [];
 
     async function cargarProductosDesdeDrive() {
         try {
             const response = await fetch(DRIVE_API_URL);
             productosDrive = await response.json();
-            console.log("Conexión con Drive exitosa. Catálogo por escáner listo para operar.");
+            console.log("Conexión con Drive exitosa. Catálogo de consolas listo para operar.");
 
             // RECUPERACIÓN AUTOMÁTICA POST-F5:
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
-            
+            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
             escaneadosGuardados.forEach(codigo => {
                 const productoEncontrado = productosDrive.find(p => p.id === codigo);
-                if (productoEncontrado && !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
+                
+                // FILTRO INTELIGENTE: Si NO es Computación, se dibuja en esta pantalla de Consolas
+                if (productoEncontrado && 
+                    productoEncontrado.categoria.toUpperCase() !== "COMPUTACION" && 
+                    !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
                     dibujarTarjetaEnPantalla(productoEncontrado);
                 }
             });
@@ -434,7 +437,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Procesa el escaneo manual y lo guarda de forma permanente en la base del navegador
+    function procesarEscaneo(codigoEscaneado) {
+        if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+            console.warn("Este producto ya está visualizándose en la página.");
+            return;
+        }
+
+        const productoEncontrado = productosDrive.find(p => p.id === codigoEscaneado);
+        
+        if (productoEncontrado) {
+            // SI EL PRODUCTO ES DE CÓMPUTO, SE DETIENE Y NO SE DIBUJA EN CONSOLAS
+            if (productoEncontrado.categoria.toUpperCase() === "COMPUTACION") {
+                console.warn(`El producto "${productoEncontrado.nombre}" es de Computación. Escanéalo en su pestaña.`);
+                return;
+            }
+
+            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
+            if (!escaneadosGuardados.includes(codigoEscaneado)) {
+                escaneadosGuardados.push(codigoEscaneado);
+                localStorage.setItem('productos_escaneados_consolas', JSON.stringify(escaneadosGuardados));
+            }
+            dibujarTarjetaEnPantalla(productoEncontrado);
+        } else {
+            console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
+        }
+    } 
+ en la base del navegador
     function procesarEscaneo(codigoEscaneado) {
         if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
             console.warn("Este producto ya está visualizándose en la página.");
