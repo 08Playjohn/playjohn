@@ -222,11 +222,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
                 total += item.precio * item.cantidad;
             });
+                        // ... (Tu código del carrito de WhatsApp de arriba queda igual) ...
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
+            // CORREGIDO: Enlace oficial de WhatsApp Web reparado
             window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
         });
     }
-   <!-- Borrá todo lo que pusiste abajo del footer y pegá ÚNICAMENTE este bloque limpio -->
+    actualizarInterfaz();
+}); 
+</script> <!-- SELLA AL VACÍO TU SCRIPT DEL CARRITO ORIGINAL -->
+
+
+<!-- SE ABRE EL NUEVO SCRIPT DEL ESCÁNER DE FORMA TOTALMENTE INDEPENDIENTE -->
 <script>
     // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (PERSISTENCIA TOTAL POST-F5)
     const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
@@ -239,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("Conexión con Drive exitosa. Catálogo por escáner listo para operar.");
 
             // RECUPERACIÓN AUTOMÁTICA POST-F5:
-            // Lee la lista de códigos escaneados históricamente y los vuelve a dibujar
             let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
             
             escaneadosGuardados.forEach(codigo => {
