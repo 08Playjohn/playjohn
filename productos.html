@@ -420,19 +420,20 @@ if (inputBuscador) {
 </script>
 
 <script>
-   // ============================================================================
+ // ============================================================================
 // 3. CONECTOR DE INTEGRACIÓN DIRECTA AUTOMÁTICA CON GOOGLE DRIVE (CONSOLAS)
 // ============================================================================
-// Recordá verificar que este link de abajo sea el correcto para tu pestaña de consolas en Drive
-const DRIVE_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
+// Enlace corregido y limpio sin el duplicado
+const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
 let productosDriveConsolas = [];
 
 async function cargarProductosDesdeDrive() {
     try {
         console.log("Iniciando sincronización directa de consolas con Google Drive...");
-        const response = await fetch(DRIVE_API_URL);
+        const response = await fetch(DRIVE_API_URL); // <-- Esto ahora sí va a encontrar la variable
         const productosLista = await response.json();
-        
+
+
         // Guardamos la lista global en memoria
         productosDriveConsolas = productosLista; 
         console.log("Conexión exitosa. Catálogo de Consolas recibido de Drive.");
