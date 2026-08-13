@@ -210,22 +210,22 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-             if (btnEnviar) {
+           if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
             let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
             let total = 0;
             carrito.forEach(function(item) {
-                // CORREGIDO: Palabra 'cantidad' completa al final
                 mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
                 total += item.precio * item.cantidad;
             });
             mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
             
-            // CORREGIDO: Enlace oficial con tu número 5491141701483 y el disparador de texto listos
+            // EL NÚMERO ESTÁ ACÁ ADENTRO, PEGADO AL LINK:
             window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
         });
     }
+
 
     actualizarInterfaz();
 });
