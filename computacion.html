@@ -210,19 +210,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    if (btnEnviar) {
+           if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
             let total = 0;
+            
             carrito.forEach(item => {
                 mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
                 total += item.precio * item.cantidad;
             });
+            
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
-            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank');
+            
+            // CONFIGURADO: Mensaje directo a tu número de atención sin intermediarios
+            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
         });
     }
+
     actualizarInterfaz();
 });
 
