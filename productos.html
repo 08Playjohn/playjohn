@@ -446,6 +446,29 @@ async function cargarProductosDesdeDrive() {
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
+// --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS (CONSOLAS) ---
+// Corrige variantes comunes de tipeo en el Drive para que enganchen el contenedor HTML real
+if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch") {
+    catFormateada = "nintendo-switch"; // Fuerza el ID del contenedor exacto de la Switch
+}
+if (catFormateada === "playstation-2" || catFormateada === "playstation2") {
+    catFormateada = "ps2";
+}
+if (catFormateada === "playstation-3" || catFormateada === "playstation3") {
+    catFormateada = "ps3";
+}
+if (catFormateada === "playstation-4" || catFormateada === "playstation4") {
+    catFormateada = "ps4";
+}
+if (catFormateada === "playstation-5" || catFormateada === "playstation5") {
+    catFormateada = "ps5";
+}
+if (catFormateada === "xbox360") {
+    catFormateada = "xbox-360";
+}
+if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x") {
+    catFormateada = "xbox-series";
+}
 
                 // 🛡️ CONTROL DE EXCLUSIÓN: Si es un auricular o periférico, se frena acá y NO entra a PS2
                 if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) {
