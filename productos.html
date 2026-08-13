@@ -424,25 +424,82 @@ if (inputBuscador) {
     const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
     let productosDriveConsolas = [];
 
-    async function cargarProductosDesdeDrive() {
-        try {
-            const response = await fetch(DRIVE_API_URL);
-            productosDriveConsolas = await response.json();
-            console.log("Conexión con Drive exitosa. Catálogo de consolas listo.");
+   // 🚀 VERSIÓN ULTRA RÁPIDA EXCLUSIVA PARA PRODUCTOS.HTML (CONSOLAS)
+async function cargarProductosDesdeDrive() {
+    try {
+        console.log("Iniciando sincronización de consolas con Google Drive...");
+        const response = await fetch(DRIVE_API_URL); // Usa el link de consolas
+        const productosLista = await response.json();
+        
+        // Indexación inmediata en memoria para búsquedas instantáneas
+        productosDriveConsolas = productosLista; 
+        const tablaProductos = {};
+        productosLista.forEach(p => {
+            if (p.id) tablaProductos[p.id.toString().trim()] = p;
+        });
 
-            let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
-            escaneadosGuardados.forEach(codigo => {
-                const productoEncontrado = productosDriveConsolas.find(p => p.id === codigo);
-                if (productoEncontrado && 
-                    productoEncontrado.categoria.toUpperCase() !== "COMPUTACION" && 
-                    !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
-                    dibujarTarjetaEnPantalla(productoEncontrado);
+        console.log("Conexión con Drive exitosa. Indexación de consolas completada.");
+
+        // RECUPERACIÓN AUTOMÁTICA ACELERADA POST-F5:
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_consolas')) || [];
+        
+        // Creamos un contenedor virtual para acumular los elementos en memoria
+        const fragmentoVirtual = document.createDocumentFragment();
+
+        escaneadosGuardados.forEach(codigo => {
+            const codigoLimpio = codigo.toString().trim();
+            const productoEncontrado = tablaProductos[codigoLimpio];
+            
+            // FILTRO DE CONSOLAS: Impide que se dibujen periféricos de computación en esta pestaña
+            if (productoEncontrado && productoEncontrado.categoria && productoEncontrado.categoria.toUpperCase() !== "COMPUTACION") {
+                if (!document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
+                    
+                    // Armamos la tarjeta usando la estructura de consolas
+                    const nuevaTarjeta = crearEstructuraTarjetaConsolas(productoEncontrado);
+                    
+                    // Buscamos dinámicamente su fila (ej: .contenedor-ps4)
+                    let catFormateada = productoEncontrado.categoria.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+                    let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`) || document.querySelector('.contenedor-catalogo');
+                    
+                    if (contenedorDestino) {
+                        contenedorDestino.appendChild(nuevaTarjeta);
+                    }
                 }
-            });
-        } catch (error) {
-            console.error("Error al sincronizar con Google Drive:", error);
-        }
+            }
+        });
+
+        console.log("Renderizado inicial de consolas finalizado.");
+
+    } catch (error) {
+        console.error("Error al sincronizar catálogo de consolas con Google Drive:", error);
     }
+}
+
+// Función auxiliar para armar el HTML de las tarjetas de consolas de forma ultra veloz
+function crearEstructuraTarjetaConsolas(producto) {
+    const nuevaTarjeta = document.createElement('div');
+    nuevaTarjeta.className = 'tarjeta-juego'; 
+    nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
+    nuevaTarjeta.style.width = "280px";
+    nuevaTarjeta.style.boxSizing = "border-box";
+
+    nuevaTarjeta.innerHTML = `
+        <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+        <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
+        <p class="descripcion">${producto.descripcion || ''}</p>
+        <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+        <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
+        
+        <button class="boton-wpp btn-agregar-carrito" 
+                data-nombre="${producto.nombre}" 
+                data-precio="${producto.precio}" 
+                style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+            <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+        </button>
+    `;
+    return nuevaTarjeta;
+}
+
     document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 
     let barcodeBuffer = "";
