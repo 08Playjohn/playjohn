@@ -223,18 +223,17 @@
     </script>
 
     <script>
-// 3. CONECTOR DE INTEGRACIÓN INDEPENDIENTE CON GOOGLE DRIVE Y ESCÁNER FÍSICO
-        const telefono = "5491141701483"; 
-        window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
-
-// Lista de subcategorías válidas en esta pantalla independiente
+// 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FÍSICO
+const DRIVE_API_URL_COMPUTACION = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
+let productosDriveComputacion = [];
+     // Lista de subcategorías válidas en esta pantalla independiente
 const CATEGORIAS_VALIDAS = ["accesorios-otros", "cables", "mouses", "teclados", "auriculares"];
 
 async function cargarProductosDesdeDrive() {
     try {
         const response = await fetch(DRIVE_API_URL_COMPUTACION);
         productosDriveComputacion = await response.json();
-        console.log("Conexión con Drive exitosa. Catálogo de Computación cargado.");
+        console.log("Conexión con Drive exitosa. Catálogo de computación listo para operar.");
 
         // RECUPERACIÓN AUTOMÁTICA POST-F5:
         let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_computacion')) || [];
@@ -368,9 +367,9 @@ function dibujarTarjetaEnPantalla(producto) {
                 total += item.precio * item.cantidad;
             });
             mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-            
-            const telefono = "5491141701483"; 
-            window.location.assign("https://wa.me/" + telefono + "?text=" + encodeURIComponent(mensaje));
+               const telefono = "5491141701483"; 
+        window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
+           
         });
     }
 
