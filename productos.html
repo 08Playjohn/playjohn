@@ -100,7 +100,8 @@
     <div id="ps3" class="categoria-consola" style="margin-bottom: 60px; scroll-margin-top: 20px;">
         <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">🎮 PlayStation 3</h2>
 <!-- Busca esta línea en tu PS3 y déjala así: -->
-<div class="contenedor-catalogo contenedor-ps3" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+<!-- Buscá este bloque en tu HTML y asegurate de que tenga la clase 'contenedor-ps3' -->
+<div class="contenedor-ps3" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;"></div>
             
             <!-- Producto 1 -->
           <!--  <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
@@ -446,29 +447,33 @@ async function cargarProductosDesdeDrive() {
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
-// --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS (CONSOLAS) ---
-// Corrige variantes comunes de tipeo en el Drive para que enganchen el contenedor HTML real
+// --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS CORREGIDO (CONSOLAS) ---
 if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch") {
-    catFormateada = "nintendo-switch"; // Fuerza el ID del contenedor exacto de la Switch
+    catFormateada = "nintendo-switch";
 }
-if (catFormateada === "playstation-2" || catFormateada === "playstation2") {
+// Forzamos que enganche exactamente tu contenedor de PS2 (Fijate si en tu HTML es class="contenedor-ps2")
+if (catFormateada === "playstation-2" || catFormateada === "playstation2" || catFormateada === "ps-2" || catFormateada === "ps2") {
     catFormateada = "ps2";
 }
-if (catFormateada === "playstation-3" || catFormateada === "playstation3") {
+// Forzamos que enganche exactamente tu contenedor de PS3 (Fijate si en tu HTML es class="contenedor-ps3")
+if (catFormateada === "playstation-3" || catFormateada === "playstation3" || catFormateada === "ps-3" || catFormateada === "ps3") {
     catFormateada = "ps3";
 }
-if (catFormateada === "playstation-4" || catFormateada === "playstation4") {
+// Forzamos que enganche exactamente tu contenedor de PS4 (Fijate si en tu HTML es class="contenedor-ps4")
+if (catFormateada === "playstation-4" || catFormateada === "playstation4" || catFormateada === "ps-4" || catFormateada === "ps4") {
     catFormateada = "ps4";
 }
-if (catFormateada === "playstation-5" || catFormateada === "playstation5") {
+// Forzamos que enganche exactamente tu contenedor de PS5 (Fijate si en tu HTML es class="contenedor-ps5")
+if (catFormateada === "playstation-5" || catFormateada === "playstation5" || catFormateada === "ps-5" || catFormateada === "ps5") {
     catFormateada = "ps5";
 }
-if (catFormateada === "xbox360") {
+if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
     catFormateada = "xbox-360";
 }
-if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x") {
+if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
     catFormateada = "xbox-series";
 }
+
 
                 // 🛡️ CONTROL DE EXCLUSIÓN: Si es un auricular o periférico, se frena acá y NO entra a PS2
                 if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) {
