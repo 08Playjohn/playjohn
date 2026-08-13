@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         const telefono = "5491141701483"; 
         // Aquí se incluye la barra '/' indispensable para separar el dominio del número
-        window.location.href = "https://wa.me" + telefono + "?text=" + encodeURIComponent(mensaje);
+        window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
     });
 }
 
