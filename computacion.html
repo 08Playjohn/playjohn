@@ -349,28 +349,28 @@ async function cargarProductosDesdeDrive() {
         const productosLista = await response.json();
         
         productosDriveComputacion = productosLista; 
-        console.log("Conexión exitosa. Catálogo cargado. Filtrando activos...");
+        console.log("Conexión exitosa. Catálogo de Computación recibido de Drive.");
 
+        // Como Google YA filtró los que dicen "SI", dibujamos todo lo que nos envió
         productosLista.forEach(producto => {
             if (producto && producto.categoria) {
                 
-                // --- FILTRO DE CONTROL "SI" ---
-                let estadoVisibilidad = (producto.disponible || producto.stock || producto.mostrar || "").toString().toUpperCase().trim();
-                if (estadoVisibilidad !== "SI") {
-                    return; 
-                }
-
+                // Formateamos el texto de la columna categoría de la planilla
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
 
-                if (catFormateada === "accesorios-otros" || catFormateada === "accesorios" || catFormateada === "otros") {
+                // Redireccionamos variantes de accesorios hacia tu contenedor de computación
+                if (catFormateada === "accesorios-otros" || catFormateada === "accesorios" || catFormateada === "otros" || catFormateada === "computacion") {
                     catFormateada = "computacion";
                 }
 
+                // Si la categoría coincide y la tarjeta no se dibujó ya en pantalla, la inyectamos directo
                 if (CATEGORIAS_VALIDAS.includes(catFormateada) && !document.getElementById(`tarjeta-escaneada-${producto.id}`)) {
                     let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
+                    
                     if (contenedorDestino) {
+                        // Creamos la tarjeta blanca con bordes neón y la metemos al mosaico
                         const nuevaTarjeta = crearEstructuraTarjeta(producto);
                         contenedorDestino.appendChild(nuevaTarjeta);
                     }
@@ -378,12 +378,13 @@ async function cargarProductosDesdeDrive() {
             }
         });
 
-        console.log("Catálogo filtrado y distribuido en pantalla con éxito.");
+        console.log("Catálogo distribuido automáticamente en pantalla con éxito.");
 
     } catch (error) {
-        console.error("Error al sincronizar el catálogo automático desde Google Drive:", error);
+        console.error("Error al sincronizar desde Google Drive:", error);
     }
 }
+
 
 function crearEstructuraTarjeta(producto) {
     const nuevaTarjeta = document.createElement('div');
