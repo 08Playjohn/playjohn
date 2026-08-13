@@ -223,11 +223,14 @@ document.addEventListener("DOMContentLoaded", function() {
             
                    mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
         
-        // El número correcto con formato internacional para Argentina (sin espacios ni el +)
+               mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+        
         const telefono = "5491141701483"; 
+        // Aquí se incluye la barra '/' indispensable para separar el dominio del número
         window.location.href = "https://wa.me" + telefono + "?text=" + encodeURIComponent(mensaje);
     });
 }
+
 
     actualizarInterfaz();
 });
