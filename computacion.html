@@ -322,50 +322,83 @@ function dibujarTarjetaEnPantalla(producto) {
                         .replace(/\s+/g, '-') 
                         .replace(/[^a-z0-9\-]/g, '');
 
-    // Parche por si pusiste en Drive "teclado" en vez de "teclados" o "mouse" en vez de "mouses"
+    // Parche de seguridad para subcategorías en singular/plural
     if (catFormateada === "teclado") catFormateada = "teclados";
     if (catFormateada === "mouse") catFormateada = "mouses";
     if (catFormateada === "auricular") catFormateada = "auriculares";
     if (catFormateada === "cable") catFormateada = "cables";
     if (catFormateada === "accesorios" || catFormateada === "otros") catFormateada = "accesorios-otros";
 
-    // Intentamos buscar su contenedor correspondiente
+    // Buscamos el contenedor correspondiente en tu HTML
     let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
-
-    // SALVAVIDAS: Si aun así no encuentra el contenedor específico, busca el primero disponible en Computación
-    if (!contenedorDestino) {
-        console.warn(`No se encontró .contenedor-${catFormateada}. Usando primer contenedor de computación disponible.`);
-        contenedorDestino = document.querySelector('[class^="contenedor-"]');
-    }
 
     if (contenedorDestino) {
         const nuevaTarjeta = document.createElement('div');
+        // Mantiene tus clases para el motor de búsqueda por texto plano
         nuevaTarjeta.className = 'tarjeta-juego tarjeta-producto'; 
         nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
-        nuevaTarjeta.style.width = "280px";
-        nuevaTarjeta.style.boxSizing = "border-box";
+        
+        // ESTILOS EXÁCTOS DE LA CAPTURA: Fondo blanco, borde neón celeste y espaciados perfectos
+        nuevaTarjeta.style.cssText = `
+            width: 290px;
+            background-color: #ffffff;
+            border: 3px solid #00f0ff;
+            border-radius: 8px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            font-family: sans-serif;
+            margin: 10px;
+        `;
 
         nuevaTarjeta.innerHTML = `
-            <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-            <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
-            <p class="descripcion" style="color: #666; font-size: 0.85rem; min-height: 40px; padding: 0 10px; text-align: center;">${producto.descripcion || ''}</p>
-            <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
-            <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
+            <!-- Imagen centrada con fondo blanco -->
+            <div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; background-color: #ffffff; margin-bottom: 15px;">
+                <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+
+            <!-- Título del producto en color oscuro -->
+            <h3 style="color: #0b0c10 !important; margin: 0 0 10px 0; font-size: 1.15rem; font-weight: bold; text-align: center; text-transform: uppercase; width: 100%; line-height: 1.3;">
+                ${producto.nombre}
+            </h3>
+
+            <!-- Descripción en gris oscuro centrada -->
+            <p class="descripcion" style="color: #333333 !important; font-size: 0.9rem; text-align: center; line-height: 1.4; margin: 0 0 15px 0; min-height: 60px; width: 100%;">
+                ${producto.descripcion || ''}
+            </p>
+
+            <!-- Precio en verde brillante centrado -->
+            <div class="precio" style="font-size: 1.6rem; font-weight: bold; color: #00ff37; text-align: center; margin-bottom: 15px;">
+                $${parseFloat(producto.precio).toLocaleString('es-AR')}
+            </div>
+
+            <!-- Badge DISPONIBLE estilo cápsula verde -->
+            <span class="badge disponible" style="background-color: #00ff66; color: #000000; font-size: 0.75rem; font-weight: bold; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: inline-block; text-align: center;">
+                DISPONIBLE
+            </span>
             
+            <!-- Botón Comprar verde que ocupa todo el ancho inferior -->
             <button class="boton-wpp btn-agregar-carrito" 
                     data-nombre="${producto.nombre}" 
                     data-precio="${producto.precio}" 
-                    style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
-                <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+                    style="width: 100% !important; padding: 12px !important; font-size: 1rem !important; background-color: #1dd1a1; color: #ffffff; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;">
+                <i class="fa-solid fa-cart-plus"></i> Comprar
             </button>
         `;
 
         contenedorDestino.appendChild(nuevaTarjeta);
+        
+        // Desplazamiento suave para enfocar el producto recién escaneado
         nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
-        console.error(`Error crítico: No existe ningún contenedor dinámico en tu HTML.`);
+        console.error(`No se encontró el contenedor HTML específico: .contenedor-${catFormateada}`);
     }
 }
+
 </script>
 </body>
 
