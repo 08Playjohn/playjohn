@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
             mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
             
             // EL NÚMERO ESTÁ ACÁ ADENTRO, PEGADO AL LINK:
-           window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
+          window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
 
         });
     }
