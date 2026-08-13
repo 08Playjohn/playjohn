@@ -388,7 +388,8 @@ document.addEventListener("DOMContentLoaded", function() {
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
             
             // CORRECCIÓN DIRECTA: Se eliminan las llaves rotas y se usa la variable correctamente
-            window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
+           window.location.assign("https://wa.me" + encodeURIComponent(mensaje));
+
         });
     }
 
