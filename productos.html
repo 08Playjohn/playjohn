@@ -430,36 +430,38 @@ let productosDriveConsolas = [];
 async function cargarProductosDesdeDrive() {
     try {
         console.log("Iniciando sincronización directa de consolas con Google Drive...");
-        const response = await fetch(DRIVE_API_URL); // <-- Esto ahora sí va a encontrar la variable
+        const response = await fetch(DRIVE_API_URL);
         const productosLista = await response.json();
-
-
-        // Guardamos la lista global en memoria
+        
         productosDriveConsolas = productosLista; 
         console.log("Conexión exitosa. Catálogo de Consolas recibido de Drive.");
 
-        // Como tu Macro de Google Sheets ya filtró por la columna L ("SI"), dibujamos todo lo que llegó
+        // Lista de palabras clave que pertenecen a la otra página y deben ignorarse acá
+        const CATEGORIAS_A_BLOQUEAR = ["computacion", "accesorios-otros", "accesorios", "cables", "mouses", "teclados", "auriculares", "auricular"];
+
         productosLista.forEach(producto => {
             if (producto && producto.categoria) {
                 
-                // Formateamos el texto de la columna categoría (ej: "PlayStation 2" -> "playstation-2")
+                // Formateamos la categoría para poder compararla limpiamente
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
 
-                // FILTRO DE SEGURIDAD INTERNO: Evitamos mezclar periféricos de computación en la pantalla de consolas
-                if (catFormateada !== "computacion" && !document.getElementById(`tarjeta-escaneada-${producto.id}`)) {
+                // 🛡️ CONTROL DE EXCLUSIÓN: Si es un auricular o periférico, se frena acá y NO entra a PS2
+                if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) {
+                    return; 
+                }
+
+                // Si pasa el filtro, se dibuja normalmente en su consola correspondiente
+                if (!document.getElementById(`tarjeta-escaneada-${producto.id}`)) {
                     
-                    // Busca dinámicamente tu fila/mosaico específico (ej: .contenedor-ps2, .contenedor-xbox-360)
                     let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
 
-                    // Si no encuentra el contenedor específico de la consola, cae en el genérico de respaldo
                     if (!contenedorDestino) {
                         contenedorDestino = document.querySelector('.contenedor-catalogo');
                     }
                     
                     if (contenedorDestino) {
-                        // Creamos la tarjeta original oscura de juegos y la inyectamos
                         const nuevaTarjeta = crearEstructuraTarjetaConsolas(producto);
                         contenedorDestino.appendChild(nuevaTarjeta);
                     }
@@ -467,10 +469,10 @@ async function cargarProductosDesdeDrive() {
             }
         });
 
-        console.log("Catálogo de consolas distribuido automáticamente en pantalla con éxito.");
+        console.log("Catálogo de consolas filtrado y distribuido con éxito.");
 
     } catch (error) {
-        console.error("Error al sincronizar el catálogo automático de consolas:", error);
+        console.error("Error al sincronizar el catálogo de consolas:", error);
     }
 }
 
