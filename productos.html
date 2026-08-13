@@ -375,23 +375,30 @@ document.addEventListener("DOMContentLoaded", function() {
             actualizarInterfaz();
         }
     });
-    if (btnEnviar) {
+
+      if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Consolas:\n\n";
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
             let total = 0;
+            
             carrito.forEach(item => {
                 mensaje += `- ${item.cantidad}x ${item.nombre} ($${(item.precio * item.cantidad).toLocaleString('es-AR')})\n`;
                 total += item.precio * item.cantidad;
             });
+            
             mensaje += `\n*Total: $${total.toLocaleString('es-AR')}*`;
-            window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
+            
+            // API universal de WhatsApp corregida para la sección de productos/consolas
+            window.open(`https://wa.me{encodeURIComponent(mensaje)}`, '_blank'); 
         });
     }
+
     actualizarInterfaz();
-});
+}); 
 </script>
 
+<script>
     // 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO
     const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
     let productosDriveConsolas = [];
