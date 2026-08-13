@@ -221,8 +221,14 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
             
-            // EL NÚMERO ESTÁ ACÁ ADENTRO, PEGADO AL LINK:
-            window.location.href = "https://whatsapp.com" + encodeURIComponent(mensaje);
+                   mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+        
+        // El número correcto con formato internacional para Argentina (sin espacios ni el +)
+        const telefono = "5491141701483"; 
+        window.location.href = "https://wa.me" + telefono + "?text=" + encodeURIComponent(mensaje);
+    });
+}
+
 
 
 
