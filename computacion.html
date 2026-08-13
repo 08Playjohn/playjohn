@@ -1,108 +1,85 @@
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo computacion - Play John</title>
-    <link rel="icon" type="image/png" href="Imagenes/servicio/logo.png">
-    <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="https://cloudflare.com">
-</head>
 <body style="background-color: #000000; margin: 0; padding: 0;">
 
     <!-- BOTONES DE NAVEGACIÓN EN COMPUTACION.HTML -->
-<div class="cuatro-un-boton" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 15px; width: 100%; max-width: 1200px; margin: 20px auto; padding: 10px 0;">
-    <a href="index.html#servicio" class="btn-centro">Servicios</a>
-    <a href="productos.html" class="btn-centro">Consolas</a>
-    <a href="computacion.html" class="btn-centro">Computacion</a>  
-    <a href="index.html#seccion-contacto" class="btn-centro">Contactanos</a>
-</div>
-
-<!-- SUBMENU DE ACCESO RÁPIDO INTERNO POR COMPUTACIÓN -->
-<div style="background-color: #0b0c10; padding: 15px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border-bottom: 2px solid #3a3f58;">
-    <a href="#accesorios" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Accesorios/Otros</a>
-    <a href="#cables" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Cables</a>
-    <a href="#mouses" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Mouses</a>
-    <a href="#teclados" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Teclados</a>
-    <a href="#auriculares" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Auriculares</a>
-</div>
-
-<!-- BARRA DE BÚSQUEDA CENTRADA -->
-<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
-    <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
-       <input type="text" id="buscador-computacion" placeholder="Buscar periféricos o computación..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
-       <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-       </svg>
+    <div class="cuatro-un-boton" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 15px; width: 100%; max-width: 1200px; margin: 20px auto; padding: 10px 0;">
+        <a href="index.html#servicio" class="btn-centro">Servicios</a>
+        <a href="productos.html" class="btn-centro">Consolas</a>
+        <a href="computacion.html" class="btn-centro">Computacion</a>  
+        <a href="index.html#seccion-contacto" class="btn-centro">Contactanos</a>
     </div>
-</div>
 
-<style>
-    #buscador-computacion:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
-</style>
+    <!-- SUBMENU DE ACCESO RÁPIDO INTERNO POR COMPUTACIÓN -->
+    <div style="background-color: #0b0c10; padding: 15px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border-bottom: 2px solid #3a3f58;">
+        <a href="#accesorios" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Accesorios/Otros</a>
+        <a href="#cables" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Cables</a>
+        <a href="#mouses" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Mouses</a>
+        <a href="#teclados" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Teclados</a>
+        <a href="#auriculares" style="color: #00f0ff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #00f0ff; padding: 5px 12px; border-radius: 4px;">Auriculares</a>
+    </div>
 
-<!-- SECCIÓN PRINCIPAL DE PRODUCTOS AGRUPADOS -->
-<main id="catalogo-computacion" style="background-color: #000000; padding: 40px 20px;">
-
+    <!-- BARRA DE BÚSQUEDA CENTRADA -->
+    <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
+        <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
+           <input type="text" id="buscador-computacion" placeholder="Buscar periféricos o computación..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+           <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
            </svg>
         </div>
     </div>
 
     <style>
-        #buscador-juegos:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
+        #buscador-computacion:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
     </style>
 
-    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS -->
+    <!-- SECCIÓN PRINCIPAL DE PRODUCTOS AGRUPADOS POR CATEGORÍAS INDEPENDIENTES -->
     <main id="catalogo-computacion" style="background-color: #000000; padding: 40px 20px;">
-   
-        <!-- ================= CATEGORÍA: COMPUTACION ================= -->
-        <div id="computacion" class="categoria-consola" style="width: 100%; clear: both; margin-bottom: 60px; scroll-margin-top: 20px;">
-            
-            <h2 style="color: #0000ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 0, 255, 0.5); font-family: sans-serif;">
-                💻 Computación 💻
-            </h2>
-            
-            <div class="contenedor-catalogo" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
-                
-               <!-- PRODUCTO 1: Teclado Retroiluminado -->
-                <!-- <div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
-                    <img src="Imagenes/servicio/tecladomecanicoconcable.jpg" alt="TECLADO MECANICO CABLEADO DE 61 TECLAS" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-                    <h3>TECLADO MECANICO CABLEADO DE 61 TECLAS CON CABLE </h3>
-                    <p class="descripcion">El teclado mecánico Seisa DN-K61-TC es un modelo ultra compacto del 60% con 61 teclas, retroiluminación RGB y cable USB Tipo-C desmontable.</p>
-                    <div class="precio">$35.000</div>
-                    <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
-                    <button class="boton-wpp btn-agregar-carrito" data-nombre="TECLADO MECANICO CABLEADO DE 61 TECLAS CON CABLE TIPO C REMOVIBLE" data-precio="35000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
-                        <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar -->
-                    </button>
-                </div>
-                <!-- <!-- PRODUCTO 2: Mouse Gamer -->
-             <!--<div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
-                <img src="Imagenes/servicio/mousegamer.jpg" alt="MOUSE GAMER ERGONOMICO RGB" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-                <h3>MOUSE GAMER ERGÓNOMICO RGB</h3>
-                <p class="descripcion">Mouse óptico de alta precisión con botones laterales programables, selector de DPI sobre la marcha y luces RGB dinámicas.</p>
-                <div class="precio">$18.000</div>
-                <span class="badge disponible" style="margin-bottom: 15px; display: inline-block;">DISPONIBLE</span>
-                <button class="boton-wpp btn-agregar-carrito" data-nombre="MOUSE GAMER ERGÓNOMICO RGB" data-precio="18000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
-                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar -->
-                </button>
-            </div>
 
-           <!-- <!-- PRODUCTO 3: Pantalla / Monitor -->
-             <!--<div class="tarjeta-juego" style="width: 280px; box-sizing: border-box;">
-                <img src="Imagenes/servicio/monitor24.jpg" alt="MONITOR GAMER 24 PULGADAS FHD" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-                <h3>MONITOR GAMER 24" FULL HD</h3>
-                <p class="descripcion">Pantalla de 24 pulgadas con panel IPS para colores vivos, tasa de refresco rápida y tecnología de reducción de luz azul.</p>
-                <div class="precio">$185.000</div>
-                <span class="badge disponible" style="margin-bottom: 15px; display: inline-block;">DISPONIBLE</span>
-                <button class="boton-wpp btn-agregar-carrito" data-nombre="MONITOR GAMER 24 INCH FULL HD" data-precio="185000" style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
-                    <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar -->
-                </button>
+        <!-- SUB-CATEGORÍA: ACCESORIOS/OTROS -->
+        <div id="accesorios" class="categoria-consola" style="width: 100%; clear: both; margin-bottom: 60px; scroll-margin-top: 20px;">
+            <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">
+                📁 Accesorios / Otros 📁
+            </h2>
+            <div class="contenedor-accesorios-otros" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
+        </div>
+
+        <!-- SUB-CATEGORÍA: CABLES -->
+        <div id="cables" class="categoria-consola" style="width: 100%; clear: both; margin-bottom: 60px; scroll-margin-top: 20px;">
+            <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">
+                🔌 Cables 🔌
+            </h2>
+            <div class="contenedor-cables" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
+        </div>
+
+        <!-- SUB-CATEGORÍA: MOUSES -->
+        <div id="mouses" class="categoria-consola" style="width: 100%; clear: both; margin-bottom: 60px; scroll-margin-top: 20px;">
+            <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">
+                🖱️ Mouses 🖱️
+            </h2>
+            <div class="contenedor-mouses" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
+        </div>
+
+        <!-- SUB-CATEGORÍA: TECLADOS -->
+        <div id="teclados" class="categoria-consola" style="width: 100%; clear: both; margin-bottom: 60px; scroll-margin-top: 20px;">
+            <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">
+                ⌨️ Teclados ⌨️
+            </h2>
+            <div class="contenedor-teclados" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
+        </div>
+
+        <!-- SUB-CATEGORÍA: AURICULARES -->
+        <div id="auriculares" class="categoria-consola" style="width: 100%; clear: both; margin-bottom: 60px; scroll-margin-top: 20px;">
+            <h2 style="color: #00f0ff; text-align: center; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 30px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); font-family: sans-serif;">
+                🎧 Auriculares 🎧
+            </h2>
+            <div class="contenedor-auriculares" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;"></div>
+        </div>
             </div>
-           
         </div>
     </main>
 
-   <button id="btn-carrito-flotante" style="position: fixed; bottom: 30px; right: 30px; background-color: #39ff14; width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);">
+    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <button id="btn-carrito-flotante" style="position: fixed; bottom: 30px; right: 30px; background-color: #39ff14; width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);">
         🛒
         <span id="contador-carrito" style="position: absolute; top: -5px; right: -5px; background-color: #ff003c; color: #fff; font-size: 0.75rem; font-weight: bold; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #000;">0</span>
     </button>
@@ -127,13 +104,11 @@
     <footer style="background-color: #0b0c10; color: #aaaaaa; padding: 40px 20px; font-family: sans-serif; border-top: 2px solid #3a3f58; font-size: 0.85rem; line-height: 1.6; clear: both; width: 100%; box-sizing: border-box; display: block !important; position: relative; margin-top: 60px;">
         <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
             
-            <!-- Bloque de Derechos -->
             <div style="flex: 1; min-width: 250px;">
                 <h4 style="color: #00f0ff; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">© 2026 Play John</h4>
                 <p>Servicio técnico especializado y venta de hardware gamer. Todos los derechos reservados. Las marcas mencionadas (PlayStation, Xbox, Nintendo) son propiedad de sus respectivos dueños.</p>
             </div>
 
-            <!-- Bloque de Términos y Condiciones -->
             <div style="flex: 1; min-width: 250px;">
                 <h4 style="color: #39ff14; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Términos y Condiciones</h4>
                 <ul style="list-style: none; padding: 0; margin: 0;">
@@ -142,7 +117,6 @@
                 </ul>
             </div>
 
-            <!-- Bloque de Garantías -->
             <div style="flex: 1; min-width: 250px;">
                 <h4 style="color: #ff003c; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">Políticas de Garantía</h4>
                 <ul style="list-style: none; padding: 0; margin: 0;">
@@ -154,121 +128,128 @@
         </div>
     </footer>
 
-   <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // 1. MOTOR DE BÚSQUEDA MULTI-CLASE
-    let inputBuscador = document.getElementById('buscador-juegos');
-    if (inputBuscador) {
-        inputBuscador.addEventListener('keyup', function(e) {
-            let texto = e.target.value.toLowerCase().trim();
-            let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
-            
-            tarjetas.forEach(function(tarjeta) {
-                let h3 = tarjeta.querySelector('h3');
-                if (h3) {
-                    let nombreProducto = h3.textContent.toLowerCase();
-                    if (texto === '' || nombreProducto.includes(texto)) {
-                        tarjeta.style.display = '';
-                    } else {
-                        tarjeta.style.setProperty('display', 'none', 'important');
+    <!-- INTERACTIVIDAD JAVASCRIPT INDEPENDIENTE -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. MOTOR DE BÚSQUEDA EXCLUSIVO PARA COMPUTACIÓN
+        let inputBuscador = document.getElementById('buscador-computacion');
+        if (inputBuscador) {
+            inputBuscador.addEventListener('keyup', function(e) {
+                let texto = e.target.value.toLowerCase().trim();
+                let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
+                
+                tarjetas.forEach(function(tarjeta) {
+                    let h3 = tarjeta.querySelector('h3');
+                    if (h3) {
+                        let nombreProducto = h3.textContent.toLowerCase();
+                        if (texto === '' || nombreProducto.includes(texto)) {
+                            tarjeta.style.display = '';
+                        } else {
+                            tarjeta.style.setProperty('display', 'none', 'important');
+                        }
                     }
-                }
+                });
             });
-        });
-    }
-
-    // 2. LÓGICA DEL CARRITO DE COMPRAS
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const btnFlotante = document.getElementById('btn-carrito-flotante');
-    const ventanaCarrito = document.getElementById('ventana-carrito');
-    const btnCerrar = document.getElementById('cerrar-carrito');
-    const listaCarrito = document.getElementById('lista-carrito');
-    const totalCarrito = document.getElementById('total-carrito');
-    const contadorCarrito = document.getElementById('contador-carrito');
-    const btnEnviar = document.getElementById('btn-enviar-carrito');
-
-    if (btnFlotante && ventanaCarrito && btnCerrar) {
-        btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
-        btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
-    }
-
-    function actualizarInterfaz() {
-        if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
-        listaCarrito.innerHTML = '';
-        let total = 0, cantidadTotal = 0;
-        carrito.forEach((item, index) => {
-            total += item.precio * item.cantidad;
-            cantidadTotal += item.cantidad;
-            const div = document.createElement('div');
-            div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 5px;";
-            div.innerHTML = `<div style="flex:1;"><b>${item.nombre}</b><div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div></div><button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>`;
-            listaCarrito.appendChild(div);
-        });
-        totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
-        contadorCarrito.textContent = cantidadTotal;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-    }
-
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('btn-agregar-carrito')) {
-            const nombre = e.target.getAttribute('data-nombre');
-            const precio = parseFloat(e.target.getAttribute('data-precio'));
-            const existe = carrito.find(item => item.nombre === nombre);
-            if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
-            actualizarInterfaz();
-            if (ventanaCarrito) ventanaCarrito.style.right = '0px';
         }
-        if (e.target && e.target.classList.contains('btn-eliminar')) {
-            carrito.splice(e.target.getAttribute('data-index'), 1);
-            actualizarInterfaz();
-        }
-    });
 
-           if (btnEnviar) {
-        btnEnviar.addEventListener('click', function() {
-            if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
-            let total = 0;
-            carrito.forEach(function(item) {
-                mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
-                total += item.precio * item.cantidad;
-            });
-            mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+        // 2. LÓGICA INTERNA DEL CARRITO DE HARDWARE
+        let carrito = JSON.parse(localStorage.getItem('carrito_computacion')) || [];
+        const btnFlotante = document.getElementById('btn-carrito-flotante');
+        const ventanaCarrito = document.getElementById('ventana-carrito');
+        const btnCerrar = document.getElementById('cerrar-carrito');
+        const listaCarrito = document.getElementById('lista-carrito');
+        const totalCarrito = document.getElementById('total-carrito');
+        const contadorCarrito = document.getElementById('contador-carrito');
+        const btnEnviar = document.getElementById('btn-enviar-carrito');
+
+        if (btnFlotante && ventanaCarrito && btnCerrar) {
+            btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
+            btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
+        }
+
+        function actualizarInterfaz() {
+            if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
+            listaCarrito.innerHTML = '';
+            let total = 0, cantidadTotal = 0;
             
-                   mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-        
-               mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-        
+            carrito.forEach((item, index) => {
+                total += item.precio * item.cantidad;
+                amountTotal = cantidadTotal += item.cantidad;
+                const div = document.createElement('div');
+                div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 5px;";
+                div.innerHTML = `<div style="flex:1;"><b>${item.nombre}</b><div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div></div><button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>`;
+                listaCarrito.appendChild(div);
+            });
+            totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
+            contadorCarrito.textContent = cantidadTotal;
+            localStorage.setItem('carrito_computacion', JSON.stringify(carrito));
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target && (e.target.classList.contains('btn-agregar-carrito') || e.target.closest('.btn-agregar-carrito'))) {
+                let targetButton = e.target.classList.contains('btn-agregar-carrito') ? e.target : e.target.closest('.btn-agregar-carrito');
+                const nombre = targetButton.getAttribute('data-nombre');
+                const precio = parseFloat(targetButton.getAttribute('data-precio'));
+                const existe = carrito.find(item => item.nombre === nombre);
+                
+                if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
+                actualizarInterfaz();
+                if (ventanaCarrito) ventanaCarrito.style.right = '0px';
+            }
+            if (e.target && e.target.classList.contains('btn-eliminar')) {
+                carrito.splice(e.target.getAttribute('data-index'), 1);
+                actualizarInterfaz();
+            }
+        });
+
+        if (btnEnviar) {
+            btnEnviar.addEventListener('click', function() {
+                if (carrito.length === 0) return alert("Tu carrito está vacío.");
+                let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+                let total = 0;
+                carrito.forEach(function(item) {
+                    mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
+                    total += item.precio * item.cantidad;
+                });
+                mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+                
+                const telefono = "5491141701483"; 
+                window.location.assign("https://wa.me" + telefono + "?text=" + encodeURIComponent(mensaje));
+            });
+        }
+
+        actualizarInterfaz();
+    }); 
+    </script>
+
+    <script>
+// 3. CONECTOR DE INTEGRACIÓN INDEPENDIENTE CON GOOGLE DRIVE Y ESCÁNER FÍSICO
         const telefono = "5491141701483"; 
-        // Aquí se incluye la barra '/' indispensable para separar el dominio del número
         window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
-    });
-}
 
-
-    actualizarInterfaz();
-});
-
-// 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FISICO (FILTRO INTELIGENTE COMPUTACIÓN)
-const DRIVE_API_URL_COMPUTACION = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
-let productosDriveComputacion = [];
+// Lista de subcategorías válidas en esta pantalla independiente
+const CATEGORIAS_VALIDAS = ["accesorios-otros", "cables", "mouses", "teclados", "auriculares"];
 
 async function cargarProductosDesdeDrive() {
     try {
         const response = await fetch(DRIVE_API_URL_COMPUTACION);
         productosDriveComputacion = await response.json();
-        console.log("Conexión con Drive exitosa. Catálogo de computación listo para operar.");
+        console.log("Conexión con Drive exitosa. Catálogo de Computación cargado.");
 
         // RECUPERACIÓN AUTOMÁTICA POST-F5:
-        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_computacion')) || [];
         escaneadosGuardados.forEach(codigo => {
             const productoEncontrado = productosDriveComputacion.find(p => p.id === codigo);
             
-            // FILTRO INTELIGENTE: En esta página SOLO se dibujan si dicen exactamente "COMPUTACION"
-            if (productoEncontrado && 
-                productoEncontrado.categoria.toUpperCase() === "COMPUTACION" && 
-                !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
-                dibujarTarjetaEnPantalla(productoEncontrado);
+            if (productoEncontrado && productoEncontrado.categoria) {
+                let catFormateada = productoEncontrado.categoria.toLowerCase().trim()
+                                    .replace(/\s+/g, '-') 
+                                    .replace(/[^a-z0-9\-]/g, '');
+
+                // FILTRO: Solo dibuja si pertenece a una de las subcategorías de computación creadas
+                if (CATEGORIAS_VALIDAS.includes(catFormateada) && !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
+                    dibujarTarjetaEnPantalla(productoEncontrado);
+                }
             }
         });
 
@@ -301,30 +282,41 @@ function procesarEscaneo(codigoEscaneado) {
 
     const productoEncontrado = productosDriveComputacion.find(p => p.id === codigoEscaneado);
     
-    if (productoEncontrado) {
-        // SI EL PRODUCTO NO ES DE COMPUTACIÓN, SE DETIENE Y NO SE DIBUJA ACÁ
-        if (productoEncontrado.categoria.toUpperCase() !== "COMPUTACION") {
-            console.warn(`El producto "${productoEncontrado.nombre}" pertenece a consolas. Escanéalo en la pestaña correcta.`);
+    if (productoEncontrado && productoEncontrado.categoria) {
+        let catFormateada = productoEncontrado.categoria.toLowerCase().trim()
+                            .replace(/\s+/g, '-') 
+                            .replace(/[^a-z0-9\-]/g, '');
+
+        // VALIDACIÓN: Si el producto no corresponde a periféricos, frena el escaneo aquí
+        if (!CATEGORIAS_VALIDAS.includes(catFormateada)) {
+            console.warn(`El producto "${productoEncontrado.nombre}" es de la categoría "${productoEncontrado.categoria}". Escanéalo en la pestaña correcta.`);
+            alert(`⚠️ Este artículo no pertenece a Computación. Categoría encontrada: ${productoEncontrado.categoria}`);
             return;
         }
 
-        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados')) || [];
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_computacion')) || [];
         if (!escaneadosGuardados.includes(codigoEscaneado)) {
             escaneadosGuardados.push(codigoEscaneado);
-            localStorage.setItem('productos_escaneados', JSON.stringify(escaneadosGuardados));
+            localStorage.setItem('productos_escaneados_computacion', JSON.stringify(escaneadosGuardados));
         }
         dibujarTarjetaEnPantalla(productoEncontrado);
     } else {
-        console.warn(`El código ${codigoEscaneado} no tiene un 'SI' en la columna L o no existe.`);
+        console.warn(`El código ${codigoEscaneado} no existe en la base de datos de Drive.`);
     }
 } 
 
 function dibujarTarjetaEnPantalla(producto) {
-    let contenedorDestino = document.querySelector('.contenedor-catalogo');
+    // Convierte subcategorías de Drive como "Cables" o "Accesorios/Otros" en "cables" o "accesorios-otros"
+    let catFormateada = producto.categoria.toLowerCase().trim()
+                        .replace(/\s+/g, '-') 
+                        .replace(/[^a-z0-9\-]/g, '');
+
+    // Busca dinámicamente la fila/mosaico correcto en base a la subcategoría limpia
+    let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
 
     if (contenedorDestino) {
         const nuevaTarjeta = document.createElement('div');
-        nuevaTarjeta.className = 'tarjeta-juego'; 
+        nuevaTarjeta.className = 'tarjeta-juego tarjeta-producto'; 
         nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
         nuevaTarjeta.style.width = "280px";
         nuevaTarjeta.style.boxSizing = "border-box";
@@ -333,8 +325,162 @@ function dibujarTarjetaEnPantalla(producto) {
             <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
             <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
             <p class="descripcion">${producto.descripcion || ''}</p>
-            <div class="precio">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
-            <span class="badge disponible" style="margin-bottom: 15px;">DISPONIBLE</span>
+            <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+            <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
+            
+            <button class="boton-wpp btn-agregar-carrito" 
+                    data-nombre="${producto.nombre}" 
+                    data-precio="${producto.precio}" 
+                    style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+                <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+            </button>
+        `;
+
+        contenedorDestino.appendChild(nuevaTarjeta);
+        nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        console.error(`No se encontró el contenedor específico en el HTML: .contenedor-${catFormateada}`);
+    }
+}
+        if (e.target && (e.target.classList.contains('btn-agregar-carrito') || e.target.closest('.btn-agregar-carrito'))) {
+            let targetButton = e.target.classList.contains('btn-agregar-carrito') ? e.target : e.target.closest('.btn-agregar-carrito');
+            const nombre = targetButton.getAttribute('data-nombre');
+            const precio = parseFloat(targetButton.getAttribute('data-precio'));
+            const existe = carrito.find(item => item.nombre === nombre);
+            
+            if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
+            actualizarInterfaz();
+            if (ventanaCarrito) ventanaCarrito.style.right = '0px';
+        }
+        if (e.target && e.target.classList.contains('btn-eliminar')) {
+            carrito.splice(e.target.getAttribute('data-index'), 1);
+            actualizarInterfaz();
+        }
+    });
+
+    if (btnEnviar) {
+        btnEnviar.addEventListener('click', function() {
+            if (carrito.length === 0) return alert("Tu carrito está vacío.");
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+            let total = 0;
+            carrito.forEach(function(item) {
+                mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
+                total += item.precio * item.cantidad;
+            });
+            mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+            
+            const telefono = "5491141701483"; 
+            window.location.assign("https://wa.me/" + telefono + "?text=" + encodeURIComponent(mensaje));
+        });
+    }
+
+    actualizarInterfaz();
+});
+
+// 3. CONECTOR DE INTEGRACIÓN CON GOOGLE DRIVE Y ESCÁNER FÍSICO
+const DRIVE_API_URL_COMPUTACION = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
+let productosDriveComputacion = [];
+
+// Lista de subcategorías válidas en esta pantalla independiente
+const CATEGORIAS_VALIDAS = ["accesorios-otros", "cables", "mouses", "teclados", "auriculares"];
+
+async function cargarProductosDesdeDrive() {
+    try {
+        const response = await fetch(DRIVE_API_URL_COMPUTACION);
+        productosDriveComputacion = await response.json();
+        console.log("Conexión con Drive exitosa. Catálogo de computación listo para operar.");
+
+        // RECUPERACIÓN AUTOMÁTICA POST-F5:
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_computacion')) || [];
+        escaneadosGuardados.forEach(codigo => {
+            const productoEncontrado = productosDriveComputacion.find(p => p.id === codigo);
+            
+            if (productoEncontrado && productoEncontrado.categoria) {
+                let catFormateada = productoEncontrado.categoria.toLowerCase().trim()
+                                    .replace(/\s+/g, '-') 
+                                    .replace(/[^a-z0-9\-]/g, '');
+
+                // FILTRO: Solo dibuja si pertenece a una de las subcategorías de computación creadas
+                if (CATEGORIAS_VALIDAS.includes(catFormateada) && !document.getElementById(`tarjeta-escaneada-${productoEncontrado.id}`)) {
+                    dibujarTarjetaEnPantalla(productoEncontrado);
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error("Error al sincronizar con Google Drive:", error);
+    }
+}
+document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+
+// Captura las lecturas del lector físico de códigos de barras
+let barcodeBuffer = "";
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        if (barcodeBuffer.length > 3) { 
+            procesarEscaneo(barcodeBuffer.trim());
+        }
+        barcodeBuffer = ""; 
+    } else {
+        if (e.key.length === 1) { 
+            barcodeBuffer += e.key;
+        }
+    }
+});
+
+function procesarEscaneo(codigoEscaneado) {
+    if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+        console.warn("Este producto ya está visualizándose en la página.");
+        return;
+    }
+
+    const productoEncontrado = productosDriveComputacion.find(p => p.id === codigoEscaneado);
+    
+    if (productoEncontrado && productoEncontrado.categoria) {
+        let catFormateada = productoEncontrado.categoria.toLowerCase().trim()
+                            .replace(/\s+/g, '-') 
+                            .replace(/[^a-z0-9\-]/g, '');
+
+        // VALIDACIÓN: Si el producto no corresponde a computación, frena el escaneo aquí
+        if (!CATEGORIAS_VALIDAS.includes(catFormateada)) {
+            console.warn(`El producto "${productoEncontrado.nombre}" es de la categoría "${productoEncontrado.categoria}". Escanéalo en la pestaña correcta.`);
+            alert(`⚠️ Este artículo no pertenece a Computación. Categoría encontrada: ${productoEncontrado.categoria}`);
+            return;
+        }
+
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_computacion')) || [];
+        if (!escaneadosGuardados.includes(codigoEscaneado)) {
+            escaneadosGuardados.push(codigoEscaneado);
+            localStorage.setItem('productos_escaneados_computacion', JSON.stringify(escaneadosGuardados));
+        }
+        dibujarTarjetaEnPantalla(productoEncontrado);
+    } else {
+        console.warn(`El código ${codigoEscaneado} no está registrado o no existe en la base de datos de Drive.`);
+    }
+} 
+
+function dibujarTarjetaEnPantalla(producto) {
+    let catFormateada = producto.categoria.toLowerCase().trim()
+                        .replace(/\s+/g, '-') 
+                        .replace(/[^a-z0-9\-]/g, '');
+
+    // Busca de forma dinámica el contenedor usando las clases del HTML (ej: .contenedor-mouses, .contenedor-cables)
+    let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
+
+    if (contenedorDestino) {
+        const nuevaTarjeta = document.createElement('div');
+        // Mantiene ambas clases para acoplarse directo con tu motor de búsqueda por texto plano superior
+        nuevaTarjeta.className = 'tarjeta-juego tarjeta-producto'; 
+        nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
+        nuevaTarjeta.style.width = "280px";
+        nuevaTarjeta.style.boxSizing = "border-box";
+
+        nuevaTarjeta.innerHTML = `
+            <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+            <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
+            <p class="descripcion">${producto.descripcion || ''}</p>
+            <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+            <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
             
             <button class="boton-wpp btn-agregar-carrito" 
                     data-nombre="${producto.nombre}" 
@@ -346,6 +492,8 @@ function dibujarTarjetaEnPantalla(producto) {
 
         contenedorDestino.appendChild(nuevaTarjeta);
         nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        console.error(`Error: No se encontró la etiqueta HTML correspondite a: .contenedor-${catFormateada}`);
     }
 }
 </script>
