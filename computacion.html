@@ -316,29 +316,58 @@ function procesarEscaneo(codigoEscaneado) {
     }
 } 
 
+// Lista de subcategorías permitidas (Sumamos 'computacion' para habilitar tus productos de Drive)
+const CATEGORIAS_VALIDAS = ["accesorios-otros", "cables", "mouses", "teclados", "auriculares", "computacion"];
+
+function procesarEscaneo(codigoEscaneado) {
+    if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
+        console.warn("Este producto ya está visualizándose en la página.");
+        return;
+    }
+
+    const productoEncontrado = productosDriveComputacion.find(p => p.id === codigoEscaneado);
+    
+    if (productoEncontrado && productoEncontrado.categoria) {
+        let catFormateada = productoEncontrado.categoria.toLowerCase().trim()
+                            .replace(/\s+/g, '-') 
+                            .replace(/[^a-z0-9\-]/g, '');
+
+        // VALIDACIÓN: Si no es ninguna categoría de computación, avisa y frena
+        if (!CATEGORIAS_VALIDAS.includes(catFormateada)) {
+            console.warn(`El producto "${productoEncontrado.nombre}" pertenece a consolas.`);
+            alert(`⚠️ Este artículo no pertenece a Computación. Categoría: ${productoEncontrado.categoria}`);
+            return;
+        }
+
+        let escaneadosGuardados = JSON.parse(localStorage.getItem('productos_escaneados_computacion')) || [];
+        if (!escaneadosGuardados.includes(codigoEscaneado)) {
+            escaneadosGuardados.push(codigoEscaneado);
+            localStorage.setItem('productos_escaneados_computacion', JSON.stringify(escaneadosGuardados));
+        }
+        dibujarTarjetaEnPantalla(productoEncontrado);
+    } else {
+        console.warn(`El código ${codigoEscaneado} no existe en la base de datos de Drive.`);
+    }
+} 
+
 function dibujarTarjetaEnPantalla(producto) {
-    // Limpiamos y normalizamos el texto de Drive
     let catFormateada = producto.categoria.toLowerCase().trim()
                         .replace(/\s+/g, '-') 
                         .replace(/[^a-z0-9\-]/g, '');
 
-    // Parche de seguridad para subcategorías en singular/plural
-    if (catFormateada === "teclado") catFormateada = "teclados";
-    if (catFormateada === "mouse") catFormateada = "mouses";
-    if (catFormateada === "auricular") catFormateada = "auriculares";
-    if (catFormateada === "cable") catFormateada = "cables";
-    if (catFormateada === "accesorios" || catFormateada === "otros") catFormateada = "accesorios-otros";
+    // Parche: Si dice "accesorios/otros" o similar, lo redirigimos también a tu contenedor-computacion
+    if (catFormateada === "accesorios-otros" || catFormateada === "accesorios" || catFormateada === "otros") {
+        catFormateada = "computacion";
+    }
 
-    // Buscamos el contenedor correspondiente en tu HTML
+    // Busca tu clase .contenedor-computacion en el HTML
     let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
 
     if (contenedorDestino) {
         const nuevaTarjeta = document.createElement('div');
-        // Mantiene tus clases para el motor de búsqueda por texto plano
         nuevaTarjeta.className = 'tarjeta-juego tarjeta-producto'; 
         nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
         
-        // ESTILOS EXÁCTOS DE LA CAPTURA: Fondo blanco, borde neón celeste y espaciados perfectos
         nuevaTarjeta.style.cssText = `
             width: 290px;
             background-color: #ffffff;
@@ -356,48 +385,41 @@ function dibujarTarjetaEnPantalla(producto) {
         `;
 
         nuevaTarjeta.innerHTML = `
-            <!-- Imagen centrada con fondo blanco -->
             <div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; background-color: #ffffff; margin-bottom: 15px;">
                 <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
             </div>
 
-            <!-- Título del producto en color oscuro -->
             <h3 style="color: #0b0c10 !important; margin: 0 0 10px 0; font-size: 1.15rem; font-weight: bold; text-align: center; text-transform: uppercase; width: 100%; line-height: 1.3;">
                 ${producto.nombre}
             </h3>
 
-            <!-- Descripción en gris oscuro centrada -->
             <p class="descripcion" style="color: #333333 !important; font-size: 0.9rem; text-align: center; line-height: 1.4; margin: 0 0 15px 0; min-height: 60px; width: 100%;">
                 ${producto.descripcion || ''}
             </p>
 
-            <!-- Precio en verde brillante centrado -->
             <div class="precio" style="font-size: 1.6rem; font-weight: bold; color: #00ff37; text-align: center; margin-bottom: 15px;">
                 $${parseFloat(producto.precio).toLocaleString('es-AR')}
             </div>
 
-            <!-- Badge DISPONIBLE estilo cápsula verde -->
             <span class="badge disponible" style="background-color: #00ff66; color: #000000; font-size: 0.75rem; font-weight: bold; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: inline-block; text-align: center;">
                 DISPONIBLE
             </span>
             
-            <!-- Botón Comprar verde que ocupa todo el ancho inferior -->
             <button class="boton-wpp btn-agregar-carrito" 
                     data-nombre="${producto.nombre}" 
                     data-precio="${producto.precio}" 
-                    style="width: 100% !important; padding: 12px !important; font-size: 1rem !important; background-color: #1dd1a1; color: #ffffff; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;">
+                    style="width: 100% !important; padding: 12px !important; font-size: 1rem !important; background-color: #1dd1a1; color: #ffffff; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
                 <i class="fa-solid fa-cart-plus"></i> Comprar
             </button>
         `;
 
         contenedorDestino.appendChild(nuevaTarjeta);
-        
-        // Desplazamiento suave para enfocar el producto recién escaneado
         nuevaTarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
-        console.error(`No se encontró el contenedor HTML específico: .contenedor-${catFormateada}`);
+        console.error(`No se encontró el contenedor específico en el HTML: .contenedor-${catFormateada}`);
     }
 }
+
 
 </script>
 </body>
