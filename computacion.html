@@ -316,8 +316,8 @@ function procesarEscaneo(codigoEscaneado) {
     }
 } 
 
-// Lista de subcategorías permitidas (Sumamos 'computacion' para habilitar tus productos de Drive)
-const CATEGORIAS_VALIDAS = ["accesorios-otro", "cables", "mouses", "teclados", "auriculares", "computacion"];
+// Cambiamos el nombre a CATEGORIAS_PERMITIDAS para que no choque con la declaración de arriba
+const CATEGORIAS_PERMITIDAS = ["accesorios-otro", "accesorios-otros", "cables", "mouses", "teclados", "auriculares", "computacion"];
 
 function procesarEscaneo(codigoEscaneado) {
     if (document.getElementById(`tarjeta-escaneada-${codigoEscaneado}`)) {
@@ -332,8 +332,8 @@ function procesarEscaneo(codigoEscaneado) {
                             .replace(/\s+/g, '-') 
                             .replace(/[^a-z0-9\-]/g, '');
 
-        // VALIDACIÓN: Si no es ninguna categoría de computación, avisa y frena
-        if (!CATEGORIAS_VALIDAS.includes(catFormateada)) {
+        // USAMOS LA NUEVA VARIABLE ACÁ:
+        if (!CATEGORIAS_PERMITIDAS.includes(catFormateada)) {
             console.warn(`El producto "${productoEncontrado.nombre}" pertenece a consolas.`);
             alert(`⚠️ Este artículo no pertenece a Computación. Categoría: ${productoEncontrado.categoria}`);
             return;
@@ -348,7 +348,7 @@ function procesarEscaneo(codigoEscaneado) {
     } else {
         console.warn(`El código ${codigoEscaneado} no existe en la base de datos de Drive.`);
     }
-} 
+}
 
 function dibujarTarjetaEnPantalla(producto) {
     let catFormateada = producto.categoria.toLowerCase().trim()
