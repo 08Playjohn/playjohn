@@ -308,26 +308,43 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. MOTOR DE BÚSQUEDA MULTI-CLASE
-    let inputBuscador = document.getElementById('buscador-juegos');
-    if (inputBuscador) {
-        inputBuscador.addEventListener('keyup', function(e) {
-            let texto = e.target.value.toLowerCase().trim();
-            let tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
+   // 1. MOTOR DE BÚSQUEDA INTELIGENTE PARA CONSOLAS (OCULTA CATEGORÍAS VACÍAS)
+let inputBuscador = document.getElementById('buscador-juegos');
+if (inputBuscador) {
+    inputBuscador.addEventListener('keyup', function(e) {
+        let texto = e.target.value.toLowerCase().trim();
+        
+        // Seleccionamos cada bloque de categoría de consola completo
+        let secciones = document.querySelectorAll('.categoria-consola');
+        
+        secciones.forEach(function(seccion) {
+            let tarjetas = seccion.querySelectorAll('.tarjeta-juego, .tarjeta-producto');
+            let tieneCoincidencias = false;
             
             tarjetas.forEach(function(tarjeta) {
                 let h3 = tarjeta.querySelector('h3');
                 if (h3) {
                     let nombreProducto = h3.textContent.toLowerCase();
+                    
+                    // Si el buscador está vacío o el juego coincide con el texto escrito
                     if (texto === '' || nombreProducto.includes(texto)) {
                         tarjeta.style.display = '';
+                        tieneCoincidencias = true; // Esta consola tiene al menos un juego que coincide
                     } else {
                         tarjeta.style.setProperty('display', 'none', 'important');
                     }
                 }
             });
+            
+            // Si la consola se quedó sin juegos que coincidan, ocultamos el bloque entero (título incluido)
+            if (tieneCoincidencias || texto === '') {
+                seccion.style.display = '';
+            } else {
+                seccion.style.setProperty('display', 'none', 'important');
+            }
         });
-    }
+    });
+}
 
     // 2. LÓGICA DEL CARRITO DE COMPUTACIÓN
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
