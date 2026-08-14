@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Búsqueda - Play John</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        .contenedor-resultados {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: sans-serif;
+            color: white;
+        }
+        .grilla-resultados {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .estado-busqueda {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #00f0ff;
+            margin-bottom: 20px;
+        }
+        /* Estilos base por si tus cartas pierden formato al clonarse */
+        .grilla-resultados > * {
+            display: block !important;
+        }
+    </style>
+</head>
+<body style="background-color: #10121a;">
+
+    <div class="contenedor-resultados">
+        <h2>🔍 Resultados de la búsqueda</h2>
+        <div id="estado" class="estado-busqueda">Buscando productos...</div>
+        
+        <!-- Aquí se van a meter los productos filtrados de ambas páginas -->
+        <div id="resultados-lista" class="grilla-resultados"></div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const termino = urlParams.get('q');
+        const contenedor = document.getElementById('resultados-lista');
+        const estado = document.getElementById('estado');
+
+        if (!termino) {
+            estado.innerText = "No introdujiste ningún término de búsqueda.";
+            return;
+        }
+
+        const palabraClave = termino.toLowerCase().trim();
+        estado.innerText = `Mostrando resultados para: "${termino}"`;
+
+        // Lista de tus páginas donde están las tarjetas de productos
+        const paginas = ['productos.html', 'computacion.html'];
+        let encontrados = 0;
+
+        for (const pagina of paginas) {
+            try {
+                // Descarga el HTML de la página en segundo plano
+                const respuesta = await fetch(pagina);
+                const htmlTexto = await respuesta.text();
+                
+                // Lo convierte en un documento temporal para leerlo con JS
+                const parser = new DOMParser();
+                const docTemporal = parser.parseFromString(htmlTexto, 'text/html');
+
+                // IMPORTANTE: Busca los contenedores de tus productos. 
+                // Ajustá selectores si tus tarjetas usan otras clases (ej: .producto, .tarjeta-juego, etc.)
+                const items = docTemporal.querySelectorAll('.producto, .tarjeta-juego, .box, [data-nombre]');
+
+                items.forEach(item => {
+                    const textoItem = item.innerText.toLowerCase();
+                    
+                    // Si el producto coincide con lo que puso en el buscador
+                    if (textoItem.includes(palabraClave)) {
+                        // Clonamos la tarjeta del producto para meterla en la página de resultados
+                        const clon = item.cloneNode(true);
+                        
+                        // Corregimos los enlaces de imágenes si es necesario (generalmente se mantienen estables)
+                        contenedor.appendChild(clon);
+                        encontrados++;
+                    }
+                });
+
+            } catch (error) {
+                console.error(`Error al buscar en la página ${pagina}:`, error);
+            }
+        }
+
+        if (encontrados === 0) {
+            estado.innerHTML = `❌ No se encontraron productos que coincidan con "${termino}" en Consolas ni Computación.`;
+        }
+    });
+    </script>
+</body>
+</html>
