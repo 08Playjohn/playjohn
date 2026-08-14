@@ -100,6 +100,111 @@
         </script>
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
+    <!-- SECCIÓN DE SCRIPTS COMPLETA Y REPARADA -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // ---------------------------------------------------------------------
+        // A. BUSCADOR GLOBAL REACTIVO (BUSCA EN TODAS LAS PÁGINAS)
+        // ---------------------------------------------------------------------
+        const inputBuscador = document.getElementById('buscador-principal');
+        
+        if (inputBuscador) {
+            inputBuscador.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    ejecutarBusquedaGlobal(e.target.value);
+                }
+            });
+        }
+
+        function ejecutarBusquedaGlobal(termino) {
+            let texto = termino.toLowerCase().trim();
+            if (texto === '') return;
+
+            // Diccionario para redireccionar según lo que busque el usuario
+            const palabrasComputacion = ["mouse", "teclado", "cable", "auricular", "hub", "pad", "periferico", "computacion", "computadora", "hdmi"];
+            
+            // Verificamos si lo que escribió coincide con artículos de computación
+            let esHardware = palabrasComputacion.some(palabra => texto.includes(palabra));
+
+            if (esHardware) {
+                localStorage.setItem('termino_busqueda_global', texto);
+                window.location.href = "computacion.html";
+            } else {
+                localStorage.setItem('termino_busqueda_global', texto);
+                window.location.href = "productos.html";
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // B. MANEJO INTERNO DEL FORMULARIO DE INGRESO Y REGISTRO (ICONO MAXIMUS)
+        // ---------------------------------------------------------------------
+        const btnLoginTop = document.getElementById('btn-mostrar-login');
+        const seccionFormularios = document.getElementById('seccion-formularios');
+        const formularioLogin = document.getElementById('formulario-login');
+        const formularioRegistro = document.getElementById('formulario-registro');
+
+        if (btnLoginTop) {
+            btnLoginTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Si la sección contenedora general existe, alternamos su visibilidad
+                if (seccionFormularios) {
+                    if (seccionFormularios.style.display === 'none' || seccionFormularios.style.display === '') {
+                        seccionFormularios.style.display = 'block';
+                        // Por defecto mostramos primero el formulario de Login
+                        if (formularioLogin) formularioLogin.style.display = 'block';
+                        if (formularioRegistro) formularioRegistro.style.display = 'none';
+                    } else {
+                        seccionFormularios.style.display = 'none';
+                    }
+                } else {
+                    // Si no tenés contenedor, abre directo el formulario de login nativo
+                    if (formularioLogin) {
+                        formularioLogin.style.display = formularioLogin.style.display === 'none' ? 'block' : 'none';
+                    }
+                }
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // C. CONEXIÓN DEL CARRITO SUPERIOR COMPARTIDO DE ENTRADA
+        // ---------------------------------------------------------------------
+        const contadorSuperior = document.getElementById('contador-carrito-superior');
+        const btnCarritoSuperior = document.getElementById('btn-carrito-superior');
+
+        function actualizarContadorHome() {
+            if (!contadorSuperior) return;
+            // Lee de manera directa la variable compartida 'carrito_global'
+            let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
+            let cantidadTotal = 0;
+            
+            carrito.forEach(item => {
+                cantidadTotal += item.cantidad;
+            });
+            
+            contadorSuperior.textContent = cantidadTotal;
+        }
+
+        if (btnCarritoSuperior) {
+            btnCarritoSuperior.addEventListener('click', function() {
+                window.location.href = "productos.html"; 
+            });
+        }
+
+        // Inicializamos el contador al cargar la Home
+        actualizarContadorHome();
+        
+        // Escuchamos por si el carrito se actualiza en otra pestaña en segundo plano
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'carrito_global') {
+                actualizarContadorHome();
+            }
+        });
+    });
+    </script>
+
 
 
        <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES (CORREGIDO Y OCULTO POR DEFECTO) -->
