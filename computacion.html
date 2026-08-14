@@ -488,20 +488,26 @@ function crearEstructuraTarjeta(producto) {
                     }
                 });
 
-                // Si la búsqueda no arrojó ningún resultado en ninguna sección
-                if (totalEncontrados === 0) {
-                    const aviso = document.createElement('div');
-                    aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
-                    
-                    const inputElement = document.getElementById('buscador-computacion');
-                    if (inputElement) {
-                        const contenedorPadre = inputElement.closest('div');
-                        contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
-                    }
-                }
-            }
-        }, 400);
-    });
-    </script>
+               if (totalEncontrados === 0) {
+    const aviso = document.createElement('div');
+    aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
+    
+    // Solución segura: Busca por ID, y si no existe, agarra el primer input de texto que encuentre
+    const inputElement = document.getElementById('buscador-computacion') || 
+                         document.getElementById('buscador-productos') || 
+                         document.querySelector('input[type="text"]');
+                         
+    if (inputElement) {
+        const contenedorPadre = inputElement.closest('div');
+        if (contenedorPadre && contenedorPadre.parentNode) {
+            contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
+        } else {
+            document.body.appendChild(aviso); // Alternativa de emergencia si no hay contenedor
+        }
+    } else {
+        document.body.appendChild(aviso); // Alternativa de emergencia si no hay ningún input
+    }
+}
+
 </body>
 </html>
