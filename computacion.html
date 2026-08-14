@@ -394,27 +394,6 @@ async function cargarProductosDesdeDrive() {
     }
 }
 
-
-function crearEstructuraTarjeta(producto) {
-    const nuevaTarjeta = document.createElement('div');
-    nuevaTarjeta.className = 'tarjeta-juego tarjeta-producto'; 
-    nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
-    nuevaTarjeta.style.cssText = `
-        width: 290px;
-        background-color: #ffffff;
-        border: 3px solid #00f0ff;
-        border-radius: 8px;
-        padding: 20px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-        font-family: sans-serif;
-        margin: 10px;
-    `;
-
      <!-- 1. AQUÍ SE LLAMA DE FORMA LIMPIA A TU ARCHIVO JAVASCRIPT -->
     <script src="productos.js"></script>
 
