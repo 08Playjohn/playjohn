@@ -32,15 +32,24 @@
     }
 </style>
 
-<!-- BARRA DE BÚSQUEDA CENTRADA -->
-<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
-    <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
-       <input type="text" id="buscador-computacion" placeholder="Buscar periféricos o computación..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
-       <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-       </svg>
-    </div>
+<!-- ================= BARRA DE BÚSQUEDA CENTRADA OPERATIVA ================= -->
+<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center;">
+    
+    <!-- El formulario se envía a la misma página donde se encuentra -->
+    <form action="computacion.html" method="GET" style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center; margin: 0;">
+        
+        <!-- Es obligatorio agregar name="q" para que viaje el término en la URL -->
+        <input type="text" id="buscador-computacion" name="q" placeholder="Buscar periféricos o computación..." style="width: 100%; padding: 10px 45px 10px 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; outline: none; box-sizing: border-box;" required>
+        
+        <!-- Convertimos el icono SVG en el botón que procesa el envío del formulario -->
+        <button type="submit" style="position: absolute; right: 15px; background: none; border: none; cursor: pointer; padding: 0; display: flex; align-items: center;">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" width="20" height="20">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+
+    </form>
 </div>
 
     <style>
@@ -433,5 +442,62 @@ function crearEstructuraTarjeta(producto) {
 }
 
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Damos un pequeño margen de 400ms para que tus scripts JS inyecten los productos primero
+    setTimeout(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const terminoBusqueda = urlParams.get('q');
+
+        if (terminoBusqueda) {
+            const palabraClave = terminoBusqueda.toLowerCase().trim();
+
+            // Rellenamos la barra de búsqueda con el texto que el usuario escribió para que no quede vacía
+            const inputBuscador = document.getElementById('buscador-computacion');
+            if (inputBuscador) inputBuscador.value = terminoBusqueda;
+
+            // Seleccionamos los contenedores que tengan clases como 'contenedor-mouses', 'contenedor-cables', etc.
+            const contenedores = document.querySelectorAll('[class^="contenedor-"]');
+            let totalEncontrados = 0;
+
+            contenedores.forEach(contenedor => {
+                const productos = contenedor.children;
+                let visiblesEnCategoria = 0;
+
+                Array.from(productos).forEach(producto => {
+                    const textoProducto = producto.innerText.toLowerCase();
+
+                    // Comparamos el contenido de la tarjeta con la palabra clave
+                    if (textoProducto.includes(palabraClave)) {
+                        producto.style.display = ""; // Mantiene su layout original (flex/block)
+                        visiblesEnCategoria++;
+                        totalEncontrados++;
+                    } else {
+                        producto.style.display = "none"; // Esconde el producto
+                    }
+                });
+
+                // Si no hay coincidencias en toda la categoría (ej: mouses), ocultamos la sección completa
+                const seccionCategoria = contenedor.closest('.categoria-consola') || contenedor.parentElement;
+                if (visiblesEnCategoria === 0) {
+                    seccionCategoria.style.display = "none";
+                } else {
+                    seccionCategoria.style.display = "block";
+                }
+            });
+
+            // Si la búsqueda no arrojó ningún resultado en ninguna sección
+            if (totalEncontrados === 0) {
+                const aviso = document.createElement('div');
+                aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
+                // Buscamos un punto medio en la página para meter el aviso (abajo del buscador)
+                const contenedorPadre = document.getElementById('buscador-computacion').closest('div');
+                contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
+            }
+        }
+    }, 400);
+});
+</script>
+
 </script>
 </body>
