@@ -415,19 +415,6 @@ function crearEstructuraTarjeta(producto) {
         margin: 10px;
     `;
 
-    nuevaTarjeta.innerHTML = `
-        <div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; background-color: #ffffff; margin-bottom: 15px;">
-            <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-        </div>
-        <h3 style="color: #0b0c10 !important; margin: 0 0 10px 0; font-size: 1.15rem; font-weight: bold; text-align: center; text-transform: uppercase; width: 100%; line-height: 1.3;">
-            ${producto.nombre}
-        </h3>
-        <p class="descripcion" style="color: #333333 !important; font-size: 0.9rem; text-align: center; line-height: 1.4; margin: 0 0 15px 0; min-height: 60px; width: 100%;">
-            ${producto.descripcion || ''}
-        </p>
-        <div class="precio" style="font-size: 1.6rem; font-weight: bold; color: #00ff37; text-align: center; margin-bottom: 15px;">
-         
-     
      <!-- 1. AQUÍ SE LLAMA DE FORMA LIMPIA A TU ARCHIVO JAVASCRIPT -->
     <script src="productos.js"></script>
 
