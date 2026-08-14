@@ -513,63 +513,64 @@ function crearEstructuraTarjetaConsolas(producto) {
     return nuevaTarjeta;
 }
 
-// Ejecuta la carga automática apenas el navegador termina de estructurar el sitio
-document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Damos un pequeño margen de 400ms para que tus scripts JS inyecten los productos primero
-    setTimeout(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const terminoBusqueda = urlParams.get('q');
+    <!-- ... Tu contenido HTML de productos anterior ... -->
 
-        if (terminoBusqueda) {
-            const palabraClave = terminoBusqueda.toLowerCase().trim();
+    <!-- Llamado a tu archivo JS (Asegúrate de que apunte bien a tu archivo) -->
+    <script src="productos.js"></script>
 
-            // Rellenamos la barra de búsqueda con el texto que el usuario escribió para que no quede vacía
-            const inputBuscador = document.getElementById('buscador-computacion');
-            if (inputBuscador) inputBuscador.value = terminoBusqueda;
+    <!-- AQUÍ SÍ VA EL SCRIPT DE FILTRADO CON SUS ETIQUETAS CORRECTAS -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const terminoBusqueda = urlParams.get('q');
 
-            // Seleccionamos los contenedores que tengan clases como 'contenedor-mouses', 'contenedor-cables', etc.
-            const contenedores = document.querySelectorAll('[class^="contenedor-"]');
-            let totalEncontrados = 0;
+            if (terminoBusqueda) {
+                const palabraClave = terminoBusqueda.toLowerCase().trim();
 
-            contenedores.forEach(contenedor => {
-                const productos = contenedor.children;
-                let visiblesEnCategoria = 0;
+                // Buscamos el ID correcto de la barra de productos
+                const inputBuscador = document.getElementById('buscador-computacion') || document.getElementById('buscador-productos');
+                if (inputBuscador) inputBuscador.value = terminoBusqueda;
 
-                Array.from(productos).forEach(producto => {
-                    const textoProducto = producto.innerText.toLowerCase();
+                const contenedores = document.querySelectorAll('[class^="contenedor-"]');
+                let totalEncontrados = 0;
 
-                    // Comparamos el contenido de la tarjeta con la palabra clave
-                    if (textoProducto.includes(palabraClave)) {
-                        producto.style.display = ""; // Mantiene su layout original (flex/block)
-                        visiblesEnCategoria++;
-                        totalEncontrados++;
+                contenedores.forEach(contenedor => {
+                    const productos = contenedor.children;
+                    let visiblesEnCategoria = 0;
+
+                    Array.from(productos).forEach(producto => {
+                        const textoProducto = producto.innerText.toLowerCase();
+
+                        if (textoProducto.includes(palabraClave)) {
+                            producto.style.display = ""; 
+                            visiblesEnCategoria++;
+                            totalEncontrados++;
+                        } else {
+                            producto.style.display = "none"; 
+                        }
+                    });
+
+                    const seccionCategoria = contenedor.closest('.categoria-consola') || contenedor.parentElement;
+                    if (visiblesEnCategoria === 0) {
+                        seccionCategoria.style.display = "none";
                     } else {
-                        producto.style.display = "none"; // Esconde el producto
+                        seccionCategoria.style.display = "block";
                     }
                 });
 
-                // Si no hay coincidencias en toda la categoría (ej: mouses), ocultamos la sección completa
-                const seccionCategoria = contenedor.closest('.categoria-consola') || contenedor.parentElement;
-                if (visiblesEnCategoria === 0) {
-                    seccionCategoria.style.display = "none";
-                } else {
-                    seccionCategoria.style.display = "block";
+                if (totalEncontrados === 0) {
+                    const aviso = document.createElement('div');
+                    aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
+                    
+                    if (inputBuscador) {
+                        const contenedorPadre = inputBuscador.closest('div');
+                        contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
+                    }
                 }
-            });
-
-            // Si la búsqueda no arrojó ningún resultado en ninguna sección
-            if (totalEncontrados === 0) {
-                const aviso = document.createElement('div');
-                aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
-                // Buscamos un punto medio en la página para meter el aviso (abajo del buscador)
-                const contenedorPadre = document.getElementById('buscador-computacion').closest('div');
-                contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
             }
-        }
-    }, 400);
-});
-</script>
-
-</script>
+        }, 500); // Subimos a 500ms para dar tiempo a la respuesta de Google Drive
+    });
+    </script>
+</body>
+</html>
