@@ -1,3 +1,5 @@
+Index antes de la ultima modificación
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,168 +19,88 @@
         <h2>* Servicio Técnico Especializado *</h2>
         <div class="instrucciones">◀ ENTRA Y ENCONTRA LO QUE BUSCABAS ▶</div>
     </header>
-<!-- ============================================================================
-    INTERFAZ DE LOGUEO Y BÚSQUEDA PREMIUM (PLAY JOHN & MAXIMUS)
-============================================================================ -->
-<div style="background-color: #0b0c10; padding: 25px 20px; margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; border-bottom: 2px solid #3a3f58; width: 100%; box-sizing: border-box; font-family: sans-serif;">
+<!-- ================= INTERFAZ DE LOGUEO SEPARADA Y COMPLETA ================= -->
+<div style="background-color: #0b0c10; padding: 30px 15px; border-bottom: 2px solid #3a3f58; text-align: center; font-family: sans-serif; position: relative; z-index: 100;">
     
-    <!-- CONTENEDOR DE SALUDO ACTIVO (JAVASCRIPT) -->
-    <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; width: 100%; margin-bottom: 10px;"></div>
-
-    <!-- LADO IZQUIERDO: ESPACIO DE RELLENO EQUILIBRADO -->
-    <div style="width: 80px; display: block;" class="desktop-spacer"></div>
-
-    <!-- CENTRO: BARRA DE BÚSQUEDA FLUIDA -->
-    <div style="flex: 1; max-width: 550px; position: relative; display: flex; align-items: center; margin: 0 10px;">
-        <input type="text" id="buscador-principal" placeholder="Buscar productos, juegos o componentes..." style="width: 100%; padding: 10px 45px 10px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 6px; font-size: 0.9rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 15px; width: 16px; height: 16px; pointer-events: none;">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-    </div>
-
-    <!-- LADO DERECHO: BOTONES COMPACTOS DE INGRESAR Y CARRITO -->
-    <div style="display: flex; align-items: center; gap: 20px; min-width: 120px; justify-content: flex-end;">
+    <!-- Contenedor que saluda al usuario activo -->
+    <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;"></div>
+   
+    <!-- EL BOTÓN GESTOR PRINCIPAL -->
+    <button id="btn-mostrar-login" style="background-color: #6200ea; color: white; border: none; padding: 12px 24px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; box-shadow: 0 0 10px rgba(98, 0, 234, 0.4); margin-bottom: 10px;">
+        🔑 Iniciar Sesión / Registrarse
+    </button>
+            <!-- FORMULARIOS DESPLEGABLES (Va adentro del cuadro general) -->
+    <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
         
-        <!-- BOTÓN: INICIAR SESIÓN / REGISTRARSE -->
-        <button id="btn-mostrar-login" style="background: none; border: none; color: #aaaaaa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: sans-serif; transition: all 0.2s; padding: 0;" class="btn-usuario-top">
-            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 0.3px;">Ingresar</span>
-        </button>
-
-        <!-- BOTÓN: CARRITO GLOBAL COMPARTIDO -->
-        <button id="btn-carrito-superior" style="background: none; border: none; color: #aaaaaa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; position: relative; font-family: sans-serif; transition: all 0.2s; padding: 0;">
-            <div style="position: relative; display: flex; align-items: center; justify-content: center;">
-                <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-                <span id="contador-carrito-superior" style="position: absolute; top: -8px; right: -10px; background-color: #ff003c; color: #ffffff; font-size: 0.65rem; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #0b0c10;">0</span>
-            </div>
-            <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 0.3px;">Carrito</span>
-        </button>
-    </div>
-
-    <!-- CUADRO GENERAL DESPLEGABLE DE FORMULARIOS (ENGANCHADO POR DENTRO) -->
-    <div id="seccion-formularios" style="display: none; width: 100%; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box; clear: both;">
-        
-        <!-- FORMULARIO 1: INICIAR SESIÓN -->
+               <!-- FORMULARIO 1: INICIAR SESIÓN -->
         <form id="formulario-login" onsubmit="return false;">
             <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
             <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">INGRESAR</button>
+            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
                       
-            <div style="margin-top: 15px; text-align: right;">
-                <button type="button" style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;" onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#00f0ff';" onclick="abrirSoportePlayJohn()">
-                    ¿Olvidaste tu contraseña?
+            <!-- ENLACE DE RECUPERACIÓN TOTALMENTE RESTAURADO -->
+             <div style="margin-top: 15px; text-align: right;">
+                <button type="button"
+                        style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;"
+                        onmouseover="this.style.color='#ffffff';" 
+                        onmouseout="this.style.color='#00f0ff';"
+                        onclick="abrirSoportePlayJohn()">
+                   <!-- ¿Olvidaste tu contraseña? -->
                 </button>
             </div>
         </form>
 
+        <script>
+        function abrirSoportePlayJohn() {
+            const num = "5491141701483";
+            const inputCorreo = document.getElementById('login-email').value.trim();
+            
+            let texto = "";
+            if (inputCorreo === "") {
+                texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+            } else {
+                texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
+            }
+            
+            // Dirección oficial de la API sin concatenaciones propensas a errores de caché
+            const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
+            window.open(urlCorrecta, '_blank');
+        }
+        </script>
+
+        <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
+
+
         <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES -->
-        <form id="formulario-registro" style="display: none; width: 100%; box-sizing: border-box;" onsubmit="return false;">
+        <form id="formulario-registro" onsubmit="return false;">
             <h3 style="color: #39ff14; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Crear Cuenta Nueva</h3>
             <input type="text" id="reg-nombre" placeholder="Nombre y Apellido" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="tel" id="reg-telefono" placeholder="Número de Teléfono" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="text" id="reg-direccion" placeholder="Dirección (Opcional)" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;">
             <input type="email" id="reg-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
             <input type="password" id="reg-password" placeholder="Crea tu contraseña" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-
-            <!-- CASILLA DE ACEPTACIÓN LEGAL OBLIGATORIA -->
-            <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px; width: 100%; box-sizing: border-box;">
+            
+            <!-- CASILLA DE ACEPTACIÓN LEGAL -->
+            <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px;">
                 <input type="checkbox" id="reg-terminos" style="margin-top: 3px; cursor: pointer;" required>
-                <label for="reg-terminos" style="color: #b3b9d1; font-size: 0.8rem; line-height: 1.4; font-family: sans-serif; cursor: pointer; user-select: none;">
+                <label for="reg-terminos" style="color: #b3b9d1; font-size: 0.8rem; line-height: 1.4; font-family: sans-serif; cursor: pointer;">
                     Acepto los Términos de Servicio y autorizo a Play John a guardar mis datos para la gestión de pedidos y soporte técnico.
                 </label>
             </div>
 
-            <button type="submit" id="btn-registro-submit" style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Registrarme</button>
-        </form>
-    </div>
-</div>
-
-<!-- ESTILOS INTERACTIVOS ADAPTADOS -->
-<style>
-    #buscador-principal:focus {
-        border-color: #00f0ff !important;
-        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
-        background-color: #141622;
-    }
-    .btn-usuario-top:hover {
-        color: #00f0ff !important;
-        transform: scale(1.03);
-    }
-    <!-- ============================================================================
-    CUERPO CENTRAL RECUPERADO: BOTONES GESTORES Y FORMULARIOS INTEGRADOS
-============================================================================ -->
-<main style="background-color: #000000; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; box-sizing: border-box;">
-
-    <!-- LOS BOTONES DE MENÚ PRINCIPALES (SECCIÓN SERVICIO TÉCNICO) -->
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto 20px auto; width: 100%;">
-        <a href="productos.html" style="color: #ffffff; text-decoration: none; font-family: sans-serif; font-size: 1rem; font-weight: bold; border: 2px solid #00f0ff; padding: 12px 30px; border-radius: 25px; background-color: #10121a; min-width: 160px; text-align: center; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);">
-            🎮 Consolas y Juegos
-        </a>
-        <a href="computacion.html" style="color: #ffffff; text-decoration: none; font-family: sans-serif; font-size: 1rem; font-weight: bold; border: 2px solid #00f0ff; padding: 12px 30px; border-radius: 25px; background-color: #10121a; min-width: 160px; text-align: center; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);">
-            💻 Computación / Periféricos
-        </a>
-        <a href="#seccion-contacto" style="color: #ffffff; text-decoration: none; font-family: sans-serif; font-size: 1rem; font-weight: bold; border: 2px solid #00f0ff; padding: 12px 30px; border-radius: 25px; background-color: #10121a; min-width: 160px; text-align: center; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);">
-            🛠️ Servicio Técnico
-        </a>
-    </div>
-
-    <!-- CUADRO GENERAL DESPLEGABLE DE FORMULARIOS (OCULTO DE ENTRADA) -->
-    <div id="seccion-formularios" style="display: none; width: 100%; max-width: 380px; margin: 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box; box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);">
-        
-        <!-- FORMULARIO 1: INICIAR SESIÓN -->
-        <form id="formulario-login" onsubmit="return false;">
-            <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; font-family: sans-serif;">Ingresar a mi Cuenta</h3>
-            <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; font-family: sans-serif; text-transform: uppercase;">Ingresar</button>
-                      
-            <div style="margin-top: 15px; text-align: right;">
-                <button type="button" style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;" onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#00f0ff';" onclick="abrirSoportePlayJohn()">
-                    ¿Olvidaste tu contraseña?
-                </button>
-            </div>
+            <!-- TRABA ABSOLUTA EN EL EVENTO ONCLICK -->
+            <button type="button" 
+                    id="btn-registro-submit" 
+                    style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;"
+                    onclick="if(!document.getElementById('reg-terminos').checked){ alert('¡Atención! Debes aceptar los Términos de Servicio para poder registrarte.'); event.stopImmediatePropagation(); return false; }">
+                Registrarme en Play John
+            </button>
         </form>
 
-        <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES -->
-        <form id="formulario-registro" style="display: none; width: 100%; box-sizing: border-box;" onsubmit="return false;">
-            <h3 style="color: #39ff14; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; font-family: sans-serif;">Crear Cuenta Nueva</h3>
-            <input type="text" id="reg-nombre" placeholder="Nombre y Apellido" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="tel" id="reg-telefono" placeholder="Número de Teléfono" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="text" id="reg-direccion" placeholder="Dirección (Opcional)" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;">
-            <input type="email" id="reg-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="password" id="reg-password" placeholder="Crea tu contraseña" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-
-            <!-- CASILLA DE ACEPTACIÓN LEGAL OBLIGATORIA -->
-            <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px; width: 100%; box-sizing: border-box;">
-                <input type="checkbox" id="reg-terminos" style="margin-top: 3px; cursor: pointer;" required>
-                <label for="reg-terminos" style="color: #b3b9d1; font-size: 0.8rem; line-height: 1.4; font-family: sans-serif; cursor: pointer; user-select: none;">
-                    Acepto los Términos de Servicio y autorizo a Play John a guardar mis datos para la gestión de pedidos y soporte técnico.
-                </label>
-            </div>
-
-            <button type="submit" id="btn-registro-submit" style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; font-family: sans-serif; text-transform: uppercase;">Registrarme</button>
-        </form>
-    </div>
-
-</main>
-
-    #btn-carrito-superior:hover {
-        color: #39ff14 !important;
-        transform: scale(1.03);
-    }
-</style>
-
-<!-- SCRIPT DE ASISTENCIA TÉCNICA REPARADO -->
+    <script>
 <script>
+// 1. FUNCIÓN PARA RECUPERAR CONTRASEÑA POR WHATSAPP
 function abrirSoportePlayJohn() {
     const num = "5491141701483";
     const inputCorreo = document.getElementById('login-email').value.trim();
@@ -190,176 +112,12 @@ function abrirSoportePlayJohn() {
         texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
     }
     
-    const urlCorrecta = "https://wa.me" + num + "?text=" + encodeURIComponent(texto);
+    // Dirección unificada oficial que sí permite concatenar textos dinámicos
+    const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
     window.open(urlCorrecta, '_blank');
 }
 </script>
 
-        <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
-    <!-- SECCIÓN DE SCRIPTS COMPLETA Y REPARADA -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        
-        // ---------------------------------------------------------------------
-        // A. BUSCADOR GLOBAL REACTIVO (BUSCA EN TODAS LAS PÁGINAS)
-        // ---------------------------------------------------------------------
-        const inputBuscador = document.getElementById('buscador-principal');
-        
-        if (inputBuscador) {
-            inputBuscador.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    ejecutarBusquedaGlobal(e.target.value);
-                }
-            });
-        }
-
-        function ejecutarBusquedaGlobal(termino) {
-            let texto = termino.toLowerCase().trim();
-            if (texto === '') return;
-
-            // Diccionario para redireccionar según lo que busque el usuario
-            const palabrasComputacion = ["mouse", "teclado", "cable", "auricular", "hub", "pad", "periferico", "computacion", "computadora", "hdmi"];
-            
-            // Verificamos si lo que escribió coincide con artículos de computación
-            let esHardware = palabrasComputacion.some(palabra => texto.includes(palabra));
-
-            if (esHardware) {
-                localStorage.setItem('termino_busqueda_global', texto);
-                window.location.href = "computacion.html";
-            } else {
-                localStorage.setItem('termino_busqueda_global', texto);
-                window.location.href = "productos.html";
-            }
-        }
-
-        // ---------------------------------------------------------------------
-        // B. MANEJO INTERNO DEL FORMULARIO DE INGRESO Y REGISTRO (ICONO MAXIMUS)
-        // ---------------------------------------------------------------------
-        const btnLoginTop = document.getElementById('btn-mostrar-login');
-        const seccionFormularios = document.getElementById('seccion-formularios');
-        const formularioLogin = document.getElementById('formulario-login');
-        const formularioRegistro = document.getElementById('formulario-registro');
-
-        if (btnLoginTop) {
-            btnLoginTop.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Si la sección contenedora general existe, alternamos su visibilidad
-                if (seccionFormularios) {
-                    if (seccionFormularios.style.display === 'none' || seccionFormularios.style.display === '') {
-                        seccionFormularios.style.display = 'block';
-                        // Por defecto mostramos primero el formulario de Login
-                        if (formularioLogin) formularioLogin.style.display = 'block';
-                        if (formularioRegistro) formularioRegistro.style.display = 'none';
-                    } else {
-                        seccionFormularios.style.display = 'none';
-                    }
-                } else {
-                    // Si no tenés contenedor, abre directo el formulario de login nativo
-                    if (formularioLogin) {
-                        formularioLogin.style.display = formularioLogin.style.display === 'none' ? 'block' : 'none';
-                    }
-                }
-            });
-        }
-
-               // ---------------------------------------------------------------------
-        // C. CONEXIÓN DEL CARRITO LATERAL INTERACTIVO COMPARTIDO
-        // ---------------------------------------------------------------------
-        const contadorSuperior = document.getElementById('contador-carrito-superior');
-        const btnCarritoSuperior = document.getElementById('btn-carrito-superior');
-        const ventanaCarrito = document.getElementById('ventana-carrito');
-        const btnCerrarCarrito = document.getElementById('btn-cerrar-carrito');
-        const listaCarrito = document.getElementById('lista-carrito');
-        const totalCarrito = document.getElementById('total-carrito');
-        const btnEnviar = document.getElementById('btn-enviar-carrito');
-
-        // Cargamos la misma memoria compartida
-        let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
-
-        function actualizarInterfazHome() {
-            if (!contadorSuperior) return;
-            
-            // Volvemos a leer por si hubo cambios
-            carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
-            
-            let total = 0, cantidadTotal = 0;
-            if (listaCarrito) listaCarrito.innerHTML = '';
-            
-            carrito.forEach((item, index) => {
-                total += item.precio * item.cantidad;
-                cantidadTotal += item.cantidad;
-                
-                if (listaCarrito) {
-                    const div = document.createElement('div');
-                    div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 8px;";
-                    div.innerHTML = `
-                        <div style="flex:1; padding-right: 10px;">
-                            <b style="color: #ffffff;">${item.nombre}</b>
-                            <div style="color: #aaaaaa; font-size: 0.8rem; margin-top: 2px;">${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
-                        </div>
-                        <button class="btn-eliminar-home" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.4rem; padding: 0 5px;">&times;</button>
-                    `;
-                    listaCarrito.appendChild(div);
-                }
-            });
-            
-            if (totalCarrito) totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
-            contadorSuperior.textContent = cantidadTotal;
-        }
-
-        // Eventos de apertura y cierre de la barra lateral
-        if (btnCarritoSuperior) {
-            btnCarritoSuperior.addEventListener('click', function(e) {
-                e.preventDefault();
-                actualizarInterfazHome();
-                if (ventanaCarrito) ventanaCarrito.style.right = '0px'; // Desplaza el carrito a la vista
-            });
-        }
-
-        if (btnCerrarCarrito) {
-            btnCerrarCarrito.addEventListener('click', function() {
-                if (ventanaCarrito) ventanaCarrito.style.right = '-350px'; // Esconde el carrito
-            });
-        }
-
-        // Oyente para eliminar productos directo desde el Home si el cliente se arrepiente
-        document.addEventListener('click', function(e) {
-            if (e.target && e.target.classList.contains('btn-eliminar-home')) {
-                let idx = e.target.getAttribute('data-index');
-                carrito.splice(idx, 1);
-                localStorage.setItem('carrito_global', JSON.stringify(carrito));
-                actualizarInterfazHome();
-                // Avisamos a las otras pestañas que el carrito cambió
-                window.dispatchEvent(new Event('storage'));
-            }
-        });
-
-        // Integración del botón de WhatsApp en la Home
-        if (btnEnviar) {
-            btnEnviar.addEventListener('click', function() {
-                if (carrito.length === 0) return alert("Tu carrito está vacío.");
-                let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
-                let total = 0;
-                carrito.forEach(function(item) {
-                    mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
-                    total += item.precio * item.cantidad;
-                });
-                mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-                
-                const telefono = "5491141701483"; 
-                window.location.assign("https://wa.me/5491141701483"?text=" + encodeURIComponent(mensaje));
-            });
-        }
-
-        // Escuchamos cambios si el usuario añade productos en otra solapa y vuelve
-        window.addEventListener('storage', function() {
-            actualizarInterfazHome();
-        });
-
-        // Inicializamos la visualización al prender la web
-        actualizarInterfazHome();
     </div> <!-- CIERRA EL CUADRO SECCIONAL -->
 </div> <!-- CIERRA EL CONTENEDOR GENERAL OSCURO -->
 
@@ -477,235 +235,6 @@ function abrirSoportePlayJohn() {
 
     </div>
 </footer>
-<!-- VENTANA FLOTANTE DEL CARRITO LATERAL (COMPARTIDA EN HOME) -->
-<div id="ventana-carrito" style="position: fixed; top: 0; right: -350px; width: 340px; height: 100%; background-color: #0b0c10; border-left: 2px solid #00f0ff; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.7); z-index: 200000; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; font-family: sans-serif; display: flex; flex-direction: column;">
-    
-    <!-- Encabezado del carrito -->
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
-        <h3 style="color: #ffffff; margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px;">Tu Pedido</h3>
-        <button id="btn-cerrar-carrito" style="background: none; border: none; color: #ff003c; font-size: 1.8rem; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
-    </div>
-
-    <!-- Contenedor dinámico de productos -->
-    <div id="lista-carrito" style="flex: 1; overflow-y: auto; margin-bottom: 15px; padding-right: 5px;">
-        <!-- Los artículos agregados se dibujarán acá adentro mediante JavaScript -->
-    </div>
-
-       <!-- Pie de la ventana con el total y botón de envío -->
-    <div style="border-top: 1px solid #3a3f58; padding-top: 15px;">
-        <div style="display: flex; justify-content: space-between; color: #ffffff; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">
-            <span>Total:</span>
-            <span id="total-carrito" style="color: #39ff14;">$0</span>
-        </div>
-        <button id="btn-enviar-carrito" style="width: 100%; background-color: #1dd1a1; color: #ffffff; border: none; padding: 13px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 10px rgba(29, 209, 161, 0.3);">
-            Enviar Pedido por WhatsApp
-        </button>
-    </div>
-</div>
-
-<!-- ============================================================================
-    SCRIPTS GENERALES DE CONTROL: BUSCADOR, CARRITO LATERAL Y REGISTRO
-============================================================================ -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // ---------------------------------------------------------------------
-    // A. BUSCADOR GLOBAL REACTIVO (BUSCA EN TODAS LAS PÁGINAS)
-    // ---------------------------------------------------------------------
-    const inputBuscador = document.getElementById('buscador-principal');
-    
-    if (inputBuscador) {
-        inputBuscador.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                ejecutarBusquedaGlobal(e.target.value);
-            }
-        });
-    }
-
-    function ejecutarBusquedaGlobal(termino) {
-        let texto = termino.toLowerCase().trim();
-        if (texto === '') return;
-
-        const palabrasComputacion = ["mouse", "teclado", "cable", "auricular", "hub", "pad", "periferico", "computacion", "computadora", "hdmi"];
-        let esHardware = palabrasComputacion.some(palabra => texto.includes(palabra));
-
-        if (esHardware) {
-            localStorage.setItem('termino_busqueda_global', texto);
-            window.location.href = "computacion.html";
-        } else {
-            localStorage.setItem('termino_busqueda_global', texto);
-            window.location.href = "productos.html";
-        }
-    }
-
-    // ---------------------------------------------------------------------
-    // B. MANEJO INTERNO DEL FORMULARIO DE INGRESO Y REGISTRO (CON ICONO MAXIMUS)
-    // ---------------------------------------------------------------------
-    const btnLoginTop = document.getElementById('btn-mostrar-login');
-    const seccionFormularios = document.getElementById('seccion-formularios');
-    const formularioLogin = document.getElementById('formulario-login');
-    const formularioRegistro = document.getElementById('formulario-registro');
-
-    if (btnLoginTop) {
-        btnLoginTop.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (seccionFormularios) {
-                if (seccionFormularios.style.display === 'none' || seccionFormularios.style.display === '') {
-                    seccionFormularios.style.display = 'block';
-                    if (formularioLogin) formularioLogin.style.display = 'block';
-                    if (formularioRegistro) formularioRegistro.style.display = 'none';
-                } else {
-                    seccionFormularios.style.display = 'none';
-                }
-            }
-        });
-    }
-
-    // ---------------------------------------------------------------------
-    // C. CONEXIÓN DEL CARRITO LATERAL INTERACTIVO COMPARTIDO
-    // ---------------------------------------------------------------------
-    const contadorSuperior = document.getElementById('contador-carrito-superior');
-    const btnCarritoSuperior = document.getElementById('btn-carrito-superior');
-    const ventanaCarrito = document.getElementById('ventana-carrito');
-    const btnCerrarCarrito = document.getElementById('btn-cerrar-carrito');
-    const listaCarrito = document.getElementById('lista-carrito');
-    const totalCarrito = document.getElementById('total-carrito');
-    const btnEnviar = document.getElementById('btn-enviar-carrito');
-
-    let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
-
-    function actualizarInterfazHome() {
-        if (!contadorSuperior) return;
-        carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
-        let total = 0, cantidadTotal = 0;
-        if (listaCarrito) listaCarrito.innerHTML = '';
-        
-        carrito.forEach((item, index) => {
-            total += item.precio * item.cantidad;
-            cantidadTotal += item.cantidad;
-            
-            if (listaCarrito) {
-                const div = document.createElement('div');
-                div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 8px;";
-                div.innerHTML = `
-                    <div style="flex:1; padding-right: 10px;">
-                        <b style="color: #ffffff;">${item.nombre}</b>
-                        <div style="color: #aaaaaa; font-size: 0.8rem; margin-top: 2px;">${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
-                    </div>
-                    <button class="btn-eliminar-home" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.4rem; padding: 0 5px;">&times;</button>
-                `;
-                listaCarrito.appendChild(div);
-            }
-        });
-        
-        if (totalCarrito) totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
-        contadorSuperior.textContent = cantidadTotal;
-    }
-
-    if (btnCarritoSuperior) {
-        btnCarritoSuperior.addEventListener('click', function(e) {
-            e.preventDefault();
-            actualizarInterfazHome();
-            if (ventanaCarrito) ventanaCarrito.style.right = '0px';
-        });
-    }
-
-    if (btnCerrarCarrito) {
-        btnCerrarCarrito.addEventListener('click', function() {
-            if (ventanaCarrito) ventanaCarrito.style.right = '-350px';
-        });
-    }
-
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('btn-eliminar-home')) {
-            let idx = e.target.getAttribute('data-index');
-            carrito.splice(idx, 1);
-            localStorage.setItem('carrito_global', JSON.stringify(carrito));
-            actualizarInterfazHome();
-            window.dispatchEvent(new Event('storage'));
-        }
-    });
-
-    if (btnEnviar) {
-        btnEnviar.addEventListener('click', function() {
-            if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
-            let total = 0;
-            carrito.forEach(function(item) {
-                mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
-                total += item.precio * item.cantidad;
-            });
-            mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-            
-            const telefono = "5491141701483"; 
-            window.location.assign("https://wa.me" + telefono + "?text=" + encodeURIComponent(mensaje));
-        });
-    }
-
-    window.addEventListener('storage', function() {
-        actualizarInterfazHome();
-    });
-
-    actualizarInterfazHome();
-});
-</script>
-<!-- ============================================================================
-    CUERPO CENTRAL: BOTONES REDONDOS CELESTES Y FORMULARIOS RECUPERADOS
-============================================================================ -->
-<main style="background-color: #000000; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 30px; width: 100%; box-sizing: border-box;">
-
-    <!-- TUS BOTONES REDONDOS CELESTES DEL MENÚ PRINCIPAL -->
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto 20px auto; width: 100%;">
-        <a href="productos.html" style="color: #ffffff; text-decoration: none; font-family: sans-serif; font-size: 1rem; font-weight: bold; border: 2px solid #00f0ff; padding: 12px 30px; border-radius: 25px; background-color: #10121a; min-width: 160px; text-align: center; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);">
-            🎮 Consolas y Juegos
-        </a>
-        <a href="computacion.html" style="color: #ffffff; text-decoration: none; font-family: sans-serif; font-size: 1rem; font-weight: bold; border: 2px solid #00f0ff; padding: 12px 30px; border-radius: 25px; background-color: #10121a; min-width: 160px; text-align: center; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);">
-            💻 Computación / Periféricos
-        </a>
-        <a href="#seccion-contacto" style="color: #ffffff; text-decoration: none; font-family: sans-serif; font-size: 1rem; font-weight: bold; border: 2px solid #00f0ff; padding: 12px 30px; border-radius: 25px; background-color: #10121a; min-width: 160px; text-align: center; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);">
-            🛠️ Servicio Técnico
-        </a>
-    </div>
-
-    <!-- CUADRO GENERAL DESPLEGABLE DE FORMULARIOS -->
-    <div id="seccion-formularios" style="display: none; width: 100%; max-width: 380px; margin: 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box; box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);">
-        
-        <!-- FORMULARIO 1: INICIAR SESIÓN -->
-        <form id="formulario-login" onsubmit="return false;">
-            <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; font-family: sans-serif;">Ingresar a mi Cuenta</h3>
-            <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; font-family: sans-serif; text-transform: uppercase;">Ingresar</button>
-                      
-            <div style="margin-top: 15px; text-align: right;">
-                <button type="button" style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;" onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#00f0ff';" onclick="abrirSoportePlayJohn()">
-                    ¿Olvidaste tu contraseña?
-                </button>
-            </div>
-        </form>
-
-        <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES -->
-        <form id="formulario-registro" style="display: none; width: 100%; box-sizing: border-box;" onsubmit="return false;">
-            <h3 style="color: #39ff14; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; font-family: sans-serif;">Crear Cuenta Nueva</h3>
-            <input type="text" id="reg-nombre" placeholder="Nombre y Apellido" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="tel" id="reg-telefono" placeholder="Número de Teléfono" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="text" id="reg-direccion" placeholder="Dirección (Opcional)" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;">
-            <input type="email" id="reg-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="password" id="reg-password" placeholder="Crea tu contraseña" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-
-            <!-- CASILLA DE ACEPTACIÓN LEGAL OBLIGATORIA -->
-            <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px; width: 100%; box-sizing: border-box;">
-                <input type="checkbox" id="reg-terminos" style="margin-top: 3px; cursor: pointer;" required>
-                <label for="reg-terminos" style="color: #b3b9d1; font-size: 0.8rem; line-height: 1.4; font-family: sans-serif; cursor: pointer; user-select: none;">
-                    Acepto los Términos de Servicio y autorizo a Play John a guardar mis datos para la gestión de pedidos y soporte técnico.
-                </label>
-            </div>
-
-            <button type="submit" id="btn-registro-submit" style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; font-family: sans-serif; text-transform: uppercase;">Registrarme</button>
-        </form>
-    </div>
-</main>
 
 </body>
 </html>
