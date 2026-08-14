@@ -473,6 +473,11 @@ if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
 if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
     catFormateada = "xbox-series";
 }
+// --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS (CONSOLAS) ---
+// Agregamos 'nintendo-swi' que es como viene recortado desde tu Drive
+if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi") {
+    catFormateada = "nintendo-switch"; // Esto lo fuerza al contenedor correcto de la Switch
+}
 
 
                 // 🛡️ CONTROL DE EXCLUSIÓN: Si es un auricular o periférico, se frena acá y NO entra a PS2
