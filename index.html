@@ -17,15 +17,14 @@
         <h2>* Servicio Técnico Especializado *</h2>
         <div class="instrucciones">◀ ENTRA Y ENCONTRA LO QUE BUSCABAS ▶</div>
     </header>
-<!-- ================= INTERFAZ DE LOGUEO SEPARADA Y COMPLETA ================= -->
-<div style="background-color: #0b0c10; padding: 30px 15px; border-bottom: 2px solid #3a3f58; text-align: center; font-family: sans-serif; position: relative; z-index: 100;">
+<!-- ============================================================================
+    INTERFAZ DE LOGUEO Y BÚSQUEDA PREMIUM (PLAY JOHN & MAXIMUS)
+============================================================================ -->
+<div style="background-color: #0b0c10; padding: 25px 20px; margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; border-bottom: 2px solid #3a3f58; width: 100%; box-sizing: border-box; font-family: sans-serif;">
     
-    <!-- Contenedor que saluda al usuario activo -->
-    <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;"></div>
-   
-   <!-- FRANJA DE BÚSQUEDA Y USUARIO (INTEGRADA A TU SISTEMA DE LOGIN) -->
-<div style="background-color: #0b0c10; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #3a3f58; width: 100%; box-sizing: border-box; font-family: sans-serif;">
-    
+    <!-- CONTENEDOR DE SALUDO ACTIVO (JAVASCRIPT) -->
+    <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; width: 100%; margin-bottom: 10px;"></div>
+
     <!-- LADO IZQUIERDO: ESPACIO DE RELLENO EQUILIBRADO -->
     <div style="width: 80px; display: block;" class="desktop-spacer"></div>
 
@@ -38,10 +37,10 @@
         </svg>
     </div>
 
-    <!-- LADO DERECHO: INGRESAR CON TU ID + CARRITO GLOBAL -->
+    <!-- LADO DERECHO: BOTONES COMPACTOS DE INGRESAR Y CARRITO -->
     <div style="display: flex; align-items: center; gap: 20px; min-width: 120px; justify-content: flex-end;">
         
-        <!-- BOTÓN COMPACTO: LE PASAMOS TU ID ORIGINAL PARA QUE ABRA EL DESPLEGABLE -->
+        <!-- BOTÓN: INICIAR SESIÓN / REGISTRARSE -->
         <button id="btn-mostrar-login" style="background: none; border: none; color: #aaaaaa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: sans-serif; transition: all 0.2s; padding: 0;" class="btn-usuario-top">
             <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -50,7 +49,7 @@
             <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 0.3px;">Ingresar</span>
         </button>
 
-        <!-- BOTÓN COMPACTO: CARRITO GLOBAL -->
+        <!-- BOTÓN: CARRITO GLOBAL COMPARTIDO -->
         <button id="btn-carrito-superior" style="background: none; border: none; color: #aaaaaa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; position: relative; font-family: sans-serif; transition: all 0.2s; padding: 0;">
             <div style="position: relative; display: flex; align-items: center; justify-content: center;">
                 <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
@@ -63,8 +62,47 @@
             <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 0.3px;">Carrito</span>
         </button>
     </div>
+
+    <!-- CUADRO GENERAL DESPLEGABLE DE FORMULARIOS (ENGANCHADO POR DENTRO) -->
+    <div id="seccion-formularios" style="display: none; width: 100%; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box; clear: both;">
+        
+        <!-- FORMULARIO 1: INICIAR SESIÓN -->
+        <form id="formulario-login" onsubmit="return false;">
+            <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
+            <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+            <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">INGRESAR</button>
+                      
+            <div style="margin-top: 15px; text-align: right;">
+                <button type="button" style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;" onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#00f0ff';" onclick="abrirSoportePlayJohn()">
+                    ¿Olvidaste tu contraseña?
+                </button>
+            </div>
+        </form>
+
+        <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES -->
+        <form id="formulario-registro" style="display: none; width: 100%; box-sizing: border-box;" onsubmit="return false;">
+            <h3 style="color: #39ff14; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Crear Cuenta Nueva</h3>
+            <input type="text" id="reg-nombre" placeholder="Nombre y Apellido" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+            <input type="tel" id="reg-telefono" placeholder="Número de Teléfono" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+            <input type="text" id="reg-direccion" placeholder="Dirección (Opcional)" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;">
+            <input type="email" id="reg-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+            <input type="password" id="reg-password" placeholder="Crea tu contraseña" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+
+            <!-- CASILLA DE ACEPTACIÓN LEGAL OBLIGATORIA -->
+            <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px; width: 100%; box-sizing: border-box;">
+                <input type="checkbox" id="reg-terminos" style="margin-top: 3px; cursor: pointer;" required>
+                <label for="reg-terminos" style="color: #b3b9d1; font-size: 0.8rem; line-height: 1.4; font-family: sans-serif; cursor: pointer; user-select: none;">
+                    Acepto los Términos de Servicio y autorizo a Play John a guardar mis datos para la gestión de pedidos y soporte técnico.
+                </label>
+            </div>
+
+            <button type="submit" id="btn-registro-submit" style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Registrarme</button>
+        </form>
+    </div>
 </div>
 
+<!-- ESTILOS INTERACTIVOS ADAPTADOS -->
 <style>
     #buscador-principal:focus {
         border-color: #00f0ff !important;
@@ -81,23 +119,23 @@
     }
 </style>
 
-        <script>
-        function abrirSoportePlayJohn() {
-            const num = "5491141701483";
-            const inputCorreo = document.getElementById('login-email').value.trim();
-            
-            let texto = "";
-            if (inputCorreo === "") {
-                texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-            } else {
-                texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
-            }
-            
-            // Dirección oficial de la API sin concatenaciones propensas a errores de caché
-            const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
-            window.open(urlCorrecta, '_blank');
-        }
-        </script>
+<!-- SCRIPT DE ASISTENCIA TÉCNICA REPARADO -->
+<script>
+function abrirSoportePlayJohn() {
+    const num = "5491141701483";
+    const inputCorreo = document.getElementById('login-email').value.trim();
+    
+    let texto = "";
+    if (inputCorreo === "") {
+        texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
+    } else {
+        texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
+    }
+    
+    const urlCorrecta = "https://wa.me" + num + "?text=" + encodeURIComponent(texto);
+    window.open(urlCorrecta, '_blank');
+}
+</script>
 
         <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
     <!-- SECCIÓN DE SCRIPTS COMPLETA Y REPARADA -->
