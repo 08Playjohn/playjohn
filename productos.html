@@ -449,31 +449,29 @@ async function cargarProductosDesdeDrive() {
                                     .replace(/[^a-z0-9\-]/g, '');
 // --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS CORREGIDO (CONSOLAS) ---
 
-// Forzamos que enganche exactamente tu contenedor de PS2 (Fijate si en tu HTML es class="contenedor-ps2")
-if (catFormateada === "playstation-2" || catFormateada === "playstation2" || catFormateada === "ps-2" || catFormateada === "ps2") {
-    catFormateada = "ps2";
-}
-// Forzamos que enganche exactamente tu contenedor de PS3 (Fijate si en tu HTML es class="contenedor-ps3")
-if (catFormateada === "playstation-3" || catFormateada === "playstation3" || catFormateada === "ps-3" || catFormateada === "ps3") {
-    catFormateada = "ps3";
-}
-// Forzamos que enganche exactamente tu contenedor de PS4 (Fijate si en tu HTML es class="contenedor-ps4")
-if (catFormateada === "playstation-4" || catFormateada === "playstation4" || catFormateada === "ps-4" || catFormateada === "ps4") {
-    catFormateada = "ps4";
-}
-// Forzamos que enganche exactamente tu contenedor de PS5 (Fijate si en tu HTML es class="contenedor-ps5")
-if (catFormateada === "playstation-5" || catFormateada === "playstation5" || catFormateada === "ps-5" || catFormateada === "ps5") {
-    catFormateada = "ps5";
-}
-if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
-    catFormateada = "xbox-360";
-}
-if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
-    catFormateada = "xbox-series";
+// 1. REGLA DE LA SWITCH PRIMERO (Para interceptar nintendoswitch o nintendo-swi antes que nada)
+if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi" || catFormateada === "nintendo") {
+    catFormateada = "nintendo-switch"; 
 }
 
-if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi" || catFormateada === "nintendo") {
-    catFormateada = "nintendo-switch"; // Fuerza a que busque la clase .contenedor-nintendo-switch
+// 2. REGLAS DE PLAYSTATION Y XBOX ABAJO
+else if (catFormateada === "playstation-2" || catFormateada === "playstation2" || catFormateada === "ps-2" || catFormateada === "ps2") {
+    catFormateada = "ps2";
+}
+else if (catFormateada === "playstation-3" || catFormateada === "playstation3" || catFormateada === "ps-3" || catFormateada === "ps3") {
+    catFormateada = "ps3";
+}
+else if (catFormateada === "playstation-4" || catFormateada === "playstation4" || catFormateada === "ps-4" || catFormateada === "ps4") {
+    catFormateada = "ps4";
+}
+else if (catFormateada === "playstation-5" || catFormateada === "playstation5" || catFormateada === "ps-5" || catFormateada === "ps5") {
+    catFormateada = "ps5";
+}
+else if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
+    catFormateada = "xbox-360";
+}
+else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
+    catFormateada = "xbox-series";
 }
 
 
