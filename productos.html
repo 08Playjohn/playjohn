@@ -31,25 +31,16 @@
          <a href="#nintendo-switch" style="color: #ff003c; text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid #ff003c; padding: 5px 12px; border-radius: 4px;">Nintendo Switch</a>
     </div>
 
-    <!-- ================= BARRA DE BÚSQUEDA CENTRADA OPERATIVA ================= -->
-<div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center;">
-    
-    <!-- El formulario se envía a la misma página donde se encuentra -->
-    <form action="computacion.html" method="GET" style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center; margin: 0;">
-        
-        <!-- Es obligatorio agregar name="q" para que viaje el término en la URL -->
-        <input type="text" id="buscador-computacion" name="q" placeholder="Buscar periféricos o computación..." style="width: 100%; padding: 10px 45px 10px 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; outline: none; box-sizing: border-box;" required>
-        
-        <!-- Convertimos el icono SVG en el botón que procesa el envío del formulario -->
-        <button type="submit" style="position: absolute; right: 15px; background: none; border: none; cursor: pointer; padding: 0; display: flex; align-items: center;">
-            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2" width="20" height="20">
+    <!-- BARRRA DE BÚSQUEDA CENTRADA -->
+    <div style="background-color: #000000; padding: 20px 10px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid #1f2335; width: 100%; box-sizing: border-box;">
+        <div style="position: relative; width: 100%; max-width: 500px; display: flex; align-items: center;">
+           <input type="text" id="buscador-juegos" placeholder="Buscar juego o consola..." style="width: 100%; padding: 12px 45px 12px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 25px; font-size: 1rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+           <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 20px; width: 20px; height: 20px; pointer-events: none;">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-        </button>
-
-    </form>
-</div>
+           </svg>
+        </div>
+    </div>
 
     <style>
         #buscador-juegos:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
@@ -488,70 +479,32 @@ else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || 
     }
 }
 
-     
-    <script src="productos.js"></script>
+// Función auxiliar encargada del diseño visual original de tus juegos (Fondo oscuro)
+function crearEstructuraTarjetaConsolas(producto) {
+    const nuevaTarjeta = document.createElement('div');
+    nuevaTarjeta.className = 'tarjeta-juego'; 
+    nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
+    nuevaTarjeta.style.width = "280px";
+    nuevaTarjeta.style.boxSizing = "border-box";
 
-    <!-- 2. SCRIPT DE FILTRADO INTELIGENTE OPERATIVO PARA CONSOLAS -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Damos 1.5 segundos para que los juegos bajen de Drive antes de aplicar el filtro
-        setTimeout(() => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const terminoBusqueda = urlParams.get('q');
+    nuevaTarjeta.innerHTML = `
+        <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+        <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
+        <p class="descripcion">${producto.descripcion || ''}</p>
+        <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+        <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
+        
+        <button class="boton-wpp btn-agregar-carrito" 
+                data-nombre="${producto.nombre}" 
+                data-precio="${producto.precio}" 
+                style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+            <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+        </button>
+    `;
+    return nuevaTarjeta;
+}
 
-            if (terminoBusqueda) {
-                const palabraClave = terminoBusqueda.toLowerCase().trim();
+// Ejecuta la carga automática apenas el navegador termina de estructurar el sitio
+document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 
-                const inputBuscador = document.getElementById('buscador-computacion') || 
-                                     document.getElementById('buscador-productos') || 
-                                     document.querySelector('input[type="text"]');
-                if (inputBuscador) inputBuscador.value = terminoBusqueda;
-
-                const contenedores = document.querySelectorAll('[class^="contenedor-"]');
-                let totalEncontrados = 0;
-
-                contenedores.forEach(contenedor => {
-                    const productos = contenedor.children;
-                    let visiblesEnCategoria = 0;
-
-                    Array.from(productos).forEach(producto => {
-                        const textoProducto = producto.innerText.toLowerCase();
-
-                        if (textoProducto.includes(palabraClave)) {
-                            producto.style.display = ""; 
-                            visiblesEnCategoria++;
-                            totalEncontrados++;
-                        } else {
-                            producto.style.display = "none"; 
-                        }
-                    });
-
-                    const seccionCategoria = contenedor.closest('.categoria-consola') || contenedor.parentElement;
-                    if (visiblesEnCategoria === 0) {
-                        seccionCategoria.style.display = "none";
-                    } else {
-                        seccionCategoria.style.display = "block";
-                    }
-                });
-
-                if (totalEncontrados === 0) {
-                    const aviso = document.createElement('div');
-                    aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
-                    
-                    if (inputBuscador) {
-                        const contenedorPadre = inputBuscador.closest('div');
-                        if (contenedorPadre && contenedorPadre.parentNode) {
-                            contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
-                        } else {
-                            document.body.appendChild(aviso);
-                        }
-                    } else {
-                        document.body.appendChild(aviso);
-                    }
-                }
-            }
-        }, 1500); 
-    });
-    </script>
-</body>
-</html>
+</script>
