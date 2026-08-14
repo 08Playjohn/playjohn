@@ -433,7 +433,7 @@ function abrirSoportePlayJohn() {
         <!-- Los artículos agregados se dibujarán acá adentro mediante JavaScript -->
     </div>
 
-    <!-- Pie de la ventana con el total y botón de envío -->
+       <!-- Pie de la ventana con el total y botón de envío -->
     <div style="border-top: 1px solid #3a3f58; padding-top: 15px;">
         <div style="display: flex; justify-content: space-between; color: #ffffff; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">
             <span>Total:</span>
@@ -445,7 +445,153 @@ function abrirSoportePlayJohn() {
     </div>
 </div>
 
+<!-- ============================================================================
+    SCRIPTS GENERALES DE CONTROL: BUSCADOR, CARRITO LATERAL Y REGISTRO
+============================================================================ -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // ---------------------------------------------------------------------
+    // A. BUSCADOR GLOBAL REACTIVO (BUSCA EN TODAS LAS PÁGINAS)
+    // ---------------------------------------------------------------------
+    const inputBuscador = document.getElementById('buscador-principal');
+    
+    if (inputBuscador) {
+        inputBuscador.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                ejecutarBusquedaGlobal(e.target.value);
+            }
+        });
+    }
+
+    function ejecutarBusquedaGlobal(termino) {
+        let texto = termino.toLowerCase().trim();
+        if (texto === '') return;
+
+        const palabrasComputacion = ["mouse", "teclado", "cable", "auricular", "hub", "pad", "periferico", "computacion", "computadora", "hdmi"];
+        let esHardware = palabrasComputacion.some(palabra => texto.includes(palabra));
+
+        if (esHardware) {
+            localStorage.setItem('termino_busqueda_global', texto);
+            window.location.href = "computacion.html";
+        } else {
+            localStorage.setItem('termino_busqueda_global', texto);
+            window.location.href = "productos.html";
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // B. MANEJO INTERNO DEL FORMULARIO DE INGRESO Y REGISTRO (CON ICONO MAXIMUS)
+    // ---------------------------------------------------------------------
+    const btnLoginTop = document.getElementById('btn-mostrar-login');
+    const seccionFormularios = document.getElementById('seccion-formularios');
+    const formularioLogin = document.getElementById('formulario-login');
+    const formularioRegistro = document.getElementById('formulario-registro');
+
+    if (btnLoginTop) {
+        btnLoginTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (seccionFormularios) {
+                if (seccionFormularios.style.display === 'none' || seccionFormularios.style.display === '') {
+                    seccionFormularios.style.display = 'block';
+                    if (formularioLogin) formularioLogin.style.display = 'block';
+                    if (formularioRegistro) formularioRegistro.style.display = 'none';
+                } else {
+                    seccionFormularios.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    // ---------------------------------------------------------------------
+    // C. CONEXIÓN DEL CARRITO LATERAL INTERACTIVO COMPARTIDO
+    // ---------------------------------------------------------------------
+    const contadorSuperior = document.getElementById('contador-carrito-superior');
+    const btnCarritoSuperior = document.getElementById('btn-carrito-superior');
+    const ventanaCarrito = document.getElementById('ventana-carrito');
+    const btnCerrarCarrito = document.getElementById('btn-cerrar-carrito');
+    const listaCarrito = document.getElementById('lista-carrito');
+    const totalCarrito = document.getElementById('total-carrito');
+    const btnEnviar = document.getElementById('btn-enviar-carrito');
+
+    let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
+
+    function actualizarInterfazHome() {
+        if (!contadorSuperior) return;
+        carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
+        let total = 0, cantidadTotal = 0;
+        if (listaCarrito) listaCarrito.innerHTML = '';
+        
+        carrito.forEach((item, index) => {
+            total += item.precio * item.cantidad;
+            cantidadTotal += item.cantidad;
+            
+            if (listaCarrito) {
+                const div = document.createElement('div');
+                div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 8px;";
+                div.innerHTML = `
+                    <div style="flex:1; padding-right: 10px;">
+                        <b style="color: #ffffff;">${item.nombre}</b>
+                        <div style="color: #aaaaaa; font-size: 0.8rem; margin-top: 2px;">${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
+                    </div>
+                    <button class="btn-eliminar-home" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.4rem; padding: 0 5px;">&times;</button>
+                `;
+                listaCarrito.appendChild(div);
+            }
+        });
+        
+        if (totalCarrito) totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
+        contadorSuperior.textContent = cantidadTotal;
+    }
+
+    if (btnCarritoSuperior) {
+        btnCarritoSuperior.addEventListener('click', function(e) {
+            e.preventDefault();
+            actualizarInterfazHome();
+            if (ventanaCarrito) ventanaCarrito.style.right = '0px';
+        });
+    }
+
+    if (btnCerrarCarrito) {
+        btnCerrarCarrito.addEventListener('click', function() {
+            if (ventanaCarrito) ventanaCarrito.style.right = '-350px';
+        });
+    }
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('btn-eliminar-home')) {
+            let idx = e.target.getAttribute('data-index');
+            carrito.splice(idx, 1);
+            localStorage.setItem('carrito_global', JSON.stringify(carrito));
+            actualizarInterfazHome();
+            window.dispatchEvent(new Event('storage'));
+        }
+    });
+
+    if (btnEnviar) {
+        btnEnviar.addEventListener('click', function() {
+            if (carrito.length === 0) return alert("Tu carrito está vacío.");
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
+            let total = 0;
+            carrito.forEach(function(item) {
+                mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
+                total += item.precio * item.cantidad;
+            });
+            mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+            
+            const telefono = "5491141701483"; 
+            window.location.assign("https://wa.me" + telefono + "?text=" + encodeURIComponent(mensaje));
+        });
+    }
+
+    window.addEventListener('storage', function() {
+        actualizarInterfazHome();
+    });
+
+    actualizarInterfazHome();
+});
+</script>
+
 </body>
 </html>
-
-     
