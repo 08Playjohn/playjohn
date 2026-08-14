@@ -374,20 +374,7 @@ async function cargarProductosDesdeDrive() {
                     catFormateada = "computacion";
                 }
 
-                // Si la categoría coincide y la tarjeta no se dibujó ya en pantalla, la inyectamos directo
-                if (CATEGORIAS_VALIDAS.includes(catFormateada) && !document.getElementById(`tarjeta-escaneada-${producto.id}`)) {
-                    let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
-                    
-                    if (contenedorDestino) {
-                        // Creamos la tarjeta blanca con bordes neón y la metemos al mosaico
-                        const nuevaTarjeta = crearEstructuraTarjeta(producto);
-                        contenedorDestino.appendChild(nuevaTarjeta);
-                    }
-                }
-            }
-        });
-
-       <!-- 1. AQUÍ SE LLAMA DE FORMA LIMPIA A TU ARCHIVO JAVASCRIPT -->
+                    <!-- 1. AQUÍ SE LLAMA DE FORMA LIMPIA A TU ARCHIVO JAVASCRIPT -->
     <script src="productos.js"></script>
 
      <!-- 2. SCRIPT DE FILTRADO INTELIGENTE OPERATIVO -->
