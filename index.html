@@ -23,31 +23,63 @@
     <!-- Contenedor que saluda al usuario activo -->
     <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;"></div>
    
-    <!-- EL BOTÓN GESTOR PRINCIPAL -->
-    <button id="btn-mostrar-login" style="background-color: #6200ea; color: white; border: none; padding: 12px 24px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; box-shadow: 0 0 10px rgba(98, 0, 234, 0.4); margin-bottom: 10px;">
-        🔑 Iniciar Sesión / Registrarse
-    </button>
-            <!-- FORMULARIOS DESPLEGABLES (Va adentro del cuadro general) -->
-    <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
+   <!-- FRANJA DE BÚSQUEDA Y USUARIO (INTEGRADA A TU SISTEMA DE LOGIN) -->
+<div style="background-color: #0b0c10; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #3a3f58; width: 100%; box-sizing: border-box; font-family: sans-serif;">
+    
+    <!-- LADO IZQUIERDO: ESPACIO DE RELLENO EQUILIBRADO -->
+    <div style="width: 80px; display: block;" class="desktop-spacer"></div>
+
+    <!-- CENTRO: BARRA DE BÚSQUEDA FLUIDA -->
+    <div style="flex: 1; max-width: 550px; position: relative; display: flex; align-items: center; margin: 0 10px;">
+        <input type="text" id="buscador-principal" placeholder="Buscar productos, juegos o componentes..." style="width: 100%; padding: 10px 45px 10px 15px; background-color: #10121a; color: #ffffff; border: 2px solid #3a3f58; border-radius: 6px; font-size: 0.9rem; outline: none; transition: all 0.3s ease; box-sizing: border-box; font-family: sans-serif;">
+        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 15px; width: 16px; height: 16px; pointer-events: none;">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+    </div>
+
+    <!-- LADO DERECHO: INGRESAR CON TU ID + CARRITO GLOBAL -->
+    <div style="display: flex; align-items: center; gap: 20px; min-width: 120px; justify-content: flex-end;">
         
-               <!-- FORMULARIO 1: INICIAR SESIÓN -->
-        <form id="formulario-login" onsubmit="return false;">
-            <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
-            <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
-                      
-            <!-- ENLACE DE RECUPERACIÓN TOTALMENTE RESTAURADO -->
-             <div style="margin-top: 15px; text-align: right;">
-                <button type="button"
-                        style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;"
-                        onmouseover="this.style.color='#ffffff';" 
-                        onmouseout="this.style.color='#00f0ff';"
-                        onclick="abrirSoportePlayJohn()">
-                   <!-- ¿Olvidaste tu contraseña? -->
-                </button>
+        <!-- BOTÓN COMPACTO: LE PASAMOS TU ID ORIGINAL PARA QUE ABRA EL DESPLEGABLE -->
+        <button id="btn-mostrar-login" style="background: none; border: none; color: #aaaaaa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: sans-serif; transition: all 0.2s; padding: 0;" class="btn-usuario-top">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 0.3px;">Ingresar</span>
+        </button>
+
+        <!-- BOTÓN COMPACTO: CARRITO GLOBAL -->
+        <button id="btn-carrito-superior" style="background: none; border: none; color: #aaaaaa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; position: relative; font-family: sans-serif; transition: all 0.2s; padding: 0;">
+            <div style="position: relative; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span id="contador-carrito-superior" style="position: absolute; top: -8px; right: -10px; background-color: #ff003c; color: #ffffff; font-size: 0.65rem; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #0b0c10;">0</span>
             </div>
-        </form>
+            <span style="font-size: 0.7rem; font-weight: bold; letter-spacing: 0.3px;">Carrito</span>
+        </button>
+    </div>
+</div>
+
+<style>
+    #buscador-principal:focus {
+        border-color: #00f0ff !important;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        background-color: #141622;
+    }
+    .btn-usuario-top:hover {
+        color: #00f0ff !important;
+        transform: scale(1.03);
+    }
+    #btn-carrito-superior:hover {
+        color: #39ff14 !important;
+        transform: scale(1.03);
+    }
+</style>
 
         <script>
         function abrirSoportePlayJohn() {
