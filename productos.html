@@ -322,7 +322,7 @@ if (inputBuscador) {
 }
 
     // 2. LÓGICA DEL CARRITO DE COMPUTACIÓN
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
     const btnFlotante = document.getElementById('btn-carrito-flotante');
     const ventanaCarrito = document.getElementById('ventana-carrito');
     const btnCerrar = document.getElementById('cerrar-carrito');
@@ -350,7 +350,7 @@ if (inputBuscador) {
         });
         totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
         contadorCarrito.textContent = cantidadTotal;
-        localStorage.setItem('carrito', JSON.stringify(carrito));
+        localStorage.setItem('carrito_global', JSON.stringify(carrito));
     }
 
     document.addEventListener('click', function(e) {
