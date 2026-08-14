@@ -449,10 +449,6 @@ async function cargarProductosDesdeDrive() {
                                     .replace(/[^a-z0-9\-]/g, '');
 // --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS CORREGIDO (CONSOLAS) ---
 
-if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi" || catFormateada === "nintendo") {
-    catFormateada = "nintendo-switch"; // Fuerza a que busque la clase .contenedor-nintendo-switch
-}
-
 // Forzamos que enganche exactamente tu contenedor de PS2 (Fijate si en tu HTML es class="contenedor-ps2")
 if (catFormateada === "playstation-2" || catFormateada === "playstation2" || catFormateada === "ps-2" || catFormateada === "ps2") {
     catFormateada = "ps2";
@@ -474,6 +470,10 @@ if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
 }
 if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
     catFormateada = "xbox-series";
+}
+
+if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi" || catFormateada === "nintendo") {
+    catFormateada = "nintendo-switch"; // Fuerza a que busque la clase .contenedor-nintendo-switch
 }
 
 
