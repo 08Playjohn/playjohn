@@ -1,5 +1,3 @@
-Index antes de la ultima modificación
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,67 +8,191 @@ Index antes de la ultima modificación
     <link rel="stylesheet" href="estilos.css">
     <!-- ENLACE OFICIAL PARA CARGAR LOS ICONOS CORRECTAMENTE -->
     <link rel="stylesheet" href="https://cloudflare.com">
+
+    <style>
+        /* ================= BARRA SUPERIOR ESTILO MAXIMUS ================= */
+        .barra-superior {
+            background-color: #0d0d0d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 4%;
+            font-family: sans-serif;
+            border-bottom: 1px solid #222;
+        }
+
+        .contenedor-busqueda {
+            flex-grow: 1;
+            max-width: 600px;
+            margin-right: 40px;
+        }
+
+        .formulario-busqueda {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .formulario-busqueda input {
+            width: 100%;
+            background-color: #1a1a1a;
+            border: 1px solid #333333;
+            border-radius: 6px;
+            padding: 10px 45px 10px 15px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .formulario-busqueda input::placeholder {
+            color: #666666;
+        }
+
+        .boton-lupa {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .contenedor-acciones {
+            display: flex;
+            gap: 25px;
+        }
+
+        .enlace-accion {
+            background: none;
+            border: none;
+            color: #aaaaaa;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: sans-serif;
+        }
+
+        .enlace-accion:hover {
+            color: #ffffff;
+        }
+
+        .icono {
+            width: 24px;
+            height: 24px;
+        }
+
+        .seccion-login-contenedor {
+            background-color: #0b0c10; 
+            padding: 20px 15px; 
+            border-bottom: 2px solid #3a3f58; 
+            text-align: center; 
+            font-family: sans-serif; 
+            position: relative; 
+            z-index: 100;
+        }
+
+        #buscador-juegos:focus {
+            border-color: #00f0ff !important;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+    </style>
 </head>
 
 <body>
+
+    <!-- ================= 1. NUEVA BARRA SUPERIOR REQUERIDA ================= -->
+    <header class="barra-superior">
+        <div class="contenedor-busqueda">
+            <form action="buscar.php" method="GET" class="formulario-busqueda">
+                <input type="text" name="q" placeholder="Buscar en Maximus" required>
+                <button type="submit" class="boton-lupa">
+                    <!-- Icono de lupa verde en SVG -->
+                    <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#39ff14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <div class="contenedor-acciones">
+            <!-- El botón de ingreso hereda la lógica de despliegue de tus formularios -->
+            <button class="enlace-accion" id="btn-mostrar-login-nuevo">
+                <svg class="icono" xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Ingresar</span>
+            </button>
+
+            <!-- Carrito unificado que conecta a tus hojas -->
+            <a href="carrito.html" class="enlace-accion" id="boton-carrito">
+                <svg class="icono" xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span>Carrito</span>
+            </a>
+        </div>
+    </header>
 
     <!-- PORTADA CON TU LOGO -->
     <header id="inicio" class="portada" style="height: 580px !important;">
         <h2>* Servicio Técnico Especializado *</h2>
         <div class="instrucciones">◀ ENTRA Y ENCONTRA LO QUE BUSCABAS ▶</div>
     </header>
-<!-- ================= INTERFAZ DE LOGUEO SEPARADA Y COMPLETA ================= -->
-<div style="background-color: #0b0c10; padding: 30px 15px; border-bottom: 2px solid #3a3f58; text-align: center; font-family: sans-serif; position: relative; z-index: 100;">
-    
-    <!-- Contenedor que saluda al usuario activo -->
-    <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;"></div>
-   
-    <!-- EL BOTÓN GESTOR PRINCIPAL -->
-    <button id="btn-mostrar-login" style="background-color: #6200ea; color: white; border: none; padding: 12px 24px; font-size: 0.95rem; font-weight: bold; border-radius: 4px; cursor: pointer; box-shadow: 0 0 10px rgba(98, 0, 234, 0.4); margin-bottom: 10px;">
-        🔑 Iniciar Sesión / Registrarse
-    </button>
-            <!-- FORMULARIOS DESPLEGABLES (Va adentro del cuadro general) -->
-    <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
+
+    <!-- ================= INTERFAZ DE LOGUEO SEPARADA Y COMPLETA ================= -->
+    <div class="seccion-login-contenedor">
         
-               <!-- FORMULARIO 1: INICIAR SESIÓN -->
-        <form id="formulario-login" onsubmit="return false;">
-            <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
-            <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-            <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
-                      
-            <!-- ENLACE DE RECUPERACIÓN TOTALMENTE RESTAURADO -->
-             <div style="margin-top: 15px; text-align: right;">
-                <button type="button"
-                        style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;"
-                        onmouseover="this.style.color='#ffffff';" 
-                        onmouseout="this.style.color='#00f0ff';"
-                        onclick="abrirSoportePlayJohn()">
-                   <!-- ¿Olvidaste tu contraseña? -->
-                </button>
-            </div>
-        </form>
-
-        <script>
-        function abrirSoportePlayJohn() {
-            const num = "5491141701483";
-            const inputCorreo = document.getElementById('login-email').value.trim();
+        <!-- Contenedor que saluda al usuario activo -->
+        <div id="usuario-saludo" style="display: none; color: #39ff14; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px;"></div>
+       
+        <!-- Botón viejo ocultado para heredar control al nuevo header -->
+        <button id="btn-mostrar-login" style="display: none;"></button>
+                
+        <!-- FORMULARIOS DESPLEGABLES -->
+        <div id="seccion-formularios" style="display: none; max-width: 380px; margin: 25px auto 0 auto; background-color: #1b1e2b; border: 1px solid #3a3f58; padding: 25px; border-radius: 8px; box-sizing: border-box;">
             
-            let texto = "";
-            if (inputCorreo === "") {
-                texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-            } else {
-                texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
-            }
-            
-            // Dirección oficial de la API sin concatenaciones propensas a errores de caché
-            const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
-            window.open(urlCorrecta, '_blank');
-        }
-        </script>
+            <!-- FORMULARIO 1: INICIAR SESIÓN -->
+            <form id="formulario-login" onsubmit="return false;">
+                <h3 style="color: #00f0ff; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Ingresar a mi Cuenta</h3>
+                <input type="email" id="login-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+                <input type="password" id="login-password" placeholder="Contraseña de acceso" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+                <button type="submit" id="btn-login-submit" style="width: 100%; background-color: #00f0ff; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;">Ingresar</button>
+                          
+                <!-- ENLACE DE RECUPERACIÓN TOTALMENTE RESTAURADO -->
+                 <div style="margin-top: 15px; text-align: right;">
+                    <button type="button"
+                            style="background: none; border: none; color: #00f0ff; text-decoration: none; font-size: 0.8rem; font-family: sans-serif; font-weight: bold; cursor: pointer; padding: 0; transition: 0.2s;"
+                            onmouseover="this.style.color='#ffffff';" 
+                            onmouseout="this.style.color='#00f0ff';"
+                            onclick="abrirSoportePlayJohn()">
+                       ¿Olvidaste tu contraseña?
+                    </button>
+                </div>
+            </form>
 
-        <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
+            <hr style="border: 0; border-top: 1px solid #3a3f58; margin: 25px 0;">
 
+            <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES -->
+            <form id="formulario-registro" onsubmit="return false;">
+                <h3 style="color: #39ff14; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Crear Cuenta Nueva</h3>
+                <input type="text" id="reg-nombre" placeholder="Nombre y Apellido" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+                <input type="tel" id="reg-telefono" placeholder="Número de Teléfono" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+                <input type="text" id="reg-direccion" placeholder="Dirección (Opcional)" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;">
+                <input type="email" id="reg-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+                <input type="password" id="reg-password" placeholder="Crea tu contraseña" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
+                
+                <!-- CASILLA DE ACEPTACIÓN LEGAL -->
+                <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px;">
+                    <input type="checkbox" id="reg-terminos" style="margin-top: 3px; cursor: pointer;" required>
 
         <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES -->
         <form id="formulario-registro" onsubmit="return false;">
