@@ -206,91 +206,102 @@ function abrirSoportePlayJohn() {
             });
         }
 
-        // ---------------------------------------------------------------------
-        // C. CONEXIÓN DEL CARRITO SUPERIOR COMPARTIDO DE ENTRADA
+               // ---------------------------------------------------------------------
+        // C. CONEXIÓN DEL CARRITO LATERAL INTERACTIVO COMPARTIDO
         // ---------------------------------------------------------------------
         const contadorSuperior = document.getElementById('contador-carrito-superior');
         const btnCarritoSuperior = document.getElementById('btn-carrito-superior');
+        const ventanaCarrito = document.getElementById('ventana-carrito');
+        const btnCerrarCarrito = document.getElementById('btn-cerrar-carrito');
+        const listaCarrito = document.getElementById('lista-carrito');
+        const totalCarrito = document.getElementById('total-carrito');
+        const btnEnviar = document.getElementById('btn-enviar-carrito');
 
-        function actualizarContadorHome() {
+        // Cargamos la misma memoria compartida
+        let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
+
+        function actualizarInterfazHome() {
             if (!contadorSuperior) return;
-            // Lee de manera directa la variable compartida 'carrito_global'
-            let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
-            let cantidadTotal = 0;
             
-            carrito.forEach(item => {
+            // Volvemos a leer por si hubo cambios
+            carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
+            
+            let total = 0, cantidadTotal = 0;
+            if (listaCarrito) listaCarrito.innerHTML = '';
+            
+            carrito.forEach((item, index) => {
+                total += item.precio * item.cantidad;
                 cantidadTotal += item.cantidad;
+                
+                if (listaCarrito) {
+                    const div = document.createElement('div');
+                    div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 8px;";
+                    div.innerHTML = `
+                        <div style="flex:1; padding-right: 10px;">
+                            <b style="color: #ffffff;">${item.nombre}</b>
+                            <div style="color: #aaaaaa; font-size: 0.8rem; margin-top: 2px;">${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
+                        </div>
+                        <button class="btn-eliminar-home" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.4rem; padding: 0 5px;">&times;</button>
+                    `;
+                    listaCarrito.appendChild(div);
+                }
             });
             
+            if (totalCarrito) totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
             contadorSuperior.textContent = cantidadTotal;
         }
 
+        // Eventos de apertura y cierre de la barra lateral
         if (btnCarritoSuperior) {
-            btnCarritoSuperior.addEventListener('click', function() {
-                window.location.href = "productos.html"; 
+            btnCarritoSuperior.addEventListener('click', function(e) {
+                e.preventDefault();
+                actualizarInterfazHome();
+                if (ventanaCarrito) ventanaCarrito.style.right = '0px'; // Desplaza el carrito a la vista
             });
         }
 
-        // Inicializamos el contador al cargar la Home
-        actualizarContadorHome();
-        
-        // Escuchamos por si el carrito se actualiza en otra pestaña en segundo plano
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'carrito_global') {
-                actualizarContadorHome();
+        if (btnCerrarCarrito) {
+            btnCerrarCarrito.addEventListener('click', function() {
+                if (ventanaCarrito) ventanaCarrito.style.right = '-350px'; // Esconde el carrito
+            });
+        }
+
+        // Oyente para eliminar productos directo desde el Home si el cliente se arrepiente
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('btn-eliminar-home')) {
+                let idx = e.target.getAttribute('data-index');
+                carrito.splice(idx, 1);
+                localStorage.setItem('carrito_global', JSON.stringify(carrito));
+                actualizarInterfazHome();
+                // Avisamos a las otras pestañas que el carrito cambió
+                window.dispatchEvent(new Event('storage'));
             }
         });
-    });
-    </script>
 
+        // Integración del botón de WhatsApp en la Home
+        if (btnEnviar) {
+            btnEnviar.addEventListener('click', function() {
+                if (carrito.length === 0) return alert("Tu carrito está vacío.");
+                let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
+                let total = 0;
+                carrito.forEach(function(item) {
+                    mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
+                    total += item.precio * item.cantidad;
+                });
+                mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+                
+                const telefono = "5491141701483"; 
+                window.location.assign("https://wa.me/5491141701483"?text=" + encodeURIComponent(mensaje));
+            });
+        }
 
+        // Escuchamos cambios si el usuario añade productos en otra solapa y vuelve
+        window.addEventListener('storage', function() {
+            actualizarInterfazHome();
+        });
 
-       <!-- FORMULARIO 2: REGISTRO DE NUEVOS CLIENTES (CORREGIDO Y OCULTO POR DEFECTO) -->
-<form id="formulario-registro" style="display: none; width: 100%; box-sizing: border-box;" onsubmit="return false;">
-    <h3 style="color: #39ff14; margin-top: 0; margin-bottom: 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px;">Crear Cuenta Nueva</h3>
-    <input type="text" id="reg-nombre" placeholder="Nombre y Apellido" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-    <input type="tel" id="reg-telefono" placeholder="Número de Teléfono" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-    <input type="text" id="reg-direccion" placeholder="Dirección (Opcional)" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;">
-    <input type="email" id="reg-email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-    <input type="password" id="reg-password" placeholder="Crea tu contraseña" style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #3a3f58; background-color: #10121a; color: white; box-sizing: border-box;" required>
-
-            <!-- CASILLA DE ACEPTACIÓN LEGAL -->
-            <div style="margin-bottom: 20px; text-align: left; display: flex; align-items: flex-start; gap: 10px;">
-                <input type="checkbox" id="reg-terminos" style="margin-top: 3px; cursor: pointer;" required>
-                <label for="reg-terminos" style="color: #b3b9d1; font-size: 0.8rem; line-height: 1.4; font-family: sans-serif; cursor: pointer;">
-                    Acepto los Términos de Servicio y autorizo a Play John a guardar mis datos para la gestión de pedidos y soporte técnico.
-                </label>
-            </div>
-
-            <!-- TRABA ABSOLUTA EN EL EVENTO ONCLICK -->
-            <button type="button" 
-                    id="btn-registro-submit" 
-                    style="width: 100%; background-color: #39ff14; color: #10121a; border: none; padding: 11px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem;"
-                    onclick="if(!document.getElementById('reg-terminos').checked){ alert('¡Atención! Debes aceptar los Términos de Servicio para poder registrarte.'); event.stopImmediatePropagation(); return false; }">
-                Registrarme en Play John
-            </button>
-        </form>
-
-    <script>
-<script>
-// 1. FUNCIÓN PARA RECUPERAR CONTRASEÑA POR WHATSAPP
-function abrirSoportePlayJohn() {
-    const num = "5491141701483";
-    const inputCorreo = document.getElementById('login-email').value.trim();
-    
-    let texto = "";
-    if (inputCorreo === "") {
-        texto = "Hola, olvidé mi contraseña en Play John y necesito asistencia para recuperarla.";
-    } else {
-        texto = "Hola, soy el usuario con correo electrónico: " + inputCorreo + ". Olvidé mi contraseña de acceso en Play John y necesito asistencia.";
-    }
-    
-    // Dirección unificada oficial que sí permite concatenar textos dinámicos
-    const urlCorrecta = "https://whatsapp.com" + num + "&text=" + encodeURIComponent(texto);
-    window.open(urlCorrecta, '_blank');
-}
-</script>
-
+        // Inicializamos la visualización al prender la web
+        actualizarInterfazHome();
     </div> <!-- CIERRA EL CUADRO SECCIONAL -->
 </div> <!-- CIERRA EL CONTENEDOR GENERAL OSCURO -->
 
@@ -408,6 +419,31 @@ function abrirSoportePlayJohn() {
 
     </div>
 </footer>
+<!-- VENTANA FLOTANTE DEL CARRITO LATERAL (COMPARTIDA EN HOME) -->
+<div id="ventana-carrito" style="position: fixed; top: 0; right: -350px; width: 340px; height: 100%; background-color: #0b0c10; border-left: 2px solid #00f0ff; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.7); z-index: 200000; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; font-family: sans-serif; display: flex; flex-direction: column;">
+    
+    <!-- Encabezado del carrito -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
+        <h3 style="color: #ffffff; margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px;">Tu Pedido</h3>
+        <button id="btn-cerrar-carrito" style="background: none; border: none; color: #ff003c; font-size: 1.8rem; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+    </div>
+
+    <!-- Contenedor dinámico de productos -->
+    <div id="lista-carrito" style="flex: 1; overflow-y: auto; margin-bottom: 15px; padding-right: 5px;">
+        <!-- Los artículos agregados se dibujarán acá adentro mediante JavaScript -->
+    </div>
+
+    <!-- Pie de la ventana con el total y botón de envío -->
+    <div style="border-top: 1px solid #3a3f58; padding-top: 15px;">
+        <div style="display: flex; justify-content: space-between; color: #ffffff; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">
+            <span>Total:</span>
+            <span id="total-carrito" style="color: #39ff14;">$0</span>
+        </div>
+        <button id="btn-enviar-carrito" style="width: 100%; background-color: #1dd1a1; color: #ffffff; border: none; padding: 13px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 10px rgba(29, 209, 161, 0.3);">
+            Enviar Pedido por WhatsApp
+        </button>
+    </div>
+</div>
 
 </body>
 </html>
