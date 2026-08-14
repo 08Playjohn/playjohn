@@ -426,17 +426,12 @@ function crearEstructuraTarjeta(producto) {
             ${producto.descripcion || ''}
         </p>
         <div class="precio" style="font-size: 1.6rem; font-weight: bold; color: #00ff37; text-align: center; margin-bottom: 15px;">
-            $${parseFloat(producto.precio).toLocaleString('es-AR')}
-        </div>
-        <span class="badge disponible" style="background-color: #00ff66; color: #000000; font-size: 0.75rem; font-weight: bold; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: inline-block; text-align: center;">
-            DISPONIBLE
-        </span>
+         
      
-    <!-- 1. AQUÍ SE LLAMA DE FORMA LIMPIA A TU ARCHIVO JAVASCRIPT DE BASE DE DATOS -->
-    <!-- (Nota: Si tu script de Drive para computación se llama login.js o computacion.js, ponlo aquí) -->
-    <script src="login.js"></script>
+     <!-- 1. AQUÍ SE LLAMA DE FORMA LIMPIA A TU ARCHIVO JAVASCRIPT -->
+    <script src="productos.js"></script>
 
-    <!-- 2. SCRIPT DE FILTRADO INTELIGENTE OPERATIVO -->
+     <!-- 2. SCRIPT DE FILTRADO INTELIGENTE OPERATIVO -->
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Damos 1.5 segundos para que los componentes bajen de Drive antes de aplicar el filtro
