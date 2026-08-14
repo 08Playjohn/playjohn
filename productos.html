@@ -488,21 +488,6 @@ else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || 
     }
 }
 
-// Función auxiliar encargada del diseño visual original de tus juegos (Fondo oscuro)
-function crearEstructuraTarjetaConsolas(producto) {
-    const nuevaTarjeta = document.createElement('div');
-    nuevaTarjeta.className = 'tarjeta-juego'; 
-    nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
-    nuevaTarjeta.style.width = "280px";
-    nuevaTarjeta.style.boxSizing = "border-box";
-
-    nuevaTarjeta.innerHTML = `
-        <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
-        <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
-        <p class="descripcion">${producto.descripcion || ''}</p>
-        <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
-        <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
-        
      
     <script src="productos.js"></script>
 
