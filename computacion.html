@@ -440,64 +440,71 @@ function crearEstructuraTarjeta(producto) {
     `;
     return nuevaTarjeta;
 }
+    <!-- Asegúrate de que el cierre del footer o de tus bloques anteriores esté así -->
+    </footer>
 
-document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+    <!-- 1. SCRIPT ORIGINAL DE TU BASE DE DATOS/LOGUEO -->
+    <script src="login.js"></script>
+
+    <!-- 2. SCRIPT DE FILTRADO INTELIGENTE PARA COMPUTACION -->
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Damos un pequeño margen de 400ms para que tus scripts JS inyecten los productos primero
-    setTimeout(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const terminoBusqueda = urlParams.get('q');
+    document.addEventListener("DOMContentLoaded", function () {
+        // Damos un pequeño margen de 400ms para que tus scripts JS inyecten los productos primero
+        setTimeout(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const terminoBusqueda = urlParams.get('q');
 
-        if (terminoBusqueda) {
-            const palabraClave = terminoBusqueda.toLowerCase().trim();
+            if (terminoBusqueda) {
+                const palabraClave = terminoBusqueda.toLowerCase().trim();
 
-            // Rellenamos la barra de búsqueda con el texto que el usuario escribió para que no quede vacía
-            const inputBuscador = document.getElementById('buscador-computacion');
-            if (inputBuscador) inputBuscador.value = terminoBusqueda;
+                // Rellenamos la barra de búsqueda con el texto que el usuario escribió para que vea qué buscó
+                const inputBuscador = document.getElementById('buscador-computacion');
+                if (inputBuscador) inputBuscador.value = terminoBusqueda;
 
-            // Seleccionamos los contenedores que tengan clases como 'contenedor-mouses', 'contenedor-cables', etc.
-            const contenedores = document.querySelectorAll('[class^="contenedor-"]');
-            let totalEncontrados = 0;
+                // Seleccionamos los contenedores dinámicos (contenedor-mouses, contenedor-cables, etc.)
+                const contenedores = document.querySelectorAll('[class^="contenedor-"]');
+                let totalEncontrados = 0;
 
-            contenedores.forEach(contenedor => {
-                const productos = contenedor.children;
-                let visiblesEnCategoria = 0;
+                contenedores.forEach(contenedor => {
+                    const productos = contenedor.children;
+                    let visiblesEnCategoria = 0;
 
-                Array.from(productos).forEach(producto => {
-                    const textoProducto = producto.innerText.toLowerCase();
+                    Array.from(productos).forEach(producto => {
+                        const textoProducto = producto.innerText.toLowerCase();
 
-                    // Comparamos el contenido de la tarjeta con la palabra clave
-                    if (textoProducto.includes(palabraClave)) {
-                        producto.style.display = ""; // Mantiene su layout original (flex/block)
-                        visiblesEnCategoria++;
-                        totalEncontrados++;
+                        // Comparamos el contenido de la tarjeta con la palabra clave
+                        if (textoProducto.includes(palabraClave)) {
+                            producto.style.display = ""; // Mantiene su layout original (flex/block)
+                            visiblesEnCategoria++;
+                            totalEncontrados++;
+                        } else {
+                            producto.style.display = "none"; // Esconde el producto
+                        }
+                    });
+
+                    // Si no hay coincidencias en toda la categoría (ej: mouses), ocultamos la sección completa
+                    const seccionCategoria = contenedor.closest('.categoria-consola') || contenedor.parentElement;
+                    if (visiblesEnCategoria === 0) {
+                        seccionCategoria.style.display = "none";
                     } else {
-                        producto.style.display = "none"; // Esconde el producto
+                        seccionCategoria.style.display = "block";
                     }
                 });
 
-                // Si no hay coincidencias en toda la categoría (ej: mouses), ocultamos la sección completa
-                const seccionCategoria = contenedor.closest('.categoria-consola') || contenedor.parentElement;
-                if (visiblesEnCategoria === 0) {
-                    seccionCategoria.style.display = "none";
-                } else {
-                    seccionCategoria.style.display = "block";
+                // Si la búsqueda no arrojó ningún resultado en ninguna sección
+                if (totalEncontrados === 0) {
+                    const aviso = document.createElement('div');
+                    aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
+                    
+                    const inputElement = document.getElementById('buscador-computacion');
+                    if (inputElement) {
+                        const contenedorPadre = inputElement.closest('div');
+                        contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
+                    }
                 }
-            });
-
-            // Si la búsqueda no arrojó ningún resultado en ninguna sección
-            if (totalEncontrados === 0) {
-                const aviso = document.createElement('div');
-                aviso.innerHTML = `<h3 style="color: #ff0055; text-align: center; margin: 60px 0; font-family: sans-serif;">❌ No se encontraron productos para "${terminoBusqueda}"</h3>`;
-                // Buscamos un punto medio en la página para meter el aviso (abajo del buscador)
-                const contenedorPadre = document.getElementById('buscador-computacion').closest('div');
-                contenedorPadre.parentNode.insertBefore(aviso, contenedorPadre.nextSibling);
             }
-        }
-    }, 400);
-});
-</script>
-
-</script>
+        }, 400);
+    });
+    </script>
 </body>
+</html>
