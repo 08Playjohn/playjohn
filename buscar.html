@@ -43,61 +43,75 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const termino = urlParams.get('q');
-        const contenedor = document.getElementById('resultados-lista');
-        const estado = document.getElementById('estado');
+   <script>
+document.addEventListener("DOMContentLoaded", async function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const termino = urlParams.get('q');
+    const contenedor = document.getElementById('resultados-lista');
+    const estado = document.getElementById('estado');
 
-        if (!termino) {
-            estado.innerText = "No introdujiste ningún término de búsqueda.";
-            return;
-        }
+    if (!termino) {
+        estado.innerText = "No introdujiste ningún término de búsqueda.";
+        return;
+    }
 
-        const palabraClave = termino.toLowerCase().trim();
-        estado.innerText = `Mostrando resultados para: "${termino}"`;
+    const palabraClave = termino.toLowerCase().trim();
+    estado.innerText = `Mostrando resultados para: "${termino}"`;
 
-        // Lista de tus páginas donde están las tarjetas de productos
-        const paginas = ['productos.html', 'computacion.html'];
-        let encontrados = 0;
+    // 1. Asegurate de que estos nombres coincidan EXACTAMENTE con tus archivos .html
+    const paginas = ['productos.html', 'computacion.html']; 
+    let encontrados = 0;
 
-        for (const pagina of paginas) {
-            try {
-                // Descarga el HTML de la página en segundo plano
-                const respuesta = await fetch(pagina);
-                const htmlTexto = await respuesta.text();
-                
-                // Lo convierte en un documento temporal para leerlo con JS
-                const parser = new DOMParser();
-                const docTemporal = parser.parseFromString(htmlTexto, 'text/html');
+    for (const pagina of paginas) {
+        try {
+            const respuesta = await fetch(pagina);
+            const htmlTexto = await respuesta.text();
+            
+            const parser = new DOMParser();
+            const docTemporal = parser.parseFromString(htmlTexto, 'text/html');
 
-                // IMPORTANTE: Busca los contenedores de tus productos. 
-                // Ajustá selectores si tus tarjetas usan otras clases (ej: .producto, .tarjeta-juego, etc.)
-                const items = docTemporal.querySelectorAll('.producto, .tarjeta-juego, .box, [data-nombre]');
-
-                items.forEach(item => {
-                    const textoItem = item.innerText.toLowerCase();
-                    
-                    // Si el producto coincide con lo que puso en el buscador
-                    if (textoItem.includes(palabraClave)) {
-                        // Clonamos la tarjeta del producto para meterla en la página de resultados
-                        const clon = item.cloneNode(true);
-                        
-                        // Corregimos los enlaces de imágenes si es necesario (generalmente se mantienen estables)
-                        contenedor.appendChild(clon);
-                        encontrados++;
-                    }
-                });
-
-            } catch (error) {
-                console.error(`Error al buscar en la página ${pagina}:`, error);
+            // 2. Buscamos tus contenedores generales de productos
+            const contenedorPrincipal = docTemporal.querySelector('.contenedor-computacion, .contenedor-productos, #contenedor-productos');
+            
+            let items = [];
+            if (contenedorPrincipal) {
+                // Si encontramos el contenedor, agarramos todos sus hijos directos (las tarjetas)
+                items = Array.from(contenedorPrincipal.children);
+            } else {
+                // Si no encuentra el contenedor padre, intenta buscar por clases individuales por si acaso
+                items = Array.from(docTemporal.querySelectorAll('.producto, .tarjeta, .card, .box, article'));
             }
-        }
 
-        if (encontrados === 0) {
-            estado.innerHTML = `❌ No se encontraron productos que coincidan con "${termino}" en Consolas ni Computación.`;
+            items.forEach(item => {
+                const textoItem = item.innerText.toLowerCase();
+                
+                // Si la tarjeta contiene la palabra que busca el usuario
+                if (textoItem.includes(palabraClave)) {
+                    const clon = item.cloneNode(true);
+                    
+                    // 3. Corregimos las imágenes para que no se rompan las rutas en la página de búsqueda
+                    clon.querySelectorAll('img').forEach(img => {
+                        const srcOriginal = img.getAttribute('src');
+                        if (srcOriginal && !srcOriginal.startsWith('http') && !srcOriginal.startsWith('/')) {
+                            img.src = srcOriginal; // Mantiene la ruta relativa correcta
+                        }
+                    });
+
+                    contenedor.appendChild(clon);
+                    encontrados++;
+                }
+            });
+
+        } catch (error) {
+            console.error(`Error al buscar en la página ${pagina}:`, error);
         }
-    });
-    </script>
+    }
+
+    if (encontrados === 0) {
+        estado.innerHTML = `❌ No se encontraron productos que coincidan con "${termino}".`;
+    }
+});
+</script>
+
 </body>
 </html>
