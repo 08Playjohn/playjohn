@@ -1,117 +1,91 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados de Búsqueda - Play John</title>
-    <link rel="stylesheet" href="estilos.css">
-    <style>
-        .contenedor-resultados {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            font-family: sans-serif;
-            color: white;
-        }
-        .grilla-resultados {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .estado-busqueda {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #00f0ff;
-            margin-bottom: 20px;
-        }
-        /* Estilos base por si tus cartas pierden formato al clonarse */
-        .grilla-resultados > * {
-            display: block !important;
-        }
-    </style>
-</head>
 <body style="background-color: #10121a;">
 
     <div class="contenedor-resultados">
         <h2>🔍 Resultados de la búsqueda</h2>
         <div id="estado" class="estado-busqueda">Buscando productos...</div>
         
-        <!-- Aquí se van a meter los productos filtrados de ambas páginas -->
+        <!-- Contenedor donde se inyectarán los resultados -->
         <div id="resultados-lista" class="grilla-resultados"></div>
+
+        <!-- BOTÓN PARA VOLVER A LA PÁGINA INICIAL -->
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="index.html" style="
+                display: inline-block;
+                padding: 12px 24px;
+                background-color: #00f0ff;
+                color: #10121a;
+                text-decoration: none;
+                font-family: sans-serif;
+                font-weight: bold;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+                transition: transform 0.2s, box-shadow 0.2s;
+            " onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                🏠 Volver al Inicio
+            </a>
+        </div>
     </div>
 
     <script>
-   <script>
-document.addEventListener("DOMContentLoaded", async function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const termino = urlParams.get('q');
-    const contenedor = document.getElementById('resultados-lista');
-    const estado = document.getElementById('estado');
+    document.addEventListener("DOMContentLoaded", async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const termino = urlParams.get('q');
+        const contenedor = document.getElementById('resultados-lista');
+        const estado = document.getElementById('estado');
 
-    if (!termino) {
-        estado.innerText = "No introdujiste ningún término de búsqueda.";
-        return;
-    }
+        if (!termino) {
+            estado.innerText = "No introdujiste ningún término de búsqueda.";
+            return;
+        }
 
-    const palabraClave = termino.toLowerCase().trim();
-    estado.innerText = `Mostrando resultados para: "${termino}"`;
+        const palabraClave = termino.toLowerCase().trim();
+        estado.innerText = `Mostrando resultados para: "${termino}"`;
 
-    // 1. Asegurate de que estos nombres coincidan EXACTAMENTE con tus archivos .html
-    const paginas = ['productos.html', 'computacion.html']; 
-    let encontrados = 0;
-
-    for (const pagina of paginas) {
         try {
-            const respuesta = await fetch(pagina);
-            const htmlTexto = await respuesta.text();
+            // 1. REEMPLAZA ESTA URL POR TU ENLACE REAL DE GOOGLE DRIVE / API / SHEETS
+            // Debe ser la misma URL que usás en computacion.html para traer tus tarjetas.
+            const urlDriveData = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec"; 
             
-            const parser = new DOMParser();
-            const docTemporal = parser.parseFromString(htmlTexto, 'text/html');
-
-            // 2. Buscamos tus contenedores generales de productos
-            const contenedorPrincipal = docTemporal.querySelector('.contenedor-computacion, .contenedor-productos, #contenedor-productos');
+            const respuesta = await fetch(urlDriveData);
+            const productos = await respuesta.json(); // O .text() dependiendo de tu formato original
             
-            let items = [];
-            if (contenedorPrincipal) {
-                // Si encontramos el contenedor, agarramos todos sus hijos directos (las tarjetas)
-                items = Array.from(contenedorPrincipal.children);
-            } else {
-                // Si no encuentra el contenedor padre, intenta buscar por clases individuales por si acaso
-                items = Array.from(docTemporal.querySelectorAll('.producto, .tarjeta, .card, .box, article'));
-            }
+            let encontrados = 0;
+            contenedor.innerHTML = ""; // Limpiamos pantalla
 
-            items.forEach(item => {
-                const textoItem = item.innerText.toLowerCase();
-                
-                // Si la tarjeta contiene la palabra que busca el usuario
-                if (textoItem.includes(palabraClave)) {
-                    const clon = item.cloneNode(true);
+            // 2. Ajustá este bucle según cómo venga estructurado tu archivo de Drive
+            // Supongamos que es un array de productos:
+            productos.forEach(prod => {
+                const nombreProducto = prod.nombre || ""; // Cambiá 'nombre' por tu propiedad real de Drive
+                const descripcionProducto = prod.descripcion || ""; 
+
+                if (nombreProducto.toLowerCase().includes(palabraClave) || descripcionProducto.toLowerCase().includes(palabraClave)) {
                     
-                    // 3. Corregimos las imágenes para que no se rompan las rutas en la página de búsqueda
-                    clon.querySelectorAll('img').forEach(img => {
-                        const srcOriginal = img.getAttribute('src');
-                        if (srcOriginal && !srcOriginal.startsWith('http') && !srcOriginal.startsWith('/')) {
-                            img.src = srcOriginal; // Mantiene la ruta relativa correcta
-                        }
-                    });
-
-                    contenedor.appendChild(clon);
+                    // 3. ARMÁ TU TARJETA ACÁ: Copiá la misma estructura HTML exacta 
+                    // que genera tu script original de computación/consolas.
+                    contenedor.innerHTML += `
+                        <div class="producto" style="border: 1px solid #333; padding: 15px; border-radius: 8px;">
+                            <img src="${prod.imagen}" alt="${nombreProducto}" style="max-width:100%;">
+                            <h3>${nombreProducto}</h3>
+                            <p>${descripcionProducto}</p>
+                            <span style="color:#00f0ff;">$${prod.precio}</span>
+                        </div>
+                    `;
                     encontrados++;
                 }
             });
 
+            if (encontrados === 0) {
+                estado.innerHTML = `❌ No se encontraron productos que coincidan con "${termino}".`;
+            } else {
+                estado.innerHTML = `✅ ¡Se encontraron ${encontrados} productos!`;
+            }
+
         } catch (error) {
-            console.error(`Error al buscar en la página ${pagina}:`, error);
+            console.error("Error obteniendo datos desde Google Drive:", error);
+            estado.innerHTML = "❌ Hubo un error de conexión con la base de datos de productos.";
         }
-    }
-
-    if (encontrados === 0) {
-        estado.innerHTML = `❌ No se encontraron productos que coincidan con "${termino}".`;
-    }
-});
-</script>
-
+    });
+    </script>
 </body>
+
 </html>
