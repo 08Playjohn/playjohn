@@ -353,6 +353,32 @@ function abrirSoportePlayJohn() {
                 <li style="margin-bottom: 8px;">💻 <b>Productos Nuevos:</b> Los periféricos y componentes de computación tienen cambio directo por falla de fábrica dentro de los 3 días de corrido, conservando su caja y accesorios originales.</li>
             </ul>
         </div>
+<!-- Barra lateral del Carrito de Compras -->
+<div id="ventana-carrito" style="position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 9999; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
+        <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
+        <button class="cerrar-carrito" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
+    </div>
+
+    <!-- Lista de productos agregados -->
+    <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
+
+    <!-- Total y Botón de pago -->
+    <div style="border-top: 2px solid #10121a; padding-top: 15px;">
+        <div style="display: flex; justify-content: space-between; color: #10121a; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">
+            <span>Total:</span>
+            <span id="total-carrito">$0</span>
+        </div>
+        <button onclick="enviarPedidoWhatsApp()" style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
+        </button>
+    </div>
+</div>
+
+<!-- Botón flotante para abrir el carrito en index.html -->
+<button onclick="document.getElementById('ventana-carrito').style.right='0px'" style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background-color: #00f0ff; border: none; border-radius: 50%; color: #10121a; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,240,255,0.4); z-index: 999;">
+    <i class="fa-solid fa-cart-shopping"></i>
+</button>
 
     </div>
 </footer>
