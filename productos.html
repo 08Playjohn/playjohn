@@ -318,83 +318,7 @@ if (inputBuscador) {
                 seccion.style.setProperty('display', 'none', 'important');
             }
         });
-    });
-}
 
-    // 2. LÓGICA DEL CARRITO DE COMPUTACIÓN
-    let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
-    const btnFlotante = document.getElementById('btn-carrito-flotante');
-    const ventanaCarrito = document.getElementById('ventana-carrito');
-    const btnCerrar = document.getElementById('cerrar-carrito');
-    const listaCarrito = document.getElementById('lista-carrito');
-    const totalCarrito = document.getElementById('total-carrito');
-    const contadorCarrito = document.getElementById('contador-carrito');
-    const btnEnviar = document.getElementById('btn-enviar-carrito');
-
-    if (btnFlotante && ventanaCarrito && btnCerrar) {
-        btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
-        btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = '-400px');
-    }
-
-    function actualizarInterfaz() {
-        if (!listaCarrito || !totalCarrito || !contadorCarrito) return;
-        listaCarrito.innerHTML = '';
-        let total = 0, cantidadTotal = 0;
-        carrito.forEach((item, index) => {
-            total += item.precio * item.cantidad;
-            cantidadTotal += item.cantidad;
-            const div = document.createElement('div');
-            div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #fff; font-size: 0.9rem; border-bottom: 1px solid #222; padding-bottom: 5px;";
-            div.innerHTML = `<div style="flex:1;"><b>${item.nombre}</b><div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div></div><button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>`;
-            listaCarrito.appendChild(div);
-        });
-        totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
-        contadorCarrito.textContent = cantidadTotal;
-        localStorage.setItem('carrito_global', JSON.stringify(carrito));
-    }
-
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('btn-agregar-carrito')) {
-            const nombre = e.target.getAttribute('data-nombre');
-            const precio = parseFloat(e.target.getAttribute('data-precio'));
-            const existe = carrito.find(item => item.nombre === nombre);
-            if (existe) existe.cantidad++; else carrito.push({ nombre, precio, cantidad: 1 });
-            actualizarInterfaz();
-            if (ventanaCarrito) ventanaCarrito.style.right = '0px';
-        }
-        if (e.target && e.target.classList.contains('btn-eliminar')) {
-            carrito.splice(e.target.getAttribute('data-index'), 1);
-            actualizarInterfaz();
-        }
-    });
-
-               if (btnEnviar) {
-        btnEnviar.addEventListener('click', function() {
-            if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
-            let total = 0;
-            carrito.forEach(function(item) {
-                mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
-                total += item.precio * item.cantidad;
-            });
-            mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-            
-                    mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-        
-               mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-        
-        const telefono = "5491141701483"; 
-        // Aquí se incluye la barra '/' indispensable para separar el dominio del número
-       window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
-    });
-}
-
-
-    actualizarInterfaz();
-}); 
-</script>
-
-<script>
  // ============================================================================
 // 3. CONECTOR DE INTEGRACIÓN DIRECTA AUTOMÁTICA CON GOOGLE DRIVE (CONSOLAS)
 // ============================================================================
@@ -421,6 +345,8 @@ async function cargarProductosDesdeDrive() {
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
+                }
+            
 // --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS CORREGIDO (CONSOLAS) ---
 
 // 1. REGLA DE LA SWITCH PRIMERO (Para interceptar nintendoswitch o nintendo-swi antes que nada)
@@ -479,3 +405,36 @@ else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || 
     }
 }
 
+// Función auxiliar encargada del diseño visual original de tus juegos (Fondo oscuro)
+function crearEstructuraTarjetaConsolas(producto) {
+    const nuevaTarjeta = document.createElement('div');
+    nuevaTarjeta.className = 'tarjeta-juego'; 
+    nuevaTarjeta.id = `tarjeta-escaneada-${producto.id}`;
+    nuevaTarjeta.style.width = "280px";
+    nuevaTarjeta.style.boxSizing = "border-box";
+
+    nuevaTarjeta.innerHTML = `
+        <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
+        <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
+        <p class="descripcion">${producto.descripcion || ''}</p>
+        <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+        <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
+        
+        <button class="boton-wpp btn-agregar-carrito" 
+                data-nombre="${producto.nombre}" 
+                data-precio="${producto.precio}" 
+                style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
+            <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
+        </button>
+    `;
+    return nuevaTarjeta;
+}
+
+// Ejecuta la carga automática apenas el navegador termina de estructurar el sitio
+document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+    <!-- El carrito centralizado controla todo de manera global -->
+    <script src="carrito.js"></script>
+
+
+</script>
+</body>
