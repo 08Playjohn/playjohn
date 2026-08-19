@@ -106,7 +106,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 5. ENVIAR PEDIDO POR WHATSAPP (Soporta todos los botones de envío)
+        // ============================================================================
+    // 5. ENVIAR PEDIDO POR WHATSAPP (CON FILTRO DE SEGURIDAD)
+    // ============================================================================
     const btnEnviarCarrito = document.getElementById('btn-enviar-carrito');
     
     window.enviarPedidoWhatsApp = function() {
@@ -120,22 +122,38 @@ document.addEventListener("DOMContentLoaded", function() {
         mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
         
         const telefono = "5491141701483"; 
-        // Corregido a la URL oficial de la API para prevenir bloqueos de caché o barras faltantes
-        window.location.assign("https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje));
+        const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
+        
+        window.location.assign(urlFinal);
     };
 
+    // CORRECCIÓN: Solo le añade el evento si el botón realmente existe en la página actual
     if (btnEnviarCarrito) {
         btnEnviarCarrito.addEventListener('click', enviarPedidoWhatsApp);
     }
 
-    // 6. LOGICA PARA VACIAR EL CARRITO COMPLETO
-    if (btnVaciar) {
+    // ============================================================================
+    // 6. LÓGICA PARA VACIAR EL CARRITO COMPLETO (PROTEGIDO)
+    // ============================================================================
+    // Agregamos un 'if' para que si el Index no tiene este botón, el código siga de largo sin romperse
+    if (typeof btnVaciar !== 'undefined' && btnVaciar) { 
         btnVaciar.addEventListener('click', function() {
             if (confirm("¿Estás seguro de que querés vaciar todo el carrito?")) {
-                carrito = []; // Limpia el arreglo en memoria
-                actualizarInterfaz(); // Sincroniza las pantallas y borra el localStorage
+                carrito = []; 
+                actualizarInterfaz(); 
             }
         });
+    } else {
+        // Alternativa segura por si la variable no se declaró arriba
+        const btnVaciarHtml = document.getElementById('btn-vaciar-carrito');
+        if (btnVaciarHtml) {
+            btnVaciarHtml.addEventListener('click', function() {
+                if (confirm("¿Estás seguro de que querés vaciar todo el carrito?")) {
+                    carrito = []; 
+                    actualizarInterfaz(); 
+                }
+            });
+        }
     }
 
     // Dibujamos el estado inicial al cargar la página actual
