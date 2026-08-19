@@ -435,6 +435,12 @@ function crearEstructuraTarjetaConsolas(producto) {
 
 // Ejecuta la carga automática apenas el navegador termina de estructurar el sitio
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
+<!-- Primero se cargan tus productos o scripts de Drive si es necesario -->
+<script> ... tu lógica de Drive ... </script>
+
+<!-- Al final de todo, el carrito global controla la interacción -->
+<script src="carrito.js"></script>
+</body>
 
 </script>
 
