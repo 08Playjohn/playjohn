@@ -373,8 +373,8 @@ function abrirSoportePlayJohn() {
             <span id="total-carrito">$0</span>
         </div>
         
-              <!-- BOTÓN DIRECTO QUE SALTEA EL CARRITO.JS EN MEMORIA -->
-        <a href="javascript:void(0);" onclick="
+                     <!-- CAMBIO CLAVE: Cambiamos el id a 'btn-enviar-directo' para burlar al script viejo -->
+        <a id="btn-enviar-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
             let total = 0;
@@ -391,8 +391,8 @@ function abrirSoportePlayJohn() {
     </div>
 </div>
 
-<!-- EL CONECTOR GLOBAL: Sincroniza los datos de las otras hojas -->
-<script src="carrito.js?v=4.0"></script>
+<!-- LE CAMBIAMOS EL NÚMERO DE VERSIÓN A 9.0 PARA FORZAR AL NAVEGADOR -->
+<script src="carrito.js?v=9.0"></script>
 
 </body>
 </html>
