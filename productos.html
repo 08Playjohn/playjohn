@@ -389,13 +389,14 @@ async function cargarProductosDesdeDrive() {
             }
         });
 
-        console.log("Catálogo de consolas filtrado y distribuido con éxito.");
+               console.log("Catálogo de consolas filtrado y distribuido con éxito.");
 
     } catch (error) {
         console.error("Error al sincronizar el catálogo de consolas:", error);
     }
 }
 
+// Función auxiliar encargada del diseño visual original de tus juegos
 function crearEstructuraTarjetaConsolas(producto) {
     const nuevaTarjeta = document.createElement('div');
     nuevaTarjeta.className = 'tarjeta-juego'; 
@@ -420,44 +421,32 @@ function crearEstructuraTarjetaConsolas(producto) {
     return nuevaTarjeta;
 }
 
+// Ejecuta la carga automática apenas el navegador termina de estructurar el sitio
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 </script>
-    <!-- Barra lateral del Carrito de Compras -->
-<div id="ventana-carrito" style="position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 9999; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif;">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
-        <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
-        <button class="cerrar-carrito" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
+
+<!-- VENTANA LATERAL DEL CARRITO (Estructura limpia para Consolas) -->
+<div id="ventana-carrito" style="position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #10121a; border-left: 2px solid #00f0ff; box-shadow: -5px 0 25px rgba(0, 240, 255, 0.3); z-index: 100001; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; font-family: sans-serif;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
+        <h3 style="color: #00f0ff; margin: 0; text-transform: uppercase;">🛒 Tu Carrito</h3>
+        <button id="cerrar-carrito" style="background: none; border: none; color: #ff003c; font-size: 1.5rem; cursor: pointer;">&times;</button>
     </div>
-
-    <!-- Lista de productos agregados -->
-    <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
-
-             <!-- CAMBIO CLAVE: Cambiamos el id a 'btn-enviar-directo' para burlar al script viejo -->
-        <a id="btn-enviar-directo" href="javascript:void(0);" onclick="
-            if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
-            let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
-            let total = 0;
-            carrito.forEach(function(item) {
-                mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
-                total += item.precio * item.cantidad;
-            });
-            mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
-            const telefono = '5491141701483';
-            window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
-        " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
+    <div id="lista-carrito" style="flex: 1; overflow-y: auto; margin-bottom: 15px;"></div>
+    
+    <div style="border-top: 1px solid #3a3f58; padding-top: 15px;">
+        <div style="display: flex; justify-content: space-between; font-weight: bold; color: #39ff14; font-size: 1.2rem; margin-bottom: 15px;">
+            <span>Total:</span>
+            <span id="total-carrito">$0</span>
+        </div>
+        <!-- Botón que llama a la función nueva unificada -->
+        <button type="button" onclick="enviarAlWhatsAppFinal()" style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important;">
             <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
-        </a>
+        </button>
     </div>
 </div>
 
-<!-- LE CAMBIAMOS EL NÚMERO DE VERSIÓN A 9.0 PARA FORZAR AL NAVEGADOR -->
-<script src="carrito.js?v=9.0"></script>
-
-</body>
-</html>
-
-<!-- EL CONECTOR GLOBAL: Sincroniza los datos de las otras hojas -->
-<script src="carrito.js?v=5.0"></script>
+<!-- LLAMADA GLOBAL AL SCRIPT CON LA VERSIÓN NUEVA PARTE-9.9 -->
+<script src="carrito.js?v=9.9"></script>
 
 </body>
 </html>
