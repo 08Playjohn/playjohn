@@ -355,7 +355,7 @@ function abrirSoportePlayJohn() {
         </div>
 </footer>
 
-<!-- Barra lateral del Carrito de Compras (Fondo Blanco Adaptado para el Index) -->
+<!-- BARRA LATERAL DEL CARRITO (Estructura Limpia y Reparada para Index) -->
 <div id="ventana-carrito" style="position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 9999; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
         <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
@@ -372,8 +372,8 @@ function abrirSoportePlayJohn() {
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- 🆕 ENLACE DIRECTO INYECTADO PARA EL INDEX: Evita leer la función rota de la caché -->
-        <a href="javascript:void(0);" onclick="
+        <!-- BOTÓN CON ID ÚNICO: Evita la interferencia de cualquier script viejo en memoria -->
+        <a id="btn-enviar-index-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
             let total = 0;
@@ -390,8 +390,8 @@ function abrirSoportePlayJohn() {
     </div>
 </div>
 
-<!-- FORZAMOS VERSIÓN NUEVA PARA EL INDEX -->
-<script src="carrito.js?v=15.0"></script>
+<!-- SUBIMOS A LA VERSIÓN 20.0 PARA FORZAR AL NAVEGADOR A LEER EL CÓDIGO NUEVO -->
+<script src="carrito.js?v=20.0"></script>
 
 </body>
 </html>
