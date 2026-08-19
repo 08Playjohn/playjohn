@@ -373,8 +373,8 @@ function abrirSoportePlayJohn() {
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- CAMBIO ESTRATÉGICO: id='btn-enviar-directo' para que el script viejo no lo congele -->
-        <a id="btn-enviar-directo" href="javascript:void(0);" onclick="
+              <!-- BOTÓN DIRECTO QUE SALTEA EL CARRITO.JS EN MEMORIA -->
+        <a href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
             let total = 0;
