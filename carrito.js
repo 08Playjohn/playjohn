@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
         
         const telefono = "5491141701483"; 
-        window.location.assign("https://wa.me" + telefono + "?text=" + encodeURIComponent(mensaje));
+        window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
     };
 
     // Si la hoja usa el botón con ID de la segunda parte, le asignamos la misma función
