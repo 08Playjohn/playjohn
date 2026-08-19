@@ -1,5 +1,5 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL (VERSION DEFINITIVA)
 // ============================================================================
 
 // Creamos o recuperamos el carrito único para TODAS las pestañas
@@ -12,17 +12,28 @@ document.addEventListener("DOMContentLoaded", function() {
     const totalCarrito = document.getElementById('total-carrito');
     const contadorCarrito = document.getElementById('contador-carrito');
 
-    // Selectores para abrir y cerrar (compatibles con ambas páginas)
+    // Selectores para abrir y cerrar (compatibles con index, productos y computación)
     const btnFlotante = document.getElementById('btn-carrito-flotante');
+    const btnNavbar = document.getElementById('btn-carrito-navbar'); // Para el menú superior
     const btnCerrar = document.getElementById('cerrar-carrito') || document.querySelector('.cerrar-carrito');
+    const btnVaciar = document.getElementById('btn-vaciar-carrito'); // Para vaciar el carrito
 
     // 1. CONTROL DE APERTURA Y CIERRE DE LA VENTANA
     if (btnFlotante && ventanaCarrito) {
         btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
     }
+    
+    // Abre el carrito desde la barra de navegación superior (Ej: en index.html)
+    if (btnNavbar && ventanaCarrito) {
+        btnNavbar.addEventListener('click', function(e) {
+            e.preventDefault(); // Detiene el salto o recarga de la página
+            ventanaCarrito.style.right = '0px';
+        });
+    }
+
     if (btnCerrar && ventanaCarrito) {
         btnCerrar.addEventListener('click', () => {
-            // Se adapta si la ventana usa -400px o -100% en sus estilos
+            // Se adapta si la ventana usa -400px o -100% en sus estilos CSS inline
             ventanaCarrito.style.right = ventanaCarrito.style.width === '320px' ? '-100%' : '-400px';
         });
     }
@@ -47,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             div.innerHTML = `
                 <div style="flex:1;">
-                    <b>${item.nombre}</b>
-                    <div>${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
+                    <b style="color: inherit;">${item.nombre}</b>
+                    <div style="color: inherit; opacity: 0.8;">${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
                 </div>
                 <button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>
             `;
@@ -88,17 +99,16 @@ document.addEventListener("DOMContentLoaded", function() {
             if (ventanaCarrito) ventanaCarrito.style.right = '0px';
         }
         
-        // Detecta si presionamos la "X" para eliminar un producto
+        // Detecta si presionamos la "X" para eliminar un producto individual
         if (e.target && e.target.classList.contains('btn-eliminar')) {
             carrito.splice(e.target.getAttribute('data-index'), 1);
             actualizarInterfaz();
         }
     });
 
-    // 5. ENVIAR PEDIDO POR WHATSAPP (Soporta los dos botones de tus hojas)
-    const btnEnviarComputacion = document.getElementById('btn-enviar-carrito');
+    // 5. ENVIAR PEDIDO POR WHATSAPP (Soporta todos los botones de envío)
+    const btnEnviarCarrito = document.getElementById('btn-enviar-carrito');
     
-    // Función contenedora del mensaje de WhatsApp
     window.enviarPedidoWhatsApp = function() {
         if (carrito.length === 0) return alert("Tu carrito está vacío.");
         let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
@@ -110,14 +120,24 @@ document.addEventListener("DOMContentLoaded", function() {
         mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
         
         const telefono = "5491141701483"; 
-        window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
+        // Corregido a la URL oficial de la API para prevenir bloqueos de caché o barras faltantes
+        window.location.assign("https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje));
     };
 
-    // Si la hoja usa el botón con ID de la segunda parte, le asignamos la misma función
-    if (btnEnviarComputacion) {
-        btnEnviarComputacion.addEventListener('click', enviarPedidoWhatsApp);
+    if (btnEnviarCarrito) {
+        btnEnviarCarrito.addEventListener('click', enviarPedidoWhatsApp);
     }
 
-    // Dibujamos el estado inicial al cargar la página
+    // 6. LOGICA PARA VACIAR EL CARRITO COMPLETO
+    if (btnVaciar) {
+        btnVaciar.addEventListener('click', function() {
+            if (confirm("¿Estás seguro de que querés vaciar todo el carrito?")) {
+                carrito = []; // Limpia el arreglo en memoria
+                actualizarInterfaz(); // Sincroniza las pantallas y borra el localStorage
+            }
+        });
+    }
+
+    // Dibujamos el estado inicial al cargar la página actual
     actualizarInterfaz();
 });
