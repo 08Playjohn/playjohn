@@ -5,7 +5,7 @@
 // Recuperamos o inicializamos el carrito único para todas las páginas
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 
-// Definimos la función de WhatsApp GLOBAL corregida sin textos pegados
+// Definimos la función de WhatsApp GLOBAL corregida con la API oficial impecable
 window.enviarPedidoWhatsApp = function() {
     if (carrito.length === 0) return alert("Tu carrito está vacío.");
     
@@ -19,14 +19,17 @@ window.enviarPedidoWhatsApp = function() {
     
     const telefono = "5491141701483"; 
     
-    // DIRECCIÓN OFICIAL CORREGIDA: Con '://whatsapp.com' para que Chrome no la rechace
-    const urlFinal = "https://://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
+    // URL CORRECTA
+    const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
     
     window.open(urlFinal, '_blank');
 };
 
+// Nueva función de respaldo por si el HTML de alguna hoja llama a este nombre
+window.enviarAlWhatsAppFinal = window.enviarPedidoWhatsApp;
+
 document.addEventListener("DOMContentLoaded", function() {
-    
+  
     // 1. FUNCIÓN PARA REDIBUJAR LA INTERFAZ EN LA PANTALLA ACTUAL
     function actualizarInterfaz() {
         const listaCarrito = document.getElementById('lista-carrito');
