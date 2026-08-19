@@ -355,11 +355,14 @@ function abrirSoportePlayJohn() {
         </div>
 </footer>
 
-<!-- BARRA LATERAL DEL CARRITO (Estructura Limpia y Reparada para Index) -->
+document.addEventListener("DOMContentLoaded", function() {
+    
+</script>
+    <!-- Barra lateral del Carrito de Compras -->
 <div id="ventana-carrito" style="position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 9999; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
         <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
-        <button id="cerrar-carrito" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
+        <button class="cerrar-carrito" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
     </div>
 
     <!-- Lista de productos agregados -->
@@ -371,24 +374,18 @@ function abrirSoportePlayJohn() {
             <span>Total:</span>
             <span id="total-carrito">$0</span>
         </div>
-        
-        <!-- BOTÓN CON ID ÚNICO: Evita la interferencia de cualquier script viejo en memoria -->
-        <a id="btn-enviar-index-directo" href="javascript:void(0);" onclick="
-            if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
-            let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
-            let total = 0;
-            carrito.forEach(function(item) {
-                mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
-                total += item.precio * item.cantidad;
-            });
-            mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
-            const telefono = '5491141701483';
-            window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
-        " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
+        <button onclick="enviarPedidoWhatsApp()" style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
             <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
-        </a>
+        </button>
     </div>
 </div>
+    <!-- El carrito centralizado controla todo de manera global -->
+    <script src="carrito.js"></script>
+</body>
+
+</button>
+
+</body>
 
 <!-- SUBIMOS A LA VERSIÓN 20.0 PARA FORZAR AL NAVEGADOR A LEER EL CÓDIGO NUEVO -->
 <script src="carrito.js?v=20.0"></script>
