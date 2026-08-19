@@ -359,22 +359,21 @@ function abrirSoportePlayJohn() {
 <div id="ventana-carrito" style="position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 9999; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
         <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
-        <!-- Usamos id="cerrar-carrito" para que sea 100% compatible con tu JS externo -->
         <button id="cerrar-carrito" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
     </div>
 
     <!-- Lista de productos agregados -->
     <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
 
-         <!-- Total y Botón de pago -->
+    <!-- Total y Botón de pago -->
     <div style="border-top: 2px solid #10121a; padding-top: 15px;">
         <div style="display: flex; justify-content: space-between; color: #10121a; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">
             <span>Total:</span>
             <span id="total-carrito">$0</span>
         </div>
         
-                     <!-- CAMBIO CLAVE: Cambiamos el id a 'btn-enviar-directo' para burlar al script viejo -->
-        <a id="btn-enviar-directo" href="javascript:void(0);" onclick="
+        <!-- 🆕 ENLACE DIRECTO INYECTADO PARA EL INDEX: Evita leer la función rota de la caché -->
+        <a href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
             let total = 0;
@@ -391,7 +390,7 @@ function abrirSoportePlayJohn() {
     </div>
 </div>
 
-<!-- LE CAMBIAMOS EL NÚMERO DE VERSIÓN A 9.0 PARA FORZAR AL NAVEGADOR -->
+<!-- FORZAMOS VERSIÓN NUEVA PARA EL INDEX -->
 <script src="carrito.js?v=15.0"></script>
 
 </body>
