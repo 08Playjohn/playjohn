@@ -5,11 +5,11 @@
 // Recuperamos o inicializamos el carrito único para todas las páginas
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 
-// Definimos la función de WhatsApp GLOBAL para que responda siempre
+// Asegúrate de que las líneas 10 a 25 de tu carrito.js queden ASÍ:
 window.enviarPedidoWhatsApp = function() {
     if (carrito.length === 0) return alert("Tu carrito está vacío.");
     
-    let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
+    let mensaje = "¡Hola! Quiero realizar el siguiente pedido :\n\n";
     let total = 0;
     carrito.forEach(function(item) {
         mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
@@ -18,6 +18,8 @@ window.enviarPedidoWhatsApp = function() {
     mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
     
     const telefono = "5491141701483"; 
+    
+    // ESTA ES LA LÍNEA CLAVE CORREGIDA:
     const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
     window.location.assign(urlFinal);
 };
