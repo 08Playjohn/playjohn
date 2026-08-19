@@ -432,21 +432,33 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
     <!-- Lista de productos agregados -->
     <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
 
-    <!-- Total y Botón de pago -->
+     <!-- Total y Botón de pago -->
     <div style="border-top: 2px solid #10121a; padding-top: 15px;">
         <div style="display: flex; justify-content: space-between; color: #10121a; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">
             <span>Total:</span>
             <span id="total-carrito">$0</span>
         </div>
-        <button onclick="enviarPedidoWhatsApp()" style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+        
+        <!-- CAMBIO ESTRATÉGICO: id='btn-enviar-directo' para que el script viejo no lo congele -->
+        <a id="btn-enviar-directo" href="javascript:void(0);" onclick="
+            if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
+            let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
+            let total = 0;
+            carrito.forEach(function(item) {
+                mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
+                total += item.precio * item.cantidad;
+            });
+            mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
+            const telefono = '5491141701483';
+            window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
+        " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
             <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
-        </button>
+        </a>
     </div>
 </div>
-    <!-- El carrito centralizado controla todo de manera global -->
-    <script src="carrito.js"></script>
-</body>
 
-</button>
+<!-- EL CONECTOR GLOBAL: Sincroniza los datos de las otras hojas -->
+<script src="carrito.js?v=4.0"></script>
 
 </body>
+</html>
