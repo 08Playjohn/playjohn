@@ -366,15 +366,15 @@ function abrirSoportePlayJohn() {
     <!-- Lista de productos agregados -->
     <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
 
-        <!-- Total y Botón de pago -->
+         <!-- Total y Botón de pago -->
     <div style="border-top: 2px solid #10121a; padding-top: 15px;">
         <div style="display: flex; justify-content: space-between; color: #10121a; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">
             <span>Total:</span>
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- Botón directo inyectado en el HTML: No usa el carrito.js para enviar, evitando la caché congelada -->
-        <a id="btn-enviar-carrito" href="javascript:void(0);" onclick="
+        <!-- CAMBIO ESTRATÉGICO: id='btn-enviar-directo' para que el script viejo no lo congele -->
+        <a id="btn-enviar-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
             let total = 0;
@@ -392,7 +392,7 @@ function abrirSoportePlayJohn() {
 </div>
 
 <!-- EL CONECTOR GLOBAL: Sincroniza los datos de las otras hojas -->
-<script src="carrito.js?v=3.0"></script>
+<script src="carrito.js?v=4.0"></script>
 
 </body>
 </html>
