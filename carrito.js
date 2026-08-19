@@ -1,11 +1,11 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - VERSIÓN ULTRA SEGURA
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - CORREGIDO
 // ============================================================================
 
 // Recuperamos o inicializamos el carrito único para todas las páginas
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 
-// Definimos la función de WhatsApp GLOBAL para que los atributos onclick="enviarPedidoWhatsApp()" respondan siempre
+// Definimos la función de WhatsApp GLOBAL para que responda siempre
 window.enviarPedidoWhatsApp = function() {
     if (carrito.length === 0) return alert("Tu carrito está vacío.");
     
@@ -34,8 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
         listaCarrito.innerHTML = '';
         let total = 0, cantidadTotal = 0;
         
-        // Identificamos en qué hoja estamos usando la ruta del archivo
-        const esIndex O ProductosClaro = window.location.pathname.includes('index.html') || window.location.pathname.includes('productos.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
+        // Identificamos en qué hoja estamos de forma segura (sin espacios rotos)
+        const rutaActual = window.location.pathname;
+        const esHojaClara = rutaActual.includes('index.html') || rutaActual.includes('productos.html') || rutaActual === '/' || rutaActual.endsWith('/');
 
         carrito.forEach((item, index) => {
             total += item.precio * item.cantidad;
@@ -44,8 +45,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const div = document.createElement('div');
             div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(128,128,128,0.2); padding-bottom: 5px; font-size: 0.9rem;";
             
-            // CORRECCIÓN ELIMINADA: Usamos la ruta en lugar de getComputedStyle para evitar el congelamiento
-            div.style.color = esIndexOProductosClaro ? '#10121a' : '#fff';
+            // Si es Index o Productos ponemos letra oscura, si es Computación ponemos letra blanca
+            div.style.color = esHojaClara ? '#10121a' : '#fff';
 
             div.innerHTML = `
                 <div style="flex:1;">
@@ -118,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 5. ENLAZAR BOTÓN DE ENVIAR (Para navegadores que no capten el onclick directo)
+    // 5. ENLAZAR BOTÓN DE ENVIAR (Soporte para clics manuales)
     const btnEnviarCarrito = document.getElementById('btn-enviar-carrito');
     if (btnEnviarCarrito) {
         btnEnviarCarrito.addEventListener('click', enviarPedidoWhatsApp);
