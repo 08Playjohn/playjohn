@@ -438,15 +438,27 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
             <span>Total:</span>
             <span id="total-carrito">$0</span>
         </div>
-        <!-- Botón que llama a la función nueva unificada -->
-        <button type="button" onclick="enviarAlWhatsAppFinal()" style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important;">
+        
+        <!-- 🆕 NUEVO ENLACE DIRECTO INYECTADO: Evita leer la función rota de carrito.js -->
+        <a href="javascript:void(0);" onclick="
+            if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
+            let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
+            let total = 0;
+            carrito.forEach(function(item) {
+                mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
+                total += item.precio * item.cantidad;
+            });
+            mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
+            const telefono = '5491141701483';
+            window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
+        " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
             <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
-        </button>
+        </a>
     </div>
 </div>
 
-<!-- LLAMADA GLOBAL AL SCRIPT CON LA VERSIÓN NUEVA PARTE-9.9 -->
-<script src="carrito.js?v=9.9"></script>
+<!-- FORZAMOS VERSIÓN NUEVA PARA ROMPER EL CACHÉ RESTANTE -->
+<script src="carrito.js?v=15.0"></script>
 
 </body>
 </html>
