@@ -1,5 +1,5 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - CORREGIDO
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - VERSIÓN FINAL FIX
 // ============================================================================
 
 // Recuperamos o inicializamos el carrito único para todas las páginas
@@ -33,27 +33,21 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!listaCarrito) return;
         listaCarrito.innerHTML = '';
         let total = 0, cantidadTotal = 0;
-        
-        // Identificamos en qué hoja estamos de forma segura (sin espacios rotos)
-        const rutaActual = window.location.pathname;
-        const esHojaClara = rutaActual.includes('index.html') || rutaActual.includes('productos.html') || rutaActual === '/' || rutaActual.endsWith('/');
 
         carrito.forEach((item, index) => {
             total += item.precio * item.cantidad;
             cantidadTotal += item.cantidad;
             
             const div = document.createElement('div');
-            div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(128,128,128,0.2); padding-bottom: 5px; font-size: 0.9rem;";
-            
-            // Si es Index o Productos ponemos letra oscura, si es Computación ponemos letra blanca
-            div.style.color = esHojaClara ? '#10121a' : '#fff';
+            // Diseñamos una pequeña tarjeta interna oscura con letras blancas ultra legible para todas las hojas
+            div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 8px; font-size: 0.9rem; background-color: #1a1d29; border-radius: 4px; color: #fff !important;";
 
             div.innerHTML = `
-                <div style="flex:1;">
-                    <b style="color: inherit;">${item.nombre}</b>
-                    <div style="color: inherit; opacity: 0.8;">${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
+                <div style="flex:1; color: #fff !important;">
+                    <b style="color: #fff !important; display: block; margin-bottom: 3px;">${item.nombre}</b>
+                    <div style="color: #39ff14 !important; font-weight: bold;">${item.cantidad} x $${item.precio.toLocaleString('es-AR')}</div>
                 </div>
-                <button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c; cursor:pointer; font-size:1.2rem;">&times;</button>
+                <button class="btn-eliminar" data-index="${index}" style="background:none; border:none; color:#ff003c !important; cursor:pointer; font-size:1.4rem; padding: 0 5px;">&times;</button>
             `;
             listaCarrito.appendChild(div);
         });
@@ -111,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 4. ESCUCHAR CAMBIOS DESDE OTRAS PESTAÑAS (Sincronización instantánea)
+    // 4. ESCUCHAR CAMBIOS DESDE OTRAS PESTAÑAS
     window.addEventListener('storage', function(e) {
         if (e.key === 'carrito_global') {
             carrito = JSON.parse(e.newValue) || [];
@@ -119,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 5. ENLAZAR BOTÓN DE ENVIAR (Soporte para clics manuales)
+    // 5. ENLAZAR BOTÓN DE ENVIAR (Doble compatibilidad)
     const btnEnviarCarrito = document.getElementById('btn-enviar-carrito');
     if (btnEnviarCarrito) {
         btnEnviarCarrito.addEventListener('click', enviarPedidoWhatsApp);
@@ -136,6 +130,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Dibujamos el estado inicial al cargar la página actual
+    // Dibujamos el estado inicial al cargar la página
     actualizarInterfaz();
 });
