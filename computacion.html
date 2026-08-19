@@ -195,10 +195,11 @@ if (inputBuscador) {
 
 <script>
 // ============================================================================
-// 2. REGISTRO Y REACTIVACIÓN DE CLICS PARA EL CARRITO DE HARDWARE
+// 2. REGISTRO Y REACTIVACIÓN DE CLICS PARA EL CARRITO UNIFICADO
 // ============================================================================
 document.addEventListener("DOMContentLoaded", function() {
-    let carrito = JSON.parse(localStorage.getItem('carrito_computacion')) || [];
+    // CAMBIO: Ahora usamos 'carrito_global' en todas las páginas
+    let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
     const ventanaCarrito = document.getElementById('ventana-carrito');
     const listaCarrito = document.getElementById('lista-carrito');
     const totalCarrito = document.getElementById('total-carrito');
@@ -220,8 +221,18 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
         contadorCarrito.textContent = cantidadTotal;
-        localStorage.setItem('carrito_computacion', JSON.stringify(carrito));
+        
+        // CAMBIO: Guarda en la caja fuerte común 'carrito_global'
+        localStorage.setItem('carrito_global', JSON.stringify(carrito));
     }
+
+    // NUEVO: Escucha cambios en tiempo real desde las otras pestañas abiertas
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'carrito_global') {
+            carrito = JSON.parse(e.newValue) || [];
+            actualizarInterfaz(); // Redibuja el carrito de esta pestaña automáticamente
+        }
+    });
 
     // Oyente global de clics: Captura los botones de tarjetas dinámicas recién bajadas de Drive
     document.addEventListener('click', function(e) {
@@ -234,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (existe) {
                 existe.cantidad++; 
             } else { 
-                carrito.push({ nombre: nombre, precio: precio, cantidad: 1 }); 
+                carrito.push({ nombre: nombre, precio: precio, candy: 1, cantidad: 1 }); 
             }
             actualizarInterfaz();
             if (ventanaCarrito) ventanaCarrito.style.right = '0px';
@@ -248,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (btnEnviar) {
         btnEnviar.addEventListener('click', function() {
             if (carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola! Quiero realizar el siguiente pedido de Computación:\n\n";
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
             let total = 0;
             carrito.forEach(function(item) {
                 mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
@@ -257,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
             mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
             
             const telefono = "5491141701483"; 
-          window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
+            window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
         });
     }
 
