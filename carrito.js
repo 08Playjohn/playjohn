@@ -1,45 +1,18 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL (VERSION DEFINITIVA)
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - SEGURO CONTRA ERRORES
 // ============================================================================
 
-// Creamos o recuperamos el carrito único para TODAS las pestañas
+// Recuperamos o inicializamos el carrito único para todas las páginas
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Capturamos los elementos que existan en la página actual
-    const ventanaCarrito = document.getElementById('ventana-carrito');
-    const listaCarrito = document.getElementById('lista-carrito');
-    const totalCarrito = document.getElementById('total-carrito');
-    const contadorCarrito = document.getElementById('contador-carrito');
-
-    // Selectores para abrir y cerrar (compatibles con index, productos y computación)
-    const btnFlotante = document.getElementById('btn-carrito-flotante');
-    const btnNavbar = document.getElementById('btn-carrito-navbar'); // Para el menú superior
-    const btnCerrar = document.getElementById('cerrar-carrito') || document.querySelector('.cerrar-carrito');
-    const btnVaciar = document.getElementById('btn-vaciar-carrito'); // Para vaciar el carrito
-
-    // 1. CONTROL DE APERTURA Y CIERRE DE LA VENTANA
-    if (btnFlotante && ventanaCarrito) {
-        btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
-    }
-    
-    // Abre el carrito desde la barra de navegación superior (Ej: en index.html)
-    if (btnNavbar && ventanaCarrito) {
-        btnNavbar.addEventListener('click', function(e) {
-            e.preventDefault(); // Detiene el salto o recarga de la página
-            ventanaCarrito.style.right = '0px';
-        });
-    }
-
-    if (btnCerrar && ventanaCarrito) {
-        btnCerrar.addEventListener('click', () => {
-            // Se adapta si la ventana usa -400px o -100% en sus estilos CSS inline
-            ventanaCarrito.style.right = ventanaCarrito.style.width === '320px' ? '-100%' : '-400px';
-        });
-    }
-
-    // 2. FUNCIÓN PARA REDIBUJAR LA INTERFAZ EN PANTALLA
+    // 1. FUNCIÓN PARA REDIBUJAR LA INTERFAZ EN LA PANTALLA ACTUAL
     function actualizarInterfaz() {
+        const listaCarrito = document.getElementById('lista-carrito');
+        const totalCarrito = document.getElementById('total-carrito');
+        const contadorCarrito = document.getElementById('contador-carrito');
+        const ventanaCarrito = document.getElementById('ventana-carrito');
+
         if (!listaCarrito) return;
         listaCarrito.innerHTML = '';
         let total = 0, cantidadTotal = 0;
@@ -49,12 +22,13 @@ document.addEventListener("DOMContentLoaded", function() {
             cantidadTotal += item.cantidad;
             
             const div = document.createElement('div');
-            // Estilos adaptables (flexibles tanto para fondo blanco como oscuro)
             div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(128,128,128,0.2); padding-bottom: 5px; font-size: 0.9rem;";
             
-            // Evaluamos si la hoja actual es la de diseño oscuro o claro para el color del texto
-            const esFondoOscuro = window.getComputedStyle(ventanaCarrito).backgroundColor === 'rgb(16, 18, 26)';
-            div.style.color = esFondoOscuro ? '#fff' : '#10121a';
+            // Evaluamos dinámicamente si la ventana de la página actual es de fondo oscuro o claro
+            if (ventanaCarrito) {
+                const esFondoOscuro = window.getComputedStyle(ventanaCarrito).backgroundColor === 'rgb(16, 18, 26)';
+                div.style.color = esFondoOscuro ? '#fff' : '#10121a';
+            }
 
             div.innerHTML = `
                 <div style="flex:1;">
@@ -69,21 +43,36 @@ document.addEventListener("DOMContentLoaded", function() {
         if (totalCarrito) totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
         if (contadorCarrito) contadorCarrito.textContent = cantidadTotal;
         
-        // Guardamos en la "caja fuerte" común del navegador
+        // Sincronizamos con la memoria global del navegador
         localStorage.setItem('carrito_global', JSON.stringify(carrito));
     }
 
-    // 3. ESCUCHAR CAMBIOS DESDE OTRAS PESTAÑAS ABIERTAS (Sincronización en vivo)
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'carrito_global') {
-            carrito = JSON.parse(e.newValue) || [];
-            actualizarInterfaz();
-        }
-    });
+    // 2. CONTROL DE APERTURA Y CIERRE DE LA VENTANA LATERAL
+    const btnFlotante = document.getElementById('btn-carrito-flotante');
+    const btnNavbar = document.getElementById('btn-carrito-navbar');
+    const btnCerrar = document.getElementById('cerrar-carrito') || document.querySelector('.cerrar-carrito');
+    const ventanaCarrito = document.getElementById('ventana-carrito');
 
-    // 4. CAPTURA DE CLICS EN BOTONES (Agregar y Eliminar)
+    if (btnFlotante && ventanaCarrito) {
+        btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
+    }
+    
+    if (btnNavbar && ventanaCarrito) {
+        btnNavbar.addEventListener('click', function(e) {
+            e.preventDefault();
+            ventanaCarrito.style.right = '0px';
+        });
+    }
+
+    if (btnCerrar && ventanaCarrito) {
+        btnCerrar.addEventListener('click', () => {
+            ventanaCarrito.style.right = ventanaCarrito.style.width === '320px' ? '-100%' : '-400px';
+        });
+    }
+
+    // 3. CAPTURA DE CLICS GLOBAL (Agregar y Eliminar Productos)
     document.addEventListener('click', function(e) {
-        // Detecta si presionamos "Agregar al carrito"
+        // Evento Agregar Producto al Carrito
         if (e.target && (e.target.classList.contains('btn-agregar-carrito') || e.target.closest('.btn-agregar-carrito'))) {
             let targetButton = e.target.classList.contains('btn-agregar-carrito') ? e.target : e.target.closest('.btn-agregar-carrito');
             const nombre = targetButton.getAttribute('data-nombre');
@@ -99,16 +88,22 @@ document.addEventListener("DOMContentLoaded", function() {
             if (ventanaCarrito) ventanaCarrito.style.right = '0px';
         }
         
-        // Detecta si presionamos la "X" para eliminar un producto individual
+        // Evento Eliminar Producto Individual
         if (e.target && e.target.classList.contains('btn-eliminar')) {
             carrito.splice(e.target.getAttribute('data-index'), 1);
             actualizarInterfaz();
         }
     });
 
-        // ============================================================================
-    // 5. ENVIAR PEDIDO POR WHATSAPP (CON FILTRO DE SEGURIDAD)
-    // ============================================================================
+    // 4. ESCUCHAR CAMBIOS DESDE OTRAS PESTAÑAS (Sincronización instantánea)
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'carrito_global') {
+            carrito = JSON.parse(e.newValue) || [];
+            actualizarInterfaz();
+        }
+    });
+
+    // 5. ENVIAR PEDIDO POR WHATSAPP (Aislado de forma segura)
     const btnEnviarCarrito = document.getElementById('btn-enviar-carrito');
     
     window.enviarPedidoWhatsApp = function() {
@@ -123,37 +118,22 @@ document.addEventListener("DOMContentLoaded", function() {
         
         const telefono = "5491141701483"; 
         const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
-        
         window.location.assign(urlFinal);
     };
 
-    // CORRECCIÓN: Solo le añade el evento si el botón realmente existe en la página actual
     if (btnEnviarCarrito) {
         btnEnviarCarrito.addEventListener('click', enviarPedidoWhatsApp);
     }
 
-    // ============================================================================
-    // 6. LÓGICA PARA VACIAR EL CARRITO COMPLETO (PROTEGIDO)
-    // ============================================================================
-    // Agregamos un 'if' para que si el Index no tiene este botón, el código siga de largo sin romperse
-    if (typeof btnVaciar !== 'undefined' && btnVaciar) { 
-        btnVaciar.addEventListener('click', function() {
+    // 6. LÓGICA DE VACIADO DEL CARRITO COMPLETO (Aislado de forma segura)
+    const btnVaciarHtml = document.getElementById('btn-vaciar-carrito');
+    if (btnVaciarHtml) {
+        btnVaciarHtml.addEventListener('click', function() {
             if (confirm("¿Estás seguro de que querés vaciar todo el carrito?")) {
                 carrito = []; 
                 actualizarInterfaz(); 
             }
         });
-    } else {
-        // Alternativa segura por si la variable no se declaró arriba
-        const btnVaciarHtml = document.getElementById('btn-vaciar-carrito');
-        if (btnVaciarHtml) {
-            btnVaciarHtml.addEventListener('click', function() {
-                if (confirm("¿Estás seguro de que querés vaciar todo el carrito?")) {
-                    carrito = []; 
-                    actualizarInterfaz(); 
-                }
-            });
-        }
     }
 
     // Dibujamos el estado inicial al cargar la página actual
