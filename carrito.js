@@ -1,15 +1,15 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - VERSIÓN FINAL FIX
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - VERSIÓN ULTRA FIX
 // ============================================================================
 
 // Recuperamos o inicializamos el carrito único para todas las páginas
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 
-// Asegúrate de que las líneas 10 a 25 de tu carrito.js queden ASÍ:
+// Definimos la función de WhatsApp GLOBAL corregida sin textos pegados
 window.enviarPedidoWhatsApp = function() {
     if (carrito.length === 0) return alert("Tu carrito está vacío.");
     
-    let mensaje = "¡Hola! Quiero realizar el siguiente pedido :\n\n";
+    let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
     let total = 0;
     carrito.forEach(function(item) {
         mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
@@ -19,9 +19,10 @@ window.enviarPedidoWhatsApp = function() {
     
     const telefono = "5491141701483"; 
     
-    // ESTA ES LA LÍNEA CLAVE CORREGIDA:
-    const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
-    window.location.assign(urlFinal);
+    // DIRECCIÓN OFICIAL CORREGIDA: Con '://whatsapp.com' para que Chrome no la rechace
+    const urlFinal = "https://://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
+    
+    window.open(urlFinal, '_blank');
 };
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -41,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
             cantidadTotal += item.cantidad;
             
             const div = document.createElement('div');
-            // Diseñamos una pequeña tarjeta interna oscura con letras blancas ultra legible para todas las hojas
             div.style.cssText = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 8px; font-size: 0.9rem; background-color: #1a1d29; border-radius: 4px; color: #fff !important;";
 
             div.innerHTML = `
@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (totalCarrito) totalCarrito.textContent = `$${total.toLocaleString('es-AR')}`;
         if (contadorCarrito) contadorCarrito.textContent = cantidadTotal;
         
-        // Sincronizamos con la memoria global del navegador
         localStorage.setItem('carrito_global', JSON.stringify(carrito));
     }
 
@@ -115,11 +114,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 5. ENLAZAR BOTÓN DE ENVIAR (Doble compatibilidad)
-    const btnEnviarCarrito = document.getElementById('btn-enviar-carrito');
-    if (btnEnviarCarrito) {
-        btnEnviarCarrito.addEventListener('click', enviarPedidoWhatsApp);
-    }
+    // 5. ENLAZAR BOTÓN DE ENVIAR GLOBAL
+    document.addEventListener('click', function(e) {
+        if (e.target && (e.target.id === 'btn-enviar-carrito' || e.target.id === 'btn-enviar-directo' || e.target.closest('#btn-enviar-carrito') || e.target.closest('#btn-enviar-directo'))) {
+            enviarPedidoWhatsApp();
+        }
+    });
 
     // 6. LÓGICA DE VACIADO DEL CARRITO COMPLETO
     const btnVaciarHtml = document.getElementById('btn-vaciar-carrito');
@@ -132,6 +132,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Dibujamos el estado inicial al cargar la página
     actualizarInterfaz();
 });
