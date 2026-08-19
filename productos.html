@@ -439,8 +439,8 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- CAMBIO ESTRATÉGICO: id='btn-enviar-directo' para que el script viejo no lo congele -->
-        <a id="btn-enviar-directo" href="javascript:void(0);" onclick="
+               <!-- BOTÓN DIRECTO QUE SALTEA EL CARRITO.JS EN MEMORIA -->
+        <a href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
             let total = 0;
@@ -454,6 +454,7 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
         " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
             <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
         </a>
+
     </div>
 </div>
 
