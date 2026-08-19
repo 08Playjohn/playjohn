@@ -311,7 +311,7 @@ if (inputBuscador) {
                 }
             });
             
-            // Si la consola se quedó sin juegos que coincidan, ocultamos el bloque entero (título incluido)
+                       // Si la consola se quedó sin juegos que coincidan, ocultamos el bloque entero (título incluido)
             if (tieneCoincidencias || texto === '') {
                 seccion.style.display = '';
             } else {
@@ -319,15 +319,13 @@ if (inputBuscador) {
             }
         });
     });
-}
-
+} // <-- CORRECCIÓN 1: Cerramos correctamente la función del buscador aquí
 </script>
 
 <script>
- // ============================================================================
+// ============================================================================
 // 3. CONECTOR DE INTEGRACIÓN DIRECTA AUTOMÁTICA CON GOOGLE DRIVE (CONSOLAS)
 // ============================================================================
-// Enlace corregido y limpio sin el duplicado
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
 let productosDriveConsolas = [];
 
@@ -340,53 +338,43 @@ async function cargarProductosDesdeDrive() {
         productosDriveConsolas = productosLista; 
         console.log("Conexión exitosa. Catálogo de Consolas recibido de Drive.");
 
-        // Lista de palabras clave que pertenecen a la otra página y deben ignorarse acá
         const CATEGORIAS_A_BLOQUEAR = ["computacion", "accesorios-otros", "accesorios", "cables", "mouses", "teclados", "auriculares", "auricular"];
 
         productosLista.forEach(producto => {
             if (producto && producto.categoria) {
                 
-                // Formateamos la categoría para poder compararla limpiamente
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
-// --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS CORREGIDO (CONSOLAS) ---
 
-// 1. REGLA DE LA SWITCH PRIMERO (Para interceptar nintendoswitch o nintendo-swi antes que nada)
-if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi" || catFormateada === "nintendo") {
-    catFormateada = "nintendo-switch"; 
-}
+                // --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS (CONSOLAS) ---
+                if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi" || catFormateada === "nintendo") {
+                    catFormateada = "nintendo-switch"; 
+                }
+                else if (catFormateada === "playstation-2" || catFormateada === "playstation2" || catFormateada === "ps-2" || catFormateada === "ps2") {
+                    catFormateada = "ps2";
+                }
+                else if (catFormateada === "playstation-3" || catFormateada === "playstation3" || catFormateada === "ps-3" || catFormateada === "ps3") {
+                    catFormateada = "ps3";
+                }
+                else if (catFormateada === "playstation-4" || catFormateada === "playstation4" || catFormateada === "ps-4" || catFormateada === "ps4") {
+                    catFormateada = "ps4";
+                }
+                else if (catFormateada === "playstation-5" || catFormateada === "playstation5" || catFormateada === "ps-5" || catFormateada === "ps5") {
+                    catFormateada = "ps5";
+                }
+                else if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
+                    catFormateada = "xbox-360";
+                }
+                else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
+                    catFormateada = "xbox-series";
+                }
 
-// 2. REGLAS DE PLAYSTATION Y XBOX ABAJO
-else if (catFormateada === "playstation-2" || catFormateada === "playstation2" || catFormateada === "ps-2" || catFormateada === "ps2") {
-    catFormateada = "ps2";
-}
-else if (catFormateada === "playstation-3" || catFormateada === "playstation3" || catFormateada === "ps-3" || catFormateada === "ps3") {
-    catFormateada = "ps3";
-}
-else if (catFormateada === "playstation-4" || catFormateada === "playstation4" || catFormateada === "ps-4" || catFormateada === "ps4") {
-    catFormateada = "ps4";
-}
-else if (catFormateada === "playstation-5" || catFormateada === "playstation5" || catFormateada === "ps-5" || catFormateada === "ps5") {
-    catFormateada = "ps5";
-}
-else if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
-    catFormateada = "xbox-360";
-}
-else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
-    catFormateada = "xbox-series";
-}
-
-
-
-                // 🛡️ CONTROL DE EXCLUSIÓN: Si es un auricular o periférico, se frena acá y NO entra a PS2
                 if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) {
                     return; 
                 }
 
-                // Si pasa el filtro, se dibuja normalmente en su consola correspondiente
                 if (!document.getElementById(`tarjeta-escaneada-${producto.id}`)) {
-                    
                     let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
 
                     if (!contenedorDestino) {
@@ -408,7 +396,6 @@ else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || 
     }
 }
 
-// Función auxiliar encargada del diseño visual original de tus juegos (Fondo oscuro)
 function crearEstructuraTarjetaConsolas(producto) {
     const nuevaTarjeta = document.createElement('div');
     nuevaTarjeta.className = 'tarjeta-juego'; 
@@ -433,14 +420,10 @@ function crearEstructuraTarjetaConsolas(producto) {
     return nuevaTarjeta;
 }
 
-// Ejecuta la carga automática apenas el navegador termina de estructurar el sitio
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
-<!-- Primero se cargan tus productos o scripts de Drive si es necesario -->
-<script> ... tu lógica de Drive ... </script>
+</script>
 
-<!-- Al final de todo, el carrito global controla la interacción -->
+<!-- CORRECCIÓN 2: Eliminamos textos basura y dejamos solo el script unificado limpio antes del cierre de página -->
 <script src="carrito.js"></script>
 </body>
-
 </html>
-
