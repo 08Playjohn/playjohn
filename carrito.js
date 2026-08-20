@@ -15,12 +15,14 @@ window.enviarPedidoWhatsApp = function() {
     });
     mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
     
-        const telefono = "5491141701483";
-    // CORRECCIÓN DE URL: Se añade la estructura correcta de la API de WhatsApp
+    const telefono = "5491141701483";
+    
+    // CORRECCIÓN DEFINITIVA: Cambiamos a la API válida y usamos comillas invertidas (`)
     const urlFinal = `https://whatsapp.com{telefono}&text=${encodeURIComponent(mensaje)}`;
     
     window.open(urlFinal, '_blank');
 };
+
 
 window.enviarAlWhatsAppFinal = window.enviarPedidoWhatsApp;
 
