@@ -109,9 +109,23 @@
                 <span>Total:</span>
                 <span id="total-carrito">$0</span>
             </div>
-            <button id="btn-enviar-carrito" style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">Enviar Pedido</button>
-        </div>
-    </div>
+                        <!-- REEMPLAZO DEFINITIVO: Botón con acción inyectada de forma segura y directa -->
+            <button id="btn-enviar-carrito" onclick="
+                if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
+                let mensaje = '¡Hola! Quiero realizar el siguiente pedido:\n\n';
+                let total = 0;
+                carrito.forEach(function(item) {
+                    mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
+                    total += item.precio * item.cantidad;
+                });
+                mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
+                const telefono = '5491141701483';
+                // SE AGREGA LA API OFICIAL DE WHATSAPP DIRECTAMENTE AQUÍ:
+                window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
+            " style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">
+                Enviar Pedido
+            </button>
+
 
     <!-- ================= PIE DE PÁGINA Y TÉRMINOS LEGALES ================= -->
     <footer style="background-color: #0b0c10; color: #aaaaaa; padding: 40px 20px; font-family: sans-serif; border-top: 2px solid #3a3f58; font-size: 0.85rem; line-height: 1.6; clear: both; width: 100%; box-sizing: border-box; display: block !important; position: relative; margin-top: 60px;">
