@@ -147,14 +147,14 @@
                 estado.innerHTML = `✅ ¡Se encontraron ${encontrados} productos de computación y consolas!`;
             }
 
-             } catch (error) {
+          } catch (error) {
             console.error("Error en el buscador de Drive:", error);
             estado.innerHTML = "❌ Hubo un inconveniente al conectar con la base de datos de Google Drive.";
         }
     });
 </script>
 
-<!-- VENTANA LATERAL DEL CARRITO -->
+<!-- VENTANA LATERAL DEL CARRITO (Estructura Limpia para Buscar) -->
 <div id="ventana-carrito" style="position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #10121a; border-left: 2px solid #00f0ff; box-shadow: -5px 0 25px rgba(0, 240, 255, 0.3); z-index: 100001; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; font-family: sans-serif;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
         <h3 style="color: #00f0ff; margin: 0; text-transform: uppercase;">🛒 Tu Carrito</h3>
@@ -168,7 +168,7 @@
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- Botón de enviar directo corregido con la API oficial -->
+        <!-- BOTÓN DIRECTO QUE EVITA LA INTERFERENCIA DE LA CACHÉ -->
         <a id="btn-enviar-buscar-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
@@ -186,8 +186,8 @@
     </div>
 </div>
 
-<!-- 🔑 EL CONECTOR CLAVE: Vincula el buscador con el carrito centralizado -->
-<script src="carrito.js?v=30.0"></script>
+<!-- LE CITAMOS LA VERSIÓN 99.0 PARA ENTERRAR DEFINITIVAMENTE EL CACHÉ VIEJO -->
+<script src="carrito.js?v=99.0"></script>
 
 </body>
 </html>
