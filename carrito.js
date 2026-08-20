@@ -14,14 +14,17 @@ window.enviarPedidoWhatsApp = function() {
     });
     mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
     
-        const telefono = "5491141701483"; 
-        // Aquí se incluye la barra '/' indispensable para separar el dominio del número
-       window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
-    });
-}
+    const telefono = "5491141701483";
+    
+    // CORRECCIÓN DEFINITIVA: Cambiamos a la API válida y usamos comillas invertidas (`)
+    const urlFinal = `https://whatsapp.com{telefono}&text=${encodeURIComponent(mensaje)}`;
+    
+    window.open(urlFinal, '_blank');
+};
+
+
 window.enviarAlWhatsAppFinal = window.enviarPedidoWhatsApp;
-      
-       
+  
    
 document.addEventListener("DOMContentLoaded", function() {
     
