@@ -429,6 +429,40 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 </div>
 
 <script src="carrito.js"></script>
+<!-- 🆕 LÓGICA AISLADA DE LA BARRA DE BÚSQUEDA (Evita errores de copiado) -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Buscamos tu barra de búsqueda por su ID oficial
+    const inputBuscador = document.getElementById('buscador-juegos');
+    
+    if (inputBuscador) {
+        inputBuscador.addEventListener('input', function(e) {
+            // Pasamos a minúsculas lo que escribe el usuario para que no importen las mayúsculas
+            const textoBusqueda = e.target.value.toLowerCase().trim();
+            
+            // Capturamos todas las tarjetas de consolas y juegos que cargó Drive
+            const todasLasTarjetas = document.querySelectorAll('.tarjeta-juego');
+            
+            todasLasTarjetas.forEach(tarjeta => {
+                const tituloProducto = tarjeta.querySelector('h3');
+                if (tituloProducto) {
+                    const nombreProducto = tituloProducto.textContent.toLowerCase();
+                    
+                    // Si el nombre contiene la palabra, se muestra; si no, se oculta
+                    if (nombreProducto.includes(textoBusqueda)) {
+                        tarjeta.style.display = "block";
+                    } else {
+                        tarjeta.style.display = "none";
+                    }
+                }
+            });
+        });
+        console.log("🚀 Buscador independiente activado y escuchando el teclado con éxito.");
+    } else {
+        console.error("❌ No se encontró el input con el id 'buscador-juegos'.");
+    }
+});
+</script>
 
 </body>
 </html>
