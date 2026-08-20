@@ -405,7 +405,7 @@ body {
 /* IMPORTANTE: Espaciador para que el primer producto (PS2) no quede tapado al cargar */
 main, .cuerpo-pagina, body > section:first-of-type {
     margin-top: 260px !important; /* Ajusta este número según el alto real de tu menú fijo */
-}
+
 /* ============================================================================
    BOTÓN WHATSAPP: SIEMPRE FIJO ABAJO, PERO PASA POR DEBAJO DEL MENÚ SUPERIOR
    ============================================================================ */
