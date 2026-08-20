@@ -330,71 +330,72 @@ const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaput
 let productosDriveConsolas = [];
 
 async function cargarProductosDesdeDrive() {
+    const contenedor = document.getElementById('contenedor-juegos');
+    if (!contenedor) return;
+
     try {
-        console.log("Iniciando sincronización directa de consolas con Google Drive...");
+        console.log("Sincronizando consolas con Google Drive...");
         const response = await fetch(DRIVE_API_URL);
         const productosLista = await response.json();
         
+        // Guardamos la lista original para que el buscador de texto funcione
         productosDriveConsolas = productosLista; 
-        console.log("Conexión exitosa. Catálogo de Consolas recibido de Drive.");
+        contenedor.innerHTML = ""; 
 
         const CATEGORIAS_A_BLOQUEAR = ["computacion", "accesorios-otros", "accesorios", "cables", "mouses", "teclados", "auriculares", "auricular"];
 
         productosLista.forEach(producto => {
             if (producto && producto.categoria) {
-                
+                // Forzamos el ID y limpiamos el precio para evitar el error de los $0
+                let precioLimpio = 0;
+                if (producto.precio) {
+                    // Quitamos signos de pesos, puntos de miles y espacios que rompen la conversión
+                    let stringPrecio = producto.precio.toString().replace(/[^0-9.,]/g, '');
+                    precioLimpio = parseFloat(stringPrecio) || 0;
+                }
+
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
 
-                // --- PARCHE DE EQUIVALENCIAS DE CATEGORÍAS (CONSOLAS) ---
-                if (catFormateada === "nintendo-switch" || catFormateada === "nintendoswitch" || catFormateada === "nintendo-swi" || catFormateada === "nintendo") {
-                    catFormateada = "nintendo-switch"; 
-                }
-                else if (catFormateada === "playstation-2" || catFormateada === "playstation2" || catFormateada === "ps-2" || catFormateada === "ps2") {
-                    catFormateada = "ps2";
-                }
-                else if (catFormateada === "playstation-3" || catFormateada === "playstation3" || catFormateada === "ps-3" || catFormateada === "ps3") {
-                    catFormateada = "ps3";
-                }
-                else if (catFormateada === "playstation-4" || catFormateada === "playstation4" || catFormateada === "ps-4" || catFormateada === "ps4") {
-                    catFormateada = "ps4";
-                }
-                else if (catFormateada === "playstation-5" || catFormateada === "playstation5" || catFormateada === "ps-5" || catFormateada === "ps5") {
-                    catFormateada = "ps5";
-                }
-                else if (catFormateada === "xbox360" || catFormateada === "xbox-360") {
-                    catFormateada = "xbox-360";
-                }
-                else if (catFormateada === "xboxseries" || catFormateada === "xbox-series-s" || catFormateada === "xbox-series-x" || catFormateada === "xbox-series") {
-                    catFormateada = "xbox-series";
-                }
+                // Equivalencias de Consolas
+                if (["nintendo-switch", "nintendoswitch", "nintendo-swi", "nintendo"].includes(catFormateada)) { catFormateada = "nintendo-switch"; }
+                else if (["playstation-2", "playstation2", "ps-2", "ps2"].includes(catFormateada)) { catFormateada = "ps2"; }
+                else if (["playstation-3", "playstation3", "ps-3", "ps3"].includes(catFormateada)) { catFormateada = "ps3"; }
+                else if (["playstation-4", "playstation4", "ps-4", "ps4"].includes(catFormateada)) { catFormateada = "ps4"; }
+                else if (["playstation-5", "playstation5", "ps-5", "ps5"].includes(catFormateada)) { catFormateada = "ps5"; }
+                else if (["xbox360", "xbox-360"].includes(catFormateada)) { catFormateada = "xbox-360"; }
+                else if (["xboxseries", "xbox-series-s", "xbox-series-x", "xbox-series"].includes(catFormateada)) { catFormateada = "xbox-series"; }
 
-                if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) {
-                    return; 
-                }
+                if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) return; 
 
-                if (!document.getElementById(`tarjeta-escaneada-${producto.id}`)) {
+                // Mapeamos el producto limpio corregido
+                const productoCorregido = {
+                    id: producto.id || Math.random().toString(36).substr(2, 9),
+                    nombre: producto.nombre || "Producto sin nombre",
+                    descripcion: producto.descripcion || "",
+                    precio: precioLimpio,
+                    imagen: producto.imagen || "",
+                    categoria: catFormateada
+                };
+
+                if (!document.getElementById(`tarjeta-escaneada-${productoCorregido.id}`)) {
                     let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
-
-                    if (!contenedorDestino) {
-                        contenedorDestino = document.querySelector('.contenedor-catalogo');
-                    }
+                    if (!contenedorDestino) contenedorDestino = document.querySelector('.contenedor-catalogo');
                     
                     if (contenedorDestino) {
-                        const nuevaTarjeta = crearEstructuraTarjetaConsolas(producto);
+                        const nuevaTarjeta = crearEstructuraTarjetaConsolas(productoCorregido);
                         contenedorDestino.appendChild(nuevaTarjeta);
                     }
                 }
             }
         });
-
-        console.log("Catálogo de consolas filtrado y distribuido con éxito.");
-
+        console.log("Catálogo de consolas procesado y estabilizado.");
     } catch (error) {
-        console.error("Error al sincronizar el catálogo de consolas:", error);
+        console.error("Error crítico al procesar la base de datos de Drive:", error);
     }
 }
+
 
 // Función auxiliar encargada del diseño visual original de tus juegos
 function crearEstructuraTarjetaConsolas(producto) {
