@@ -16,8 +16,12 @@ window.enviarPedidoWhatsApp = function() {
     
     const telefono = "5491141701483";
     
-    // CORRECCIÓN DEFINITIVA: Cambiamos a la API válida y usamos comillas invertidas (`)
-    const urlFinal = `https://whatsapp.com{telefono}&text=${encodeURIComponent(mensaje)}`;
+       // SOLUCIÓN DIRECTA: Número y texto integrados sin variables intermedias
+    const urlFinal = "https://whatsapp.com" + encodeURIComponent(mensaje);
+    
+    window.open(urlFinal, '_blank');
+};
+
     
     window.open(urlFinal, '_blank');
 };
