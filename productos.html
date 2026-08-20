@@ -429,52 +429,48 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 </div>
 
 <script src="carrito.js"></script>
-<!-- 🆕 LÓGICA AISLADA DEL BUSCADOR: Filtra Productos y Oculta Secciones Vacías -->
+
+<!-- 🆕 BUSCADOR COMPACTO: FILTRA PRODUCTOS Y OCULTA SECCIONES VACÍAS -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const inputBuscador = document.getElementById('buscador-juegos');
-    
-    if (inputBuscador) {
-        inputBuscador.addEventListener('input', function(e) {
-            const textoBusqueda = e.target.value.toLowerCase().trim();
-            
-            // 1. RECORREMOS CADA SECCIÓN DE LA PÁGINA (PS2, PS3, PS4, etc.)
-            const todasLasSecciones = document.querySelectorAll('section');
-            
-            todasLasSecciones.forEach(seccion => {
-                // Capturamos todos los productos que están ADENTRO de esta sección específica
-                const tarjetasDeEstaSeccion = seccion.querySelectorAll('.tarjeta-juego, .tarjeta-producto, [class*="tarjeta-"]');
-                let tieneCoincidencias = false;
-                
-                // Si la sección no tiene productos en absoluto, no la tocamos
-                if (tarjetasDeEstaSeccion.length === 0) return;
+    const cajaBusqueda = document.getElementById('buscador-juegos');
+    if (!cajaBusqueda) return;
 
-                tarjetasDeEstaSeccion.forEach(tarjeta => {
-                    const tituloProducto = tarjeta.querySelector('h3, h4, .titulo-producto');
-                    
-                    if (tituloProducto) {
-                        const nombreProducto = tituloProducto.textContent.toLowerCase();
-                        
-                        if (nombreProducto.includes(textoBusqueda)) {
-                            tarjeta.style.setProperty('display', 'block', 'important');
-                            tieneCoincidencias = true; // Encontramos al menos un producto que sirve
-                        } else {
-                            tarjeta.style.setProperty('display', 'none', 'important');
-                        }
-                    }
-                });
-                
-                // 2. REGLA DE ORO: Si no hay coincidencias y el usuario escribió algo, ocultamos toda la sección
-                if (!tieneCoincidencias && textoBusqueda !== '') {
-                    seccion.style.setProperty('display', 'none', 'important');
+    cajaBusqueda.addEventListener('input', function(e) {
+        const texto = e.target.value.toLowerCase().trim();
+        
+        // 1. Filtramos primero todas las tarjetas de la pantalla
+        const tarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto, [class*="tarjeta-"]');
+        tarjetas.forEach(t => {
+            const titulo = t.querySelector('h3, h4, .titulo-producto');
+            if (titulo) {
+                const nombre = titulo.textContent.toLowerCase();
+                if (nombre.includes(texto)) {
+                    t.style.setProperty('display', 'block', 'important');
                 } else {
-                    seccion.style.removeProperty('display'); // Si sirve o el buscador está vacío, la mostramos
+                    t.style.setProperty('display', 'none', 'important');
                 }
-            });
+            }
         });
-        console.log("🚀 Buscador avanzado conectado: Filtrando productos y categorías.");
-    }
+
+        // 2. Ocultamos las secciones completas (títulos incluidos) si no quedó nada visible
+        const secciones = document.querySelectorAll('section');
+        secciones.forEach(s => {
+            // Buscamos si quedó alguna tarjeta visible dentro de esta sección
+            const visibles = Array.from(s.querySelectorAll('.tarjeta-juego, .tarjeta-producto, [class*="tarjeta-"]'))
+                                  .filter(t => t.style.display !== 'none');
+            
+            // Si el buscador no está vacío y no hay tarjetas visibles, borramos la sección de la pantalla
+            if (texto !== '' && visibles.length === 0) {
+                s.style.setProperty('display', 'none', 'important');
+            } else {
+                s.style.removeProperty('display');
+            }
+        });
+    });
+    console.log("🚀 Buscador compacto de secciones activado correctamente.");
 });
 </script>
+
 </body>
 </html>
