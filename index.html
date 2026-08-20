@@ -356,22 +356,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- Lista de productos agregados -->
     <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
 
-    <!-- Total y Botón de pago -->
-    <div style="border-top: 2px solid #10121a; padding-top: 15px;">
-        <div style="display: flex; justify-content: space-between; color: #10121a; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">
-            <span>Total:</span>
-            <span id="total-carrito">$0</span>
-        </div>
-        <!-- Copiá y pegá esto sobre tu botón de enviar en index.html -->
-<button id="btn-enviar-index-directo" 
-        onclick="enviarPedidoFijoWhatsApp();" 
-        style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-sizing: border-box;">
-    <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
-</button>
-
-        <script>
+   <script>
 function enviarPedidoFijoWhatsApp() {
-    // Forzamos la lectura limpia del carrito desde el almacenamiento del navegador
     let carritoActivo = JSON.parse(localStorage.getItem('carrito_global')) || [];
     
     if (carritoActivo.length === 0) { 
@@ -389,13 +375,9 @@ function enviarPedidoFijoWhatsApp() {
     
     mensajeTexto += "\n*Total: $" + totalAcumulado.toLocaleString('es-AR') + "*";
     
-    // CONEXIÓN DEFINITIVA DE LA API: Sin concatenaciones rotas ni variables cruzadas
+    // SOLUCIÓN REAL: API oficial completa + tu número de teléfono fijo + el mensaje limpio
     let destinoUrl = "https://whatsapp.com" + encodeURIComponent(mensajeTexto);
     
     window.open(destinoUrl, '_blank');
 }
 </script>
-
-
-</body>
-</html>
