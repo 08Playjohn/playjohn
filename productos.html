@@ -109,22 +109,12 @@
                 <span>Total:</span>
                 <span id="total-carrito">$0</span>
             </div>
-                        <!-- REEMPLAZO DEFINITIVO: Botón con acción inyectada de forma segura y directa -->
-            <button id="btn-enviar-carrito" onclick="
-                if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
-                let mensaje = '¡Hola! Quiero realizar el siguiente pedido:\n\n';
-                let total = 0;
-                carrito.forEach(function(item) {
-                    mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
-                    total += item.precio * item.cantidad;
-                });
-                mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
-                const telefono = '5491141701483';
-                // SE AGREGA LA API OFICIAL DE WHATSAPP DIRECTAMENTE AQUÍ:
-                window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
-            " style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">
-                Enviar Pedido
-            </button>
+                   <!-- Copiá y pegá esto sobre tu botón actual de enviar en productos.html -->
+<button id="btn-enviar-carrito" 
+        onclick="enviarPedidoFijoWhatsApp();" 
+        style="background-color: #39ff14; color: black; border: none; padding: 12px 24px; font-weight: bold; font-size: 1rem; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);">
+    Enviar Pedido
+</button>
   </div>
  </div>
     <!-- ================= PIE DE PÁGINA Y TÉRMINOS LEGALES ================= -->
@@ -291,6 +281,32 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     console.log("🚀 Buscador compacto de secciones activado correctamente.");
 });
+</script>
+<script>
+function enviarPedidoFijoWhatsApp() {
+    // Forzamos la lectura limpia del carrito desde el almacenamiento del navegador
+    let carritoActivo = JSON.parse(localStorage.getItem('carrito_global')) || [];
+    
+    if (carritoActivo.length === 0) { 
+        alert("Tu carrito está vacío."); 
+        return; 
+    }
+    
+    let mensajeTexto = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
+    let totalAcumulado = 0;
+    
+    carritoActivo.forEach(function(item) {
+        mensajeTexto += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
+        totalAcumulado += item.precio * item.cantidad;
+    });
+    
+    mensajeTexto += "\n*Total: $" + totalAcumulado.toLocaleString('es-AR') + "*";
+    
+    // CONEXIÓN DEFINITIVA DE LA API: Sin concatenaciones rotas ni variables cruzadas
+    let destinoUrl = "https://whatsapp.com" + encodeURIComponent(mensajeTexto);
+    
+    window.open(destinoUrl, '_blank');
+}
 </script>
 
 </body>
