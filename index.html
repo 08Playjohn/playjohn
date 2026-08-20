@@ -362,29 +362,39 @@ document.addEventListener("DOMContentLoaded", function() {
             <span>Total:</span>
             <span id="total-carrito">$0</span>
         </div>
-        
-               <!-- BOTÓN DIRECTO QUE CONECTA CON LA API OFICIAL (REPARADO) -->
-        <a id="btn-enviar-index-directo" href="javascript:void(0);" onclick="
-            if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
-            let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
-            let total = 0;
-            carrito.forEach(function(item) {
-                mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
-                total += item.precio * item.cantidad;
-            });
-            mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
-            const telefono = '5491141701483';
-            // SE CORRIGE LA URL DE LA API OFICIAL DE WHATSAPP AQUÍ:
-            window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
-        " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
-            <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
-        </a>
+        <!-- Copiá y pegá esto sobre tu botón de enviar en index.html -->
+<button id="btn-enviar-index-directo" 
+        onclick="enviarPedidoFijoWhatsApp();" 
+        style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-sizing: border-box;">
+    <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
+</button>
 
-    </div>
-</div>
-
-<!-- Al poner ?v=3, obligas al navegador a borrar el carrito viejo de su memoria y cargar el nuevo con el número fijo -->
-<script src="carrito.js?v=4"></script>
+        <script>
+function enviarPedidoFijoWhatsApp() {
+    // Forzamos la lectura limpia del carrito desde el almacenamiento del navegador
+    let carritoActivo = JSON.parse(localStorage.getItem('carrito_global')) || [];
+    
+    if (carritoActivo.length === 0) { 
+        alert("Tu carrito está vacío."); 
+        return; 
+    }
+    
+    let mensajeTexto = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
+    let totalAcumulado = 0;
+    
+    carritoActivo.forEach(function(item) {
+        mensajeTexto += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
+        totalAcumulado += item.precio * item.cantidad;
+    });
+    
+    mensajeTexto += "\n*Total: $" + totalAcumulado.toLocaleString('es-AR') + "*";
+    
+    // CONEXIÓN DEFINITIVA DE LA API: Sin concatenaciones rotas ni variables cruzadas
+    let destinoUrl = "https://whatsapp.com" + encodeURIComponent(mensajeTexto);
+    
+    window.open(destinoUrl, '_blank');
+}
+</script>
 
 
 </body>
