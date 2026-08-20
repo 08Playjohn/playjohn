@@ -346,7 +346,7 @@ function abrirSoportePlayJohn() {
 document.addEventListener("DOMContentLoaded", function() {
     
 </script>
-<!-- BARRA LATERAL DEL CARRITO (Estructura Limpia y Reparada para Index) -->
+<!-- BARRA LATERAL DEL CARRITO (Estructura Limpia y Sin Errores) -->
 <div id="ventana-carrito" style="position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 9999; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
         <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
@@ -363,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <span id="total-carrito">$0</span>
         </div>
         
-              <!-- BOTÓN PURIFICADO: Sin errores de comillas cruzadas -->
+        <!-- BOTÓN DIRECTO PURIFICADO SINTÁCTICAMENTE -->
         <a id="btn-enviar-index-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
@@ -378,15 +378,11 @@ document.addEventListener("DOMContentLoaded", function() {
         " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
             <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
         </a>
-
     </div>
 </div>
 
-<!-- LE CITAMOS LA VERSIÓN 200.0 PARA ENTERRAR DEFINITIVAMENTE LA MEMORIA CACHÉ -->
+<!-- LLAMADA LIMPIA AL SCRIPT GLOBAL SIN VERSIONES EXTENDIDAS -->
 <script src="carrito.js"></script>
 
 </body>
 </html>
-
-
-
