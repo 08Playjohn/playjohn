@@ -363,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- BOTÓN DIRECTO CORREGIDO AL 100% SINTÁCTICAMENTE -->
+        <!-- BOTÓN DIRECTO QUE SALTEA LA CACHÉ CON LA API OFICIAL -->
         <a id="btn-enviar-index-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
@@ -381,15 +381,11 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </div>
 
-<!-- LE PASAMOS LA VERSIÓN 70.0 PARA FORZAR LA ACTUALIZACIÓN TOTAL -->
-<script src="carrito.js?v=70.0"></script>
+<!-- LE CITAMOS LA VERSIÓN 200.0 PARA ENTERRAR DEFINITIVAMENTE LA MEMORIA CACHÉ -->
+<script src="carrito.js?v=200.0"></script>
 
 </body>
 </html>
 
 
-<!-- SUBIMOS A LA VERSIÓN 50.0 PARA ENTERRAR CUALQUIER CACHÉ VIEJO EN EL INDEX -->
-<script src="carrito.js?v=100.0"></script>
 
-</body>
-</html>
