@@ -16,7 +16,7 @@ window.enviarPedidoWhatsApp = function() {
     mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
     
     const telefono = "5491141701483"; 
-    const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
+const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
     
     window.open(urlFinal, '_blank');
 };
