@@ -130,7 +130,8 @@
             </button>
 
             <!-- Carrito unificado que conecta a tus hojas (Modificado con id="btn-carrito-navbar") -->
-<a href="javascript:void(0);" class="enlace-accion" id="btn-carrito-navbar">
+<!-- Reemplaza solo esta línea de tu menú superior en index.html -->
+<a href="javascript:void(0);" class="enlace-accion" id="btn-carrito-navbar" onclick="document.getElementById('ventana-carrito').style.right = '0px';">
     <svg class="icono" xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
         <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -346,18 +347,35 @@ function abrirSoportePlayJohn() {
 document.addEventListener("DOMContentLoaded", function() {
     
 </script>
-<!-- BARRA LATERAL DEL CARRITO (Estructura Limpia y Reparada para Index) -->
-<div id="ventana-carrito" style="position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 9999; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif;">
+<!-- BARRA LATERAL DEL CARRITO (Estructura Limpia, Reparada y Autovínculada para Index) -->
+<div id="ventana-carrito" style="position: fixed; top: 0; right: -350px; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 99999 !important; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif; box-sizing: border-box;">
+    
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
         <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
-        <button id="cerrar-carrito" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
+        <!-- CORRECCIÓN DE CIERRE: Cierra la ventana de forma nativa al hacer clic en la cruz -->
+        <button id="cerrar-carrito" onclick="document.getElementById('ventana-carrito').style.right = '-350px';" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
     </div>
 
     <!-- Lista de productos agregados -->
     <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
 
-   <script>
+    <!-- Total y Botón de pago -->
+    <div style="border-top: 2px solid #10121a; padding-top: 15px;">
+        <div style="display: flex; justify-content: space-between; color: #10121a; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">
+            <span>Total:</span>
+            <span id="total-carrito">$0</span>
+        </div>
+        
+        <!-- BOTÓN DE ENVÍO ASOCIADO A LA FUNCIÓN REPARADA -->
+        <button id="btn-enviar-index-directo" onclick="enviarPedidoFijoWhatsApp();" style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-sizing: border-box;">
+            <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
+        </button>
+    </div>
+</div>
+
+<script>
 function enviarPedidoFijoWhatsApp() {
+    // Forzamos la lectura limpia del carrito desde el almacenamiento local
     let carritoActivo = JSON.parse(localStorage.getItem('carrito_global')) || [];
     
     if (carritoActivo.length === 0) { 
@@ -375,7 +393,7 @@ function enviarPedidoFijoWhatsApp() {
     
     mensajeTexto += "\n*Total: $" + totalAcumulado.toLocaleString('es-AR') + "*";
     
-    // SOLUCIÓN REAL: API oficial completa + tu número de teléfono fijo + el mensaje limpio
+    // CORRECCIÓN DEFINITIVA DE LA API: Enlace oficial completo con tu teléfono fijo
     let destinoUrl = "https://whatsapp.com" + encodeURIComponent(mensajeTexto);
     
     window.open(destinoUrl, '_blank');
