@@ -15,9 +15,9 @@ window.enviarPedidoWhatsApp = function() {
     });
     mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
     
-    const telefono = "5491141701483"; 
-// REEMPLAZA LA LÍNEA DE LA URL VIEJA POR ESTA OTRA EXACTAMENTE:
-const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
+        const telefono = "5491141701483";
+    // CORRECCIÓN DE URL: Se añade la estructura correcta de la API de WhatsApp
+    const urlFinal = `https://whatsapp.com{telefono}&text=${encodeURIComponent(mensaje)}`;
     
     window.open(urlFinal, '_blank');
 };
