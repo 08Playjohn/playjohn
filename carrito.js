@@ -9,7 +9,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 window.enviarPedidoWhatsApp = function() {
     if (carrito.length === 0) return alert("Tu carrito está vacío.");
     
-    let mensaje = "¡Hola! Quiero realizar el siguiente pedido unificado:\n\n";
+    let mensaje = "¡Hola! Quiero realizar el siguiente pedido :\n\n";
     let total = 0;
     carrito.forEach(function(item) {
         mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
@@ -19,7 +19,7 @@ window.enviarPedidoWhatsApp = function() {
     
     const telefono = "5491141701483"; 
     
-    // URL CORRECTA
+    // URL DEFINITIVA CORREGIDA
     const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
     
     window.open(urlFinal, '_blank');
