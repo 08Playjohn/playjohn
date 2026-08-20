@@ -1,15 +1,13 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - VERSIÓN ULTRA FIX
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - VERSIÓN 99.0
 // ============================================================================
 
-// Recuperamos o inicializamos el carrito único para todas las páginas
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 
-// Definimos la función de WhatsApp GLOBAL corregida con la API oficial impecable
 window.enviarPedidoWhatsApp = function() {
     if (carrito.length === 0) return alert("Tu carrito está vacío.");
     
-    let mensaje = "¡Hola! Quiero realizar el siguiente pedido :\n\n";
+    let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
     let total = 0;
     carrito.forEach(function(item) {
         mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
@@ -18,19 +16,15 @@ window.enviarPedidoWhatsApp = function() {
     mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
     
     const telefono = "5491141701483"; 
-    
-    // URL DEFINITIVA CORREGIDA
     const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
     
     window.open(urlFinal, '_blank');
 };
 
-// Nueva función de respaldo por si el HTML de alguna hoja llama a este nombre
 window.enviarAlWhatsAppFinal = window.enviarPedidoWhatsApp;
 
 document.addEventListener("DOMContentLoaded", function() {
-  
-    // 1. FUNCIÓN PARA REDIBUJAR LA INTERFAZ EN LA PANTALLA ACTUAL
+    
     function actualizarInterfaz() {
         const listaCarrito = document.getElementById('lista-carrito');
         const totalCarrito = document.getElementById('total-carrito');
@@ -63,42 +57,25 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('carrito_global', JSON.stringify(carrito));
     }
 
-    // 2. CONTROL DE APERTURA Y CIERRE DE LA VENTANA LATERAL
+    // Controles de apertura y cierre
     const btnFlotante = document.getElementById('btn-carrito-flotante');
     const btnNavbar = document.getElementById('btn-carrito-navbar');
     const btnCerrar = document.getElementById('cerrar-carrito') || document.querySelector('.cerrar-carrito');
     const ventanaCarrito = document.getElementById('ventana-carrito');
 
-    if (btnFlotante && ventanaCarrito) {
-        btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
-    }
-    
-    if (btnNavbar && ventanaCarrito) {
-        btnNavbar.addEventListener('click', function(e) {
-            e.preventDefault();
-            ventanaCarrito.style.right = '0px';
-        });
-    }
+    if (btnFlotante && ventanaCarrito) btnFlotante.addEventListener('click', () => ventanaCarrito.style.right = '0px');
+    if (btnNavbar && ventanaCarrito) btnNavbar.addEventListener('click', (e) => { e.preventDefault(); ventanaCarrito.style.right = '0px'; });
+    if (btnCerrar && ventanaCarrito) btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = ventanaCarrito.style.width === '320px' ? '-100%' : '-400px');
 
-    if (btnCerrar && ventanaCarrito) {
-        btnCerrar.addEventListener('click', () => {
-            ventanaCarrito.style.right = ventanaCarrito.style.width === '320px' ? '-100%' : '-400px';
-        });
-    }
-
-    // 3. CAPTURA DE CLICS GLOBAL (Agregar y Eliminar Productos)
+    // Capturar clics para agregar/eliminar
     document.addEventListener('click', function(e) {
         if (e.target && (e.target.classList.contains('btn-agregar-carrito') || e.target.closest('.btn-agregar-carrito'))) {
             let targetButton = e.target.classList.contains('btn-agregar-carrito') ? e.target : e.target.closest('.btn-agregar-carrito');
             const nombre = targetButton.getAttribute('data-nombre');
-            const precio = parseFloat(targetButton.getAttribute('data-precio'));
+            const precio = parseFloat(targetButton.getAttribute('data-precio')) || 0;
             const existe = carrito.find(item => item.nombre === nombre);
             
-            if (existe) {
-                existe.cantidad++; 
-            } else { 
-                carrito.push({ nombre: nombre, precio: precio, cantidad: 1 }); 
-            }
+            if (existe) { existe.cantidad++; } else { carrito.push({ nombre: nombre, precio: precio, cantidad: 1 }); }
             actualizarInterfaz();
             if (ventanaCarrito) ventanaCarrito.style.right = '0px';
         }
@@ -109,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 4. ESCUCHAR CAMBIOS DESDE OTRAS PESTAÑAS
     window.addEventListener('storage', function(e) {
         if (e.key === 'carrito_global') {
             carrito = JSON.parse(e.newValue) || [];
@@ -117,23 +93,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // 5. ENLAZAR BOTÓN DE ENVIAR GLOBAL
-    document.addEventListener('click', function(e) {
-        if (e.target && (e.target.id === 'btn-enviar-carrito' || e.target.id === 'btn-enviar-directo' || e.target.closest('#btn-enviar-carrito') || e.target.closest('#btn-enviar-directo'))) {
-            enviarPedidoWhatsApp();
-        }
-    });
+    actualizarInterfaz();
+});
 
-    // 6. LÓGICA DE VACIADO DEL CARRITO COMPLETO
-    const btnVaciarHtml = document.getElementById('btn-vaciar-carrito');
-    if (btnVaciarHtml) {
-        btnVaciarHtml.addEventListener('click', function() {
-            if (confirm("¿Estás seguro de que querés vaciar todo el carrito?")) {
-                carrito = []; 
-                actualizarInterfaz(); 
-            }
-        });
-    }
 
     actualizarInterfaz();
 });
