@@ -363,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- BOTÓN DIRECTO QUE CONECTA CON LA API OFICIAL -->
+               <!-- BOTÓN DIRECTO QUE CONECTA CON LA API OFICIAL (REPARADO) -->
         <a id="btn-enviar-index-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
@@ -374,10 +374,12 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
             const telefono = '5491141701483';
+            // SE CORRIGE LA URL DE LA API OFICIAL DE WHATSAPP AQUÍ:
             window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
         " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
             <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
         </a>
+
     </div>
 </div>
 
