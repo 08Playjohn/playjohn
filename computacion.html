@@ -45,6 +45,28 @@
 </div>
 </div> <!-- Cierre de la cabecera fija -->
     <style>
+        </div> <!-- Cierre de la cabecera fija -->
+
+<style>
+/* ============================================================================
+   ESTILOS DE FIJACIÓN COMPLETA PARA EL MENÚ Y EL BUSCADOR DE COMPUTACIÓN
+   ============================================================================ */
+.cabecera-fija {
+    position: fixed !important;   /* Clava el menú rígidamente en el techo de la pantalla */
+    top: 0 !important;            /* Lo pega al ras del borde superior */
+    left: 0 !important;           /* Lo alinea de forma perfecta al extremo izquierdo */
+    width: 100% !important;       /* Fuerza a que ocupe todo el ancho del monitor */
+    background-color: #000000;    /* Fondo negro opaco obligatorio para tapar los artículos */
+    z-index: 99999 !important;    /* Capa súper alta para que los productos pasen por detrás */
+    box-sizing: border-box;
+}
+
+/* ESPACIADOR CRÍTICO: Empuja el catálogo hacia abajo para que el menú fijo no tape el primer título */
+main, #catalogo-computacion, .contenedor-principal {
+    margin-top: 260px !important; /* Ajusta este número según el alto de tu menú en pantalla */
+}
+</style>
+
         #buscador-computacion:focus { border-color: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.4); }
     </style>
 
