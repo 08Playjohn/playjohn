@@ -4,28 +4,26 @@
 
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
 
-window.enviarPedidoWhatsApp = function() {
-    if (carrito.length === 0) return alert("Tu carrito está vacío.");
-    
-    let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
-    let total = 0;
-    carrito.forEach(function(item) {
-        mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
-        total += item.precio * item.cantidad;
+          if (btnEnviar) {
+        btnEnviar.addEventListener('click', function() {
+            if (carrito.length === 0) return alert("Tu carrito está vacío.");
+            let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
+            let total = 0;
+            carrito.forEach(function(item) {
+                mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
+                total += item.precio * item.cantidad;
+            });
+            mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+            
+                    mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+        
+               mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
+        
+        const telefono = "5491141701483"; 
+        // Aquí se incluye la barra '/' indispensable para separar el dominio del número
+       window.location.assign("https://wa.me/5491141701483?text=" + encodeURIComponent(mensaje));
     });
-    mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
-    
-    const telefono = "5491141701483";
-    
-    // CORRECCIÓN DEFINITIVA: Cambiamos a la API válida y usamos comillas invertidas (`)
-    const urlFinal = `https://whatsapp.com{telefono}&text=${encodeURIComponent(mensaje)}`;
-    
-    window.open(urlFinal, '_blank');
-};
-
-
-window.enviarAlWhatsAppFinal = window.enviarPedidoWhatsApp;
-
+}
 document.addEventListener("DOMContentLoaded", function() {
     
     function actualizarInterfaz() {
