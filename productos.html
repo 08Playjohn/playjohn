@@ -328,37 +328,27 @@ if (inputBuscador) {
 <script>
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
 let productosDriveConsolas = [];
-
 async function cargarProductosDesdeDrive() {
-    const contenedor = document.getElementById('contenedor-juegos');
-    if (!contenedor) return;
-
     try {
-        console.log("Sincronizando consolas con Google Drive...");
+        console.log("Iniciando sincronización directa de consolas con Google Drive...");
         const response = await fetch(DRIVE_API_URL);
         const productosLista = await response.json();
         
-        // Guardamos la lista original para que el buscador de texto funcione
         productosDriveConsolas = productosLista; 
-        contenedor.innerHTML = ""; 
+        console.log("Conexión exitosa. Catálogo de Consolas recibido de Drive.");
 
         const CATEGORIAS_A_BLOQUEAR = ["computacion", "accesorios-otros", "accesorios", "cables", "mouses", "teclados", "auriculares", "auricular"];
 
+        // Limpiamos los contenedores antes de rellenar
+        document.querySelectorAll('[class^="contenedor-"]').forEach(c => c.innerHTML = "");
+
         productosLista.forEach(producto => {
             if (producto && producto.categoria) {
-                // Forzamos el ID y limpiamos el precio para evitar el error de los $0
-                let precioLimpio = 0;
-                if (producto.precio) {
-                    // Quitamos signos de pesos, puntos de miles y espacios que rompen la conversión
-                    let stringPrecio = producto.precio.toString().replace(/[^0-9.,]/g, '');
-                    precioLimpio = parseFloat(stringPrecio) || 0;
-                }
-
                 let catFormateada = producto.categoria.toLowerCase().trim()
                                     .replace(/\s+/g, '-') 
                                     .replace(/[^a-z0-9\-]/g, '');
 
-                // Equivalencias de Consolas
+                // Equivalencias de Categorías
                 if (["nintendo-switch", "nintendoswitch", "nintendo-swi", "nintendo"].includes(catFormateada)) { catFormateada = "nintendo-switch"; }
                 else if (["playstation-2", "playstation2", "ps-2", "ps2"].includes(catFormateada)) { catFormateada = "ps2"; }
                 else if (["playstation-3", "playstation3", "ps-3", "ps3"].includes(catFormateada)) { catFormateada = "ps3"; }
@@ -367,37 +357,28 @@ async function cargarProductosDesdeDrive() {
                 else if (["xbox360", "xbox-360"].includes(catFormateada)) { catFormateada = "xbox-360"; }
                 else if (["xboxseries", "xbox-series-s", "xbox-series-x", "xbox-series"].includes(catFormateada)) { catFormateada = "xbox-series"; }
 
-                if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) return; 
+                if (CATEGORIAS_A_BLOQUEAR.includes(catFormateada)) {
+                    return; 
+                }
 
-                // Mapeamos el producto limpio corregido
-                const productoCorregido = {
-                    id: producto.id || Math.random().toString(36).substr(2, 9),
-                    nombre: producto.nombre || "Producto sin nombre",
-                    descripcion: producto.descripcion || "",
-                    precio: precioLimpio,
-                    imagen: producto.imagen || "",
-                    categoria: catFormateada
-                };
-
-                if (!document.getElementById(`tarjeta-escaneada-${productoCorregido.id}`)) {
+                if (!document.getElementById(`tarjeta-escaneada-${producto.id}`)) {
                     let contenedorDestino = document.querySelector(`.contenedor-${catFormateada}`);
-                    if (!contenedorDestino) contenedorDestino = document.querySelector('.contenedor-catalogo');
-                    
+                    if (!contenedorDestino) {
+                        contenedorDestino = document.querySelector('.contenedor-catalogo');
+                    }
                     if (contenedorDestino) {
-                        const nuevaTarjeta = crearEstructuraTarjetaConsolas(productoCorregido);
+                        const nuevaTarjeta = crearEstructuraTarjetaConsolas(producto);
                         contenedorDestino.appendChild(nuevaTarjeta);
                     }
                 }
             }
         });
-        console.log("Catálogo de consolas procesado y estabilizado.");
+        console.log("Catálogo de consolas filtrado y distribuido con éxito.");
     } catch (error) {
-        console.error("Error crítico al procesar la base de datos de Drive:", error);
+        console.error("Error al sincronizar el catálogo de consolas:", error);
     }
 }
 
-
-// Función auxiliar encargada del diseño visual original de tus juegos
 function crearEstructuraTarjetaConsolas(producto) {
     const nuevaTarjeta = document.createElement('div');
     nuevaTarjeta.className = 'tarjeta-juego'; 
@@ -405,16 +386,18 @@ function crearEstructuraTarjetaConsolas(producto) {
     nuevaTarjeta.style.width = "280px";
     nuevaTarjeta.style.boxSizing = "border-box";
 
+    let precioNumerico = parseFloat(producto.precio) || 0;
+
     nuevaTarjeta.innerHTML = `
         <img src="${producto.imagen || 'Imagenes/servicio/placeholder.jpg'}" alt="${producto.nombre}" style="width: 100% !important; max-width: 240px !important; height: 280px !important; object-fit: contain !important; border-radius: 6px; display: block; margin: 0 auto 15px auto; background-color: #ffffff;" class="foto-juego">
         <h3 style="color: #000000 !important; margin: 15px 10px 5px 10px; font-size: 1.1rem; text-transform: uppercase; font-weight: bold; text-align: center; font-family: sans-serif;">${producto.nombre}</h3>
         <p class="descripcion">${producto.descripcion || ''}</p>
-        <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${parseFloat(producto.precio).toLocaleString('es-AR')}</div>
+        <div class="precio" style="font-weight: bold; text-align: center; margin-bottom: 10px; font-size: 1.2rem; color: #000;">$${precioNumerico.toLocaleString('es-AR')}</div>
         <span class="badge disponible" style="margin-bottom: 15px; display: block; text-align: center;">DISPONIBLE</span>
         
         <button class="boton-wpp btn-agregar-carrito" 
                 data-nombre="${producto.nombre}" 
-                data-precio="${producto.precio}" 
+                data-precio="${precioNumerico}" 
                 style="width: 100% !important; padding: 10px !important; font-size: 0.9rem !important; background-color: #00f0ff; color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: block;">
             <i class="fa-solid fa-cart-plus" style="margin-right: 8px;"></i> Comprar
         </button>
@@ -424,7 +407,8 @@ function crearEstructuraTarjetaConsolas(producto) {
 
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 </script>
-<!-- VENTANA LATERAL DEL CARRITO (Estructura Limpia y Reparada para Productos) -->
+
+<!-- VENTANA LATERAL DEL CARRITO -->
 <div id="ventana-carrito" style="position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #10121a; border-left: 2px solid #00f0ff; box-shadow: -5px 0 25px rgba(0, 240, 255, 0.3); z-index: 100001; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; font-family: sans-serif;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
         <h3 style="color: #00f0ff; margin: 0; text-transform: uppercase;">🛒 Tu Carrito</h3>
@@ -438,25 +422,12 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- BOTÓN DIRECTO CORREGIDO CON LA API OFICIAL INDESTRUCTIBLE -->
-        <a id="btn-enviar-productos-directo" href="javascript:void(0);" onclick="
-            if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
-            let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
-            let total = 0;
-            carrito.forEach(function(item) {
-                mensaje += '- ' + item.cantidad + 'x ' + item.nombre + ' ($' + (item.precio * item.cantidad).toLocaleString('es-AR') + ')\n';
-                total += item.precio * item.cantidad;
-            });
-            mensaje += '\n*Total: $' + total.toLocaleString('es-AR') + '*';
-            const telefono = '5491141701483';
-            window.open('https://whatsapp.com' + telefono + '&text=' + encodeURIComponent(mensaje), '_blank');
-        " style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; position: relative; z-index: 100005 !important; text-decoration: none; box-sizing: border-box;">
-            <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
-        </a>
+        <button id="btn-enviar-carrito" style="width: 100%; padding: 14px; background-color: #39ff14; color: black; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            Enviar Pedido
+        </button>
     </div>
 </div>
 
-<!-- CONECTOR AL CARRITO CENTRAL SIN TEXTOS EXTRAÑOS -->
 <script src="carrito.js"></script>
 
 </body>
