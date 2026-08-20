@@ -1,35 +1,33 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - CORREGIDO
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - REPARADO
 // ============================================================================
 
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
+
 window.enviarPedidoWhatsApp = function() {
     if (carrito.length === 0) return alert("Tu carrito está vacío.");
     
     let mensaje = "¡Hola! Quiero realizar el siguiente pedido:\n\n";
     let total = 0;
+    
     carrito.forEach(function(item) {
         mensaje += "- " + item.cantidad + "x " + item.nombre + " ($" + (item.precio * item.cantidad).toLocaleString('es-AR') + ")\n";
         total += item.precio * item.cantidad;
     });
+    
     mensaje += "\n*Total: $" + total.toLocaleString('es-AR') + "*";
     
     const telefono = "5491141701483";
     
-       // SOLUCIÓN DIRECTA: Número y texto integrados sin variables intermedias
-    const urlFinal = "https://whatsapp.com" + encodeURIComponent(mensaje);
+    // CORRECCIÓN DEFINITIVA: Dirección oficial de la API con tu número telefónico directo
+    const urlFinal = "https://whatsapp.com" + telefono + "&text=" + encodeURIComponent(mensaje);
     
     window.open(urlFinal, '_blank');
 };
 
-    
-    window.open(urlFinal, '_blank');
-};
-
-
+// Mantenemos la equivalencia por si tus otros HTML llaman a la función con el nombre extendido
 window.enviarAlWhatsAppFinal = window.enviarPedidoWhatsApp;
-  
-   
+
 document.addEventListener("DOMContentLoaded", function() {
     
     function actualizarInterfaz() {
