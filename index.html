@@ -343,23 +343,47 @@ function abrirSoportePlayJohn() {
             </ul>
         </div>
 </footer>
+        </form> <!-- Aquí cierra tu formulario de registro viejo -->
 
-document.addEventListener("DOMContentLoaded", function() {
-    
-</script>
+    </div> <!-- Cierra seccion-login-contenedor -->
+
+    <!-- ============================================================================ -->
+    <!-- BARRA LATERAL DEL CARRITO (Estructura Limpia, Reparada y Sincronizada) -->
+    <!-- ============================================================================ -->
+    <div id="ventana-carrito" style="position: fixed; top: 0; right: -350px; width: 320px; height: 100vh; background-color: #ffffff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s ease; z-index: 99999 !important; padding: 20px; display: flex; flex-direction: column; font-family: sans-serif; box-sizing: border-box;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10121a; padding-bottom: 10px; margin-bottom: 20px;">
+            <h3 style="color: #10121a; margin: 0; font-size: 1.3rem;">🛒 Mi Carrito</h3>
+            <button id="cerrar-carrito" onclick="document.getElementById('ventana-carrito').style.right = '-350px';" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ff4d4d;">&times;</button>
+        </div>
+
+        <!-- Lista de productos agregados -->
+        <div id="lista-carrito" style="flex-grow: 1; overflow-y: auto; margin-bottom: 20px;"></div>
+
+        <!-- Total y Botón de pago -->
+        <div style="border-top: 2px solid #10121a; padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; color: #10121a; font-weight: bold; font-size: 1.2rem; margin-bottom: 15px;">
+                <span>Total:</span>
+                <span id="total-carrito">$0</span>
+            </div>
+            
+            <button id="btn-enviar-index-directo" onclick="enviarPedidoFijoWhatsApp();" style="width: 100%; padding: 14px; background-color: #1dd1a1; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; box-sizing: border-box;">
+                <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
+            </button>
+        </div>
+    </div>
+
 <script>
 // ============================================================================
-// MOTOR DE SINCRONIZACIÓN Y RENDERIZADO EN TIEMPO REAL PARA INDEX
+// MOTOR DE ACTUALIZACIÓN EN TIEMPO REAL PARA EL CARRITO DE INDEX
 // ============================================================================
 function actualizarInterfazCarritoIndex() {
     let listaHTML = document.getElementById('lista-carrito');
     let totalHTML = document.getElementById('total-carrito');
     if (!listaHTML) return;
 
-    // Sincronizamos la variable local con la base de datos compartida de la tienda
     let carritoActivo = JSON.parse(localStorage.getItem('carrito_global')) || [];
     
-    // Si tu script general usa la variable global 'carrito' sin el sufijo, la actualizamos también
     if (typeof carrito !== 'undefined') {
         carrito = carritoActivo;
     }
@@ -373,7 +397,6 @@ function actualizarInterfazCarritoIndex() {
         return;
     }
 
-    // Dibujamos cada artículo almacenado dentro del contenedor de Index
     carritoActivo.forEach(function(item) {
         let fila = document.createElement('div');
         fila.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eeeeee; font-family: sans-serif; font-size: 0.9rem; color: #10121a;";
@@ -398,9 +421,6 @@ function actualizarInterfazCarritoIndex() {
     }
 }
 
-// ============================================================================
-// FUNCIÓN INDEPENDIENTE DE REDIRECCIÓN A WHATSAPP (REPARADA)
-// ============================================================================
 function enviarPedidoFijoWhatsApp() {
     let carritoActivo = JSON.parse(localStorage.getItem('carrito_global')) || [];
     
@@ -419,17 +439,19 @@ function enviarPedidoFijoWhatsApp() {
     
     mensajeTexto += "\n*Total: $" + totalAcumulado.toLocaleString('es-AR') + "*";
     
-    // ENLACE OFICIAL: Sin textos cortados ni variables sueltas
     let destinoUrl = "https://whatsapp.com" + encodeURIComponent(mensajeTexto);
-    
     window.open(destinoUrl, '_blank');
 }
 
-// Ejecutamos la lectura automática apenas termine de estructurarse la pantalla
 document.addEventListener("DOMContentLoaded", actualizarInterfazCarritoIndex);
 
-// Escuchamos el clic de apertura del menú superior para forzar la actualización del listado
 if (document.getElementById('btn-carrito-navbar')) {
     document.getElementById('btn-carrito-navbar').addEventListener('click', actualizarInterfazCarritoIndex);
 }
 </script>
+
+<script src="carrito.js"></script>
+
+</body>
+</html>
+
