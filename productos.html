@@ -322,10 +322,10 @@ if (inputBuscador) {
 } // <-- CORRECCIÓN 1: Cerramos correctamente la función del buscador aquí
 </script>
 
-<script>
-// ============================================================================
+<!-- ============================================================================
 // 3. CONECTOR DE INTEGRACIÓN DIRECTA AUTOMÁTICA CON GOOGLE DRIVE (CONSOLAS)
-// ============================================================================
+// ============================================================================ -->
+<script>
 const DRIVE_API_URL = "https://script.google.com/macros/s/AKfycbwqPdUzWDOJAtaputLJC2ebosxGuLkrkBxOFQu08PxvhenV3iUEcYYV2hGLdhJl5-Kx/exec";
 let productosDriveConsolas = [];
 
@@ -389,13 +389,13 @@ async function cargarProductosDesdeDrive() {
             }
         });
 
-               console.log("Catálogo de consolas filtrado y distribuido con éxito.");
+        console.log("Catálogo de consolas filtrado y distribuido con éxito.");
 
     } catch (error) {
         console.error("Error al sincronizar el catálogo de consolas:", error);
     }
 }
-<script>
+
 // Función auxiliar encargada del diseño visual original de tus juegos
 function crearEstructuraTarjetaConsolas(producto) {
     const nuevaTarjeta = document.createElement('div');
@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- BOTÓN DIRECTO QUE SALTEA LA CACHÉ CON LA API OFICIAL -->
+        <!-- BOTÓN DIRECTO CORREGIDO CON LA API OFICIAL INDESTRUCTIBLE -->
         <a id="btn-enviar-productos-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
@@ -455,8 +455,8 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
     </div>
 </div>
 
-<!-- LE CITAMOS LA VERSIÓN 200.0 PARA ROMPER EL CANDADO DEL CACHÉ EN PRODUCTOS -->
-<script src="carrito.js?v=200.0"></script>
+<!-- CONECTOR AL CARRITO CENTRAL SIN TEXTOS EXTRAÑOS -->
+<script src="carrito.js"></script>
 
 </body>
 </html>
