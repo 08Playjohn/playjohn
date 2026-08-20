@@ -423,7 +423,7 @@ function crearEstructuraTarjetaConsolas(producto) {
 
 document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 </script>
- <!-- VENTANA LATERAL DEL CARRITO (Estructura Limpia para Productos) -->
+<!-- VENTANA LATERAL DEL CARRITO (Estructura Limpia para Productos) -->
 <div id="ventana-carrito" style="position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background-color: #10121a; border-left: 2px solid #00f0ff; box-shadow: -5px 0 25px rgba(0, 240, 255, 0.3); z-index: 100001; transition: right 0.3s ease; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; font-family: sans-serif;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #3a3f58; padding-bottom: 15px; margin-bottom: 15px;">
         <h3 style="color: #00f0ff; margin: 0; text-transform: uppercase;">🛒 Tu Carrito</h3>
@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
             <span id="total-carrito">$0</span>
         </div>
         
-        <!-- BOTÓN DIRECTO CON ID NUEVO: Saltea la caché e ignora el script viejo -->
+        <!-- BOTÓN DIRECTO QUE EVITA LA CACHÉ DEL SCRIPT VIEJO -->
         <a id="btn-enviar-productos-directo" href="javascript:void(0);" onclick="
             if (typeof carrito === 'undefined' || carrito.length === 0) { alert('Tu carrito está vacío.'); return; }
             let mensaje = '¡Hola! Quiero realizar el siguiente pedido unificado:\n\n';
@@ -455,9 +455,8 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
     </div>
 </div>
 
-<!-- LE CITAMOS LA VERSIÓN 60.0 PARA ENTERRAR DEFINITIVAMENTE EL ARCHIVO VIEJO -->
-<script src="carrito.js?v=60.0"></script>
+<!-- FORZAMOS LA VERSIÓN 90.0 PARA BORRAR EL REGISTRO VIEJO DE LA MEMORIA -->
+<script src="carrito.js?v=90.0"></script>
 
 </body>
 </html>
-
