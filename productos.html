@@ -429,7 +429,7 @@ document.addEventListener("DOMContentLoaded", cargarProductosDesdeDrive);
 </div>
 
 <script src="carrito.js"></script>
-<!-- 🆕 LÓGICA AISLADA DE LA BARRA DE BÚSQUEDA (VERSIÓN MULTI-CLASE) -->
+<!-- 🆕 LÓGICA AISLADA DEL BUSCADOR: Filtra Productos y Oculta Secciones Vacías -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const inputBuscador = document.getElementById('buscador-juegos');
@@ -438,31 +438,43 @@ document.addEventListener("DOMContentLoaded", function() {
         inputBuscador.addEventListener('input', function(e) {
             const textoBusqueda = e.target.value.toLowerCase().trim();
             
-            // CAPTURAMOS TODAS LAS VARIANTES POSIBLES DE TARJETAS QUE RECOGE TU TIENDA
-            const todasLasTarjetas = document.querySelectorAll('.tarjeta-juego, .tarjeta-producto, [class*="tarjeta-"]');
+            // 1. RECORREMOS CADA SECCIÓN DE LA PÁGINA (PS2, PS3, PS4, etc.)
+            const todasLasSecciones = document.querySelectorAll('section');
             
-            todasLasTarjetas.forEach(tarjeta => {
-                // Buscamos el título adentro de la tarjeta (puede ser un h3 o un h4)
-                const tituloProducto = tarjeta.querySelector('h3, h4, .titulo-producto');
+            todasLasSecciones.forEach(seccion => {
+                // Capturamos todos los productos que están ADENTRO de esta sección específica
+                const tarjetasDeEstaSeccion = seccion.querySelectorAll('.tarjeta-juego, .tarjeta-producto, [class*="tarjeta-"]');
+                let tieneCoincidencias = false;
                 
-                if (tituloProducto) {
-                    const nombreProducto = tituloProducto.textContent.toLowerCase();
+                // Si la sección no tiene productos en absoluto, no la tocamos
+                if (tarjetasDeEstaSeccion.length === 0) return;
+
+                tarjetasDeEstaSeccion.forEach(tarjeta => {
+                    const tituloProducto = tarjeta.querySelector('h3, h4, .titulo-producto');
                     
-                    // Si coincide lo que escribe el usuario, forzamos que se vea; si no, lo ocultamos con "important"
-                    if (nombreProducto.includes(textoBusqueda)) {
-                        tarjeta.style.setProperty('display', 'block', 'important');
-                    } else {
-                        tarjeta.style.setProperty('display', 'none', 'important');
+                    if (tituloProducto) {
+                        const nombreProducto = tituloProducto.textContent.toLowerCase();
+                        
+                        if (nombreProducto.includes(textoBusqueda)) {
+                            tarjeta.style.setProperty('display', 'block', 'important');
+                            tieneCoincidencias = true; // Encontramos al menos un producto que sirve
+                        } else {
+                            tarjeta.style.setProperty('display', 'none', 'important');
+                        }
                     }
+                });
+                
+                // 2. REGLA DE ORO: Si no hay coincidencias y el usuario escribió algo, ocultamos toda la sección
+                if (!tieneCoincidencias && textoBusqueda !== '') {
+                    seccion.style.setProperty('display', 'none', 'important');
+                } else {
+                    seccion.style.removeProperty('display'); // Si sirve o el buscador está vacío, la mostramos
                 }
             });
         });
-        console.log("🚀 Buscador Multi-Clase activado y escuchando el teclado.");
-    } else {
-        console.error("❌ No se encontró el input con el id 'buscador-juegos'.");
+        console.log("🚀 Buscador avanzado conectado: Filtrando productos y categorías.");
     }
 });
 </script>
-
 </body>
 </html>
