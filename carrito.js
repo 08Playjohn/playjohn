@@ -1,5 +1,5 @@
 // ============================================================================
-// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - VERSIÓN DE CIERRE PERFECTO
+// CARRITO DE COMPRAS GLOBAL Y SINCRONIZADO EN TIEMPO REAL - CORREGIDO
 // ============================================================================
 
 let carrito = JSON.parse(localStorage.getItem('carrito_global')) || [];
@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('carrito_global', JSON.stringify(carrito));
     }
 
+    // Controles de apertura y cierre de la ventana lateral
     const btnFlotante = document.getElementById('btn-carrito-flotante');
     const btnNavbar = document.getElementById('btn-carrito-navbar');
     const btnCerrar = document.getElementById('cerrar-carrito') || document.querySelector('.cerrar-carrito');
@@ -66,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (btnNavbar && ventanaCarrito) btnNavbar.addEventListener('click', (e) => { e.preventDefault(); ventanaCarrito.style.right = '0px'; });
     if (btnCerrar && ventanaCarrito) btnCerrar.addEventListener('click', () => ventanaCarrito.style.right = ventanaCarrito.style.width === '320px' ? '-100%' : '-400px');
 
+    // Capturar clics de forma global e independiente
     document.addEventListener('click', function(e) {
         if (e.target && (e.target.classList.contains('btn-agregar-carrito') || e.target.closest('.btn-agregar-carrito'))) {
             let targetButton = e.target.classList.contains('btn-agregar-carrito') ? e.target : e.target.closest('.btn-agregar-carrito');
@@ -73,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const precio = parseFloat(targetButton.getAttribute('data-precio')) || 0;
             const existe = carrito.find(item => item.nombre === nombre);
             
-            if (existe) { existe.cantidad++; } else { carrito.push({ nombre: nombre, precio: precio, candy: 1, cantidad: 1 }); }
+            if (existe) { existe.cantidad++; } else { carrito.push({ nombre: nombre, precio: precio, cantidad: 1 }); }
             actualizarInterfaz();
             if (ventanaCarrito) ventanaCarrito.style.right = '0px';
         }
@@ -81,6 +83,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if (e.target && e.target.classList.contains('btn-eliminar')) {
             carrito.splice(e.target.getAttribute('data-index'), 1);
             actualizarInterfaz();
+        }
+
+        // CAPTURA EL BOTÓN QUE ESTAMOS VIENDO EN TU CAPTURA DE PANTALLA
+        if (e.target && (e.target.id === 'btn-enviar-carrito' || e.target.closest('#btn-enviar-carrito'))) {
+            enviarPedidoWhatsApp();
         }
     });
 
