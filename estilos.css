@@ -388,3 +388,21 @@ body {
         width: 100px;
     }
 }
+/* ============================================================================
+   CABECERA FIJA ULTRA-GAMER: CLAVA EL MENÚ ARRIBA Y PASA LOS JUEGOS POR ABAJO
+   ============================================================================ */
+.cabecera-fija {
+    position: fixed;            /* Clava el bloque en la pantalla sin importar el scroll */
+    top: 0;                     /* Lo pega al ras del techo */
+    left: 0;                    /* Lo alinea al extremo izquierdo */
+    width: 100%;                /* Ocupa el ancho completo de la pantalla */
+    background-color: #000000;  /* Fondo negro opaco para que tape los juegos al subir */
+    z-index: 9999;              /* Capa alta para que los productos pasen estrictamente por abajo */
+    padding-bottom: 15px;       /* Espacio de separación antes de la línea azul */
+    border-bottom: 2px solid #00f0ff; /* Opcional: Línea de neón neotokiota en el límite azul */
+}
+
+/* IMPORTANTE: Espaciador para que el primer producto (PS2) no quede tapado al cargar */
+main, .cuerpo-pagina, body > section:first-of-type {
+    margin-top: 260px !important; /* Ajusta este número según el alto real de tu menú fijo */
+}
