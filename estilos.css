@@ -128,7 +128,7 @@ body {
     text-align: center;
     border-top: 2px solid #3a3f58;
     position: relative !important;
-    z-index: 9999 !important;
+    z-index: 1 !important;
 }
 
 /* CONTENEDOR PARA ACOMODAR LOS BOTONES */
@@ -406,14 +406,105 @@ body {
 main, .cuerpo-pagina, body > section:first-of-type {
     margin-top: 260px !important; /* Ajusta este número según el alto real de tu menú fijo */
 
+/* Efecto hover sobre el botón definitivo de WhatsApp en el carrito */
+#enviar-pedido {
+    transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+    box-shadow: 0 0 10px rgba(37, 211, 102, 0.3) !important;
+}
+
+#enviar-pedido:hover {
+    background-color: #20ba5a !important;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.6) !important;
+}
+
+/* Efecto de brillo neón para los botones del menú superior */
+.btn-centro {
+    transition: all 0.3s ease !important;
+}
+.btn-centro:hover {
+    background-color: #00f0ff !important;
+    color: #000000 !important;
+    box-shadow: 0 0 20px #00f0ff, 0 0 40px rgba(0, 240, 255, 0.6) !important;
+    transform: translateY(-2px);
+}
+
+/* Efecto para los botones de "Comprar" dentro de las tarjetas */
+.btn-agregar-carrito {
+    transition: all 0.3s ease !important;
+}
+.btn-agregar-carrito:hover {
+    background-color: #39ff14 !important; /* Cambia a verde neón al pasar el mouse */
+    color: #000000 !important;
+    box-shadow: 0 0 20px #39ff14, 0 0 35px rgba(57, 255, 20, 0.6) !important;
+    transform: scale(1.02);
+}
+
+/* Contenedor principal que alinea los dibujos y el 404 */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Espacio de separación entre los dibujos y el texto */
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 20px;
+}
+
+/* Propiedades de las imágenes con las animaciones aplicadas */
+.dibujo-animado {
+    width: 150px; 
+    height: auto;
+    object-fit: contain;
+    image-rendering: pixelated; 
+    animation: flotarRetro 3s ease-in-out infinite, parpadeoRetro 4s steps(1) infinite;
+}
+
+/* Animaciones de error */
+@keyframes flotarRetro {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+@keyframes parpadeoRetro {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 255, 255, 0.2)); }
+}
+
+.error-container img:nth-of-type(2) {
+    animation-delay: 1.5s, 0.5s;
+}
+
+@media (max-width: 768px) {
+    .error-container { flex-direction: column; gap: 20px; }
+    .dibujo-animado { width: 100px; }
+}
+
+/* ============================================================================
+   CABECERA FIJA ULTRA-GAMER: CLAVA EL MENÚ ARRIBA Y PASA LOS JUEGOS POR ABAJO
+   ============================================================================ */
+.cabecera-fija {
+    position: fixed;            
+    top: 0;                     
+    left: 0;                    
+    width: 100%;                
+    background-color: #000000;  
+    z-index: 9999;              
+    padding-bottom: 15px;       
+    border-bottom: 2px solid #00f0ff; 
+}
+
+/* IMPORTANTE: Espaciador reparado con su llave de cierre correspondiente */
+main, .cuerpo-pagina, body > section:first-of-type {
+    margin-top: 260px !important; 
+} /* <<<<<< ¡CLAVE! ESTA LLAVE FALTABA Y ROMPÍA TODO EL BOTÓN ABAJO */
+
 /* ============================================================================
    BOTÓN WHATSAPP: SIEMPRE FIJO ABAJO, PERO PASA POR DEBAJO DEL MENÚ SUPERIOR
    ============================================================================ */
 .btn-wpp-estatico-pantalla {
-    position: fixed !important;  /* Lo deja totalmente congelado en la pantalla */
-    bottom: 105px !important;    /* Se para justo arriba de tu carrito verde flotante */
-    right: 30px !important;     /* Pegado al margen derecho de la ventana */
-    background-color: #25d366 !important; /* Verde oficial */
+    position: fixed !important;  
+    bottom: 105px !important;    
+    right: 30px !important;     
+    background-color: #25d366 !important; 
     width: 60px !important;
     height: 60px !important;
     border-radius: 50% !important;
@@ -421,10 +512,7 @@ main, .cuerpo-pagina, body > section:first-of-type {
     align-items: center !important;
     justify-content: center !important;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4) !important;
-    
-    /* EL SECRETO: Mayor que los productos (0), pero menor que tu cabecera fija (99999) */
     z-index: 1000 !important; 
-    
     transition: all 0.3s ease !important;
     text-decoration: none !important;
 }
