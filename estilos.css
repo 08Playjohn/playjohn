@@ -497,29 +497,4 @@ main, .cuerpo-pagina, body > section:first-of-type {
     margin-top: 260px !important; 
 } /* <<<<<< ¡CLAVE! ESTA LLAVE FALTABA Y ROMPÍA TODO EL BOTÓN ABAJO */
 
-/* ============================================================================
-   BOTÓN WHATSAPP: SIEMPRE FIJO ABAJO, PERO PASA POR DEBAJO DEL MENÚ SUPERIOR
-   ============================================================================ */
-.btn-wpp-estatico-pantalla {
-    position: fixed !important;  
-    bottom: 105px !important;    
-    right: 30px !important;     
-    background-color: #25d366 !important; 
-    width: 60px !important;
-    height: 60px !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4) !important;
-    z-index: 1000 !important; 
-    transition: all 0.3s ease !important;
-    text-decoration: none !important;
-}
 
-/* Efecto iluminado al pasar el mouse */
-.btn-wpp-estatico-pantalla:hover {
-    background-color: #20ba5a !important;
-    transform: scale(1.1) !important;
-    box-shadow: 0px 6px 15px rgba(37, 211, 102, 0.5) !important;
-}
